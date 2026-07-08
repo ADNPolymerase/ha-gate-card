@@ -19,7 +19,7 @@ Interface multilingue (anglais, français, allemand, espagnol, italien, néerlan
 > Statut : préversion. Retours et issues bienvenus.
 > 🇬🇧 [Read in English](README.md)
 
-[![Capture d'écran HA Gate Card](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/screenshot.png)](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/screenshot.png)
+[![Capture d'écran HA Gate Card](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/screenshot.fr.png)](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/screenshot.fr.png)
 
 ## Fonctionnalités
 
