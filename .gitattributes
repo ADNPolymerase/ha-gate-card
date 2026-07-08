@@ -1,2 +1,5 @@
 * text=auto
 *.js text eol=lf
+dist/ha-gate-card.js linguist-vendored=false
+dist/ha-gate-card.js linguist-generated=false
+dist/ha-gate-card.js linguist-detectable=true
