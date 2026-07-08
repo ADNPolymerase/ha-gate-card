@@ -7,8 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow.svg?logo=buy-me-a-coffee)](https://buymeacoffee.com/adnpolymerase)
 
-[![Buy Me A Coffee](https://cdn.buymeacoffee.com/buttons/v2/default-orange.png)](https://buymeacoffee.com/adnpolymerase)
-[![Link to my github.io for my other projects](https://raw.githubusercontent.com/ADNPolymerase/HA/main/assets/site-button.svg)](https://adnpolymerase.github.io/HA/)
+<a href="https://buymeacoffee.com/adnpolymerase"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" height="40"></a> <a href="https://adnpolymerase.github.io/HA/"><img src="https://raw.githubusercontent.com/ADNPolymerase/HA/main/assets/site-button.svg" alt="My other Home Assistant projects" height="40"></a>
 
 A Home Assistant Lovelace card for driveway gates and portals — real consolidated state, per-state colors, an animated gate illustration (sliding or swing), and safe contextual commands.
 
