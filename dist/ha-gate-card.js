@@ -1,4 +1,4 @@
-const CARD_VERSION = "0.6.0";
+const CARD_VERSION = "0.7.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -24,6 +24,9 @@ const T = {
     confirm_opt: "Ask for confirmation before commands (tap twice)",
     show_stop: "Show a Stop button while moving",
     gate_type: "Gate type", type_sliding: "Sliding", type_swing: "Swing (two leaves)",
+    slide_direction: "Opening direction (sliding)", dir_left: "To the left", dir_right: "To the right",
+    gate_style: "Gate design", style_modern_sliding: "Horizontal slats", style_classic_sliding: "Vertical bars",
+    style_modern_swing: "Bell top", style_classic_swing: "Concave",
     gate_color: "Gate color", color_state: "Follow the state (default)",
     color_white: "White", color_gray: "Light gray", color_anthracite: "Anthracite",
     color_black: "Black", color_green: "Fir green", color_burgundy: "Burgundy",
@@ -34,7 +37,8 @@ const T = {
     stop_entity: "Stop command entity",
   },
   fr: {
-    closed: "Ferm\u00e9", open: "Ouvert", opening: "Ouverture en cours\u2026", closing: "Fermeture en cours\u2026",
+    closed: "Ferm\u00e9", open: "Ouvert",
+    opening: "Ouverture en cours\u2026", closing: "Fermeture en cours\u2026",
     unknown: "\u00c9tat inconnu", since: "depuis",
     open_btn: "Ouvrir", close_btn: "Fermer", stop_btn: "Stop", confirm_tap: "Confirmer ?",
     entity: "Entit\u00e9 cover du portail (obligatoire)",
@@ -43,6 +47,9 @@ const T = {
     confirm_opt: "Demander confirmation avant les commandes (double appui)",
     show_stop: "Afficher un bouton Stop pendant le mouvement",
     gate_type: "Type de portail", type_sliding: "Coulissant", type_swing: "\u00c0 battants",
+    slide_direction: "Sens d'ouverture (coulissant)", dir_left: "Vers la gauche", dir_right: "Vers la droite",
+    gate_style: "Style du portail", style_modern_sliding: "Lames horizontales", style_classic_sliding: "Barreaud\u00e9",
+    style_modern_swing: "Chapeau de gendarme", style_classic_swing: "Concave",
     gate_color: "Couleur du portail", color_state: "Selon l'\u00e9tat (d\u00e9faut)",
     color_white: "Blanc", color_gray: "Gris clair", color_anthracite: "Anthracite",
     color_black: "Noir", color_green: "Vert sapin", color_burgundy: "Bordeaux",
@@ -62,6 +69,9 @@ const T = {
     confirm_opt: "Vor Befehlen best\u00e4tigen (zweimal tippen)",
     show_stop: "Stopp-Taste w\u00e4hrend der Bewegung anzeigen",
     gate_type: "Tortyp", type_sliding: "Schiebetor", type_swing: "Fl\u00fcgeltor",
+    slide_direction: "\u00d6ffnungsrichtung (Schiebetor)", dir_left: "Nach links", dir_right: "Nach rechts",
+    gate_style: "Tor-Design", style_modern_sliding: "Horizontale Lamellen", style_classic_sliding: "St\u00e4be",
+    style_modern_swing: "Bogen oben", style_classic_swing: "Konkav",
     gate_color: "Torfarbe", color_state: "Dem Zustand folgen (Standard)",
     color_white: "Wei\u00df", color_gray: "Hellgrau", color_anthracite: "Anthrazit",
     color_black: "Schwarz", color_green: "Tannengr\u00fcn", color_burgundy: "Bordeauxrot",
@@ -81,6 +91,9 @@ const T = {
     confirm_opt: "Pedir confirmaci\u00f3n antes de los comandos (doble toque)",
     show_stop: "Mostrar bot\u00f3n Parar durante el movimiento",
     gate_type: "Tipo de port\u00f3n", type_sliding: "Corredero", type_swing: "Batiente",
+    slide_direction: "Sentido de apertura (corredero)", dir_left: "Hacia la izquierda", dir_right: "Hacia la derecha",
+    gate_style: "Dise\u00f1o del port\u00f3n", style_modern_sliding: "Lamas horizontales", style_classic_sliding: "Barrotes",
+    style_modern_swing: "Curva alta", style_classic_swing: "C\u00f3ncavo",
     gate_color: "Color del port\u00f3n", color_state: "Seg\u00fan el estado (predeterminado)",
     color_white: "Blanco", color_gray: "Gris claro", color_anthracite: "Antracita",
     color_black: "Negro", color_green: "Verde abeto", color_burgundy: "Burdeos",
@@ -100,6 +113,9 @@ const T = {
     confirm_opt: "Chiedere conferma prima dei comandi (doppio tocco)",
     show_stop: "Mostra il pulsante Stop durante il movimento",
     gate_type: "Tipo di cancello", type_sliding: "Scorrevole", type_swing: "A battente",
+    slide_direction: "Direzione di apertura (scorrevole)", dir_left: "Verso sinistra", dir_right: "Verso destra",
+    gate_style: "Design del cancello", style_modern_sliding: "Doghe orizzontali", style_classic_sliding: "A barre",
+    style_modern_swing: "Ad arco", style_classic_swing: "Concavo",
     gate_color: "Colore del cancello", color_state: "Segue lo stato (predefinito)",
     color_white: "Bianco", color_gray: "Grigio chiaro", color_anthracite: "Antracite",
     color_black: "Nero", color_green: "Verde abete", color_burgundy: "Bordeaux",
@@ -119,6 +135,9 @@ const T = {
     confirm_opt: "Bevestiging vragen v\u00f3\u00f3r commando's (twee keer tikken)",
     show_stop: "Stopknop tonen tijdens beweging",
     gate_type: "Poorttype", type_sliding: "Schuifpoort", type_swing: "Draaipoort",
+    slide_direction: "Openingsrichting (schuifpoort)", dir_left: "Naar links", dir_right: "Naar rechts",
+    gate_style: "Poortontwerp", style_modern_sliding: "Horizontale lamellen", style_classic_sliding: "Spijlen",
+    style_modern_swing: "Boogvorm", style_classic_swing: "Concaaf",
     gate_color: "Poortkleur", color_state: "Volgt de status (standaard)",
     color_white: "Wit", color_gray: "Lichtgrijs", color_anthracite: "Antraciet",
     color_black: "Zwart", color_green: "Dennengroen", color_burgundy: "Bordeaux",
@@ -127,6 +146,116 @@ const T = {
     open_entity: "Entiteit commando Openen",
     close_entity: "Entiteit commando Sluiten",
     stop_entity: "Entiteit commando Stop",
+  },
+  pt: {
+    closed: "Fechado", open: "Aberto", opening: "A abrir\u2026", closing: "A fechar\u2026",
+    unknown: "Estado desconhecido", since: "desde",
+    open_btn: "Abrir", close_btn: "Fechar", stop_btn: "Parar", confirm_tap: "Confirmar?",
+    entity: "Entidade cover do port\u00e3o (obrigat\u00f3ria)",
+    state_entity: "Entidade de estado consolidado (opcional)",
+    name: "Nome", compact: "Modo compacto (\u00edcone em vez da ilustra\u00e7\u00e3o)",
+    confirm_opt: "Pedir confirma\u00e7\u00e3o antes dos comandos (dois toques)",
+    show_stop: "Mostrar bot\u00e3o Parar durante o movimento",
+    gate_type: "Tipo de port\u00e3o", type_sliding: "De correr", type_swing: "De batente",
+    slide_direction: "Sentido de abertura (de correr)", dir_left: "Para a esquerda", dir_right: "Para a direita",
+    gate_style: "Design do port\u00e3o", style_modern_sliding: "L\u00e2minas horizontais", style_classic_sliding: "Barras",
+    style_modern_swing: "Arco alto", style_classic_swing: "C\u00f4ncavo",
+    gate_color: "Cor do port\u00e3o", color_state: "Segue o estado (predefini\u00e7\u00e3o)",
+    color_white: "Branco", color_gray: "Cinzento claro", color_anthracite: "Antracite",
+    color_black: "Preto", color_green: "Verde abeto", color_burgundy: "Bord\u00f4",
+    color_blue: "Azul a\u00e7o", color_brown: "Castanho",
+    section_advanced: "Comandos personalizados (bot\u00f5es / scripts)",
+    open_entity: "Entidade comando Abrir",
+    close_entity: "Entidade comando Fechar",
+    stop_entity: "Entidade comando Parar",
+  },
+  sv: {
+    closed: "St\u00e4ngd", open: "\u00d6ppen", opening: "\u00d6ppnar\u2026", closing: "St\u00e4nger\u2026",
+    unknown: "Ok\u00e4nt l\u00e4ge", since: "sedan",
+    open_btn: "\u00d6ppna", close_btn: "St\u00e4ng", stop_btn: "Stopp", confirm_tap: "Bekr\u00e4fta?",
+    entity: "Grindens cover-entitet (obligatorisk)",
+    state_entity: "Konsoliderad status-entitet (valfri)",
+    name: "Namn", compact: "Kompakt l\u00e4ge (ikon i st\u00e4llet f\u00f6r illustration)",
+    confirm_opt: "Be om bekr\u00e4ftelse f\u00f6re kommandon (tryck tv\u00e5 g\u00e5nger)",
+    show_stop: "Visa stoppknapp under r\u00f6relse",
+    gate_type: "Grindtyp", type_sliding: "Skjutgrind", type_swing: "Slaggrind",
+    slide_direction: "\u00d6ppningsriktning (skjutgrind)", dir_left: "\u00c5t v\u00e4nster", dir_right: "\u00c5t h\u00f6ger",
+    gate_style: "Grinddesign", style_modern_sliding: "Horisontella ribbor", style_classic_sliding: "Spj\u00e4lor",
+    style_modern_swing: "B\u00e5gform", style_classic_swing: "Konkav",
+    gate_color: "Grindf\u00e4rg", color_state: "F\u00f6ljer l\u00e4get (standard)",
+    color_white: "Vit", color_gray: "Ljusgr\u00e5", color_anthracite: "Antracit",
+    color_black: "Svart", color_green: "Grangr\u00f6n", color_burgundy: "Vinr\u00f6d",
+    color_blue: "St\u00e5lbl\u00e5", color_brown: "Brun",
+    section_advanced: "Kommando-\u00f6verstyrningar (knappar / skript)",
+    open_entity: "Entitet kommando \u00d6ppna",
+    close_entity: "Entitet kommando St\u00e4ng",
+    stop_entity: "Entitet kommando Stopp",
+  },
+  no: {
+    closed: "Lukket", open: "\u00c5pen", opening: "\u00c5pner\u2026", closing: "Lukker\u2026",
+    unknown: "Ukjent tilstand", since: "siden",
+    open_btn: "\u00c5pne", close_btn: "Lukk", stop_btn: "Stopp", confirm_tap: "Bekreft?",
+    entity: "Portens cover-entitet (p\u00e5krevd)",
+    state_entity: "Konsolidert status-entitet (valgfri)",
+    name: "Navn", compact: "Kompakt modus (ikon i stedet for illustrasjon)",
+    confirm_opt: "Be om bekreftelse f\u00f8r kommandoer (trykk to ganger)",
+    show_stop: "Vis stoppknapp under bevegelse",
+    gate_type: "Porttype", type_sliding: "Skyveport", type_swing: "Slagport",
+    slide_direction: "\u00c5pningsretning (skyveport)", dir_left: "Mot venstre", dir_right: "Mot h\u00f8yre",
+    gate_style: "Portdesign", style_modern_sliding: "Horisontale lameller", style_classic_sliding: "Sprosser",
+    style_modern_swing: "Bueform", style_classic_swing: "Konkav",
+    gate_color: "Portfarge", color_state: "F\u00f8lger tilstanden (standard)",
+    color_white: "Hvit", color_gray: "Lysegr\u00e5", color_anthracite: "Antrasitt",
+    color_black: "Svart", color_green: "Grangr\u00f8nn", color_burgundy: "Burgunder",
+    color_blue: "St\u00e5lbl\u00e5", color_brown: "Brun",
+    section_advanced: "Kommando-overstyringer (knapper / skript)",
+    open_entity: "Entitet kommando \u00c5pne",
+    close_entity: "Entitet kommando Lukk",
+    stop_entity: "Entitet kommando Stopp",
+  },
+  da: {
+    closed: "Lukket", open: "\u00c5ben", opening: "\u00c5bner\u2026", closing: "Lukker\u2026",
+    unknown: "Ukendt tilstand", since: "siden",
+    open_btn: "\u00c5bn", close_btn: "Luk", stop_btn: "Stop", confirm_tap: "Bekr\u00e6ft?",
+    entity: "Portens cover-entitet (p\u00e5kr\u00e6vet)",
+    state_entity: "Konsolideret status-entitet (valgfri)",
+    name: "Navn", compact: "Kompakt tilstand (ikon i stedet for illustration)",
+    confirm_opt: "Bed om bekr\u00e6ftelse f\u00f8r kommandoer (tryk to gange)",
+    show_stop: "Vis stopknap under bev\u00e6gelse",
+    gate_type: "Porttype", type_sliding: "Skydeport", type_swing: "Fl\u00f8jport",
+    slide_direction: "\u00c5bningsretning (skydeport)", dir_left: "Mod venstre", dir_right: "Mod h\u00f8jre",
+    gate_style: "Portdesign", style_modern_sliding: "Vandrette lameller", style_classic_sliding: "Tremmer",
+    style_modern_swing: "Bueform", style_classic_swing: "Konkav",
+    gate_color: "Portfarve", color_state: "F\u00f8lger tilstanden (standard)",
+    color_white: "Hvid", color_gray: "Lysegr\u00e5", color_anthracite: "Antracit",
+    color_black: "Sort", color_green: "Grangr\u00f8n", color_burgundy: "Bordeaux",
+    color_blue: "St\u00e5lbl\u00e5", color_brown: "Brun",
+    section_advanced: "Kommando-tilsides\u00e6ttelser (knapper / scripts)",
+    open_entity: "Entitet kommando \u00c5bn",
+    close_entity: "Entitet kommando Luk",
+    stop_entity: "Entitet kommando Stop",
+  },
+  pl: {
+    closed: "Zamkni\u0119ta", open: "Otwarta", opening: "Otwieranie\u2026", closing: "Zamykanie\u2026",
+    unknown: "Stan nieznany", since: "od",
+    open_btn: "Otw\u00f3rz", close_btn: "Zamknij", stop_btn: "Stop", confirm_tap: "Potwierdzi\u0107?",
+    entity: "Encja cover bramy (wymagana)",
+    state_entity: "Encja stanu skonsolidowanego (opcjonalna)",
+    name: "Nazwa", compact: "Tryb kompaktowy (ikona zamiast ilustracji)",
+    confirm_opt: "Wymagaj potwierdzenia przed komendami (dwa dotkni\u0119cia)",
+    show_stop: "Poka\u017c przycisk Stop podczas ruchu",
+    gate_type: "Typ bramy", type_sliding: "Przesuwna", type_swing: "Dwuskrzyd\u0142owa",
+    slide_direction: "Kierunek otwierania (przesuwna)", dir_left: "W lewo", dir_right: "W prawo",
+    gate_style: "Wygl\u0105d bramy", style_modern_sliding: "Poziome lamele", style_classic_sliding: "Szczebelki",
+    style_modern_swing: "\u0141ukowa", style_classic_swing: "Wkl\u0119s\u0142y",
+    gate_color: "Kolor bramy", color_state: "Zgodny ze stanem (domy\u015blnie)",
+    color_white: "Bia\u0142y", color_gray: "Jasnoszary", color_anthracite: "Antracyt",
+    color_black: "Czarny", color_green: "Ziele\u0144 jod\u0142owa", color_burgundy: "Bordowy",
+    color_blue: "Stalowy niebieski", color_brown: "Br\u0105zowy",
+    section_advanced: "Niestandardowe komendy (przyciski / skrypty)",
+    open_entity: "Encja komendy Otw\u00f3rz",
+    close_entity: "Encja komendy Zamknij",
+    stop_entity: "Encja komendy Stop",
   },
 };
 
@@ -142,16 +271,16 @@ function t(hass, key) {
 
 // ---------------------------------------------------------------------------
 // State normalization -- works with any state source (input_select, sensor,
-// the cover itself, template sensors...). Order matters: "opening"/"ouverture"
-// must be tested before "open"/"ouvert" (prefix collisions), same for
-// "closing"/"fermeture" before "closed"/"ferme".
+// the cover itself, template sensors...). Keywords are accent-stripped before
+// matching. Order matters: "opening"/"ouverture" must be tested before
+// "open"/"ouvert" (prefix collisions), same for "closing" before "closed".
 // ---------------------------------------------------------------------------
 
 const STATE_KEYWORDS = {
-  opening: ["opening", "ouverture", "offnet", "abriendo", "apertura", "opent", "abrindo"],
-  closing: ["closing", "fermeture", "schliesst", "cerrando", "chiusura", "sluit", "fechando"],
-  closed: ["closed", "ferme", "geschlossen", "cerrado", "chiuso", "gesloten", "fechado"],
-  open: ["open", "ouvert", "offen", "abierto", "aperto", "aberto"],
+  opening: ["opening", "ouverture", "offnet", "abriendo", "apertura", "opent", "abrindo", "a abrir", "oppnar", "apner", "abner", "otwieranie"],
+  closing: ["closing", "fermeture", "schliesst", "cerrando", "chiusura", "sluit", "fechando", "a fechar", "stanger", "lukker", "zamykanie"],
+  closed: ["closed", "ferme", "geschlossen", "cerrado", "chiuso", "gesloten", "fechado", "stangd", "lukket", "zamkni"],
+  open: ["open", "ouvert", "offen", "abierto", "aperto", "aberto", "oppen", "apen", "aben", "otwart"],
 };
 
 function stripAccents(str) {
@@ -193,9 +322,6 @@ const STATE_ICONS = {
   unknown: "mdi:gate-alert",
 };
 
-// Classic gate colors (RAL-inspired) for the fixed-color mode. When
-// `gate_color` is set, the illustration keeps this color and only the
-// state line stays state-colored.
 // Each palette entry carries a fill and an outline. Light colors (white,
 // light gray) get a dark outline so the gate stays visible on light cards;
 // black gets a gray outline for dark themes; the rest outline themselves.
@@ -247,13 +373,15 @@ function formatSince(isoDate) {
 }
 
 // ---------------------------------------------------------------------------
-// Illustrations -- a gate between two capped posts, drawn in the state color.
-// Two variants: "sliding" (single leaf on a rail, wheels spin while moving)
-// and "swing" (two leaves pivoting on hinges, faked perspective when open).
+// Illustrations -- a gate between two capped posts, drawn in the gate color
+// with a merged-silhouette outline layer underneath (so light colors get a
+// visible contour without lines between the parts).
+// Sliding: single leaf of horizontal slats on a rail, wheels spin while
+// moving, opens to the left or to the right (slide_direction).
+// Swing: two "chapeau de gendarme" leaves pivoting on hinges; the open pose
+// mirrors them past the posts like real fully-opened leaves.
 // ---------------------------------------------------------------------------
 
-const SCENE_OPEN = `
-  <line x1="2" y1="58" x2="138" y2="58" class="gate-ground"/>`;
 const SCENE_CLOSE = `
   <g class="gate-post-g">
     <rect x="2" y="10" width="9" height="48" rx="2"/>
@@ -262,19 +390,52 @@ const SCENE_CLOSE = `
     <rect x="127" y="6" width="13" height="6" rx="2"/>
   </g>`;
 
-const SLIDE_X = { closed: 0, open: -98, opening: -49, closing: -49, unknown: 0 };
+const KEY_SHAPES = `
+    <circle cx="61" cy="34" r="6"/>
+    <rect x="65.5" y="32.3" width="16" height="3.4" rx="1.7"/>
+    <rect x="77.5" y="34.5" width="3.2" height="5.4" rx="1"/>
+    <rect x="72.3" y="34.5" width="3.2" height="4.4" rx="1"/>`;
+const GATE_KEY = `
+  <g transform="translate(70 34) rotate(90) scale(0.6) translate(-70 -34)">
+    <g class="gate-key-halo">${KEY_SHAPES}</g>
+    <g class="gate-key">${KEY_SHAPES}
+      <circle cx="61" cy="34" r="2.2" class="gate-key-hole"/>
+    </g>
+  </g>`;
 
-function slidingSvg(norm) {
-  const bars = [18, 31.5, 45, 58.5, 72, 85.5, 99, 112.5]
-    .map((x) => `<rect x="${x}" y="18" width="4" height="27" rx="2"/>`)
-    .join("");
-  // Same two-pass trick as the key: the outline layer is a merged
-  // silhouette under the fill layer, so light gate colors get an outline
-  // around the whole leaf without lines between bars and rails.
-  const shapes = `
+function slideX(norm, cfg) {
+  const dir = cfg.slide_direction === "right" ? 1 : -1;
+  if (norm === "open") return 98 * dir;
+  if (norm === "opening" || norm === "closing") return 49 * dir;
+  return 0;
+}
+
+function slidingSvg(norm, cfg) {
+  let shapes;
+  if (cfg.gate_style === "classic") {
+    // Classic: straight vertical bars between two rails (the original design).
+    let bars = "";
+    for (const x of [18, 31.5, 45, 58.5, 72, 85.5, 99, 112.5]) {
+      bars += `<rect x="${x}" y="18" width="4" height="27" rx="2"/>`;
+    }
+    shapes = `
     <rect x="14" y="14" width="112" height="5" rx="2.5"/>
     <rect x="14" y="41" width="112" height="5" rx="2.5"/>
     ${bars}`;
+  } else {
+    // Horizontal slats (the 2026 aluminium look) with three uprights.
+    // Slats keep a visible gap between them (the outline layer uses a
+    // smaller stroke on .slat so the gaps never get swallowed).
+    let slats = "";
+    for (let i = 0; i < 4; i++) {
+      slats += `<rect class="slat" x="14" y="${14 + i * 9.5}" width="112" height="5.5" rx="1.5"/>`;
+    }
+    shapes = `
+    ${slats}
+    <rect x="14" y="14" width="3" height="34" rx="1.5"/>
+    <rect x="68.5" y="14" width="3" height="34" rx="1.5"/>
+    <rect x="123" y="14" width="3" height="34" rx="1.5"/>`;
+  }
   const wheel = (cx) => `
     <g class="gate-wheel">
       <circle cx="${cx}" cy="52" r="4.5"/>
@@ -286,9 +447,9 @@ function slidingSvg(norm) {
       <defs>
         <clipPath id="gate-clip"><rect x="11" y="2" width="118" height="60"/></clipPath>
       </defs>
-      ${SCENE_OPEN}
+      <line x1="2" y1="58" x2="138" y2="58" class="gate-ground"/>
       <g clip-path="url(#gate-clip)">
-        <g class="gate-leaf" style="transform:translateX(${SLIDE_X[norm] || 0}px)">
+        <g class="gate-leaf" style="transform:translateX(${slideX(norm, cfg)}px)">
           <g class="leaf-line">${shapes}</g>
           <g class="leaf-fill">${shapes}</g>
           ${wheel(40)}
@@ -311,34 +472,21 @@ const SWING_POSE = {
   unknown: ["", ""],
 };
 
-// Key overlay shown while closed (same spirit as the "?" for unknown):
-// a vertical green key -- bow on top, notched blade pointing down. The
-// card-background halo is drawn once as a merged silhouette UNDER the key,
-// so it only appears between the key and the gate, never inside the key.
-const KEY_SHAPES = `
-    <circle cx="61" cy="34" r="6"/>
-    <rect x="65.5" y="32.3" width="16" height="3.4" rx="1.7"/>
-    <rect x="77.5" y="34.5" width="3.2" height="5.4" rx="1"/>
-    <rect x="72.3" y="34.5" width="3.2" height="4.4" rx="1"/>`;
-const GATE_KEY = `
-  <g transform="translate(70 34) rotate(90) scale(0.6) translate(-70 -34)">
-    <g class="gate-key-halo">${KEY_SHAPES}</g>
-    <g class="gate-key">${KEY_SHAPES}
-      <circle cx="61" cy="34" r="2.2" class="gate-key-hole"/>
-    </g>
-  </g>`;
-
-function swingLeaf(side, transform) {
-  // Bars get slightly shorter toward the middle of the gate, following the
-  // gently sloping top rail -- the classic double-leaf silhouette.
+function swingLeaf(side, transform, cfg) {
+  // Modern: "chapeau de gendarme", the top rail curves up toward the middle
+  // of the gate and the bars follow. Classic: concave, the rail dips toward
+  // the middle (the original design).
+  const classic = cfg.gate_style === "classic";
   const xs = side === "l" ? [16, 26.5, 37, 47.5, 58] : [120, 109.5, 99, 88.5, 78];
   const bars = xs
     .map((x, i) => {
-      const y = 15.5 + i * 1.6;
+      const y = classic ? 15.5 + i * 1.6 : 19 - i * 1.5;
       return `<rect x="${x}" y="${y}" width="4" height="${47 - y}" rx="2"/>`;
     })
     .join("");
-  const rail = side === "l" ? "M14 16 Q 44 12.5, 68 21" : "M126 16 Q 96 12.5, 72 21";
+  const rail = classic
+    ? (side === "l" ? "M14 16 Q 44 12.5, 68 21" : "M126 16 Q 96 12.5, 72 21")
+    : (side === "l" ? "M14 21 Q 48 10, 68 11.5" : "M126 21 Q 92 10, 72 11.5");
   const bottom = side === "l"
     ? '<rect x="13" y="44" width="56" height="5" rx="2.5"/>'
     : '<rect x="71" y="44" width="56" height="5" rx="2.5"/>';
@@ -353,21 +501,21 @@ function swingLeaf(side, transform) {
     </g>`;
 }
 
-function swingSvg(norm) {
+function swingSvg(norm, cfg) {
   const [tl, tr] = SWING_POSE[norm] || ["", ""];
   return `
     <svg viewBox="-28 0 196 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <line x1="-26" y1="58" x2="166" y2="58" class="gate-ground"/>
       ${SCENE_CLOSE}
-      ${swingLeaf("l", tl)}
-      ${swingLeaf("r", tr)}
+      ${swingLeaf("l", tl, cfg)}
+      ${swingLeaf("r", tr, cfg)}
       ${norm === "closed" ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
     </svg>`;
 }
 
 function gateSvg(norm, cfg) {
-  return cfg.gate_type === "swing" ? swingSvg(norm) : slidingSvg(norm);
+  return cfg.gate_type === "swing" ? swingSvg(norm, cfg) : slidingSvg(norm, cfg);
 }
 
 // ---------------------------------------------------------------------------
@@ -465,8 +613,6 @@ class GateCard extends HTMLElement {
     const st = stateObj(hass, stateEntity);
     const norm = normalizeState(st ? st.state : null, cfg.state_map);
     const color = STATE_COLORS[norm];
-    // Fixed gate color: named palette entry, or any raw CSS color the user
-    // typed in YAML. Absent / "state" = illustration follows the state.
     let leafColor = color;
     let leafLine = color;
     if (cfg.gate_color && cfg.gate_color !== "state") {
@@ -478,8 +624,9 @@ class GateCard extends HTMLElement {
     const name = cfg.name || (st && st.attributes.friendly_name) || "Gate";
     const since = !moving && st ? formatSince(st.last_changed) : null;
     const actions = actionsFor(norm, cfg);
+    const dirClass = cfg.slide_direction === "right" ? " dir-r" : " dir-l";
 
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_color]);
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction]);
     if (signature === this._signature) return;
     this._signature = signature;
 
@@ -496,64 +643,56 @@ class GateCard extends HTMLElement {
 
     this._root.innerHTML = `
       <style>
-        :host { --gate-color: ${color}; --leaf-color: ${leafColor}; --leaf-line: ${leafLine}; }
-        ha-card { display:flex; flex-direction:column; gap:12px; padding:16px; }
-        ha-card.compact { flex-direction:row; align-items:center; gap:16px; }
-        .illu { width:190px; max-width:65%; margin:0 auto; color:var(--leaf-color); }
-        .illu svg { display:block; width:100%; }
-        .gate-leaf, .leaf-l, .leaf-r { transition:transform .9s ease; }
-        .leaf-line rect { fill:var(--leaf-line); stroke:var(--leaf-line); stroke-width:3.2;
-          stroke-linejoin:round; vector-effect:non-scaling-stroke; }
-        .leaf-line .leaf-rail { fill:none; stroke:var(--leaf-line); stroke-width:8.2;
-          stroke-linecap:round; vector-effect:non-scaling-stroke; }
-        .leaf-fill rect { fill:var(--leaf-color); }
-        .leaf-fill .leaf-rail { fill:none; stroke:var(--leaf-color); stroke-width:5;
-          stroke-linecap:round; vector-effect:non-scaling-stroke; }
-        .leaf-l, .leaf-r { transform-box:view-box; }
-        .leaf-l { transform-origin:13px 32px; }
-        .leaf-r { transform-origin:127px 32px; }
-        .moving .gate-leaf { animation:gate-slide 1.8s ease-in-out infinite alternate; }
-        @keyframes gate-slide { from { transform:translateX(-44px); } to { transform:translateX(-54px); } }
-        .moving .leaf-l { animation:swing-l 1.8s ease-in-out infinite alternate; }
-        .moving .leaf-r { animation:swing-r 1.8s ease-in-out infinite alternate; }
-        @keyframes swing-l { from { transform:scaleX(.55) skewY(5deg); } to { transform:scaleX(.15) skewY(9deg); } }
-        @keyframes swing-r { from { transform:scaleX(.55) skewY(-5deg); } to { transform:scaleX(.15) skewY(-9deg); } }
-        .gate-wheel { transform-box:fill-box; transform-origin:center; }
-        .gate-wheel circle { fill:var(--leaf-color); stroke:var(--leaf-line); stroke-width:1.6;
-          vector-effect:non-scaling-stroke; }
-        .gate-wheel line { stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.6; }
-        .moving .gate-wheel { animation:wheel-spin 1.1s linear infinite; }
-        @keyframes wheel-spin { to { transform:rotate(360deg); } }
-        .gate-post-g { fill:var(--secondary-text-color); opacity:.75; }
-        .gate-ground { stroke:var(--secondary-text-color); stroke-width:2; stroke-linecap:round; opacity:.5; }
-        .gate-key-halo { fill:var(--ha-card-background, var(--card-background-color, #fff));
-          stroke:var(--ha-card-background, var(--card-background-color, #fff));
-          stroke-width:3; stroke-linejoin:round; }
-        .gate-key { fill:var(--success-color, #4caf50); }
-        .gate-key-hole { fill:var(--ha-card-background, var(--card-background-color, #fff)); }
-        .gate-question { fill:var(--gate-color); font:700 20px sans-serif; text-anchor:middle;
-          stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:4; paint-order:stroke; }
-        .badge { flex:none; width:44px; height:44px; border-radius:50%; background:var(--gate-color);
-                 color:#fff; display:flex; align-items:center; justify-content:center; }
-        .badge ha-icon { --mdc-icon-size:26px; }
-        .moving .badge { animation:gate-pulse 1.6s ease-in-out infinite; }
-        @keyframes gate-pulse { 50% { opacity:.55; } }
-        .bottom { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; }
-        ha-card.compact .bottom { flex:1; align-items:center; }
-        .body { min-width:0; }
-        .name { font-size:15px; font-weight:500; color:var(--primary-text-color); }
-        .state { font-size:13.5px; font-weight:500; color:var(--gate-color); }
-        .since { font-size:12px; color:var(--secondary-text-color); }
-        .actions { display:flex; gap:8px; }
-        button { display:flex; align-items:center; justify-content:center; gap:6px; padding:8px 14px;
-                 min-width:96px; border:none; border-radius:12px; cursor:pointer; font:inherit;
-                 font-size:13px; background:var(--secondary-background-color);
-                 color:var(--primary-text-color); }
-        button:hover { filter:brightness(.93); }
-        button.pending { background:var(--gate-color); color:#fff; }
-        button ha-icon { --mdc-icon-size:18px; }
+:host { --gate-color: ${color}; --leaf-color: ${leafColor}; --leaf-line: ${leafLine}; }
+ha-card { display:flex; flex-direction:column; gap:12px; padding:16px; }
+ha-card.compact { flex-direction:row; align-items:center; gap:16px; }
+.illu { width:200px; max-width:70%; margin:0 auto; color:var(--leaf-color); }
+.illu svg { display:block; width:100%; }
+.gate-leaf, .leaf-l, .leaf-r { transition:transform .9s ease; }
+.leaf-line rect { fill:var(--leaf-line); stroke:var(--leaf-line); stroke-width:3.2; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.leaf-line .slat { stroke-width:2.2; }
+.leaf-line .leaf-rail { fill:none; stroke:var(--leaf-line); stroke-width:8.4; stroke-linecap:round; vector-effect:non-scaling-stroke; }
+.leaf-fill rect { fill:var(--leaf-color); }
+.leaf-fill .leaf-rail { fill:none; stroke:var(--leaf-color); stroke-width:5.6; stroke-linecap:round; vector-effect:non-scaling-stroke; }
+.leaf-l, .leaf-r { transform-box:view-box; }
+.leaf-l { transform-origin:13px 32px; }
+.leaf-r { transform-origin:127px 32px; }
+.moving.dir-l .gate-leaf { animation:gate-slide-l 1.8s ease-in-out infinite alternate; }
+.moving.dir-r .gate-leaf { animation:gate-slide-r 1.8s ease-in-out infinite alternate; }
+@keyframes gate-slide-l { from { transform:translateX(-44px); } to { transform:translateX(-54px); } }
+@keyframes gate-slide-r { from { transform:translateX(44px); } to { transform:translateX(54px); } }
+.moving .leaf-l { animation:swing-l 1.8s ease-in-out infinite alternate; }
+.moving .leaf-r { animation:swing-r 1.8s ease-in-out infinite alternate; }
+@keyframes swing-l { from { transform:scaleX(.55) skewY(5deg); } to { transform:scaleX(.15) skewY(9deg); } }
+@keyframes swing-r { from { transform:scaleX(.55) skewY(-5deg); } to { transform:scaleX(.15) skewY(-9deg); } }
+.gate-wheel { transform-box:fill-box; transform-origin:center; }
+.gate-wheel circle { fill:var(--leaf-color); stroke:var(--leaf-line); stroke-width:1.6; vector-effect:non-scaling-stroke; }
+.gate-wheel line { stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.6; }
+.moving .gate-wheel { animation:wheel-spin 1.1s linear infinite; }
+@keyframes wheel-spin { to { transform:rotate(360deg); } }
+.gate-post-g { fill:var(--secondary-text-color); opacity:.75; }
+.gate-ground { stroke:var(--secondary-text-color); stroke-width:2; stroke-linecap:round; opacity:.5; }
+.gate-key-halo { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:3; stroke-linejoin:round; }
+.gate-key { fill:var(--success-color, #4caf50); }
+.gate-key-hole { fill:var(--ha-card-background, var(--card-background-color, #fff)); }
+.gate-question { fill:var(--gate-color); font:700 20px sans-serif; text-anchor:middle; stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:4; paint-order:stroke; }
+.badge { flex:none; width:44px; height:44px; border-radius:50%; background:var(--gate-color); color:#fff; display:flex; align-items:center; justify-content:center; }
+.badge ha-icon { --mdc-icon-size:26px; }
+.moving .badge { animation:gate-pulse 1.6s ease-in-out infinite; }
+@keyframes gate-pulse { 50% { opacity:.55; } }
+.bottom { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; }
+ha-card.compact .bottom { flex:1; align-items:center; }
+.body { min-width:0; }
+.name { font-size:15px; font-weight:500; color:var(--primary-text-color); }
+.state { font-size:13.5px; font-weight:500; color:var(--gate-color); }
+.since { font-size:12px; color:var(--secondary-text-color); }
+.actions { display:flex; gap:8px; }
+button { display:flex; align-items:center; justify-content:center; gap:6px; padding:8px 14px; min-width:96px; border:none; border-radius:12px; cursor:pointer; font:inherit; font-size:13px; background:var(--secondary-background-color); color:var(--primary-text-color); }
+button:hover { filter:brightness(.93); }
+button.pending { background:var(--gate-color); color:#fff; }
+button ha-icon { --mdc-icon-size:18px; }
       </style>
-      <ha-card class="${moving ? "moving" : ""}${cfg.compact ? " compact" : ""}">
+      <ha-card class="${moving ? "moving" : ""}${cfg.compact ? " compact" : ""}${dirClass}">
         ${cfg.compact
           ? `<div class="badge"><ha-icon icon="${STATE_ICONS[norm]}"></ha-icon></div>`
           : `<div class="illu">${gateSvg(norm, cfg)}</div>`}
@@ -643,16 +782,13 @@ class GateCardEditor extends HTMLElement {
     const cfg = this._config;
     this._root.innerHTML = `
       <style>
-        .form { display:flex; flex-direction:column; gap:14px; padding:4px 0; }
-        .row label { display:block; font-size:13px; margin-bottom:4px; color:var(--secondary-text-color); }
-        .row input[type="text"], .row select { width:100%; box-sizing:border-box; padding:8px; border-radius:6px;
-          border:1px solid var(--divider-color); background:var(--card-background-color);
-          color:var(--primary-text-color); font:inherit; }
-        .row-inline label { display:flex; align-items:center; gap:8px; font-size:13.5px;
-          color:var(--primary-text-color); }
-        details { border:1px solid var(--divider-color); border-radius:8px; padding:8px 12px; }
-        summary { cursor:pointer; font-size:13.5px; color:var(--secondary-text-color); }
-        details .form { padding-top:10px; }
+.form { display:flex; flex-direction:column; gap:14px; padding:4px 0; }
+.row label { display:block; font-size:13px; margin-bottom:4px; color:var(--secondary-text-color); }
+.row input[type="text"], .row select { width:100%; box-sizing:border-box; padding:8px; border-radius:6px; border:1px solid var(--divider-color); background:var(--card-background-color); color:var(--primary-text-color); font:inherit; }
+.row-inline label { display:flex; align-items:center; gap:8px; font-size:13.5px; color:var(--primary-text-color); }
+details { border:1px solid var(--divider-color); border-radius:8px; padding:8px 12px; }
+summary { cursor:pointer; font-size:13.5px; color:var(--secondary-text-color); }
+details .form { padding-top:10px; }
       </style>
       <div class="form">
         <div class="row" data-picker="entity"></div>
@@ -662,6 +798,20 @@ class GateCardEditor extends HTMLElement {
           <select data-field="gate_type">
             <option value="sliding" ${cfg.gate_type !== "swing" ? "selected" : ""}>${t(hass, "type_sliding")}</option>
             <option value="swing" ${cfg.gate_type === "swing" ? "selected" : ""}>${t(hass, "type_swing")}</option>
+          </select>
+        </div>
+        <div class="row">
+          <label>${t(hass, "gate_style")}</label>
+          <select data-field="gate_style">
+            <option value="modern" ${cfg.gate_style !== "classic" ? "selected" : ""}>${t(hass, cfg.gate_type === "swing" ? "style_modern_swing" : "style_modern_sliding")}</option>
+            <option value="classic" ${cfg.gate_style === "classic" ? "selected" : ""}>${t(hass, cfg.gate_type === "swing" ? "style_classic_swing" : "style_classic_sliding")}</option>
+          </select>
+        </div>
+        <div class="row">
+          <label>${t(hass, "slide_direction")}</label>
+          <select data-field="slide_direction">
+            <option value="left" ${cfg.slide_direction !== "right" ? "selected" : ""}>${t(hass, "dir_left")}</option>
+            <option value="right" ${cfg.slide_direction === "right" ? "selected" : ""}>${t(hass, "dir_right")}</option>
           </select>
         </div>
         <div class="row">
@@ -705,6 +855,23 @@ class GateCardEditor extends HTMLElement {
       // sliding is the default -- only store the key when it differs
       if (ev.target.value === "swing") this._config.gate_type = "swing";
       else delete this._config.gate_type;
+      this._emit();
+      // rebuild so the style labels match the selected type
+      this._built = false;
+      this._maybeBuild();
+    });
+    this._root.querySelector('select[data-field="gate_style"]').addEventListener("change", (ev) => {
+      this._config = { ...this._config };
+      // modern is the default -- only store the key when it differs
+      if (ev.target.value === "classic") this._config.gate_style = "classic";
+      else delete this._config.gate_style;
+      this._emit();
+    });
+    this._root.querySelector('select[data-field="slide_direction"]').addEventListener("change", (ev) => {
+      this._config = { ...this._config };
+      // left is the default -- only store the key when it differs
+      if (ev.target.value === "right") this._config.slide_direction = "right";
+      else delete this._config.slide_direction;
       this._emit();
     });
     this._root.querySelector('select[data-field="gate_color"]').addEventListener("change", (ev) => {
