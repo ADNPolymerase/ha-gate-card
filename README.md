@@ -49,7 +49,7 @@ This card is not yet in the default HACS store. Add it as a custom repository:
 | `state_entity` | Entity holding the reliable consolidated state (any domain). Defaults to `entity`. |
 | `state_map` | Optional map of raw state string → `closed`\|`open`\|`opening`\|`closing`\|`unknown`, for wordings the auto-detection doesn't catch. |
 | `gate_type` | `sliding` (default) or `swing` — picks the illustration. |
-| `gate_style` | `modern` (default: horizontal slats for sliding, bell-top for swing) or `classic` (vertical bars / concave, the original designs). |
+| `gate_style` | Design of the leaf. Sliding: `slats` (default), `bars`, `semi`, `solid`. Swing: `bell` (default), `bars`, `slats`, `semi`, `solid`. Real-world designs: horizontal slats, vertical bars / concave, semi-open (solid lower panel), solid with laser-cut pattern, bell-top "chapeau de gendarme". `modern`/`classic` from v0.7 still work as aliases. |
 | `slide_direction` | `left` (default) or `right` — which way the sliding gate opens. |
 | `gate_color` | `state` (default: the gate follows the state color) or a fixed classic color: `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` (RAL-inspired), or any raw CSS color. With a fixed color only the state text stays state-colored. |
 | `name` | Card title. Defaults to the state entity's friendly name. |

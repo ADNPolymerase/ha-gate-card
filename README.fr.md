@@ -49,7 +49,7 @@ Cette card n'est pas encore dans le store HACS par défaut. Ajoutez-la comme dé
 | `state_entity` | Entité portant l'état consolidé fiable (tout domaine). Par défaut : `entity`. |
 | `state_map` | Map optionnelle chaîne d'état brute → `closed`\|`open`\|`opening`\|`closing`\|`unknown`, pour les formulations non détectées automatiquement. |
 | `gate_type` | `sliding` (défaut) ou `swing` — choisit l'illustration. |
-| `gate_style` | `modern` (défaut : lames horizontales en coulissant, chapeau de gendarme en battants) ou `classic` (barreaudé / concave, les dessins d'origine). |
+| `gate_style` | Style du vantail. Coulissant : `slats` (défaut), `bars`, `semi`, `solid`. Battants : `bell` (défaut), `bars`, `slats`, `semi`, `solid`. Designs réels : lames horizontales, barreaudé / concave, semi-ajouré (bas plein), plein à motif laser, chapeau de gendarme. Les valeurs `modern`/`classic` de la v0.7 restent des alias valides. |
 | `slide_direction` | `left` (défaut) ou `right` — sens d'ouverture du coulissant. |
 | `gate_color` | `state` (défaut : le portail suit la couleur de l'état) ou une couleur fixe classique : `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` (inspirées RAL), ou toute couleur CSS. En couleur fixe, seul le texte d'état reste coloré. |
 | `name` | Titre de la card. Par défaut : le nom convivial de l'entité d'état. |
