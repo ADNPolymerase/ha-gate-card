@@ -1,4 +1,4 @@
-const CARD_VERSION = "0.7.0";
+const CARD_VERSION = "0.8.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -25,8 +25,8 @@ const T = {
     show_stop: "Show a Stop button while moving",
     gate_type: "Gate type", type_sliding: "Sliding", type_swing: "Swing (two leaves)",
     slide_direction: "Opening direction (sliding)", dir_left: "To the left", dir_right: "To the right",
-    gate_style: "Gate design", style_modern_sliding: "Horizontal slats", style_classic_sliding: "Vertical bars",
-    style_modern_swing: "Bell top", style_classic_swing: "Concave",
+    gate_style: "Gate design", style_slats: "Horizontal slats", style_bars_sliding: "Vertical bars",
+    style_bars_swing: "Concave", style_bell: "Bell top", style_semi: "Semi-open", style_solid: "Solid, laser pattern",
     gate_color: "Gate color", color_state: "Follow the state (default)",
     color_white: "White", color_gray: "Light gray", color_anthracite: "Anthracite",
     color_black: "Black", color_green: "Fir green", color_burgundy: "Burgundy",
@@ -48,8 +48,8 @@ const T = {
     show_stop: "Afficher un bouton Stop pendant le mouvement",
     gate_type: "Type de portail", type_sliding: "Coulissant", type_swing: "\u00c0 battants",
     slide_direction: "Sens d'ouverture (coulissant)", dir_left: "Vers la gauche", dir_right: "Vers la droite",
-    gate_style: "Style du portail", style_modern_sliding: "Lames horizontales", style_classic_sliding: "Barreaud\u00e9",
-    style_modern_swing: "Chapeau de gendarme", style_classic_swing: "Concave",
+    gate_style: "Style du portail", style_slats: "Lames horizontales", style_bars_sliding: "Barreaud\u00e9",
+    style_bars_swing: "Concave", style_bell: "Chapeau de gendarme", style_semi: "Semi-ajour\u00e9", style_solid: "Plein, motif laser",
     gate_color: "Couleur du portail", color_state: "Selon l'\u00e9tat (d\u00e9faut)",
     color_white: "Blanc", color_gray: "Gris clair", color_anthracite: "Anthracite",
     color_black: "Noir", color_green: "Vert sapin", color_burgundy: "Bordeaux",
@@ -70,8 +70,8 @@ const T = {
     show_stop: "Stopp-Taste w\u00e4hrend der Bewegung anzeigen",
     gate_type: "Tortyp", type_sliding: "Schiebetor", type_swing: "Fl\u00fcgeltor",
     slide_direction: "\u00d6ffnungsrichtung (Schiebetor)", dir_left: "Nach links", dir_right: "Nach rechts",
-    gate_style: "Tor-Design", style_modern_sliding: "Horizontale Lamellen", style_classic_sliding: "St\u00e4be",
-    style_modern_swing: "Bogen oben", style_classic_swing: "Konkav",
+    gate_style: "Tor-Design", style_slats: "Horizontale Lamellen", style_bars_sliding: "St\u00e4be",
+    style_bars_swing: "Konkav", style_bell: "Bogen oben", style_semi: "Halboffen", style_solid: "Voll, Lasermuster",
     gate_color: "Torfarbe", color_state: "Dem Zustand folgen (Standard)",
     color_white: "Wei\u00df", color_gray: "Hellgrau", color_anthracite: "Anthrazit",
     color_black: "Schwarz", color_green: "Tannengr\u00fcn", color_burgundy: "Bordeauxrot",
@@ -92,8 +92,8 @@ const T = {
     show_stop: "Mostrar bot\u00f3n Parar durante el movimiento",
     gate_type: "Tipo de port\u00f3n", type_sliding: "Corredero", type_swing: "Batiente",
     slide_direction: "Sentido de apertura (corredero)", dir_left: "Hacia la izquierda", dir_right: "Hacia la derecha",
-    gate_style: "Dise\u00f1o del port\u00f3n", style_modern_sliding: "Lamas horizontales", style_classic_sliding: "Barrotes",
-    style_modern_swing: "Curva alta", style_classic_swing: "C\u00f3ncavo",
+    gate_style: "Dise\u00f1o del port\u00f3n", style_slats: "Lamas horizontales", style_bars_sliding: "Barrotes",
+    style_bars_swing: "C\u00f3ncavo", style_bell: "Curva alta", style_semi: "Semicalado", style_solid: "Ciego, motivo l\u00e1ser",
     gate_color: "Color del port\u00f3n", color_state: "Seg\u00fan el estado (predeterminado)",
     color_white: "Blanco", color_gray: "Gris claro", color_anthracite: "Antracita",
     color_black: "Negro", color_green: "Verde abeto", color_burgundy: "Burdeos",
@@ -114,8 +114,8 @@ const T = {
     show_stop: "Mostra il pulsante Stop durante il movimento",
     gate_type: "Tipo di cancello", type_sliding: "Scorrevole", type_swing: "A battente",
     slide_direction: "Direzione di apertura (scorrevole)", dir_left: "Verso sinistra", dir_right: "Verso destra",
-    gate_style: "Design del cancello", style_modern_sliding: "Doghe orizzontali", style_classic_sliding: "A barre",
-    style_modern_swing: "Ad arco", style_classic_swing: "Concavo",
+    gate_style: "Design del cancello", style_slats: "Doghe orizzontali", style_bars_sliding: "A barre",
+    style_bars_swing: "Concavo", style_bell: "Ad arco", style_semi: "Semiaperto", style_solid: "Cieco, motivo laser",
     gate_color: "Colore del cancello", color_state: "Segue lo stato (predefinito)",
     color_white: "Bianco", color_gray: "Grigio chiaro", color_anthracite: "Antracite",
     color_black: "Nero", color_green: "Verde abete", color_burgundy: "Bordeaux",
@@ -136,8 +136,8 @@ const T = {
     show_stop: "Stopknop tonen tijdens beweging",
     gate_type: "Poorttype", type_sliding: "Schuifpoort", type_swing: "Draaipoort",
     slide_direction: "Openingsrichting (schuifpoort)", dir_left: "Naar links", dir_right: "Naar rechts",
-    gate_style: "Poortontwerp", style_modern_sliding: "Horizontale lamellen", style_classic_sliding: "Spijlen",
-    style_modern_swing: "Boogvorm", style_classic_swing: "Concaaf",
+    gate_style: "Poortontwerp", style_slats: "Horizontale lamellen", style_bars_sliding: "Spijlen",
+    style_bars_swing: "Concaaf", style_bell: "Boogvorm", style_semi: "Halfopen", style_solid: "Dicht, laserpatroon",
     gate_color: "Poortkleur", color_state: "Volgt de status (standaard)",
     color_white: "Wit", color_gray: "Lichtgrijs", color_anthracite: "Antraciet",
     color_black: "Zwart", color_green: "Dennengroen", color_burgundy: "Bordeaux",
@@ -158,8 +158,8 @@ const T = {
     show_stop: "Mostrar bot\u00e3o Parar durante o movimento",
     gate_type: "Tipo de port\u00e3o", type_sliding: "De correr", type_swing: "De batente",
     slide_direction: "Sentido de abertura (de correr)", dir_left: "Para a esquerda", dir_right: "Para a direita",
-    gate_style: "Design do port\u00e3o", style_modern_sliding: "L\u00e2minas horizontais", style_classic_sliding: "Barras",
-    style_modern_swing: "Arco alto", style_classic_swing: "C\u00f4ncavo",
+    gate_style: "Design do port\u00e3o", style_slats: "L\u00e2minas horizontais", style_bars_sliding: "Barras",
+    style_bars_swing: "C\u00f4ncavo", style_bell: "Arco alto", style_semi: "Semiaberto", style_solid: "Cego, motivo laser",
     gate_color: "Cor do port\u00e3o", color_state: "Segue o estado (predefini\u00e7\u00e3o)",
     color_white: "Branco", color_gray: "Cinzento claro", color_anthracite: "Antracite",
     color_black: "Preto", color_green: "Verde abeto", color_burgundy: "Bord\u00f4",
@@ -180,8 +180,8 @@ const T = {
     show_stop: "Visa stoppknapp under r\u00f6relse",
     gate_type: "Grindtyp", type_sliding: "Skjutgrind", type_swing: "Slaggrind",
     slide_direction: "\u00d6ppningsriktning (skjutgrind)", dir_left: "\u00c5t v\u00e4nster", dir_right: "\u00c5t h\u00f6ger",
-    gate_style: "Grinddesign", style_modern_sliding: "Horisontella ribbor", style_classic_sliding: "Spj\u00e4lor",
-    style_modern_swing: "B\u00e5gform", style_classic_swing: "Konkav",
+    gate_style: "Grinddesign", style_slats: "Horisontella ribbor", style_bars_sliding: "Spj\u00e4lor",
+    style_bars_swing: "Konkav", style_bell: "B\u00e5gform", style_semi: "Halv\u00f6ppen", style_solid: "T\u00e4t, laserm\u00f6nster",
     gate_color: "Grindf\u00e4rg", color_state: "F\u00f6ljer l\u00e4get (standard)",
     color_white: "Vit", color_gray: "Ljusgr\u00e5", color_anthracite: "Antracit",
     color_black: "Svart", color_green: "Grangr\u00f6n", color_burgundy: "Vinr\u00f6d",
@@ -202,8 +202,8 @@ const T = {
     show_stop: "Vis stoppknapp under bevegelse",
     gate_type: "Porttype", type_sliding: "Skyveport", type_swing: "Slagport",
     slide_direction: "\u00c5pningsretning (skyveport)", dir_left: "Mot venstre", dir_right: "Mot h\u00f8yre",
-    gate_style: "Portdesign", style_modern_sliding: "Horisontale lameller", style_classic_sliding: "Sprosser",
-    style_modern_swing: "Bueform", style_classic_swing: "Konkav",
+    gate_style: "Portdesign", style_slats: "Horisontale lameller", style_bars_sliding: "Sprosser",
+    style_bars_swing: "Konkav", style_bell: "Bueform", style_semi: "Halv\u00e5pen", style_solid: "Tett, laserm\u00f8nster",
     gate_color: "Portfarge", color_state: "F\u00f8lger tilstanden (standard)",
     color_white: "Hvit", color_gray: "Lysegr\u00e5", color_anthracite: "Antrasitt",
     color_black: "Svart", color_green: "Grangr\u00f8nn", color_burgundy: "Burgunder",
@@ -224,8 +224,8 @@ const T = {
     show_stop: "Vis stopknap under bev\u00e6gelse",
     gate_type: "Porttype", type_sliding: "Skydeport", type_swing: "Fl\u00f8jport",
     slide_direction: "\u00c5bningsretning (skydeport)", dir_left: "Mod venstre", dir_right: "Mod h\u00f8jre",
-    gate_style: "Portdesign", style_modern_sliding: "Vandrette lameller", style_classic_sliding: "Tremmer",
-    style_modern_swing: "Bueform", style_classic_swing: "Konkav",
+    gate_style: "Portdesign", style_slats: "Vandrette lameller", style_bars_sliding: "Tremmer",
+    style_bars_swing: "Konkav", style_bell: "Bueform", style_semi: "Halv\u00e5ben", style_solid: "T\u00e6t, laserm\u00f8nster",
     gate_color: "Portfarve", color_state: "F\u00f8lger tilstanden (standard)",
     color_white: "Hvid", color_gray: "Lysegr\u00e5", color_anthracite: "Antracit",
     color_black: "Sort", color_green: "Grangr\u00f8n", color_burgundy: "Bordeaux",
@@ -246,8 +246,8 @@ const T = {
     show_stop: "Poka\u017c przycisk Stop podczas ruchu",
     gate_type: "Typ bramy", type_sliding: "Przesuwna", type_swing: "Dwuskrzyd\u0142owa",
     slide_direction: "Kierunek otwierania (przesuwna)", dir_left: "W lewo", dir_right: "W prawo",
-    gate_style: "Wygl\u0105d bramy", style_modern_sliding: "Poziome lamele", style_classic_sliding: "Szczebelki",
-    style_modern_swing: "\u0141ukowa", style_classic_swing: "Wkl\u0119s\u0142y",
+    gate_style: "Wygl\u0105d bramy", style_slats: "Poziome lamele", style_bars_sliding: "Szczebelki",
+    style_bars_swing: "Wkl\u0119s\u0142y", style_bell: "\u0141ukowa", style_semi: "P\u00f3\u0142a\u017curowa", style_solid: "Pe\u0142na, wz\u00f3r laserowy",
     gate_color: "Kolor bramy", color_state: "Zgodny ze stanem (domy\u015blnie)",
     color_white: "Bia\u0142y", color_gray: "Jasnoszary", color_anthracite: "Antracyt",
     color_black: "Czarny", color_green: "Ziele\u0144 jod\u0142owa", color_burgundy: "Bordowy",
@@ -410,10 +410,33 @@ function slideX(norm, cfg) {
   return 0;
 }
 
+// Resolve the configured style for a gate type. "modern"/"classic" from
+// v0.7.0 keep working as aliases of the per-type default / "bars".
+function normStyle(cfg, type) {
+  const def = type === "swing" ? "bell" : "slats";
+  const s = cfg.gate_style;
+  if (!s || s === "modern") return def;
+  if (s === "classic") return "bars";
+  if (type !== "swing" && s === "bell") return def;
+  const known = ["slats", "bars", "semi", "solid", "bell"];
+  return known.includes(s) ? s : def;
+}
+
+// Laser-cut perforations for the "solid" style: knocked-out dots that move
+// with the leaf.
+function laserDots(cells) {
+  return cells
+    .filter(([r, c]) => (r + c) % 2 === 0)
+    .map(([r, c, cx, cy]) => `<circle class="gate-hole" cx="${cx}" cy="${cy}" r="1.9"/>`)
+    .join("");
+}
+
 function slidingSvg(norm, cfg) {
+  const style = normStyle(cfg, "sliding");
   let shapes;
-  if (cfg.gate_style === "classic") {
-    // Classic: straight vertical bars between two rails (the original design).
+  let extra = "";
+  if (style === "bars") {
+    // Straight vertical bars between two rails (the original design).
     let bars = "";
     for (const x of [18, 31.5, 45, 58.5, 72, 85.5, 99, 112.5]) {
       bars += `<rect x="${x}" y="18" width="4" height="27" rx="2"/>`;
@@ -422,6 +445,23 @@ function slidingSvg(norm, cfg) {
     <rect x="14" y="14" width="112" height="5" rx="2.5"/>
     <rect x="14" y="41" width="112" height="5" rx="2.5"/>
     ${bars}`;
+  } else if (style === "semi") {
+    // Semi-open: solid lower panel, thin bars above, thin top rail.
+    let bars = "";
+    for (let i = 0; i < 14; i++) {
+      bars += `<rect class="slat" x="${17 + i * 7.8}" y="13" width="3.2" height="18" rx="1.6"/>`;
+    }
+    shapes = `
+    <rect x="14" y="12" width="112" height="3.4" rx="1.7"/>
+    <rect x="14" y="30" width="112" height="19" rx="2"/>
+    ${bars}`;
+  } else if (style === "solid") {
+    // Solid convex panel with laser-cut perforations.
+    shapes = `
+    <path d="M14 49 L14 19 Q 70 9, 126 19 L126 49 Z"/>`;
+    const cells = [];
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 13; c++) cells.push([r, c, 22 + c * 8, 24 + r * 8]);
+    extra = laserDots(cells);
   } else {
     // Horizontal slats (the 2026 aluminium look) with three uprights.
     // Slats keep a visible gap between them (the outline layer uses a
@@ -452,6 +492,7 @@ function slidingSvg(norm, cfg) {
         <g class="gate-leaf" style="transform:translateX(${slideX(norm, cfg)}px)">
           <g class="leaf-line">${shapes}</g>
           <g class="leaf-fill">${shapes}</g>
+          ${extra}
           ${wheel(40)}
           ${wheel(100)}
         </g>
@@ -473,31 +514,71 @@ const SWING_POSE = {
 };
 
 function swingLeaf(side, transform, cfg) {
-  // Modern: "chapeau de gendarme", the top rail curves up toward the middle
-  // of the gate and the bars follow. Classic: concave, the rail dips toward
-  // the middle (the original design).
-  const classic = cfg.gate_style === "classic";
-  const xs = side === "l" ? [16, 26.5, 37, 47.5, 58] : [120, 109.5, 99, 88.5, 78];
-  const bars = xs
-    .map((x, i) => {
-      const y = classic ? 15.5 + i * 1.6 : 19 - i * 1.5;
-      return `<rect x="${x}" y="${y}" width="4" height="${47 - y}" rx="2"/>`;
-    })
-    .join("");
-  const rail = classic
-    ? (side === "l" ? "M14 16 Q 44 12.5, 68 21" : "M126 16 Q 96 12.5, 72 21")
-    : (side === "l" ? "M14 21 Q 48 10, 68 11.5" : "M126 21 Q 92 10, 72 11.5");
-  const bottom = side === "l"
-    ? '<rect x="13" y="44" width="56" height="5" rx="2.5"/>'
-    : '<rect x="71" y="44" width="56" height="5" rx="2.5"/>';
-  const shapes = `
+  // Styles: "bell" (chapeau de gendarme, rail curves up toward the middle),
+  // "bars" (concave, the original design), "slats" (horizontal slats),
+  // "semi" (solid lower panel + thin bars), "solid" (convex panel with
+  // laser-cut perforations).
+  const style = normStyle(cfg, "swing");
+  const x0 = side === "l" ? 13 : 71;
+  let shapes;
+  let extra = "";
+  if (style === "slats") {
+    let slats = "";
+    for (let i = 0; i < 4; i++) {
+      slats += `<rect class="slat" x="${x0}" y="${14 + i * 9.5}" width="56" height="5.5" rx="1.5"/>`;
+    }
+    shapes = `
+      ${slats}
+      <rect x="${x0}" y="14" width="3" height="34" rx="1.5"/>
+      <rect x="${x0 + 53}" y="14" width="3" height="34" rx="1.5"/>`;
+  } else if (style === "semi") {
+    let bars = "";
+    for (let i = 0; i < 7; i++) {
+      bars += `<rect class="slat" x="${x0 + 3 + i * 7.6}" y="13" width="3.2" height="18" rx="1.6"/>`;
+    }
+    shapes = `
+      <rect x="${x0}" y="12" width="56" height="3.4" rx="1.7"/>
+      <rect x="${x0}" y="30" width="56" height="19" rx="2"/>
+      ${bars}`;
+  } else if (style === "solid") {
+    shapes = side === "l"
+      ? `
+      <path d="M13 49 L13 20 Q 45 11, 69 12.5 L69 49 Z"/>`
+      : `
+      <path d="M127 49 L127 20 Q 95 11, 71 12.5 L71 49 Z"/>`;
+    const cells = [];
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 7; c++) {
+        const cx = side === "l" ? 21 + c * 7.4 : 119 - c * 7.4;
+        cells.push([r, c, cx, 23 + r * 8]);
+      }
+    }
+    extra = laserDots(cells);
+  } else {
+    const bell = style === "bell";
+    const xs = side === "l" ? [16, 26.5, 37, 47.5, 58] : [120, 109.5, 99, 88.5, 78];
+    const bars = xs
+      .map((x, i) => {
+        const y = bell ? 19 - i * 1.5 : 15.5 + i * 1.6;
+        return `<rect x="${x}" y="${y}" width="4" height="${47 - y}" rx="2"/>`;
+      })
+      .join("");
+    const rail = bell
+      ? (side === "l" ? "M14 21 Q 48 10, 68 11.5" : "M126 21 Q 92 10, 72 11.5")
+      : (side === "l" ? "M14 16 Q 44 12.5, 68 21" : "M126 16 Q 96 12.5, 72 21");
+    const bottom = side === "l"
+      ? '<rect x="13" y="44" width="56" height="5" rx="2.5"/>'
+      : '<rect x="71" y="44" width="56" height="5" rx="2.5"/>';
+    shapes = `
       <path d="${rail}" class="leaf-rail"/>
       ${bottom}
       ${bars}`;
+  }
   return `
     <g class="leaf-${side}" style="transform:${transform || "none"}">
       <g class="leaf-line">${shapes}</g>
       <g class="leaf-fill">${shapes}</g>
+      ${extra}
     </g>`;
 }
 
@@ -650,7 +731,10 @@ ha-card.compact { flex-direction:row; align-items:center; gap:16px; }
 .illu svg { display:block; width:100%; }
 .gate-leaf, .leaf-l, .leaf-r { transition:transform .9s ease; }
 .leaf-line rect { fill:var(--leaf-line); stroke:var(--leaf-line); stroke-width:3.2; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.leaf-line path { fill:var(--leaf-line); stroke:var(--leaf-line); stroke-width:3.2; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.leaf-fill path { fill:var(--leaf-color); }
 .leaf-line .slat { stroke-width:2.2; }
+.gate-hole { fill:var(--ha-card-background, var(--card-background-color, #fff)); }
 .leaf-line .leaf-rail { fill:none; stroke:var(--leaf-line); stroke-width:8.4; stroke-linecap:round; vector-effect:non-scaling-stroke; }
 .leaf-fill rect { fill:var(--leaf-color); }
 .leaf-fill .leaf-rail { fill:none; stroke:var(--leaf-color); stroke-width:5.6; stroke-linecap:round; vector-effect:non-scaling-stroke; }
@@ -803,8 +887,11 @@ details .form { padding-top:10px; }
         <div class="row">
           <label>${t(hass, "gate_style")}</label>
           <select data-field="gate_style">
-            <option value="modern" ${cfg.gate_style !== "classic" ? "selected" : ""}>${t(hass, cfg.gate_type === "swing" ? "style_modern_swing" : "style_modern_sliding")}</option>
-            <option value="classic" ${cfg.gate_style === "classic" ? "selected" : ""}>${t(hass, cfg.gate_type === "swing" ? "style_classic_swing" : "style_classic_sliding")}</option>
+            ${(cfg.gate_type === "swing"
+              ? [["bell", "style_bell"], ["bars", "style_bars_swing"], ["slats", "style_slats"], ["semi", "style_semi"], ["solid", "style_solid"]]
+              : [["slats", "style_slats"], ["bars", "style_bars_sliding"], ["semi", "style_semi"], ["solid", "style_solid"]])
+              .map(([v, k]) => `<option value="${v}" ${normStyle(cfg, cfg.gate_type === "swing" ? "swing" : "sliding") === v ? "selected" : ""}>${t(hass, k)}</option>`)
+              .join("")}
           </select>
         </div>
         <div class="row">
@@ -862,9 +949,10 @@ details .form { padding-top:10px; }
     });
     this._root.querySelector('select[data-field="gate_style"]').addEventListener("change", (ev) => {
       this._config = { ...this._config };
-      // modern is the default -- only store the key when it differs
-      if (ev.target.value === "classic") this._config.gate_style = "classic";
-      else delete this._config.gate_style;
+      // the per-type default -- only store the key when it differs
+      const defStyle = this._config.gate_type === "swing" ? "bell" : "slats";
+      if (ev.target.value === defStyle) delete this._config.gate_style;
+      else this._config.gate_style = ev.target.value;
       this._emit();
     });
     this._root.querySelector('select[data-field="slide_direction"]').addEventListener("change", (ev) => {
