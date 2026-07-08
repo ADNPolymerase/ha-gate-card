@@ -14,7 +14,7 @@ Une card Lovelace Home Assistant pour portails — état réel consolidé, coule
 
 Conçue pour le cas réel très courant où le canal de *commande* et le canal d'*état* sont deux choses différentes : le portail est piloté par impulsion RF (AirSend, RFXCOM, relais Shelly, contact sec…) exposée en `cover`, tandis que la position **fiable** vient de capteurs ouvert/fermé séparés, consolidés dans un `input_select` ou un template sensor. La card affiche l'état consolidé et envoie les commandes au cover — sans deviner.
 
-Interface multilingue (anglais, français, allemand, espagnol, italien, néerlandais — détectée automatiquement depuis Home Assistant).
+Interface multilingue (anglais, français, allemand, espagnol, italien, néerlandais, portugais, suédois, norvégien, danois, polonais — détectée automatiquement depuis Home Assistant).
 
 > Statut : préversion. Retours et issues bienvenus.
 > 🇬🇧 [Read in English](README.md)
@@ -26,7 +26,7 @@ Interface multilingue (anglais, français, allemand, espagnol, italien, néerlan
 - **Deux entités** : les commandes vont au `cover`, l'état affiché vient de n'importe quelle `state_entity` (`input_select`, `sensor`, template…) — ou du cover lui-même si vous n'avez pas de capteurs séparés.
 - **Normalisation d'état** : convertit ce que rapporte votre entité (`ferme`, `Fermé`, `closed`, `opening`, `ouverture`, …) vers un vocabulaire commun fermé / ouvert / ouverture / fermeture / inconnu, insensible aux accents, avec un `state_map` explicite en option.
 - **Couleurs par état** : fermé = vert, ouvert = orange, mouvement = bleu, inconnu = rouge (via `--success-color` / `--warning-color` / `--info-color` / `--error-color` de votre thème). Ou choisissez une couleur fixe classique (`gate_color`) et seul le texte d'état portera la couleur.
-- **Deux types de portail** : `gate_type: sliding` (un vantail coulissant sur rail, roulettes qui tournent pendant le mouvement) ou `gate_type: swing` (deux vantaux pivotant sur leurs gonds). L'illustration animée suit l'état — fermé, ouvert, ou en mouvement. `compact: true` la remplace par une simple icône colorée.
+- **Deux types de portail, deux styles chacun** : `gate_type: sliding` (un vantail coulissant sur rail, roulettes qui tournent pendant le mouvement) ou `gate_type: swing` (deux vantaux pivotant sur leurs gonds), chacun avec un `gate_style` : moderne (lames horizontales alu / chapeau de gendarme) ou classique (barreaudé / concave). Le coulissant s'ouvre vers la gauche ou la droite (`slide_direction`). L'illustration animée suit l'état — fermé, ouvert, ou en mouvement. `compact: true` la remplace par une simple icône colorée.
 - **Boutons contextuels sécurisés** : seules les commandes pertinentes sont affichées — *Ouvrir* si fermé, *Fermer* si ouvert, les deux si inconnu, et **rien pendant le mouvement** (sur un portail à impulsion, une impulsion supplémentaire stoppe ou inverse le vantail). `show_stop: true` active un bouton Stop pendant le mouvement pour les moteurs disposant d'un vrai canal stop.
 - **Confirmation intégrée** : un appui → le bouton demande confirmation, un second appui sous 4 s → la commande part. Désactivable avec `confirm: false`.
 - **Commandes personnalisées** : pointez `open_entity` / `close_entity` / `stop_entity` vers des boutons, scripts ou switchs si votre portail n'est pas un `cover`.
@@ -49,6 +49,8 @@ Cette card n'est pas encore dans le store HACS par défaut. Ajoutez-la comme dé
 | `state_entity` | Entité portant l'état consolidé fiable (tout domaine). Par défaut : `entity`. |
 | `state_map` | Map optionnelle chaîne d'état brute → `closed`\|`open`\|`opening`\|`closing`\|`unknown`, pour les formulations non détectées automatiquement. |
 | `gate_type` | `sliding` (défaut) ou `swing` — choisit l'illustration. |
+| `gate_style` | `modern` (défaut : lames horizontales en coulissant, chapeau de gendarme en battants) ou `classic` (barreaudé / concave, les dessins d'origine). |
+| `slide_direction` | `left` (défaut) ou `right` — sens d'ouverture du coulissant. |
 | `gate_color` | `state` (défaut : le portail suit la couleur de l'état) ou une couleur fixe classique : `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` (inspirées RAL), ou toute couleur CSS. En couleur fixe, seul le texte d'état reste coloré. |
 | `name` | Titre de la card. Par défaut : le nom convivial de l'entité d'état. |
 | `compact` | `true` pour remplacer l'illustration par une icône ronde colorée. |

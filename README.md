@@ -14,7 +14,7 @@ A Home Assistant Lovelace card for driveway gates and portals — real consolida
 
 Designed for the common real-world setup where the *command* channel and the *state* channel are different things: the gate is driven by an RF impulse (AirSend, RFXCOM, Shelly relay, dry contact…) exposed as a `cover`, while the **reliable** position comes from separate open/closed sensors consolidated into an `input_select` or template sensor. The card displays the consolidated state and sends commands to the cover — no guessing.
 
-Multilingual UI (English, French, German, Spanish, Italian, Dutch — auto-detected from Home Assistant).
+Multilingual UI (English, French, German, Spanish, Italian, Dutch, Portuguese, Swedish, Norwegian, Danish, Polish — auto-detected from Home Assistant).
 
 > Status: early preview. Feedback and issues welcome.
 > 🇫🇷 [Lire en français](README.fr.md)
@@ -26,7 +26,7 @@ Multilingual UI (English, French, German, Spanish, Italian, Dutch — auto-detec
 - **Two-entity design**: commands go to the `cover`, the displayed state comes from any `state_entity` (`input_select`, `sensor`, template…) — or from the cover itself if you don't have separate sensors.
 - **State normalization**: maps whatever your state entity reports (`ferme`, `Fermé`, `closed`, `opening`, `ouverture`, …) to a common closed / open / opening / closing / unknown vocabulary, accent-insensitive, with an optional explicit `state_map` override.
 - **Per-state colors**: closed = green, open = orange, moving = blue, unknown = red (uses your theme's `--success-color` / `--warning-color` / `--info-color` / `--error-color`). Or pick a fixed classic gate color (`gate_color`) and let only the state text carry the color.
-- **Two gate types**: `gate_type: sliding` (single leaf on a rail, wheels spinning while moving) or `gate_type: swing` (two leaves pivoting on their hinges). The animated illustration follows the state — closed, open, or gently moving. `compact: true` swaps it for a simple colored icon.
+- **Two gate types, two designs each**: `gate_type: sliding` (single leaf on a rail, wheels spinning while moving) or `gate_type: swing` (two leaves pivoting on their hinges), each with a `gate_style`: modern (horizontal aluminium slats / bell-top "chapeau de gendarme") or classic (vertical bars / concave). Sliding gates open to the left or to the right (`slide_direction`). The animated illustration follows the state — closed, open, or gently moving. `compact: true` swaps it for a simple colored icon.
 - **Safe contextual buttons**: only the commands that make sense are shown — *Open* when closed, *Close* when open, both when unknown, and **nothing while moving** (on impulse-driven gates an extra impulse stops or reverses the leaf). `show_stop: true` opts into a Stop button while moving for motors with a real stop channel.
 - **Built-in confirmation**: tap once → the button asks to confirm, tap again within 4 s → the command fires. Disable with `confirm: false`.
 - **Command overrides**: point `open_entity` / `close_entity` / `stop_entity` at buttons, scripts or switches if your gate isn't a `cover` at all.
@@ -49,6 +49,8 @@ This card is not yet in the default HACS store. Add it as a custom repository:
 | `state_entity` | Entity holding the reliable consolidated state (any domain). Defaults to `entity`. |
 | `state_map` | Optional map of raw state string → `closed`\|`open`\|`opening`\|`closing`\|`unknown`, for wordings the auto-detection doesn't catch. |
 | `gate_type` | `sliding` (default) or `swing` — picks the illustration. |
+| `gate_style` | `modern` (default: horizontal slats for sliding, bell-top for swing) or `classic` (vertical bars / concave, the original designs). |
+| `slide_direction` | `left` (default) or `right` — which way the sliding gate opens. |
 | `gate_color` | `state` (default: the gate follows the state color) or a fixed classic color: `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` (RAL-inspired), or any raw CSS color. With a fixed color only the state text stays state-colored. |
 | `name` | Card title. Defaults to the state entity's friendly name. |
 | `compact` | `true` to replace the illustration with a colored round icon. |
