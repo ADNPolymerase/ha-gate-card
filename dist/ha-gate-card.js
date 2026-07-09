@@ -1,4 +1,4 @@
-const CARD_VERSION = "0.8.0";
+const CARD_VERSION = "0.9.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -17,6 +17,7 @@ const T = {
   en: {
     closed: "Closed", open: "Open", opening: "Opening\u2026", closing: "Closing\u2026",
     unknown: "Unknown state", since: "since",
+    pedestrian: "Pedestrian pass", moving: "Moving\u2026",
     open_btn: "Open", close_btn: "Close", stop_btn: "Stop", confirm_tap: "Confirm?",
     entity: "Gate cover entity (required)",
     state_entity: "Consolidated state entity (optional)",
@@ -35,11 +36,14 @@ const T = {
     open_entity: "Open command entity",
     close_entity: "Close command entity",
     stop_entity: "Stop command entity",
+    pedestrian_entity: "Pedestrian pass command entity",
+    pedestrian_btn: "Pedestrian", type_door: "Door / wicket", type_garage: "Roller garage door",
   },
   fr: {
     closed: "Ferm\u00e9", open: "Ouvert",
     opening: "Ouverture en cours\u2026", closing: "Fermeture en cours\u2026",
     unknown: "\u00c9tat inconnu", since: "depuis",
+    pedestrian: "Pi\u00e9ton", moving: "En mouvement\u2026",
     open_btn: "Ouvrir", close_btn: "Fermer", stop_btn: "Stop", confirm_tap: "Confirmer ?",
     entity: "Entit\u00e9 cover du portail (obligatoire)",
     state_entity: "Entit\u00e9 d'\u00e9tat consolid\u00e9 (optionnel)",
@@ -58,32 +62,13 @@ const T = {
     open_entity: "Entit\u00e9 commande Ouvrir",
     close_entity: "Entit\u00e9 commande Fermer",
     stop_entity: "Entit\u00e9 commande Stop",
-  },
-  ru: {
-    closed: "Закрыто", open: "Открыто", opening: "Открывается\u2026", closing: "Закрывается\u2026",
-    unknown: "Неизвестное состояние", since: "с",
-    open_btn: "Открыть", close_btn: "Закрыть", stop_btn: "Стоп", confirm_tap: "Подтвердить?",
-    entity: "Сущность cover ворот (обязательно)",
-    state_entity: "Сущность сводного состояния (необязательно)",
-    name: "Название", compact: "Компактный режим (значок вместо иллюстрации)",
-    confirm_opt: "Запрашивать подтверждение перед командами (двойное нажатие)",
-    show_stop: "Показывать кнопку Стоп во время движения",
-    gate_type: "Тип ворот", type_sliding: "Откатные", type_swing: "Распашные (две створки)",
-    slide_direction: "Направление открытия (откатные)", dir_left: "Влево", dir_right: "Вправо",
-    gate_style: "Дизайн ворот", style_slats: "Горизонтальные ламели", style_bars_sliding: "Вертикальные прутья",
-    style_bars_swing: "Вогнутые", style_bell: "Арочный верх", style_semi: "Полуоткрытые", style_solid: "Сплошные, лазерный узор",
-    gate_color: "Цвет ворот", color_state: "По состоянию (по умолчанию)",
-    color_white: "Белый", color_gray: "Светло-серый", color_anthracite: "Антрацит",
-    color_black: "Чёрный", color_green: "Зелёный (ель)", color_burgundy: "Бордовый",
-    color_blue: "Стальной синий", color_brown: "Коричневый",
-    section_advanced: "Кастомные команды (кнопки / скрипты)",
-    open_entity: "Сущность команды Открыть",
-    close_entity: "Сущность команды Закрыть",
-    stop_entity: "Сущность команды Стоп",
+    pedestrian_entity: "Entit\u00e9 commande Pi\u00e9ton",
+    pedestrian_btn: "Pi\u00e9ton", type_door: "Portillon / porte", type_garage: "Porte de garage roulante",
   },
   de: {
     closed: "Geschlossen", open: "Offen", opening: "\u00d6ffnet\u2026", closing: "Schlie\u00dft\u2026",
     unknown: "Unbekannter Zustand", since: "seit",
+    pedestrian: "Personendurchgang", moving: "In Bewegung\u2026",
     open_btn: "\u00d6ffnen", close_btn: "Schlie\u00dfen", stop_btn: "Stopp", confirm_tap: "Best\u00e4tigen?",
     entity: "Tor-Cover-Entit\u00e4t (erforderlich)",
     state_entity: "Konsolidierte Status-Entit\u00e4t (optional)",
@@ -102,10 +87,13 @@ const T = {
     open_entity: "Entit\u00e4t Befehl \u00d6ffnen",
     close_entity: "Entit\u00e4t Befehl Schlie\u00dfen",
     stop_entity: "Entit\u00e4t Befehl Stopp",
+    pedestrian_entity: "Entit\u00e4t Befehl Fu\u00dfg\u00e4nger",
+    pedestrian_btn: "Fu\u00dfg\u00e4nger", type_door: "T\u00fcr / Pforte", type_garage: "Rolltor (Garage)",
   },
   es: {
     closed: "Cerrado", open: "Abierto", opening: "Abriendo\u2026", closing: "Cerrando\u2026",
     unknown: "Estado desconocido", since: "desde",
+    pedestrian: "Peatonal", moving: "En movimiento\u2026",
     open_btn: "Abrir", close_btn: "Cerrar", stop_btn: "Parar", confirm_tap: "\u00bfConfirmar?",
     entity: "Entidad cover del port\u00f3n (obligatoria)",
     state_entity: "Entidad de estado consolidado (opcional)",
@@ -124,10 +112,13 @@ const T = {
     open_entity: "Entidad comando Abrir",
     close_entity: "Entidad comando Cerrar",
     stop_entity: "Entidad comando Parar",
+    pedestrian_entity: "Entidad comando Peatonal",
+    pedestrian_btn: "Peatonal", type_door: "Puerta peatonal", type_garage: "Puerta de garaje enrollable",
   },
   it: {
     closed: "Chiuso", open: "Aperto", opening: "Apertura\u2026", closing: "Chiusura\u2026",
     unknown: "Stato sconosciuto", since: "dalle",
+    pedestrian: "Pedonale", moving: "In movimento\u2026",
     open_btn: "Apri", close_btn: "Chiudi", stop_btn: "Stop", confirm_tap: "Confermare?",
     entity: "Entit\u00e0 cover del cancello (obbligatoria)",
     state_entity: "Entit\u00e0 di stato consolidato (opzionale)",
@@ -146,10 +137,13 @@ const T = {
     open_entity: "Entit\u00e0 comando Apri",
     close_entity: "Entit\u00e0 comando Chiudi",
     stop_entity: "Entit\u00e0 comando Stop",
+    pedestrian_entity: "Entit\u00e0 comando Pedonale",
+    pedestrian_btn: "Pedonale", type_door: "Porta pedonale", type_garage: "Serranda del garage",
   },
   nl: {
     closed: "Gesloten", open: "Open", opening: "Opent\u2026", closing: "Sluit\u2026",
     unknown: "Onbekende status", since: "sinds",
+    pedestrian: "Voetgangersstand", moving: "In beweging\u2026",
     open_btn: "Openen", close_btn: "Sluiten", stop_btn: "Stop", confirm_tap: "Bevestigen?",
     entity: "Poort cover-entiteit (verplicht)",
     state_entity: "Geconsolideerde status-entiteit (optioneel)",
@@ -168,10 +162,13 @@ const T = {
     open_entity: "Entiteit commando Openen",
     close_entity: "Entiteit commando Sluiten",
     stop_entity: "Entiteit commando Stop",
+    pedestrian_entity: "Entiteit commando Voetganger",
+    pedestrian_btn: "Voetganger", type_door: "Deur / poortje", type_garage: "Garageroldeur",
   },
   pt: {
     closed: "Fechado", open: "Aberto", opening: "A abrir\u2026", closing: "A fechar\u2026",
     unknown: "Estado desconhecido", since: "desde",
+    pedestrian: "Pedonal", moving: "Em movimento\u2026",
     open_btn: "Abrir", close_btn: "Fechar", stop_btn: "Parar", confirm_tap: "Confirmar?",
     entity: "Entidade cover do port\u00e3o (obrigat\u00f3ria)",
     state_entity: "Entidade de estado consolidado (opcional)",
@@ -190,10 +187,13 @@ const T = {
     open_entity: "Entidade comando Abrir",
     close_entity: "Entidade comando Fechar",
     stop_entity: "Entidade comando Parar",
+    pedestrian_entity: "Entidade comando Pedonal",
+    pedestrian_btn: "Pedonal", type_door: "Porta pedonal", type_garage: "Port\u00e3o de garagem de enrolar",
   },
   sv: {
     closed: "St\u00e4ngd", open: "\u00d6ppen", opening: "\u00d6ppnar\u2026", closing: "St\u00e4nger\u2026",
     unknown: "Ok\u00e4nt l\u00e4ge", since: "sedan",
+    pedestrian: "G\u00e5ngpassage", moving: "I r\u00f6relse\u2026",
     open_btn: "\u00d6ppna", close_btn: "St\u00e4ng", stop_btn: "Stopp", confirm_tap: "Bekr\u00e4fta?",
     entity: "Grindens cover-entitet (obligatorisk)",
     state_entity: "Konsoliderad status-entitet (valfri)",
@@ -212,10 +212,15 @@ const T = {
     open_entity: "Entitet kommando \u00d6ppna",
     close_entity: "Entitet kommando St\u00e4ng",
     stop_entity: "Entitet kommando Stopp",
+    pedestrian_entity: "Entitet kommando Gang",
+    pedestrian_btn: "Gang", type_door: "D\u00f8r / gangport", type_garage: "Garasjeport (rulleport)",
+    pedestrian_entity: "Entitet kommando G\u00e5ng",
+    pedestrian_btn: "G\u00e5ng", type_door: "D\u00f6rr / g\u00e5nggrind", type_garage: "Garageport (rullport)",
   },
   no: {
     closed: "Lukket", open: "\u00c5pen", opening: "\u00c5pner\u2026", closing: "Lukker\u2026",
     unknown: "Ukjent tilstand", since: "siden",
+    pedestrian: "Gangpassasje", moving: "I bevegelse\u2026",
     open_btn: "\u00c5pne", close_btn: "Lukk", stop_btn: "Stopp", confirm_tap: "Bekreft?",
     entity: "Portens cover-entitet (p\u00e5krevd)",
     state_entity: "Konsolidert status-entitet (valgfri)",
@@ -238,6 +243,7 @@ const T = {
   da: {
     closed: "Lukket", open: "\u00c5ben", opening: "\u00c5bner\u2026", closing: "Lukker\u2026",
     unknown: "Ukendt tilstand", since: "siden",
+    pedestrian: "Gangpassage", moving: "I bev\u00e6gelse\u2026",
     open_btn: "\u00c5bn", close_btn: "Luk", stop_btn: "Stop", confirm_tap: "Bekr\u00e6ft?",
     entity: "Portens cover-entitet (p\u00e5kr\u00e6vet)",
     state_entity: "Konsolideret status-entitet (valgfri)",
@@ -256,10 +262,13 @@ const T = {
     open_entity: "Entitet kommando \u00c5bn",
     close_entity: "Entitet kommando Luk",
     stop_entity: "Entitet kommando Stop",
+    pedestrian_entity: "Entitet kommando Gang",
+    pedestrian_btn: "Gang", type_door: "D\u00f8r / gangl\u00e5ge", type_garage: "Garageport (rulleport)",
   },
   pl: {
     closed: "Zamkni\u0119ta", open: "Otwarta", opening: "Otwieranie\u2026", closing: "Zamykanie\u2026",
     unknown: "Stan nieznany", since: "od",
+    pedestrian: "Furtka", moving: "W ruchu\u2026",
     open_btn: "Otw\u00f3rz", close_btn: "Zamknij", stop_btn: "Stop", confirm_tap: "Potwierdzi\u0107?",
     entity: "Encja cover bramy (wymagana)",
     state_entity: "Encja stanu skonsolidowanego (opcjonalna)",
@@ -278,6 +287,8 @@ const T = {
     open_entity: "Encja komendy Otw\u00f3rz",
     close_entity: "Encja komendy Zamknij",
     stop_entity: "Encja komendy Stop",
+    pedestrian_entity: "Encja komendy Furtka",
+    pedestrian_btn: "Furtka", type_door: "Drzwi / furtka", type_garage: "Brama gara\u017cowa rolowana",
   },
 };
 
@@ -301,6 +312,8 @@ function t(hass, key) {
 const STATE_KEYWORDS = {
   opening: ["opening", "ouverture", "offnet", "abriendo", "apertura", "opent", "abrindo", "a abrir", "oppnar", "apner", "abner", "otwieranie"],
   closing: ["closing", "fermeture", "schliesst", "cerrando", "chiusura", "sluit", "fechando", "a fechar", "stanger", "lukker", "zamykanie"],
+  pedestrian: ["pieton", "pedestrian", "peaton", "pedonal", "voetganger", "fussgang", "durchgang", "gangpass", "ganglage", "gangport", "furtka"],
+  moving: ["moving", "mouvement", "in motion", "bewegung", "movimiento", "movimento", "beweging", "rorelse", "bevegelse", "bevaegelse", "bev\u00e6gelse", "ruch"],
   closed: ["closed", "ferme", "geschlossen", "cerrado", "chiuso", "gesloten", "fechado", "stangd", "lukket", "zamkni"],
   open: ["open", "ouvert", "offen", "abierto", "aperto", "aberto", "oppen", "apen", "aben", "otwart"],
 };
@@ -333,6 +346,8 @@ const STATE_COLORS = {
   open: "var(--warning-color, #ff9800)",
   opening: "var(--info-color, #2196f3)",
   closing: "var(--info-color, #2196f3)",
+  moving: "var(--info-color, #2196f3)",
+  pedestrian: "var(--warning-color, #ff9800)",
   unknown: "var(--error-color, #f44336)",
 };
 
@@ -341,6 +356,8 @@ const STATE_ICONS = {
   open: "mdi:gate-open",
   opening: "mdi:gate-arrow-right",
   closing: "mdi:gate-arrow-left",
+  moving: "mdi:gate-arrow-right",
+  pedestrian: "mdi:walk",
   unknown: "mdi:gate-alert",
 };
 
@@ -358,7 +375,7 @@ const GATE_COLORS = {
   brown: { fill: "#59392f", line: "#59392f" },
 };
 
-const MOVING = ["opening", "closing"];
+const MOVING = ["opening", "closing", "moving"];
 
 // Which buttons make sense for each state. While the gate is moving no
 // command is shown by default: on impulse-driven gates (RF remotes, AirSend,
@@ -366,12 +383,18 @@ const MOVING = ["opening", "closing"];
 // accidental tap mid-travel is exactly what we want to avoid. `show_stop`
 // opts back in for motors with a real, dedicated stop channel.
 function actionsFor(norm, cfg) {
+  // Doors (wickets) are display-only: JD-approved v0.9 behavior.
+  if (cfg.gate_type === "door") return [];
   const stop = cfg.show_stop ? ["stop"] : [];
+  // Pedestrian pass only exists on sliding and swing gates.
+  const ped = cfg.pedestrian_entity && cfg.gate_type !== "garage";
   switch (norm) {
-    case "closed": return ["open"];
+    case "closed": return ped ? ["pedestrian", "open"] : ["open"];
     case "open": return ["close"];
+    case "pedestrian": return ["close"];
     case "opening":
-    case "closing": return stop;
+    case "closing":
+    case "moving": return stop;
     default: return ["open", "close"];
   }
 }
@@ -425,10 +448,30 @@ const GATE_KEY = `
     </g>
   </g>`;
 
+// Pedestrian pictogram (running person, JD-approved v5 pose) shown centered
+// in the open gap while the gate is in pedestrian mode. Drawn twice: a halo
+// layer in the card background color under the colored figure, like the key.
+const RUNNER_SHAPES = `
+    <circle cx="14.9" cy="5.4" r="2.3"/>
+    <path d="M13.8 9 Q 12.8 11.4, 12 13.6"/>
+    <path d="M13.8 9.2 L17.4 10.8 L20.6 9.8"/>
+    <path d="M13.8 9.2 L10.4 8.6 L8.0 11.2"/>
+    <path d="M12 13.6 L15.8 15.4 L15.2 20.8"/>
+    <path d="M12 13.6 L8.6 16.4 L4.8 17.0"/>`;
+
+function gateRunner(cx, cy, s) {
+  return `
+  <g transform="translate(${cx - 12 * s} ${cy - 12 * s}) scale(${s})">
+    <g class="gate-runner-halo">${RUNNER_SHAPES}</g>
+    <g class="gate-runner">${RUNNER_SHAPES}</g>
+  </g>`;
+}
+
 function slideX(norm, cfg) {
   const dir = cfg.slide_direction === "right" ? 1 : -1;
   if (norm === "open") return 98 * dir;
-  if (norm === "opening" || norm === "closing") return 49 * dir;
+  if (norm === "opening" || norm === "closing" || norm === "moving") return 49 * dir;
+  if (norm === "pedestrian") return 49 * dir;
   return 0;
 }
 
@@ -520,6 +563,7 @@ function slidingSvg(norm, cfg) {
         </g>
       </g>
       ${SCENE_CLOSE}
+      ${norm === "pedestrian" ? gateRunner(cfg.slide_direction === "right" ? 42 : 98, 34, 1.15) : ""}
       ${norm === "closed" ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
     </svg>`;
@@ -532,6 +576,8 @@ const SWING_POSE = {
   open: ["scaleX(-0.65) skewY(9deg)", "scaleX(-0.65) skewY(-9deg)"],
   opening: ["scaleX(0.35) skewY(7deg)", "scaleX(0.35) skewY(-7deg)"],
   closing: ["scaleX(0.35) skewY(7deg)", "scaleX(0.35) skewY(-7deg)"],
+  moving: ["scaleX(0.35) skewY(7deg)", "scaleX(0.35) skewY(-7deg)"],
+  pedestrian: ["", "scaleX(-0.65) skewY(-9deg)"],
   unknown: ["", ""],
 };
 
@@ -612,13 +658,94 @@ function swingSvg(norm, cfg) {
       ${SCENE_CLOSE}
       ${swingLeaf("l", tl, cfg)}
       ${swingLeaf("r", tr, cfg)}
+      ${norm === "pedestrian" ? gateRunner(97, 32, 1.55) : ""}
+      ${norm === "closed" ? GATE_KEY : ""}
+      ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
+    </svg>`;
+}
+
+// Door / wicket: a classic house entrance door -- solid narrow panel with two
+// inset moldings and a knob, in a jamb-and-lintel frame. Display-only (no
+// command buttons); the open pose folds the leaf back, the opening stays in
+// the card background color (JD-approved v3).
+const DOOR_POSE = {
+  closed: "", unknown: "",
+  open: "scaleX(-0.72) skewY(10deg)",
+  pedestrian: "scaleX(-0.72) skewY(10deg)",
+  opening: "scaleX(0.4) skewY(8deg)",
+  closing: "scaleX(0.4) skewY(8deg)",
+  moving: "scaleX(0.4) skewY(8deg)",
+};
+
+function doorSvg(norm, cfg) {
+  const panel = '<rect x="54" y="11" width="32" height="46" rx="1.5"/>';
+  const details = `
+      <g class="door-detail">
+        <rect x="59" y="17" width="22" height="15" rx="1.5"/>
+        <rect x="59" y="37" width="22" height="15" rx="1.5"/>
+      </g>
+      <circle cx="81.5" cy="34" r="2.3" class="door-knob"/>`;
+  const pose = DOOR_POSE[norm] || "";
+  return `
+    <svg viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <line x1="30" y1="58" x2="110" y2="58" class="gate-ground"/>
+      <g class="gate-post-g">
+        <rect x="48" y="9" width="5" height="49" rx="2"/>
+        <rect x="87" y="9" width="5" height="49" rx="2"/>
+        <rect x="46" y="4" width="48" height="6" rx="2"/>
+      </g>
+      <g class="door-leaf" style="transform:${pose || "none"}">
+        <g class="leaf-line">${panel}</g>
+        <g class="leaf-fill">${panel}</g>
+        ${details}
+      </g>
+      ${norm === "closed" ? GATE_KEY : ""}
+      ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
+    </svg>`;
+}
+
+// Roller garage door: rounded box on top, side guides, ribbed horizontal
+// slats and a finishing bar with a handle. Closed shows 5 slats, moving 2
+// with a direction arrow, open just the bar under the box (JD-approved v2).
+function garageSvg(norm, cfg) {
+  const closedLike = norm === "closed" || norm === "unknown";
+  const n = closedLike ? 5 : (norm === "opening" || norm === "closing" || norm === "moving" ? 2 : 0);
+  const barY = 19 + n * 6.6;
+  let curtain = "";
+  let ribs = "";
+  for (let i = 0; i < n; i++) {
+    const y = 19 + i * 6.6;
+    curtain += `<rect class="slat" x="19" y="${y}" width="102" height="5" rx="1.6"/>`;
+    ribs += `<line class="garage-rib" x1="19" y1="${y + 2.5}" x2="121" y2="${y + 2.5}"/>`;
+  }
+  const shapes = `
+    <rect x="12" y="5" width="116" height="12" rx="4"/>
+    <rect x="13" y="17" width="4" height="41" rx="2"/>
+    <rect x="123" y="17" width="4" height="41" rx="2"/>
+    ${curtain}
+    <rect x="19" y="${barY}" width="102" height="4" rx="2"/>
+    <rect x="63" y="${barY + 3.2}" width="14" height="2.6" rx="1.3"/>`;
+  const arrow =
+    norm === "opening" ? '<path class="garage-arrow" d="M70 52 L70 42 M65.5 46.5 L70 42 L74.5 46.5"/>' :
+    norm === "closing" ? '<path class="garage-arrow" d="M70 42 L70 52 M65.5 47.5 L70 52 L74.5 47.5"/>' :
+    norm === "moving" ? '<path class="garage-arrow" d="M70 41 L70 53 M66 44.5 L70 41 L74 44.5 M66 49.5 L70 53 L74 49.5"/>' : "";
+  return `
+    <svg viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <line x1="2" y1="58" x2="138" y2="58" class="gate-ground"/>
+      <g class="leaf-line">${shapes}</g>
+      <g class="leaf-fill">${shapes}</g>
+      ${ribs}
+      ${arrow}
       ${norm === "closed" ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
     </svg>`;
 }
 
 function gateSvg(norm, cfg) {
-  return cfg.gate_type === "swing" ? swingSvg(norm, cfg) : slidingSvg(norm, cfg);
+  if (cfg.gate_type === "swing") return swingSvg(norm, cfg);
+  if (cfg.gate_type === "door") return doorSvg(norm, cfg);
+  if (cfg.gate_type === "garage") return garageSvg(norm, cfg);
+  return slidingSvg(norm, cfg);
 }
 
 // ---------------------------------------------------------------------------
@@ -637,7 +764,7 @@ class GateCard extends HTMLElement {
   }
 
   setConfig(config) {
-    if (!config || (!config.entity && !config.open_entity && !config.close_entity)) {
+    if (!config || (!config.entity && !config.open_entity && !config.close_entity && !config.state_entity)) {
       throw new Error("ha-gate-card: 'entity' (cover) is required (or open_entity/close_entity overrides)");
     }
     this._config = config;
@@ -729,14 +856,14 @@ class GateCard extends HTMLElement {
     const actions = actionsFor(norm, cfg);
     const dirClass = cfg.slide_direction === "right" ? " dir-r" : " dir-l";
 
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction]);
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity]);
     if (signature === this._signature) return;
     this._signature = signature;
 
     const buttons = actions
       .map((a) => {
         const pending = this._pending === a;
-        const icon = a === "open" ? "mdi:gate-open" : a === "close" ? "mdi:gate" : "mdi:stop";
+        const icon = a === "open" ? "mdi:gate-open" : a === "close" ? "mdi:gate" : a === "pedestrian" ? "mdi:walk" : "mdi:stop";
         const label = pending ? t(hass, "confirm_tap") : t(hass, a + "_btn");
         return `<button data-action="${a}" class="${pending ? "pending" : ""}">
           <ha-icon icon="${pending ? "mdi:check-bold" : icon}"></ha-icon><span>${label}</span>
@@ -776,6 +903,19 @@ ha-card.compact { flex-direction:row; align-items:center; gap:16px; }
 .gate-wheel line { stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.6; }
 .moving .gate-wheel { animation:wheel-spin 1.1s linear infinite; }
 @keyframes wheel-spin { to { transform:rotate(360deg); } }
+.door-leaf { transform-box:view-box; transform-origin:54px 34px; transition:transform .9s ease; }
+.moving .door-leaf { animation:door-swing 1.8s ease-in-out infinite alternate; }
+@keyframes door-swing { from { transform:scaleX(.55) skewY(6deg); } to { transform:scaleX(.15) skewY(10deg); } }
+.door-detail rect { fill:none; stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.8; }
+.door-knob { fill:var(--ha-card-background, var(--card-background-color, #fff)); }
+.garage-rib { stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.4; }
+.garage-arrow { fill:none; stroke:var(--gate-color); stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+.moving .garage-arrow { animation:garage-bob 1.2s ease-in-out infinite alternate; }
+@keyframes garage-bob { to { transform:translateY(-3px); } }
+.gate-runner-halo { fill:none; stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:6.5; stroke-linecap:round; stroke-linejoin:round; }
+.gate-runner-halo circle { fill:var(--ha-card-background, var(--card-background-color, #fff)); }
+.gate-runner { fill:none; stroke:var(--gate-color); stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+.gate-runner circle { fill:var(--gate-color); }
 .gate-post-g { fill:var(--secondary-text-color); opacity:.75; }
 .gate-ground { stroke:var(--secondary-text-color); stroke-width:2; stroke-linecap:round; opacity:.5; }
 .gate-key-halo { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:3; stroke-linejoin:round; }
@@ -830,6 +970,7 @@ const EDITOR_OVERRIDES = [
   { field: "open_entity", labelKey: "open_entity" },
   { field: "close_entity", labelKey: "close_entity" },
   { field: "stop_entity", labelKey: "stop_entity" },
+  { field: "pedestrian_entity", labelKey: "pedestrian_entity" },
 ];
 const OVERRIDE_DOMAINS = ["button", "input_button", "script", "switch", "input_boolean"];
 
@@ -902,10 +1043,12 @@ details .form { padding-top:10px; }
         <div class="row">
           <label>${t(hass, "gate_type")}</label>
           <select data-field="gate_type">
-            <option value="sliding" ${cfg.gate_type !== "swing" ? "selected" : ""}>${t(hass, "type_sliding")}</option>
-            <option value="swing" ${cfg.gate_type === "swing" ? "selected" : ""}>${t(hass, "type_swing")}</option>
+            ${[["sliding", "type_sliding"], ["swing", "type_swing"], ["door", "type_door"], ["garage", "type_garage"]]
+              .map(([v, k]) => `<option value="${v}" ${(cfg.gate_type || "sliding") === v ? "selected" : ""}>${t(hass, k)}</option>`)
+              .join("")}
           </select>
         </div>
+        ${["door", "garage"].includes(cfg.gate_type) ? "" : `
         <div class="row">
           <label>${t(hass, "gate_style")}</label>
           <select data-field="gate_style">
@@ -915,14 +1058,15 @@ details .form { padding-top:10px; }
               .map(([v, k]) => `<option value="${v}" ${normStyle(cfg, cfg.gate_type === "swing" ? "swing" : "sliding") === v ? "selected" : ""}>${t(hass, k)}</option>`)
               .join("")}
           </select>
-        </div>
+        </div>`}
+        ${(cfg.gate_type || "sliding") === "sliding" ? `
         <div class="row">
           <label>${t(hass, "slide_direction")}</label>
           <select data-field="slide_direction">
             <option value="left" ${cfg.slide_direction !== "right" ? "selected" : ""}>${t(hass, "dir_left")}</option>
             <option value="right" ${cfg.slide_direction === "right" ? "selected" : ""}>${t(hass, "dir_right")}</option>
           </select>
-        </div>
+        </div>` : ""}
         <div class="row">
           <label>${t(hass, "gate_color")}</label>
           <select data-field="gate_color">
@@ -947,7 +1091,9 @@ details .form { padding-top:10px; }
         <details ${EDITOR_OVERRIDES.some((o) => cfg[o.field]) ? "open" : ""}>
           <summary>${t(hass, "section_advanced")}</summary>
           <div class="form">
-            ${EDITOR_OVERRIDES.map((o) => `<div class="row" data-picker="${o.field}"></div>`).join("")}
+            ${EDITOR_OVERRIDES
+              .filter((o) => o.field !== "pedestrian_entity" || !["door", "garage"].includes(cfg.gate_type))
+              .map((o) => `<div class="row" data-picker="${o.field}"></div>`).join("")}
           </div>
         </details>
       </div>`;
@@ -956,20 +1102,22 @@ details .form { padding-top:10px; }
       this._mountPicker(this._root.querySelector(`[data-picker="${field}"]`), field, domains);
     }
     for (const { field } of EDITOR_OVERRIDES) {
-      this._mountPicker(this._root.querySelector(`[data-picker="${field}"]`), field, OVERRIDE_DOMAINS);
+      const slot = this._root.querySelector(`[data-picker="${field}"]`);
+      if (slot) this._mountPicker(slot, field, OVERRIDE_DOMAINS);
     }
 
     this._root.querySelector('select[data-field="gate_type"]').addEventListener("change", (ev) => {
       this._config = { ...this._config };
       // sliding is the default -- only store the key when it differs
-      if (ev.target.value === "swing") this._config.gate_type = "swing";
-      else delete this._config.gate_type;
+      if (ev.target.value === "sliding") delete this._config.gate_type;
+      else this._config.gate_type = ev.target.value;
       this._emit();
-      // rebuild so the style labels match the selected type
+      // rebuild so the style rows match the selected type
       this._built = false;
       this._maybeBuild();
     });
-    this._root.querySelector('select[data-field="gate_style"]').addEventListener("change", (ev) => {
+    const styleSel = this._root.querySelector('select[data-field="gate_style"]');
+    if (styleSel) styleSel.addEventListener("change", (ev) => {
       this._config = { ...this._config };
       // the per-type default -- only store the key when it differs
       const defStyle = this._config.gate_type === "swing" ? "bell" : "slats";
@@ -977,7 +1125,8 @@ details .form { padding-top:10px; }
       else this._config.gate_style = ev.target.value;
       this._emit();
     });
-    this._root.querySelector('select[data-field="slide_direction"]').addEventListener("change", (ev) => {
+    const dirSel = this._root.querySelector('select[data-field="slide_direction"]');
+    if (dirSel) dirSel.addEventListener("change", (ev) => {
       this._config = { ...this._config };
       // left is the default -- only store the key when it differs
       if (ev.target.value === "right") this._config.slide_direction = "right";
