@@ -14,7 +14,7 @@ Une card Lovelace Home Assistant pour portails — état réel consolidé, coule
 
 Conçue pour le cas réel très courant où le canal de *commande* et le canal d'*état* sont deux choses différentes : le portail est piloté par impulsion RF (AirSend, RFXCOM, relais Shelly, contact sec…) exposée en `cover`, tandis que la position **fiable** vient de capteurs ouvert/fermé séparés, consolidés dans un `input_select` ou un template sensor. La card affiche l'état consolidé et envoie les commandes au cover — sans deviner.
 
-Interface multilingue (anglais, français, allemand, espagnol, italien, néerlandais, portugais, suédois, norvégien, danois, polonais — détectée automatiquement depuis Home Assistant).
+Interface multilingue (anglais, français, allemand, espagnol, italien, néerlandais, portugais, suédois, norvégien, danois, polonais, russe — détectée automatiquement depuis Home Assistant).
 
 > Statut : préversion. Retours et issues bienvenus.
 > 🇬🇧 [Read in English](README.md)

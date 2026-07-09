@@ -14,7 +14,7 @@ A Home Assistant Lovelace card for driveway gates and portals — real consolida
 
 Designed for the common real-world setup where the *command* channel and the *state* channel are different things: the gate is driven by an RF impulse (AirSend, RFXCOM, Shelly relay, dry contact…) exposed as a `cover`, while the **reliable** position comes from separate open/closed sensors consolidated into an `input_select` or template sensor. The card displays the consolidated state and sends commands to the cover — no guessing.
 
-Multilingual UI (English, French, German, Spanish, Italian, Dutch, Portuguese, Swedish, Norwegian, Danish, Polish — auto-detected from Home Assistant).
+Multilingual UI (English, French, German, Spanish, Italian, Dutch, Portuguese, Swedish, Norwegian, Danish, Polish, Russian — auto-detected from Home Assistant).
 
 > Status: early preview. Feedback and issues welcome.
 > 🇫🇷 [Lire en français](README.fr.md)
