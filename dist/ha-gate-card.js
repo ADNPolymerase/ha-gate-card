@@ -1,4 +1,4 @@
-const CARD_VERSION = "0.9.0";
+const CARD_VERSION = "0.9.1";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -38,6 +38,7 @@ const T = {
     stop_entity: "Stop command entity",
     pedestrian_entity: "Pedestrian pass command entity",
     pedestrian_btn: "Pedestrian", type_door: "Door / wicket", type_garage: "Roller garage door",
+    show_key: "Show the key symbol when closed", show_runner: "Show the pedestrian pictogram",
   },
   fr: {
     closed: "Ferm\u00e9", open: "Ouvert",
@@ -64,6 +65,7 @@ const T = {
     stop_entity: "Entit\u00e9 commande Stop",
     pedestrian_entity: "Entit\u00e9 commande Pi\u00e9ton",
     pedestrian_btn: "Pi\u00e9ton", type_door: "Portillon / porte", type_garage: "Porte de garage roulante",
+    show_key: "Afficher la cl\u00e9 quand c'est ferm\u00e9", show_runner: "Afficher le pictogramme pi\u00e9ton",
   },
   ru: {
     closed: "\u0417\u0430\u043a\u0440\u044b\u0442\u043e", open: "\u041e\u0442\u043a\u0440\u044b\u0442\u043e", opening: "\u041e\u0442\u043a\u0440\u044b\u0432\u0430\u0435\u0442\u0441\u044f\u2026", closing: "\u0417\u0430\u043a\u0440\u044b\u0432\u0430\u0435\u0442\u0441\u044f\u2026",
@@ -89,6 +91,7 @@ const T = {
     stop_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u0421\u0442\u043e\u043f",
     pedestrian_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u041f\u0435\u0448\u0435\u0445\u043e\u0434",
     pedestrian_btn: "\u041f\u0435\u0448\u0435\u0445\u043e\u0434", type_door: "\u0414\u0432\u0435\u0440\u044c / \u043a\u0430\u043b\u0438\u0442\u043a\u0430", type_garage: "\u0420\u0443\u043b\u043e\u043d\u043d\u044b\u0435 \u0433\u0430\u0440\u0430\u0436\u043d\u044b\u0435 \u0432\u043e\u0440\u043e\u0442\u0430",
+    show_key: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043a\u043b\u044e\u0447, \u043a\u043e\u0433\u0434\u0430 \u0437\u0430\u043a\u0440\u044b\u0442\u043e", show_runner: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0438\u043a\u0442\u043e\u0433\u0440\u0430\u043c\u043c\u0443 \u043f\u0435\u0448\u0435\u0445\u043e\u0434\u0430",
   },
   de: {
     closed: "Geschlossen", open: "Offen", opening: "\u00d6ffnet\u2026", closing: "Schlie\u00dft\u2026",
@@ -114,6 +117,7 @@ const T = {
     stop_entity: "Entit\u00e4t Befehl Stopp",
     pedestrian_entity: "Entit\u00e4t Befehl Fu\u00dfg\u00e4nger",
     pedestrian_btn: "Fu\u00dfg\u00e4nger", type_door: "T\u00fcr / Pforte", type_garage: "Rolltor (Garage)",
+    show_key: "Schl\u00fcsselsymbol anzeigen, wenn geschlossen", show_runner: "Fu\u00dfg\u00e4nger-Piktogramm anzeigen",
   },
   es: {
     closed: "Cerrado", open: "Abierto", opening: "Abriendo\u2026", closing: "Cerrando\u2026",
@@ -139,6 +143,7 @@ const T = {
     stop_entity: "Entidad comando Parar",
     pedestrian_entity: "Entidad comando Peatonal",
     pedestrian_btn: "Peatonal", type_door: "Puerta peatonal", type_garage: "Puerta de garaje enrollable",
+    show_key: "Mostrar la llave cuando est\u00e1 cerrado", show_runner: "Mostrar el pictograma peatonal",
   },
   it: {
     closed: "Chiuso", open: "Aperto", opening: "Apertura\u2026", closing: "Chiusura\u2026",
@@ -164,6 +169,7 @@ const T = {
     stop_entity: "Entit\u00e0 comando Stop",
     pedestrian_entity: "Entit\u00e0 comando Pedonale",
     pedestrian_btn: "Pedonale", type_door: "Porta pedonale", type_garage: "Serranda del garage",
+    show_key: "Mostra la chiave quando \u00e8 chiuso", show_runner: "Mostra il pittogramma pedonale",
   },
   nl: {
     closed: "Gesloten", open: "Open", opening: "Opent\u2026", closing: "Sluit\u2026",
@@ -189,6 +195,7 @@ const T = {
     stop_entity: "Entiteit commando Stop",
     pedestrian_entity: "Entiteit commando Voetganger",
     pedestrian_btn: "Voetganger", type_door: "Deur / poortje", type_garage: "Garageroldeur",
+    show_key: "Sleutel tonen wanneer gesloten", show_runner: "Voetgangerspictogram tonen",
   },
   pt: {
     closed: "Fechado", open: "Aberto", opening: "A abrir\u2026", closing: "A fechar\u2026",
@@ -214,6 +221,7 @@ const T = {
     stop_entity: "Entidade comando Parar",
     pedestrian_entity: "Entidade comando Pedonal",
     pedestrian_btn: "Pedonal", type_door: "Porta pedonal", type_garage: "Port\u00e3o de garagem de enrolar",
+    show_key: "Mostrar a chave quando fechado", show_runner: "Mostrar o pictograma pedonal",
   },
   sv: {
     closed: "St\u00e4ngd", open: "\u00d6ppen", opening: "\u00d6ppnar\u2026", closing: "St\u00e4nger\u2026",
@@ -237,10 +245,9 @@ const T = {
     open_entity: "Entitet kommando \u00d6ppna",
     close_entity: "Entitet kommando St\u00e4ng",
     stop_entity: "Entitet kommando Stopp",
-    pedestrian_entity: "Entitet kommando Gang",
-    pedestrian_btn: "Gang", type_door: "D\u00f8r / gangport", type_garage: "Garasjeport (rulleport)",
     pedestrian_entity: "Entitet kommando G\u00e5ng",
     pedestrian_btn: "G\u00e5ng", type_door: "D\u00f6rr / g\u00e5nggrind", type_garage: "Garageport (rullport)",
+    show_key: "Visa nyckeln n\u00e4r st\u00e4ngd", show_runner: "Visa g\u00e5ngpiktogrammet",
   },
   no: {
     closed: "Lukket", open: "\u00c5pen", opening: "\u00c5pner\u2026", closing: "Lukker\u2026",
@@ -264,6 +271,9 @@ const T = {
     open_entity: "Entitet kommando \u00c5pne",
     close_entity: "Entitet kommando Lukk",
     stop_entity: "Entitet kommando Stopp",
+    pedestrian_entity: "Entitet kommando Gang",
+    pedestrian_btn: "Gang", type_door: "D\u00f8r / gangport", type_garage: "Garasjeport (rulleport)",
+    show_key: "Vis n\u00f8kkelen n\u00e5r lukket", show_runner: "Vis gangpiktogrammet",
   },
   da: {
     closed: "Lukket", open: "\u00c5ben", opening: "\u00c5bner\u2026", closing: "Lukker\u2026",
@@ -289,6 +299,7 @@ const T = {
     stop_entity: "Entitet kommando Stop",
     pedestrian_entity: "Entitet kommando Gang",
     pedestrian_btn: "Gang", type_door: "D\u00f8r / gangl\u00e5ge", type_garage: "Garageport (rulleport)",
+    show_key: "Vis n\u00f8glen n\u00e5r lukket", show_runner: "Vis gangpiktogrammet",
   },
   pl: {
     closed: "Zamkni\u0119ta", open: "Otwarta", opening: "Otwieranie\u2026", closing: "Zamykanie\u2026",
@@ -314,6 +325,7 @@ const T = {
     stop_entity: "Encja komendy Stop",
     pedestrian_entity: "Encja komendy Furtka",
     pedestrian_btn: "Furtka", type_door: "Drzwi / furtka", type_garage: "Brama gara\u017cowa rolowana",
+    show_key: "Poka\u017c klucz, gdy zamkni\u0119ta", show_runner: "Poka\u017c piktogram pieszego",
   },
 };
 
@@ -588,8 +600,8 @@ function slidingSvg(norm, cfg) {
         </g>
       </g>
       ${SCENE_CLOSE}
-      ${norm === "pedestrian" ? gateRunner(cfg.slide_direction === "right" ? 42 : 98, 34, 1.15) : ""}
-      ${norm === "closed" ? GATE_KEY : ""}
+      ${norm === "pedestrian" && cfg.show_runner !== false ? gateRunner(cfg.slide_direction === "right" ? 42 : 98, 34, 1.15) : ""}
+      ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
     </svg>`;
 }
@@ -683,8 +695,8 @@ function swingSvg(norm, cfg) {
       ${SCENE_CLOSE}
       ${swingLeaf("l", tl, cfg)}
       ${swingLeaf("r", tr, cfg)}
-      ${norm === "pedestrian" ? gateRunner(97, 32, 1.55) : ""}
-      ${norm === "closed" ? GATE_KEY : ""}
+      ${norm === "pedestrian" && cfg.show_runner !== false ? gateRunner(97, 32, 1.55) : ""}
+      ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
     </svg>`;
 }
@@ -724,7 +736,7 @@ function doorSvg(norm, cfg) {
         <g class="leaf-fill">${panel}</g>
         ${details}
       </g>
-      ${norm === "closed" ? GATE_KEY : ""}
+      ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
     </svg>`;
 }
@@ -761,7 +773,7 @@ function garageSvg(norm, cfg) {
       <g class="leaf-fill">${shapes}</g>
       ${ribs}
       ${arrow}
-      ${norm === "closed" ? GATE_KEY : ""}
+      ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
     </svg>`;
 }
@@ -881,7 +893,7 @@ class GateCard extends HTMLElement {
     const actions = actionsFor(norm, cfg);
     const dirClass = cfg.slide_direction === "right" ? " dir-r" : " dir-l";
 
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity]);
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, cfg.show_key, cfg.show_runner]);
     if (signature === this._signature) return;
     this._signature = signature;
 
@@ -1113,6 +1125,13 @@ details .form { padding-top:10px; }
         <div class="row row-inline">
           <label><input type="checkbox" data-field="show_stop" ${cfg.show_stop ? "checked" : ""}/> ${t(hass, "show_stop")}</label>
         </div>
+        <div class="row row-inline">
+          <label><input type="checkbox" data-field="show_key" ${cfg.show_key !== false ? "checked" : ""}/> ${t(hass, "show_key")}</label>
+        </div>
+        ${["door", "garage"].includes(cfg.gate_type) ? "" : `
+        <div class="row row-inline">
+          <label><input type="checkbox" data-field="show_runner" ${cfg.show_runner !== false ? "checked" : ""}/> ${t(hass, "show_runner")}</label>
+        </div>`}
         <details ${EDITOR_OVERRIDES.some((o) => cfg[o.field]) ? "open" : ""}>
           <summary>${t(hass, "section_advanced")}</summary>
           <div class="form">
@@ -1175,10 +1194,10 @@ details .form { padding-top:10px; }
       cb.addEventListener("change", () => {
         const field = cb.dataset.field;
         this._config = { ...this._config };
-        if (field === "confirm") {
-          // confirm defaults to true -- only store it when disabled
-          if (cb.checked) delete this._config.confirm;
-          else this._config.confirm = false;
+        if (["confirm", "show_key", "show_runner"].includes(field)) {
+          // defaults to true -- only store the key when disabled
+          if (cb.checked) delete this._config[field];
+          else this._config[field] = false;
         } else if (cb.checked) {
           this._config[field] = true;
         } else {
