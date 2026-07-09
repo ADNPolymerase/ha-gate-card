@@ -10,7 +10,7 @@
 <a href="https://buymeacoffee.com/adnpolymerase" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" height="60"></a>
 <a href="https://adnpolymerase.github.io/HA/" target="_blank"><img src="https://raw.githubusercontent.com/ADNPolymerase/HA/main/assets/site-button.svg" alt="Lien vers mon github.io pour mes autres projets" height="60"></a>
 
-Une card Lovelace Home Assistant pour portails — état réel consolidé, couleurs par état, illustration animée (coulissant ou battants), et commandes contextuelles sécurisées.
+Une card Lovelace Home Assistant pour portails — état réel consolidé, couleurs par état, illustration animée (coulissant, battants, portillon ou porte de garage roulante), mode passage piéton, et commandes contextuelles sécurisées.
 
 Conçue pour le cas réel très courant où le canal de *commande* et le canal d'*état* sont deux choses différentes : le portail est piloté par impulsion RF (AirSend, RFXCOM, relais Shelly, contact sec…) exposée en `cover`, tandis que la position **fiable** vient de capteurs ouvert/fermé séparés, consolidés dans un `input_select` ou un template sensor. La card affiche l'état consolidé et envoie les commandes au cover — sans deviner.
 
@@ -24,9 +24,10 @@ Interface multilingue (anglais, français, allemand, espagnol, italien, néerlan
 ## Fonctionnalités
 
 - **Deux entités** : les commandes vont au `cover`, l'état affiché vient de n'importe quelle `state_entity` (`input_select`, `sensor`, template…) — ou du cover lui-même si vous n'avez pas de capteurs séparés.
-- **Normalisation d'état** : convertit ce que rapporte votre entité (`ferme`, `Fermé`, `closed`, `opening`, `ouverture`, …) vers un vocabulaire commun fermé / ouvert / ouverture / fermeture / inconnu, insensible aux accents, avec un `state_map` explicite en option.
+- **Normalisation d'état** : convertit ce que rapporte votre entité (`ferme`, `Fermé`, `closed`, `opening`, `ouverture`, `En mouvement`, …) vers un vocabulaire commun fermé / ouvert / ouverture / fermeture / en mouvement / piéton / inconnu, insensible aux accents, avec un `state_map` explicite en option. « En mouvement » couvre les états uniques sans direction remontés par une caméra ou un capteur IA.
 - **Couleurs par état** : fermé = vert, ouvert = orange, mouvement = bleu, inconnu = rouge (via `--success-color` / `--warning-color` / `--info-color` / `--error-color` de votre thème). Ou choisissez une couleur fixe classique (`gate_color`) et seul le texte d'état portera la couleur.
-- **Deux types de portail, deux styles chacun** : `gate_type: sliding` (un vantail coulissant sur rail, roulettes qui tournent pendant le mouvement) ou `gate_type: swing` (deux vantaux pivotant sur leurs gonds), chacun avec un `gate_style` : moderne (lames horizontales alu / chapeau de gendarme) ou classique (barreaudé / concave). Le coulissant s'ouvre vers la gauche ou la droite (`slide_direction`). L'illustration animée suit l'état — fermé, ouvert, ou en mouvement. `compact: true` la remplace par une simple icône colorée.
+- **Quatre types** : `gate_type: sliding` (un vantail coulissant sur rail, roulettes qui tournent pendant le mouvement), `swing` (deux vantaux pivotant sur leurs gonds), `door` (portillon / porte d'entrée classique — affichage d'état seul, sans boutons) et `garage` (porte de garage roulante qui s'enroule dans son coffre). Coulissant et battants offrent cinq `gate_style` inspirés de vrais portails, et le coulissant s'ouvre vers la gauche ou la droite (`slide_direction`). L'illustration animée suit l'état — fermé, ouvert, ou en mouvement. `compact: true` la remplace par une simple icône colorée.
+- **Mode passage piéton** (coulissant et battants) : pointez `pedestrian_entity` vers le bouton/script qui ouvre partiellement votre portail, et un bouton *Piéton* apparaît quand le portail est fermé. En mode piéton, l'illustration ouvre un seul vantail (ou la moitié du coulissant) avec un pictogramme de piéton dans l'ouverture, et seul *Fermer* est proposé.
 - **Boutons contextuels sécurisés** : seules les commandes pertinentes sont affichées — *Ouvrir* si fermé, *Fermer* si ouvert, les deux si inconnu, et **rien pendant le mouvement** (sur un portail à impulsion, une impulsion supplémentaire stoppe ou inverse le vantail). `show_stop: true` active un bouton Stop pendant le mouvement pour les moteurs disposant d'un vrai canal stop.
 - **Confirmation intégrée** : un appui → le bouton demande confirmation, un second appui sous 4 s → la commande part. Désactivable avec `confirm: false`.
 - **Commandes personnalisées** : pointez `open_entity` / `close_entity` / `stop_entity` vers des boutons, scripts ou switchs si votre portail n'est pas un `cover`.
@@ -47,9 +48,9 @@ Cette card n'est pas encore dans le store HACS par défaut. Ajoutez-la comme dé
 |---|---|
 | `entity` | **Obligatoire.** Le `cover` qui reçoit les commandes ouvrir/fermer/stop. (Optionnel si vous définissez `open_entity`/`close_entity`.) |
 | `state_entity` | Entité portant l'état consolidé fiable (tout domaine). Par défaut : `entity`. |
-| `state_map` | Map optionnelle chaîne d'état brute → `closed`\|`open`\|`opening`\|`closing`\|`unknown`, pour les formulations non détectées automatiquement. |
-| `gate_type` | `sliding` (défaut) ou `swing` — choisit l'illustration. |
-| `gate_style` | Style du vantail. Coulissant : `slats` (défaut), `bars`, `semi`, `solid`. Battants : `bell` (défaut), `bars`, `slats`, `semi`, `solid`. Designs réels : lames horizontales, barreaudé / concave, semi-ajouré (bas plein), plein à motif laser, chapeau de gendarme. Les valeurs `modern`/`classic` de la v0.7 restent des alias valides. |
+| `state_map` | Map optionnelle chaîne d'état brute → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unknown`, pour les formulations non détectées automatiquement. |
+| `gate_type` | `sliding` (défaut), `swing`, `door` (portillon / porte, affichage seul) ou `garage` (porte roulante) — choisit l'illustration. |
+| `gate_style` | Style du vantail (coulissant et battants uniquement). Coulissant : `slats` (défaut), `bars`, `semi`, `solid`. Battants : `bell` (défaut), `bars`, `slats`, `semi`, `solid`. Designs réels : lames horizontales, barreaudé / concave, semi-ajouré (bas plein), plein à motif laser, chapeau de gendarme. Les valeurs `modern`/`classic` de la v0.7 restent des alias valides. |
 | `slide_direction` | `left` (défaut) ou `right` — sens d'ouverture du coulissant. |
 | `gate_color` | `state` (défaut : le portail suit la couleur de l'état) ou une couleur fixe classique : `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` (inspirées RAL), ou toute couleur CSS. En couleur fixe, seul le texte d'état reste coloré. |
 | `name` | Titre de la card. Par défaut : le nom convivial de l'entité d'état. |
@@ -57,6 +58,7 @@ Cette card n'est pas encore dans le store HACS par défaut. Ajoutez-la comme dé
 | `confirm` | Confirmation par double appui avant toute commande. `true` par défaut ; `false` pour désactiver. |
 | `show_stop` | Affiche un bouton *Stop* pendant le mouvement. `false` par défaut — à laisser désactivé pour les portails à impulsion (RF). |
 | `open_entity` / `close_entity` / `stop_entity` | Entités bouton/script/switch optionnelles utilisées à la place des services du cover. |
+| `pedestrian_entity` | Entité bouton/script/switch optionnelle déclenchant l'ouverture partielle « passage piéton » (coulissant et battants uniquement). La définir active le bouton *Piéton* (affiché uniquement portail fermé). |
 
 ### Exemple
 
@@ -82,7 +84,7 @@ state_map:
 
 ## Feuille de route
 
-- `gate_type: door` — une variante porte simple (portillon, porte de service) partageant la même logique commande/état.
+- Des idées ? Ouvrez une issue !
 
 ## Licence
 
