@@ -10,11 +10,9 @@
 <a href="https://buymeacoffee.com/adnpolymerase" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" height="60"></a>
 <a href="https://adnpolymerase.github.io/HA/" target="_blank"><img src="https://raw.githubusercontent.com/ADNPolymerase/HA/main/assets/site-button.svg" alt="Link to my github.io for my other projects" height="60"></a>
 
-A Home Assistant Lovelace card for driveway gates and portals — real consolidated state, per-state colors, an animated illustration (sliding gate, swing gate, entrance door or roller garage door), pedestrian pass mode, and safe contextual commands.
+A Lovelace card for gates — real consolidated state, per-state colors, animated illustration, pedestrian pass mode and impulse-safe commands.
 
-Designed for the common real-world setup where the *command* channel and the *state* channel are different things: the gate is driven by an RF impulse (AirSend, RFXCOM, Shelly relay, dry contact…) exposed as a `cover`, while the **reliable** position comes from separate open/closed sensors consolidated into an `input_select` or template sensor. The card displays the consolidated state and sends commands to the cover — no guessing.
-
-Multilingual UI (English, French, German, Spanish, Italian, Dutch, Portuguese, Swedish, Norwegian, Danish, Polish, Russian — auto-detected from Home Assistant).
+Built for the common setup where *command* and *state* are two different channels: the gate is driven by an RF impulse (AirSend, RFXCOM, Shelly relay, dry contact…) exposed as a `cover`, while the **reliable** position comes from separate open/closed sensors. The card shows the consolidated state and sends commands to the cover — no guessing.
 
 > Status: early preview. Feedback and issues welcome.
 > 🇫🇷 [Lire en français](README.fr.md)
@@ -23,42 +21,39 @@ Multilingual UI (English, French, German, Spanish, Italian, Dutch, Portuguese, S
 
 ## Features
 
-- **Two-entity design**: commands go to the `cover`, the displayed state comes from any `state_entity` (`input_select`, `sensor`, template…) — or from the cover itself if you don't have separate sensors.
-- **State normalization**: maps whatever your state entity reports (`ferme`, `Fermé`, `closed`, `opening`, `ouverture`, `En mouvement`, …) to a common closed / open / opening / closing / moving / pedestrian / unknown vocabulary, accent-insensitive, with an optional explicit `state_map` override. `moving` covers single "in motion" states from camera or AI sensors that don't tell the direction.
-- **Per-state colors**: closed = green, open = orange, moving = blue, unknown = red (uses your theme's `--success-color` / `--warning-color` / `--info-color` / `--error-color`). Or pick a fixed classic gate color (`gate_color`) and let only the state text carry the color.
-- **Four gate types**: `gate_type: sliding` (single leaf on a rail, wheels spinning while moving), `swing` (two leaves pivoting on their hinges), `door` (a classic entrance door / wicket — display-only, no command buttons) and `garage` (roller garage door winding up into its box). Sliding and swing offer five real-world `gate_style` designs each, and sliding gates open to the left or to the right (`slide_direction`). The animated illustration follows the state — closed, open, or gently moving. `compact: true` swaps it for a simple colored icon.
-- **Pedestrian pass mode** (sliding and swing gates): point `pedestrian_entity` at the button/script that partially opens your gate, and a *Pedestrian* button appears whenever the gate is closed. In pedestrian mode the illustration opens one swing leaf (or half the sliding leaf) with a running-person pictogram in the gap, and only *Close* is offered.
-- **Safe contextual buttons**: only the commands that make sense are shown — *Open* when closed, *Close* when open, both when unknown, and **nothing while moving** (on impulse-driven gates an extra impulse stops or reverses the leaf). `show_stop: true` opts into a Stop button while moving for motors with a real stop channel.
-- **Built-in confirmation**: tap once → the button asks to confirm, tap again within 4 s → the command fires. Disable with `confirm: false`.
-- **Command overrides**: point `open_entity` / `close_entity` / `stop_entity` at buttons, scripts or switches if your gate isn't a `cover` at all.
-- **Visual editor** with entity pickers for every field.
+- **Two entities**: commands go to the `cover`, the displayed state comes from any `state_entity` (`input_select`, sensor, template…).
+- **State normalization**: `Fermé`, `closed`, `ouverture`, `En mouvement`… are auto-detected (accent-insensitive, 12 languages) and mapped to closed / open / opening / closing / moving / pedestrian / unknown. `state_map` covers anything else.
+- **Per-state colors** from your theme (closed = green, open = orange, moving = blue, unknown = red), or a fixed `gate_color`.
+- **Four animated types**: `sliding`, `swing`, `door` (wicket, display-only) and `garage` (roller door) — five `gate_style` designs each for sliding/swing. `compact: true` swaps the illustration for an icon.
+- **Pedestrian pass** (sliding/swing): set `pedestrian_entity` → a *Pedestrian* button while closed, one leaf opens with a pictogram, only *Close* is offered.
+- **Impulse-safe buttons**: only relevant commands are shown, **none while moving** (an extra impulse stops or reverses the leaf), optional two-tap confirmation and `show_stop`.
+- **Command overrides** (`open_entity` / `close_entity` / `stop_entity`) for gates that aren't covers, and a **visual editor** for every field.
 
 ## Installation (HACS)
 
-This card is not yet in the default HACS store. Add it as a custom repository:
+Not yet in the default HACS store — add it as a custom repository:
 
-1. HACS → the "⋮" menu (top right) → **Custom repositories**.
-2. Repository: `https://github.com/ADNPolymerase/ha-gate-card`, category: **Dashboard** (Lovelace plugin).
-3. Install **HA Gate Card**, then reload/clear cache if the resource doesn't pick up automatically.
-4. Add a card of type `custom:ha-gate-card` to a dashboard, either via YAML or the visual editor.
+1. HACS → "⋮" menu → **Custom repositories**.
+2. Repository: `https://github.com/ADNPolymerase/ha-gate-card`, category: **Dashboard**.
+3. Install **HA Gate Card**, then add a `custom:ha-gate-card` card (YAML or visual editor).
 
 ## Configuration
 
 | Option | Description |
 |---|---|
-| `entity` | **Required.** The `cover` receiving open/close/stop commands. (Optional if you set `open_entity`/`close_entity` instead.) |
+| `entity` | **Required.** The `cover` receiving commands. (Optional if you use overrides or `state_entity` only.) |
 | `state_entity` | Entity holding the reliable consolidated state (any domain). Defaults to `entity`. |
-| `state_map` | Optional map of raw state string → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unknown`, for wordings the auto-detection doesn't catch. |
-| `gate_type` | `sliding` (default), `swing`, `door` (wicket / entrance door, display-only) or `garage` (roller door) — picks the illustration. |
-| `gate_style` | Design of the leaf (sliding and swing only). Sliding: `slats` (default), `bars`, `semi`, `solid`. Swing: `bell` (default), `bars`, `slats`, `semi`, `solid`. Real-world designs: horizontal slats, vertical bars / concave, semi-open (solid lower panel), solid with laser-cut pattern, bell-top "chapeau de gendarme". `modern`/`classic` from v0.7 still work as aliases. |
-| `slide_direction` | `left` (default) or `right` — which way the sliding gate opens. |
-| `gate_color` | `state` (default: the gate follows the state color) or a fixed classic color: `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` (RAL-inspired), or any raw CSS color. With a fixed color only the state text stays state-colored. |
+| `state_map` | Optional map: raw state → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unknown`. |
+| `gate_type` | `sliding` (default), `swing`, `door` (display-only) or `garage`. |
+| `gate_style` | Leaf design (sliding/swing). Sliding: `slats` (default), `bars`, `semi`, `solid`. Swing: `bell` (default), `bars`, `slats`, `semi`, `solid`. |
+| `slide_direction` | `left` (default) or `right`. |
+| `gate_color` | `state` (default) or a fixed color: `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown`, or any CSS color. |
 | `name` | Card title. Defaults to the state entity's friendly name. |
-| `compact` | `true` to replace the illustration with a colored round icon. |
-| `confirm` | Two-tap confirmation before any command. Default `true`; set `false` to disable. |
-| `show_stop` | Show a *Stop* button while the gate is moving. Default `false` — leave it off for impulse-driven (RF) gates. |
-| `open_entity` / `close_entity` / `stop_entity` | Optional button/script/switch entities used instead of the cover services. |
-| `pedestrian_entity` | Optional button/script/switch triggering the partial "pedestrian pass" opening (sliding and swing gates only). Setting it enables the *Pedestrian* button (shown only while closed). |
+| `compact` | `true` for a colored icon instead of the illustration. |
+| `confirm` | Two-tap confirmation. Default `true`. |
+| `show_stop` | *Stop* button while moving. Default `false` — leave off for impulse (RF) gates. |
+| `open_entity` / `close_entity` / `stop_entity` | Button/script/switch used instead of the cover services. |
+| `pedestrian_entity` | Button/script/switch for the partial pedestrian opening (sliding/swing). Enables the *Pedestrian* button while closed. |
 
 ### Example
 
@@ -69,22 +64,6 @@ state_entity: input_select.portail_etat
 gate_type: swing
 name: Portail
 ```
-
-With an explicit state map:
-
-```yaml
-type: custom:ha-gate-card
-entity: cover.driveway_gate
-state_entity: sensor.gate_status
-state_map:
-  "Sesame open": open
-  "Sesame shut": closed
-  "Busy": opening
-```
-
-## Roadmap
-
-- Suggestions welcome — open an issue!
 
 ## License
 
