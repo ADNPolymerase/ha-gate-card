@@ -1,4 +1,4 @@
-const CARD_VERSION = "0.9.1";
+const CARD_VERSION = "0.9.2";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -412,6 +412,26 @@ const GATE_COLORS = {
   brown: { fill: "#59392f", line: "#59392f" },
 };
 
+const TYPE_ICONS = {
+  garage: {
+    closed: "mdi:garage", open: "mdi:garage-open",
+    opening: "mdi:garage-open", closing: "mdi:garage",
+    moving: "mdi:garage-open", pedestrian: "mdi:garage-open",
+    unknown: "mdi:garage-alert",
+  },
+  door: {
+    closed: "mdi:door-closed", open: "mdi:door-open",
+    opening: "mdi:door-open", closing: "mdi:door-closed",
+    moving: "mdi:door-open", pedestrian: "mdi:door-open",
+    unknown: "mdi:door",
+  },
+};
+
+function stateIcon(norm, cfg) {
+  const perType = TYPE_ICONS[cfg.gate_type];
+  return (perType && perType[norm]) || STATE_ICONS[norm];
+}
+
 const MOVING = ["opening", "closing", "moving"];
 
 // Which buttons make sense for each state. While the gate is moving no
@@ -420,8 +440,9 @@ const MOVING = ["opening", "closing", "moving"];
 // accidental tap mid-travel is exactly what we want to avoid. `show_stop`
 // opts back in for motors with a real, dedicated stop channel.
 function actionsFor(norm, cfg) {
-  // Doors (wickets) are display-only: JD-approved v0.9 behavior.
-  if (cfg.gate_type === "door") return [];
+  // Doors (wickets) are display-only unless command entities are
+  // configured (smart locks like Nuki make buttons legitimate there).
+  if (cfg.gate_type === "door" && !cfg.entity && !cfg.open_entity && !cfg.close_entity) return [];
   const stop = cfg.show_stop ? ["stop"] : [];
   // Pedestrian pass only exists on sliding and swing gates.
   const ped = cfg.pedestrian_entity && cfg.gate_type !== "garage";
@@ -900,7 +921,11 @@ class GateCard extends HTMLElement {
     const buttons = actions
       .map((a) => {
         const pending = this._pending === a;
-        const icon = a === "open" ? "mdi:gate-open" : a === "close" ? "mdi:gate" : a === "pedestrian" ? "mdi:walk" : "mdi:stop";
+        const type = cfg.gate_type;
+        const icon =
+          a === "open" ? (type === "garage" ? "mdi:garage-open" : type === "door" ? "mdi:door-open" : "mdi:gate-open")
+          : a === "close" ? (type === "garage" ? "mdi:garage" : type === "door" ? "mdi:door-closed" : "mdi:gate")
+          : a === "pedestrian" ? "mdi:walk" : "mdi:stop";
         const label = pending ? t(hass, "confirm_tap") : t(hass, a + "_btn");
         return `<button data-action="${a}" class="${pending ? "pending" : ""}">
           <ha-icon icon="${pending ? "mdi:check-bold" : icon}"></ha-icon><span>${label}</span>
@@ -977,7 +1002,7 @@ button ha-icon { --mdc-icon-size:18px; }
       </style>
       <ha-card class="${moving ? "moving" : ""}${cfg.compact ? " compact" : ""}${dirClass}">
         ${cfg.compact
-          ? `<div class="badge"><ha-icon icon="${STATE_ICONS[norm]}"></ha-icon></div>`
+          ? `<div class="badge"><ha-icon icon="${stateIcon(norm, cfg)}"></ha-icon></div>`
           : `<div class="illu">${gateSvg(norm, cfg)}</div>`}
         <div class="bottom">
           <div class="body">
