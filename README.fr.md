@@ -52,6 +52,7 @@ Pas encore dans le store HACS par défaut — ajoutez un dépôt personnalisé :
 | `compact` | `true` pour une icône colorée à la place de l'illustration. |
 | `confirm` | Confirmation par double appui. Défaut `true`. |
 | `show_stop` | Bouton *Stop* pendant le mouvement. Défaut `false` — à laisser désactivé pour les portails à impulsion (RF). |
+| `card_tap` | `true` rend toute la card cliquable quand une seule commande est disponible (grande zone tactile, pratique en voiture). Même confirmation double appui. Défaut `false`. |
 | `show_key` | Clé sur le portail fermé. Défaut `true`. |
 | `show_runner` | Pictogramme piéton en mode piéton. Défaut `true`. |
 | `open_entity` / `close_entity` / `stop_entity` | Bouton/script/switch utilisés à la place des services du cover. |

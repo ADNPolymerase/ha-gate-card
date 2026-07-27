@@ -52,6 +52,7 @@ Not yet in the default HACS store — add it as a custom repository:
 | `compact` | `true` for a colored icon instead of the illustration. |
 | `confirm` | Two-tap confirmation. Default `true`. |
 | `show_stop` | *Stop* button while moving. Default `false` — leave off for impulse (RF) gates. |
+| `card_tap` | `true` makes the whole card tappable when a single command is available (big touch target for car dashboards). Same two-tap confirmation. Default `false`. |
 | `show_key` | Key symbol on the closed gate. Default `true`. |
 | `show_runner` | Pedestrian pictogram in pedestrian mode. Default `true`. |
 | `open_entity` / `close_entity` / `stop_entity` | Button/script/switch used instead of the cover services. |
