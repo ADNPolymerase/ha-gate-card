@@ -1,4 +1,4 @@
-const CARD_VERSION = "0.9.2";
+const CARD_VERSION = "0.9.3";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -39,6 +39,7 @@ const T = {
     pedestrian_entity: "Pedestrian pass command entity",
     pedestrian_btn: "Pedestrian", type_door: "Door / wicket", type_garage: "Roller garage door",
     show_key: "Show the key symbol when closed", show_runner: "Show the pedestrian pictogram",
+    card_tap: "Tap anywhere on the card to run the single available command",
   },
   fr: {
     closed: "Ferm\u00e9", open: "Ouvert",
@@ -66,6 +67,7 @@ const T = {
     pedestrian_entity: "Entit\u00e9 commande Pi\u00e9ton",
     pedestrian_btn: "Pi\u00e9ton", type_door: "Portillon / porte", type_garage: "Porte de garage roulante",
     show_key: "Afficher la cl\u00e9 quand c'est ferm\u00e9", show_runner: "Afficher le pictogramme pi\u00e9ton",
+    card_tap: "Toute la carte d\u00e9clenche la commande unique disponible",
   },
   ru: {
     closed: "\u0417\u0430\u043a\u0440\u044b\u0442\u043e", open: "\u041e\u0442\u043a\u0440\u044b\u0442\u043e", opening: "\u041e\u0442\u043a\u0440\u044b\u0432\u0430\u0435\u0442\u0441\u044f\u2026", closing: "\u0417\u0430\u043a\u0440\u044b\u0432\u0430\u0435\u0442\u0441\u044f\u2026",
@@ -92,6 +94,7 @@ const T = {
     pedestrian_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u041f\u0435\u0448\u0435\u0445\u043e\u0434",
     pedestrian_btn: "\u041f\u0435\u0448\u0435\u0445\u043e\u0434", type_door: "\u0414\u0432\u0435\u0440\u044c / \u043a\u0430\u043b\u0438\u0442\u043a\u0430", type_garage: "\u0420\u0443\u043b\u043e\u043d\u043d\u044b\u0435 \u0433\u0430\u0440\u0430\u0436\u043d\u044b\u0435 \u0432\u043e\u0440\u043e\u0442\u0430",
     show_key: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043a\u043b\u044e\u0447, \u043a\u043e\u0433\u0434\u0430 \u0437\u0430\u043a\u0440\u044b\u0442\u043e", show_runner: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0438\u043a\u0442\u043e\u0433\u0440\u0430\u043c\u043c\u0443 \u043f\u0435\u0448\u0435\u0445\u043e\u0434\u0430",
+    card_tap: "\u041d\u0430\u0436\u0430\u0442\u0438\u0435 \u043d\u0430 \u043a\u0430\u0440\u0442\u043e\u0447\u043a\u0443 \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442 \u0435\u0434\u0438\u043d\u0441\u0442\u0432\u0435\u043d\u043d\u0443\u044e \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u0443\u044e \u043a\u043e\u043c\u0430\u043d\u0434\u0443",
   },
   de: {
     closed: "Geschlossen", open: "Offen", opening: "\u00d6ffnet\u2026", closing: "Schlie\u00dft\u2026",
@@ -118,6 +121,7 @@ const T = {
     pedestrian_entity: "Entit\u00e4t Befehl Fu\u00dfg\u00e4nger",
     pedestrian_btn: "Fu\u00dfg\u00e4nger", type_door: "T\u00fcr / Pforte", type_garage: "Rolltor (Garage)",
     show_key: "Schl\u00fcsselsymbol anzeigen, wenn geschlossen", show_runner: "Fu\u00dfg\u00e4nger-Piktogramm anzeigen",
+    card_tap: "Tippen auf die ganze Karte f\u00fchrt den einzigen verf\u00fcgbaren Befehl aus",
   },
   es: {
     closed: "Cerrado", open: "Abierto", opening: "Abriendo\u2026", closing: "Cerrando\u2026",
@@ -144,6 +148,7 @@ const T = {
     pedestrian_entity: "Entidad comando Peatonal",
     pedestrian_btn: "Peatonal", type_door: "Puerta peatonal", type_garage: "Puerta de garaje enrollable",
     show_key: "Mostrar la llave cuando est\u00e1 cerrado", show_runner: "Mostrar el pictograma peatonal",
+    card_tap: "Tocar la tarjeta ejecuta el \u00fanico comando disponible",
   },
   it: {
     closed: "Chiuso", open: "Aperto", opening: "Apertura\u2026", closing: "Chiusura\u2026",
@@ -170,6 +175,7 @@ const T = {
     pedestrian_entity: "Entit\u00e0 comando Pedonale",
     pedestrian_btn: "Pedonale", type_door: "Porta pedonale", type_garage: "Serranda del garage",
     show_key: "Mostra la chiave quando \u00e8 chiuso", show_runner: "Mostra il pittogramma pedonale",
+    card_tap: "Toccare la scheda esegue l'unico comando disponibile",
   },
   nl: {
     closed: "Gesloten", open: "Open", opening: "Opent\u2026", closing: "Sluit\u2026",
@@ -196,6 +202,7 @@ const T = {
     pedestrian_entity: "Entiteit commando Voetganger",
     pedestrian_btn: "Voetganger", type_door: "Deur / poortje", type_garage: "Garageroldeur",
     show_key: "Sleutel tonen wanneer gesloten", show_runner: "Voetgangerspictogram tonen",
+    card_tap: "Tik op de kaart om het enige beschikbare commando uit te voeren",
   },
   pt: {
     closed: "Fechado", open: "Aberto", opening: "A abrir\u2026", closing: "A fechar\u2026",
@@ -222,6 +229,7 @@ const T = {
     pedestrian_entity: "Entidade comando Pedonal",
     pedestrian_btn: "Pedonal", type_door: "Porta pedonal", type_garage: "Port\u00e3o de garagem de enrolar",
     show_key: "Mostrar a chave quando fechado", show_runner: "Mostrar o pictograma pedonal",
+    card_tap: "Tocar no cart\u00e3o executa o \u00fanico comando dispon\u00edvel",
   },
   sv: {
     closed: "St\u00e4ngd", open: "\u00d6ppen", opening: "\u00d6ppnar\u2026", closing: "St\u00e4nger\u2026",
@@ -248,6 +256,7 @@ const T = {
     pedestrian_entity: "Entitet kommando G\u00e5ng",
     pedestrian_btn: "G\u00e5ng", type_door: "D\u00f6rr / g\u00e5nggrind", type_garage: "Garageport (rullport)",
     show_key: "Visa nyckeln n\u00e4r st\u00e4ngd", show_runner: "Visa g\u00e5ngpiktogrammet",
+    card_tap: "Tryck var som helst p\u00e5 kortet f\u00f6r att k\u00f6ra det enda tillg\u00e4ngliga kommandot",
   },
   no: {
     closed: "Lukket", open: "\u00c5pen", opening: "\u00c5pner\u2026", closing: "Lukker\u2026",
@@ -274,6 +283,7 @@ const T = {
     pedestrian_entity: "Entitet kommando Gang",
     pedestrian_btn: "Gang", type_door: "D\u00f8r / gangport", type_garage: "Garasjeport (rulleport)",
     show_key: "Vis n\u00f8kkelen n\u00e5r lukket", show_runner: "Vis gangpiktogrammet",
+    card_tap: "Trykk hvor som helst p\u00e5 kortet for \u00e5 kj\u00f8re den eneste tilgjengelige kommandoen",
   },
   da: {
     closed: "Lukket", open: "\u00c5ben", opening: "\u00c5bner\u2026", closing: "Lukker\u2026",
@@ -300,6 +310,7 @@ const T = {
     pedestrian_entity: "Entitet kommando Gang",
     pedestrian_btn: "Gang", type_door: "D\u00f8r / gangl\u00e5ge", type_garage: "Garageport (rulleport)",
     show_key: "Vis n\u00f8glen n\u00e5r lukket", show_runner: "Vis gangpiktogrammet",
+    card_tap: "Tryk hvor som helst p\u00e5 kortet for at k\u00f8re den eneste tilg\u00e6ngelige kommando",
   },
   pl: {
     closed: "Zamkni\u0119ta", open: "Otwarta", opening: "Otwieranie\u2026", closing: "Zamykanie\u2026",
@@ -326,6 +337,7 @@ const T = {
     pedestrian_entity: "Encja komendy Furtka",
     pedestrian_btn: "Furtka", type_door: "Drzwi / furtka", type_garage: "Brama gara\u017cowa rolowana",
     show_key: "Poka\u017c klucz, gdy zamkni\u0119ta", show_runner: "Poka\u017c piktogram pieszego",
+    card_tap: "Dotkni\u0119cie karty uruchamia jedyn\u0105 dost\u0119pn\u0105 komend\u0119",
   },
 };
 
@@ -914,7 +926,7 @@ class GateCard extends HTMLElement {
     const actions = actionsFor(norm, cfg);
     const dirClass = cfg.slide_direction === "right" ? " dir-r" : " dir-l";
 
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, cfg.show_key, cfg.show_runner]);
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, cfg.show_key, cfg.show_runner, cfg.card_tap]);
     if (signature === this._signature) return;
     this._signature = signature;
 
@@ -938,6 +950,7 @@ class GateCard extends HTMLElement {
 :host { --gate-color: ${color}; --leaf-color: ${leafColor}; --leaf-line: ${leafLine}; }
 ha-card { display:flex; flex-direction:column; gap:12px; padding:16px; }
 ha-card.compact { flex-direction:row; align-items:center; gap:16px; }
+ha-card.tappable { cursor:pointer; }
 .illu { width:200px; max-width:70%; margin:0 auto; color:var(--leaf-color); }
 .illu svg { display:block; width:100%; }
 .gate-leaf, .leaf-l, .leaf-r { transition:transform .9s ease; }
@@ -1015,8 +1028,16 @@ button ha-icon { --mdc-icon-size:18px; }
       </ha-card>`;
 
     this._root.querySelectorAll("button[data-action]").forEach((b) => {
-      b.addEventListener("click", () => this._onAction(b.dataset.action));
+      b.addEventListener("click", (ev) => {
+        ev.stopPropagation();
+        this._onAction(b.dataset.action);
+      });
     });
+    if (cfg.card_tap && actions.length === 1) {
+      const cardEl = this._root.querySelector("ha-card");
+      cardEl.classList.add("tappable");
+      cardEl.addEventListener("click", () => this._onAction(actions[0]));
+    }
   }
 }
 
@@ -1157,6 +1178,9 @@ details .form { padding-top:10px; }
         <div class="row row-inline">
           <label><input type="checkbox" data-field="show_runner" ${cfg.show_runner !== false ? "checked" : ""}/> ${t(hass, "show_runner")}</label>
         </div>`}
+        <div class="row row-inline">
+          <label><input type="checkbox" data-field="card_tap" ${cfg.card_tap ? "checked" : ""}/> ${t(hass, "card_tap")}</label>
+        </div>
         <details ${EDITOR_OVERRIDES.some((o) => cfg[o.field]) ? "open" : ""}>
           <summary>${t(hass, "section_advanced")}</summary>
           <div class="form">
