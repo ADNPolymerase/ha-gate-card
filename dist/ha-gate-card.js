@@ -1,4 +1,4 @@
-const CARD_VERSION = "0.9.3";
+const CARD_VERSION = "0.9.4";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -1012,6 +1012,10 @@ button { display:flex; align-items:center; justify-content:center; gap:6px; padd
 button:hover { filter:brightness(.93); }
 button.pending { background:var(--gate-color); color:#fff; }
 button ha-icon { --mdc-icon-size:18px; }
+button ha-icon[icon^="mdi:gate"] { position:relative; top:-1.1px; }
+button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
+.badge ha-icon[icon^="mdi:gate"] { position:relative; top:-1.6px; }
+.badge ha-icon[icon="mdi:walk"] { position:relative; top:-2.4px; }
       </style>
       <ha-card class="${moving ? "moving" : ""}${cfg.compact ? " compact" : ""}${dirClass}">
         ${cfg.compact
