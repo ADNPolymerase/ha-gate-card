@@ -1,4 +1,4 @@
-const CARD_VERSION = "0.9.4";
+const CARD_VERSION = "0.9.5";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -949,7 +949,7 @@ class GateCard extends HTMLElement {
       <style>
 :host { --gate-color: ${color}; --leaf-color: ${leafColor}; --leaf-line: ${leafLine}; }
 ha-card { display:flex; flex-direction:column; gap:12px; padding:16px; }
-ha-card.compact { flex-direction:row; align-items:center; gap:16px; }
+ha-card.compact { flex-direction:row; align-items:center; gap:16px; padding:8px 16px; }
 ha-card.tappable { cursor:pointer; }
 .illu { width:200px; max-width:70%; margin:0 auto; color:var(--leaf-color); }
 .illu svg { display:block; width:100%; }
