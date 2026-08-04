@@ -1,4 +1,4 @@
-const CARD_VERSION = "0.9.5";
+const CARD_VERSION = "1.0.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -38,7 +38,7 @@ const T = {
     stop_entity: "Stop command entity",
     pedestrian_entity: "Pedestrian pass command entity",
     pedestrian_btn: "Pedestrian", type_door: "Door / wicket", type_garage: "Roller garage door",
-    show_key: "Show the key symbol when closed", show_runner: "Show the pedestrian pictogram",
+    show_key: "Show the key symbol when closed", show_runner: "Show the pedestrian pictogram", show_car: "Show the car pictogram when open",
     card_tap: "Tap anywhere on the card to run the single available command",
   },
   fr: {
@@ -66,7 +66,7 @@ const T = {
     stop_entity: "Entit\u00e9 commande Stop",
     pedestrian_entity: "Entit\u00e9 commande Pi\u00e9ton",
     pedestrian_btn: "Pi\u00e9ton", type_door: "Portillon / porte", type_garage: "Porte de garage roulante",
-    show_key: "Afficher la cl\u00e9 quand c'est ferm\u00e9", show_runner: "Afficher le pictogramme pi\u00e9ton",
+    show_key: "Afficher la cl\u00e9 quand c'est ferm\u00e9", show_runner: "Afficher le pictogramme pi\u00e9ton", show_car: "Afficher le pictogramme voiture quand c'est ouvert",
     card_tap: "Toute la carte d\u00e9clenche la commande unique disponible",
   },
   ru: {
@@ -93,7 +93,7 @@ const T = {
     stop_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u0421\u0442\u043e\u043f",
     pedestrian_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u041f\u0435\u0448\u0435\u0445\u043e\u0434",
     pedestrian_btn: "\u041f\u0435\u0448\u0435\u0445\u043e\u0434", type_door: "\u0414\u0432\u0435\u0440\u044c / \u043a\u0430\u043b\u0438\u0442\u043a\u0430", type_garage: "\u0420\u0443\u043b\u043e\u043d\u043d\u044b\u0435 \u0433\u0430\u0440\u0430\u0436\u043d\u044b\u0435 \u0432\u043e\u0440\u043e\u0442\u0430",
-    show_key: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043a\u043b\u044e\u0447, \u043a\u043e\u0433\u0434\u0430 \u0437\u0430\u043a\u0440\u044b\u0442\u043e", show_runner: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0438\u043a\u0442\u043e\u0433\u0440\u0430\u043c\u043c\u0443 \u043f\u0435\u0448\u0435\u0445\u043e\u0434\u0430",
+    show_key: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043a\u043b\u044e\u0447, \u043a\u043e\u0433\u0434\u0430 \u0437\u0430\u043a\u0440\u044b\u0442\u043e", show_runner: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0438\u043a\u0442\u043e\u0433\u0440\u0430\u043c\u043c\u0443 \u043f\u0435\u0448\u0435\u0445\u043e\u0434\u0430", show_car: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0438\u043a\u0442\u043e\u0433\u0440\u0430\u043c\u043c\u0443 \u0430\u0432\u0442\u043e\u043c\u043e\u0431\u0438\u043b\u044f, \u043a\u043e\u0433\u0434\u0430 \u043e\u0442\u043a\u0440\u044b\u0442\u043e",
     card_tap: "\u041d\u0430\u0436\u0430\u0442\u0438\u0435 \u043d\u0430 \u043a\u0430\u0440\u0442\u043e\u0447\u043a\u0443 \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442 \u0435\u0434\u0438\u043d\u0441\u0442\u0432\u0435\u043d\u043d\u0443\u044e \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u0443\u044e \u043a\u043e\u043c\u0430\u043d\u0434\u0443",
   },
   de: {
@@ -120,7 +120,7 @@ const T = {
     stop_entity: "Entit\u00e4t Befehl Stopp",
     pedestrian_entity: "Entit\u00e4t Befehl Fu\u00dfg\u00e4nger",
     pedestrian_btn: "Fu\u00dfg\u00e4nger", type_door: "T\u00fcr / Pforte", type_garage: "Rolltor (Garage)",
-    show_key: "Schl\u00fcsselsymbol anzeigen, wenn geschlossen", show_runner: "Fu\u00dfg\u00e4nger-Piktogramm anzeigen",
+    show_key: "Schl\u00fcsselsymbol anzeigen, wenn geschlossen", show_runner: "Fu\u00dfg\u00e4nger-Piktogramm anzeigen", show_car: "Auto-Piktogramm anzeigen, wenn offen",
     card_tap: "Tippen auf die ganze Karte f\u00fchrt den einzigen verf\u00fcgbaren Befehl aus",
   },
   es: {
@@ -147,7 +147,7 @@ const T = {
     stop_entity: "Entidad comando Parar",
     pedestrian_entity: "Entidad comando Peatonal",
     pedestrian_btn: "Peatonal", type_door: "Puerta peatonal", type_garage: "Puerta de garaje enrollable",
-    show_key: "Mostrar la llave cuando est\u00e1 cerrado", show_runner: "Mostrar el pictograma peatonal",
+    show_key: "Mostrar la llave cuando est\u00e1 cerrado", show_runner: "Mostrar el pictograma peatonal", show_car: "Mostrar el pictograma del coche cuando est\u00e1 abierto",
     card_tap: "Tocar la tarjeta ejecuta el \u00fanico comando disponible",
   },
   it: {
@@ -174,7 +174,7 @@ const T = {
     stop_entity: "Entit\u00e0 comando Stop",
     pedestrian_entity: "Entit\u00e0 comando Pedonale",
     pedestrian_btn: "Pedonale", type_door: "Porta pedonale", type_garage: "Serranda del garage",
-    show_key: "Mostra la chiave quando \u00e8 chiuso", show_runner: "Mostra il pittogramma pedonale",
+    show_key: "Mostra la chiave quando \u00e8 chiuso", show_runner: "Mostra il pittogramma pedonale", show_car: "Mostra il pittogramma dell'auto quando \u00e8 aperto",
     card_tap: "Toccare la scheda esegue l'unico comando disponibile",
   },
   nl: {
@@ -201,7 +201,7 @@ const T = {
     stop_entity: "Entiteit commando Stop",
     pedestrian_entity: "Entiteit commando Voetganger",
     pedestrian_btn: "Voetganger", type_door: "Deur / poortje", type_garage: "Garageroldeur",
-    show_key: "Sleutel tonen wanneer gesloten", show_runner: "Voetgangerspictogram tonen",
+    show_key: "Sleutel tonen wanneer gesloten", show_runner: "Voetgangerspictogram tonen", show_car: "Autopictogram tonen wanneer open",
     card_tap: "Tik op de kaart om het enige beschikbare commando uit te voeren",
   },
   pt: {
@@ -228,7 +228,7 @@ const T = {
     stop_entity: "Entidade comando Parar",
     pedestrian_entity: "Entidade comando Pedonal",
     pedestrian_btn: "Pedonal", type_door: "Porta pedonal", type_garage: "Port\u00e3o de garagem de enrolar",
-    show_key: "Mostrar a chave quando fechado", show_runner: "Mostrar o pictograma pedonal",
+    show_key: "Mostrar a chave quando fechado", show_runner: "Mostrar o pictograma pedonal", show_car: "Mostrar o pictograma do carro quando aberto",
     card_tap: "Tocar no cart\u00e3o executa o \u00fanico comando dispon\u00edvel",
   },
   sv: {
@@ -255,7 +255,7 @@ const T = {
     stop_entity: "Entitet kommando Stopp",
     pedestrian_entity: "Entitet kommando G\u00e5ng",
     pedestrian_btn: "G\u00e5ng", type_door: "D\u00f6rr / g\u00e5nggrind", type_garage: "Garageport (rullport)",
-    show_key: "Visa nyckeln n\u00e4r st\u00e4ngd", show_runner: "Visa g\u00e5ngpiktogrammet",
+    show_key: "Visa nyckeln n\u00e4r st\u00e4ngd", show_runner: "Visa g\u00e5ngpiktogrammet", show_car: "Visa bilpiktogrammet n\u00e4r \u00f6ppen",
     card_tap: "Tryck var som helst p\u00e5 kortet f\u00f6r att k\u00f6ra det enda tillg\u00e4ngliga kommandot",
   },
   no: {
@@ -282,7 +282,7 @@ const T = {
     stop_entity: "Entitet kommando Stopp",
     pedestrian_entity: "Entitet kommando Gang",
     pedestrian_btn: "Gang", type_door: "D\u00f8r / gangport", type_garage: "Garasjeport (rulleport)",
-    show_key: "Vis n\u00f8kkelen n\u00e5r lukket", show_runner: "Vis gangpiktogrammet",
+    show_key: "Vis n\u00f8kkelen n\u00e5r lukket", show_runner: "Vis gangpiktogrammet", show_car: "Vis bilpiktogrammet n\u00e5r \u00e5pen",
     card_tap: "Trykk hvor som helst p\u00e5 kortet for \u00e5 kj\u00f8re den eneste tilgjengelige kommandoen",
   },
   da: {
@@ -309,7 +309,7 @@ const T = {
     stop_entity: "Entitet kommando Stop",
     pedestrian_entity: "Entitet kommando Gang",
     pedestrian_btn: "Gang", type_door: "D\u00f8r / gangl\u00e5ge", type_garage: "Garageport (rulleport)",
-    show_key: "Vis n\u00f8glen n\u00e5r lukket", show_runner: "Vis gangpiktogrammet",
+    show_key: "Vis n\u00f8glen n\u00e5r lukket", show_runner: "Vis gangpiktogrammet", show_car: "Vis bilpiktogrammet n\u00e5r \u00e5ben",
     card_tap: "Tryk hvor som helst p\u00e5 kortet for at k\u00f8re den eneste tilg\u00e6ngelige kommando",
   },
   pl: {
@@ -336,7 +336,7 @@ const T = {
     stop_entity: "Encja komendy Stop",
     pedestrian_entity: "Encja komendy Furtka",
     pedestrian_btn: "Furtka", type_door: "Drzwi / furtka", type_garage: "Brama gara\u017cowa rolowana",
-    show_key: "Poka\u017c klucz, gdy zamkni\u0119ta", show_runner: "Poka\u017c piktogram pieszego",
+    show_key: "Poka\u017c klucz, gdy zamkni\u0119ta", show_runner: "Poka\u017c piktogram pieszego", show_car: "Poka\u017c piktogram samochodu, gdy otwarta",
     card_tap: "Dotkni\u0119cie karty uruchamia jedyn\u0105 dost\u0119pn\u0105 komend\u0119",
   },
 };
@@ -537,6 +537,31 @@ function gateRunner(cx, cy, s) {
   </g>`;
 }
 
+// Vehicle pictogram (front-view car, solid silhouette like the key): filled
+// body with windshield, headlights and plate knocked out in the card
+// background color, over a halo layer. Shown centered in the opening while
+// the gate is fully open (sliding/swing/garage). The silhouette is stretched
+// 12% horizontally (JD-approved v4 proportions).
+const CAR_BODY = `
+    <path d="M3.6 19.2 L3.6 11.2 Q3.6 9.6 4.8 8.8 L6.6 7.6 L8 3 Q8.5 1.4 10.2 1.4 L17.8 1.4 Q19.5 1.4 20 3 L21.4 7.6 L23.2 8.8 Q24.4 9.6 24.4 11.2 L24.4 19.2 Q24.4 20 23.6 20 L21.2 20 Q20.4 20 20.4 19.2 L20.4 18.4 L7.6 18.4 L7.6 19.2 Q7.6 20 6.8 20 L4.4 20 Q3.6 20 3.6 19.2 Z"/>
+    <path d="M6.9 7.2 L5.1 6.4 Q4.4 6.1 4.6 5.5 Q4.8 4.9 5.5 5.1 L7.5 5.7 Z"/>
+    <path d="M21.1 7.2 L22.9 6.4 Q23.6 6.1 23.4 5.5 Q23.2 4.9 22.5 5.1 L20.5 5.7 Z"/>`;
+const CAR_HOLES = `
+    <path d="M9.4 3.1 L18.6 3.1 L19.9 6.7 L8.1 6.7 Z"/>
+    <ellipse cx="6.9" cy="11.6" rx="2.2" ry="1.8"/>
+    <ellipse cx="21.1" cy="11.6" rx="2.2" ry="1.8"/>
+    <rect x="10.8" y="14.4" width="6.4" height="2.5" rx="0.9"/>`;
+
+function gateCar(cx, cy, s) {
+  const w = 1.12 * s;
+  return `
+  <g transform="translate(${cx - 14 * w} ${cy - 10.7 * s}) scale(${w} ${s})">
+    <g class="gate-car-halo">${CAR_BODY}</g>
+    <g class="gate-car">${CAR_BODY}</g>
+    <g class="gate-car-hole">${CAR_HOLES}</g>
+  </g>`;
+}
+
 function slideX(norm, cfg) {
   const dir = cfg.slide_direction === "right" ? 1 : -1;
   if (norm === "open") return 98 * dir;
@@ -634,6 +659,7 @@ function slidingSvg(norm, cfg) {
       </g>
       ${SCENE_CLOSE}
       ${norm === "pedestrian" && cfg.show_runner !== false ? gateRunner(cfg.slide_direction === "right" ? 42 : 98, 34, 1.15) : ""}
+      ${norm === "open" && cfg.show_car !== false ? gateCar(70, 36, 1.7) : ""}
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
     </svg>`;
@@ -729,6 +755,7 @@ function swingSvg(norm, cfg) {
       ${swingLeaf("l", tl, cfg)}
       ${swingLeaf("r", tr, cfg)}
       ${norm === "pedestrian" && cfg.show_runner !== false ? gateRunner(97, 32, 1.55) : ""}
+      ${norm === "open" && cfg.show_car !== false ? gateCar(70, 33, 1.9) : ""}
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
     </svg>`;
@@ -806,6 +833,7 @@ function garageSvg(norm, cfg) {
       <g class="leaf-fill">${shapes}</g>
       ${ribs}
       ${arrow}
+      ${norm === "open" && cfg.show_car !== false ? gateCar(70, 41, 1.5) : ""}
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
     </svg>`;
@@ -926,7 +954,7 @@ class GateCard extends HTMLElement {
     const actions = actionsFor(norm, cfg);
     const dirClass = cfg.slide_direction === "right" ? " dir-r" : " dir-l";
 
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, cfg.show_key, cfg.show_runner, cfg.card_tap]);
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.card_tap]);
     if (signature === this._signature) return;
     this._signature = signature;
 
@@ -991,6 +1019,9 @@ ha-card.tappable { cursor:pointer; }
 .gate-runner-halo circle { fill:var(--ha-card-background, var(--card-background-color, #fff)); }
 .gate-runner { fill:none; stroke:var(--gate-color); stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
 .gate-runner circle { fill:var(--gate-color); }
+.gate-car-halo { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:3; stroke-linejoin:round; }
+.gate-car { fill:var(--gate-color); }
+.gate-car-hole { fill:var(--ha-card-background, var(--card-background-color, #fff)); }
 .gate-post-g { fill:var(--secondary-text-color); opacity:.75; }
 .gate-ground { stroke:var(--secondary-text-color); stroke-width:2; stroke-linecap:round; opacity:.5; }
 .gate-key-halo { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:3; stroke-linejoin:round; }
@@ -1182,6 +1213,10 @@ details .form { padding-top:10px; }
         <div class="row row-inline">
           <label><input type="checkbox" data-field="show_runner" ${cfg.show_runner !== false ? "checked" : ""}/> ${t(hass, "show_runner")}</label>
         </div>`}
+        ${cfg.gate_type === "door" ? "" : `
+        <div class="row row-inline">
+          <label><input type="checkbox" data-field="show_car" ${cfg.show_car !== false ? "checked" : ""}/> ${t(hass, "show_car")}</label>
+        </div>`}
         <div class="row row-inline">
           <label><input type="checkbox" data-field="card_tap" ${cfg.card_tap ? "checked" : ""}/> ${t(hass, "card_tap")}</label>
         </div>
@@ -1247,7 +1282,7 @@ details .form { padding-top:10px; }
       cb.addEventListener("change", () => {
         const field = cb.dataset.field;
         this._config = { ...this._config };
-        if (["confirm", "show_key", "show_runner"].includes(field)) {
+        if (["confirm", "show_key", "show_runner", "show_car"].includes(field)) {
           // defaults to true -- only store the key when disabled
           if (cb.checked) delete this._config[field];
           else this._config[field] = false;

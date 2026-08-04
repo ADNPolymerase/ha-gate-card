@@ -55,6 +55,7 @@ Pas encore dans le store HACS par défaut — ajoutez un dépôt personnalisé :
 | `card_tap` | `true` rend toute la card cliquable quand une seule commande est disponible (grande zone tactile, pratique en voiture). Même confirmation double appui. Défaut `false`. |
 | `show_key` | Clé sur le portail fermé. Défaut `true`. |
 | `show_runner` | Pictogramme piéton en mode piéton. Défaut `true`. |
+| `show_car` | Pictogramme voiture dans l'ouverture quand c'est totalement ouvert (coulissant/battant/garage). Défaut `true`. |
 | `open_entity` / `close_entity` / `stop_entity` | Bouton/script/switch utilisés à la place des services du cover. |
 | `pedestrian_entity` | Bouton/script/switch de l'ouverture partielle piéton (coulissant/battants). Active le bouton *Piéton* quand c'est fermé. |
 

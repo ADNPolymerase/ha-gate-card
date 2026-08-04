@@ -55,6 +55,7 @@ Not yet in the default HACS store — add it as a custom repository:
 | `card_tap` | `true` makes the whole card tappable when a single command is available (big touch target for car dashboards). Same two-tap confirmation. Default `false`. |
 | `show_key` | Key symbol on the closed gate. Default `true`. |
 | `show_runner` | Pedestrian pictogram in pedestrian mode. Default `true`. |
+| `show_car` | Car pictogram in the opening when fully open (sliding/swing/garage). Default `true`. |
 | `open_entity` / `close_entity` / `stop_entity` | Button/script/switch used instead of the cover services. |
 | `pedestrian_entity` | Button/script/switch for the partial pedestrian opening (sliding/swing). Enables the *Pedestrian* button while closed. |
 
