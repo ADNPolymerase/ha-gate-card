@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.0.0";
+const CARD_VERSION = "1.1.0-beta.1";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -19,8 +19,10 @@ const T = {
     unknown: "Unknown state", since: "since",
     pedestrian: "Pedestrian pass", moving: "Moving\u2026",
     open_btn: "Open", close_btn: "Close", stop_btn: "Stop", confirm_tap: "Confirm?",
-    entity: "Gate cover entity (required)",
+    entity: "Gate cover or lock entity (required)",
     state_entity: "Consolidated state entity (optional)",
+    unlocked: "Closed, unlocked",
+    contact_entity: "Physical open/closed sensor (optional)", battery_entity: "Battery entity",
     name: "Name", compact: "Compact mode (icon instead of illustration)",
     confirm_opt: "Ask for confirmation before commands (tap twice)",
     show_stop: "Show a Stop button while moving",
@@ -47,8 +49,10 @@ const T = {
     unknown: "\u00c9tat inconnu", since: "depuis",
     pedestrian: "Pi\u00e9ton", moving: "En mouvement\u2026",
     open_btn: "Ouvrir", close_btn: "Fermer", stop_btn: "Stop", confirm_tap: "Confirmer ?",
-    entity: "Entit\u00e9 cover du portail (obligatoire)",
+    entity: "Entit\u00e9 cover ou serrure du portail (obligatoire)",
     state_entity: "Entit\u00e9 d'\u00e9tat consolid\u00e9 (optionnel)",
+    unlocked: "Ferm\u00e9, non verrouill\u00e9",
+    contact_entity: "Capteur d'ouverture physique (optionnel)", battery_entity: "Entit\u00e9 batterie",
     name: "Nom", compact: "Mode compact (ic\u00f4ne au lieu de l'illustration)",
     confirm_opt: "Demander confirmation avant les commandes (double appui)",
     show_stop: "Afficher un bouton Stop pendant le mouvement",
@@ -74,8 +78,10 @@ const T = {
     unknown: "\u041d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u043e\u0435 \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u0435", since: "\u0441",
     pedestrian: "\u041f\u0435\u0448\u0435\u0445\u043e\u0434\u043d\u044b\u0439 \u043f\u0440\u043e\u0445\u043e\u0434", moving: "\u0412 \u0434\u0432\u0438\u0436\u0435\u043d\u0438\u0438\u2026",
     open_btn: "\u041e\u0442\u043a\u0440\u044b\u0442\u044c", close_btn: "\u0417\u0430\u043a\u0440\u044b\u0442\u044c", stop_btn: "\u0421\u0442\u043e\u043f", confirm_tap: "\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044c?",
-    entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c cover \u0432\u043e\u0440\u043e\u0442 (\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)",
+    entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c cover \u0438\u043b\u0438 \u0437\u0430\u043c\u043a\u0430 \u0432\u043e\u0440\u043e\u0442 (\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)",
     state_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0441\u0432\u043e\u0434\u043d\u043e\u0433\u043e \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)",
+    unlocked: "\u0417\u0430\u043a\u0440\u044b\u0442\u043e, \u043d\u0435 \u0437\u0430\u043f\u0435\u0440\u0442\u043e",
+    contact_entity: "\u0424\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0434\u0430\u0442\u0447\u0438\u043a \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)", battery_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0431\u0430\u0442\u0430\u0440\u0435\u0438",
     name: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435", compact: "\u041a\u043e\u043c\u043f\u0430\u043a\u0442\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c (\u0437\u043d\u0430\u0447\u043e\u043a \u0432\u043c\u0435\u0441\u0442\u043e \u0438\u043b\u043b\u044e\u0441\u0442\u0440\u0430\u0446\u0438\u0438)",
     confirm_opt: "\u0417\u0430\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0442\u044c \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u0434 \u043a\u043e\u043c\u0430\u043d\u0434\u0430\u043c\u0438 (\u0434\u0432\u043e\u0439\u043d\u043e\u0435 \u043d\u0430\u0436\u0430\u0442\u0438\u0435)",
     show_stop: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043a\u043d\u043e\u043f\u043a\u0443 \u0421\u0442\u043e\u043f \u0432\u043e \u0432\u0440\u0435\u043c\u044f \u0434\u0432\u0438\u0436\u0435\u043d\u0438\u044f",
@@ -101,8 +107,10 @@ const T = {
     unknown: "Unbekannter Zustand", since: "seit",
     pedestrian: "Personendurchgang", moving: "In Bewegung\u2026",
     open_btn: "\u00d6ffnen", close_btn: "Schlie\u00dfen", stop_btn: "Stopp", confirm_tap: "Best\u00e4tigen?",
-    entity: "Tor-Cover-Entit\u00e4t (erforderlich)",
+    entity: "Tor-Cover- oder Schloss-Entit\u00e4t (erforderlich)",
     state_entity: "Konsolidierte Status-Entit\u00e4t (optional)",
+    unlocked: "Geschlossen, entriegelt",
+    contact_entity: "Physischer \u00d6ffnungssensor (optional)", battery_entity: "Batterie-Entit\u00e4t",
     name: "Name", compact: "Kompaktmodus (Symbol statt Illustration)",
     confirm_opt: "Vor Befehlen best\u00e4tigen (zweimal tippen)",
     show_stop: "Stopp-Taste w\u00e4hrend der Bewegung anzeigen",
@@ -128,8 +136,10 @@ const T = {
     unknown: "Estado desconocido", since: "desde",
     pedestrian: "Peatonal", moving: "En movimiento\u2026",
     open_btn: "Abrir", close_btn: "Cerrar", stop_btn: "Parar", confirm_tap: "\u00bfConfirmar?",
-    entity: "Entidad cover del port\u00f3n (obligatoria)",
+    entity: "Entidad cover o cerradura del port\u00f3n (obligatoria)",
     state_entity: "Entidad de estado consolidado (opcional)",
+    unlocked: "Cerrado, sin bloquear",
+    contact_entity: "Sensor f\u00edsico de apertura (opcional)", battery_entity: "Entidad de bater\u00eda",
     name: "Nombre", compact: "Modo compacto (icono en lugar de ilustraci\u00f3n)",
     confirm_opt: "Pedir confirmaci\u00f3n antes de los comandos (doble toque)",
     show_stop: "Mostrar bot\u00f3n Parar durante el movimiento",
@@ -155,8 +165,10 @@ const T = {
     unknown: "Stato sconosciuto", since: "dalle",
     pedestrian: "Pedonale", moving: "In movimento\u2026",
     open_btn: "Apri", close_btn: "Chiudi", stop_btn: "Stop", confirm_tap: "Confermare?",
-    entity: "Entit\u00e0 cover del cancello (obbligatoria)",
+    entity: "Entit\u00e0 cover o serratura del cancello (obbligatoria)",
     state_entity: "Entit\u00e0 di stato consolidato (opzionale)",
+    unlocked: "Chiuso, non bloccato",
+    contact_entity: "Sensore fisico di apertura (opzionale)", battery_entity: "Entit\u00e0 batteria",
     name: "Nome", compact: "Modalit\u00e0 compatta (icona invece dell'illustrazione)",
     confirm_opt: "Chiedere conferma prima dei comandi (doppio tocco)",
     show_stop: "Mostra il pulsante Stop durante il movimento",
@@ -182,8 +194,10 @@ const T = {
     unknown: "Onbekende status", since: "sinds",
     pedestrian: "Voetgangersstand", moving: "In beweging\u2026",
     open_btn: "Openen", close_btn: "Sluiten", stop_btn: "Stop", confirm_tap: "Bevestigen?",
-    entity: "Poort cover-entiteit (verplicht)",
+    entity: "Poort cover- of slot-entiteit (verplicht)",
     state_entity: "Geconsolideerde status-entiteit (optioneel)",
+    unlocked: "Gesloten, niet vergrendeld",
+    contact_entity: "Fysieke openingssensor (optioneel)", battery_entity: "Batterij-entiteit",
     name: "Naam", compact: "Compacte modus (pictogram i.p.v. illustratie)",
     confirm_opt: "Bevestiging vragen v\u00f3\u00f3r commando's (twee keer tikken)",
     show_stop: "Stopknop tonen tijdens beweging",
@@ -209,8 +223,10 @@ const T = {
     unknown: "Estado desconhecido", since: "desde",
     pedestrian: "Pedonal", moving: "Em movimento\u2026",
     open_btn: "Abrir", close_btn: "Fechar", stop_btn: "Parar", confirm_tap: "Confirmar?",
-    entity: "Entidade cover do port\u00e3o (obrigat\u00f3ria)",
+    entity: "Entidade cover ou fechadura do port\u00e3o (obrigat\u00f3ria)",
     state_entity: "Entidade de estado consolidado (opcional)",
+    unlocked: "Fechado, destrancado",
+    contact_entity: "Sensor f\u00edsico de abertura (opcional)", battery_entity: "Entidade de bateria",
     name: "Nome", compact: "Modo compacto (\u00edcone em vez da ilustra\u00e7\u00e3o)",
     confirm_opt: "Pedir confirma\u00e7\u00e3o antes dos comandos (dois toques)",
     show_stop: "Mostrar bot\u00e3o Parar durante o movimento",
@@ -236,8 +252,10 @@ const T = {
     unknown: "Ok\u00e4nt l\u00e4ge", since: "sedan",
     pedestrian: "G\u00e5ngpassage", moving: "I r\u00f6relse\u2026",
     open_btn: "\u00d6ppna", close_btn: "St\u00e4ng", stop_btn: "Stopp", confirm_tap: "Bekr\u00e4fta?",
-    entity: "Grindens cover-entitet (obligatorisk)",
+    entity: "Grindens cover- eller l\u00e5sentitet (obligatorisk)",
     state_entity: "Konsoliderad status-entitet (valfri)",
+    unlocked: "St\u00e4ngd, ol\u00e5st",
+    contact_entity: "Fysisk \u00f6ppningssensor (valfri)", battery_entity: "Batterientitet",
     name: "Namn", compact: "Kompakt l\u00e4ge (ikon i st\u00e4llet f\u00f6r illustration)",
     confirm_opt: "Be om bekr\u00e4ftelse f\u00f6re kommandon (tryck tv\u00e5 g\u00e5nger)",
     show_stop: "Visa stoppknapp under r\u00f6relse",
@@ -263,8 +281,10 @@ const T = {
     unknown: "Ukjent tilstand", since: "siden",
     pedestrian: "Gangpassasje", moving: "I bevegelse\u2026",
     open_btn: "\u00c5pne", close_btn: "Lukk", stop_btn: "Stopp", confirm_tap: "Bekreft?",
-    entity: "Portens cover-entitet (p\u00e5krevd)",
+    entity: "Portens cover- eller l\u00e5sentitet (p\u00e5krevd)",
     state_entity: "Konsolidert status-entitet (valgfri)",
+    unlocked: "Lukket, ul\u00e5st",
+    contact_entity: "Fysisk \u00e5pningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt modus (ikon i stedet for illustrasjon)",
     confirm_opt: "Be om bekreftelse f\u00f8r kommandoer (trykk to ganger)",
     show_stop: "Vis stoppknapp under bevegelse",
@@ -290,8 +310,10 @@ const T = {
     unknown: "Ukendt tilstand", since: "siden",
     pedestrian: "Gangpassage", moving: "I bev\u00e6gelse\u2026",
     open_btn: "\u00c5bn", close_btn: "Luk", stop_btn: "Stop", confirm_tap: "Bekr\u00e6ft?",
-    entity: "Portens cover-entitet (p\u00e5kr\u00e6vet)",
+    entity: "Portens cover- eller l\u00e5sentitet (p\u00e5kr\u00e6vet)",
     state_entity: "Konsolideret status-entitet (valgfri)",
+    unlocked: "Lukket, ul\u00e5st",
+    contact_entity: "Fysisk \u00e5bningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt tilstand (ikon i stedet for illustration)",
     confirm_opt: "Bed om bekr\u00e6ftelse f\u00f8r kommandoer (tryk to gange)",
     show_stop: "Vis stopknap under bev\u00e6gelse",
@@ -317,8 +339,10 @@ const T = {
     unknown: "Stan nieznany", since: "od",
     pedestrian: "Furtka", moving: "W ruchu\u2026",
     open_btn: "Otw\u00f3rz", close_btn: "Zamknij", stop_btn: "Stop", confirm_tap: "Potwierdzi\u0107?",
-    entity: "Encja cover bramy (wymagana)",
+    entity: "Encja cover lub zamka bramy (wymagana)",
     state_entity: "Encja stanu skonsolidowanego (opcjonalna)",
+    unlocked: "Zamkni\u0119ta, odblokowana",
+    contact_entity: "Fizyczny czujnik otwarcia (opcjonalny)", battery_entity: "Encja baterii",
     name: "Nazwa", compact: "Tryb kompaktowy (ikona zamiast ilustracji)",
     confirm_opt: "Wymagaj potwierdzenia przed komendami (dwa dotkni\u0119cia)",
     show_stop: "Poka\u017c przycisk Stop podczas ruchu",
@@ -359,12 +383,12 @@ function t(hass, key) {
 // ---------------------------------------------------------------------------
 
 const STATE_KEYWORDS = {
-  opening: ["opening", "ouverture", "offnet", "abriendo", "apertura", "opent", "abrindo", "a abrir", "oppnar", "apner", "abner", "otwieranie"],
-  closing: ["closing", "fermeture", "schliesst", "cerrando", "chiusura", "sluit", "fechando", "a fechar", "stanger", "lukker", "zamykanie"],
+  opening: ["opening", "unlocking", "ouverture", "offnet", "abriendo", "apertura", "opent", "abrindo", "a abrir", "oppnar", "apner", "abner", "otwieranie"],
+  closing: ["closing", "locking", "fermeture", "schliesst", "cerrando", "chiusura", "sluit", "fechando", "a fechar", "stanger", "lukker", "zamykanie"],
   pedestrian: ["pieton", "pedestrian", "peaton", "pedonal", "voetganger", "fussgang", "durchgang", "gangpass", "ganglage", "gangport", "furtka"],
   moving: ["moving", "mouvement", "in motion", "bewegung", "movimiento", "movimento", "beweging", "rorelse", "bevegelse", "bevaegelse", "bev\u00e6gelse", "ruch"],
-  closed: ["closed", "ferme", "geschlossen", "cerrado", "chiuso", "gesloten", "fechado", "stangd", "lukket", "zamkni"],
-  open: ["open", "ouvert", "offen", "abierto", "aperto", "aberto", "oppen", "apen", "aben", "otwart"],
+  closed: ["closed", "locked", "verrouill", "ferme", "geschlossen", "cerrado", "chiuso", "gesloten", "fechado", "stangd", "lukket", "zamkni"],
+  open: ["open", "unlocked", "deverrouill", "ouvert", "offen", "abierto", "aperto", "aberto", "oppen", "apen", "aben", "otwart"],
 };
 
 function stripAccents(str) {
@@ -397,6 +421,7 @@ const STATE_COLORS = {
   closing: "var(--info-color, #2196f3)",
   moving: "var(--info-color, #2196f3)",
   pedestrian: "var(--warning-color, #ff9800)",
+  unlocked: "var(--warning-color, #ff9800)",
   unknown: "var(--error-color, #f44336)",
 };
 
@@ -407,6 +432,7 @@ const STATE_ICONS = {
   closing: "mdi:gate-arrow-left",
   moving: "mdi:gate-arrow-right",
   pedestrian: "mdi:walk",
+  unlocked: "mdi:gate",
   unknown: "mdi:gate-alert",
 };
 
@@ -429,12 +455,14 @@ const TYPE_ICONS = {
     closed: "mdi:garage", open: "mdi:garage-open",
     opening: "mdi:garage-open", closing: "mdi:garage",
     moving: "mdi:garage-open", pedestrian: "mdi:garage-open",
+    unlocked: "mdi:garage",
     unknown: "mdi:garage-alert",
   },
   door: {
     closed: "mdi:door-closed", open: "mdi:door-open",
     opening: "mdi:door-open", closing: "mdi:door-closed",
     moving: "mdi:door-open", pedestrian: "mdi:door-open",
+    unlocked: "mdi:door-closed",
     unknown: "mdi:door",
   },
 };
@@ -461,6 +489,7 @@ function actionsFor(norm, cfg) {
   switch (norm) {
     case "closed": return ped ? ["pedestrian", "open"] : ["open"];
     case "open": return ["close"];
+    case "unlocked": return ["open", "close"];
     case "pedestrian": return ["close"];
     case "opening":
     case "closing":
@@ -674,6 +703,7 @@ const SWING_POSE = {
   closing: ["scaleX(0.35) skewY(7deg)", "scaleX(0.35) skewY(-7deg)"],
   moving: ["scaleX(0.35) skewY(7deg)", "scaleX(0.35) skewY(-7deg)"],
   pedestrian: ["", "scaleX(-0.65) skewY(-9deg)"],
+  unlocked: ["", ""],
   unknown: ["", ""],
 };
 
@@ -766,7 +796,7 @@ function swingSvg(norm, cfg) {
 // command buttons); the open pose folds the leaf back, the opening stays in
 // the card background color (JD-approved v3).
 const DOOR_POSE = {
-  closed: "", unknown: "",
+  closed: "", unknown: "", unlocked: "",
   open: "scaleX(-0.72) skewY(10deg)",
   pedestrian: "scaleX(-0.72) skewY(10deg)",
   opening: "scaleX(0.4) skewY(8deg)",
@@ -805,7 +835,7 @@ function doorSvg(norm, cfg) {
 // slats and a finishing bar with a handle. Closed shows 5 slats, moving 2
 // with a direction arrow, open just the bar under the box (JD-approved v2).
 function garageSvg(norm, cfg) {
-  const closedLike = norm === "closed" || norm === "unknown";
+  const closedLike = norm === "closed" || norm === "unknown" || norm === "unlocked";
   const n = closedLike ? 5 : (norm === "opening" || norm === "closing" || norm === "moving" ? 2 : 0);
   const barY = 19 + n * 6.6;
   let curtain = "";
@@ -903,9 +933,15 @@ class GateCard extends HTMLElement {
         this._hass.callService("script", "turn_on", { entity_id: override });
       } else if (["switch", "input_boolean"].includes(domain)) {
         this._hass.callService(domain, "toggle", { entity_id: override });
+      } else if (domain === "lock") {
+        this._hass.callService("lock", action === "close" ? "lock" : "open", { entity_id: override });
       } else {
         this._hass.callService("homeassistant", "toggle", { entity_id: override });
       }
+    } else if (domainOf(cfg.entity) === "lock") {
+      // Locks (Nuki and friends): Open unlocks the bolt, Close locks it. The
+      // physical unlatch (lock.open) stays opt-in via a lock set as open_entity.
+      this._hass.callService("lock", action === "open" ? "unlock" : "lock", { entity_id: cfg.entity });
     } else {
       this._hass.callService("cover", action + "_cover", { entity_id: cfg.entity });
     }
@@ -939,7 +975,18 @@ class GateCard extends HTMLElement {
 
     const stateEntity = cfg.state_entity || cfg.entity;
     const st = stateObj(hass, stateEntity);
-    const norm = normalizeState(st ? st.state : null, cfg.state_map);
+    let norm = normalizeState(st ? st.state : null, cfg.state_map);
+    // A physical door contact refines the stable states: closed contact turns
+    // a lock-open state into "closed, unlocked"; an open contact over a locked
+    // bolt is theoretically impossible -> unknown.
+    if (cfg.contact_entity && hass.states[cfg.contact_entity] && ["open", "closed"].includes(norm)) {
+      const rawContact = String(hass.states[cfg.contact_entity].state).trim().toLowerCase();
+      const contactNorm = ["on", "true"].includes(rawContact) ? "open"
+        : ["off", "false"].includes(rawContact) ? "closed"
+        : normalizeState(rawContact, null);
+      if (contactNorm === "open") norm = norm === "closed" ? "unknown" : "open";
+      else if (contactNorm === "closed" && norm === "open") norm = "unlocked";
+    }
     const color = STATE_COLORS[norm];
     let leafColor = color;
     let leafLine = color;
@@ -954,7 +1001,12 @@ class GateCard extends HTMLElement {
     const actions = actionsFor(norm, cfg);
     const dirClass = cfg.slide_direction === "right" ? " dir-r" : " dir-l";
 
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.card_tap]);
+    let batt = null;
+    if (cfg.battery_entity && hass.states[cfg.battery_entity]) {
+      const v = Number(hass.states[cfg.battery_entity].state);
+      if (!Number.isNaN(v)) batt = Math.round(v);
+    }
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.card_tap, batt]);
     if (signature === this._signature) return;
     this._signature = signature;
 
@@ -976,7 +1028,7 @@ class GateCard extends HTMLElement {
     this._root.innerHTML = `
       <style>
 :host { --gate-color: ${color}; --leaf-color: ${leafColor}; --leaf-line: ${leafLine}; }
-ha-card { display:flex; flex-direction:column; gap:12px; padding:16px; }
+ha-card { position:relative; display:flex; flex-direction:column; gap:12px; padding:16px; }
 ha-card.compact { flex-direction:row; align-items:center; gap:16px; padding:8px 16px; }
 ha-card.tappable { cursor:pointer; }
 .illu { width:200px; max-width:70%; margin:0 auto; color:var(--leaf-color); }
@@ -1038,6 +1090,7 @@ ha-card.compact .bottom { flex:1; align-items:center; }
 .name { font-size:15px; font-weight:500; color:var(--primary-text-color); }
 .state { font-size:13.5px; font-weight:500; color:var(--gate-color); }
 .since { font-size:12px; color:var(--secondary-text-color); }
+.corner-batt { position:absolute; top:10px; right:12px; display:flex; align-items:center; gap:4px; font-size:12px; color:var(--secondary-text-color); z-index:2; }
 .actions { display:flex; gap:8px; }
 button { display:flex; align-items:center; justify-content:center; gap:6px; padding:8px 14px; min-width:96px; border:none; border-radius:12px; cursor:pointer; font:inherit; font-size:13px; background:var(--secondary-background-color); color:var(--primary-text-color); }
 button:hover { filter:brightness(.93); }
@@ -1049,6 +1102,12 @@ button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
 .badge ha-icon[icon="mdi:walk"] { position:relative; top:-2.4px; }
       </style>
       <ha-card class="${moving ? "moving" : ""}${cfg.compact ? " compact" : ""}${dirClass}">
+        ${batt !== null && !cfg.compact ? `<div class="corner-batt" title="${cfg.battery_entity} : ${batt}%">
+          <svg width="26" height="15" viewBox="0 0 24 14">
+            <rect x="1" y="2" width="19" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
+            <rect x="21" y="5" width="2.4" height="4" rx="1" fill="currentColor"/>
+            <rect x="3" y="4" width="${Math.max(0.8, (15 * Math.min(100, Math.max(0, batt))) / 100).toFixed(1)}" height="6" rx="1" fill="${batt <= 15 ? "var(--error-color, #f44336)" : batt <= 40 ? "var(--warning-color, #ff9800)" : "var(--success-color, #4caf50)"}"/>
+          </svg>${batt}%</div>` : ""}
         ${cfg.compact
           ? `<div class="badge"><ha-icon icon="${stateIcon(norm, cfg)}"></ha-icon></div>`
           : `<div class="illu">${gateSvg(norm, cfg)}</div>`}
@@ -1081,8 +1140,10 @@ button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
 // ---------------------------------------------------------------------------
 
 const EDITOR_PICKERS = [
-  { field: "entity", labelKey: "entity", domains: ["cover"] },
+  { field: "entity", labelKey: "entity", domains: ["cover", "lock"] },
   { field: "state_entity", labelKey: "state_entity", domains: null },
+  { field: "contact_entity", labelKey: "contact_entity", domains: ["binary_sensor", "sensor", "input_boolean"] },
+  { field: "battery_entity", labelKey: "battery_entity", domains: ["sensor"] },
 ];
 const EDITOR_OVERRIDES = [
   { field: "open_entity", labelKey: "open_entity" },
@@ -1090,7 +1151,7 @@ const EDITOR_OVERRIDES = [
   { field: "stop_entity", labelKey: "stop_entity" },
   { field: "pedestrian_entity", labelKey: "pedestrian_entity" },
 ];
-const OVERRIDE_DOMAINS = ["button", "input_button", "script", "switch", "input_boolean"];
+const OVERRIDE_DOMAINS = ["button", "input_button", "script", "switch", "input_boolean", "lock"];
 
 class GateCardEditor extends HTMLElement {
   setConfig(config) {
@@ -1158,6 +1219,8 @@ details .form { padding-top:10px; }
       <div class="form">
         <div class="row" data-picker="entity"></div>
         <div class="row" data-picker="state_entity"></div>
+        <div class="row" data-picker="contact_entity"></div>
+        <div class="row" data-picker="battery_entity"></div>
         <div class="row">
           <label>${t(hass, "gate_type")}</label>
           <select data-field="gate_type">
