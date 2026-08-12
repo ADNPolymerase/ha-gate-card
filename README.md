@@ -22,8 +22,8 @@ Built for the common setup where *command* and *state* are two different channel
 ## Features
 
 - **Two entities**: commands go to the `cover`, the displayed state comes from any `state_entity` (`input_select`, sensor, template…).
-- **State normalization**: `Fermé`, `closed`, `ouverture`, `En mouvement`… are auto-detected (accent-insensitive, 12 languages) and mapped to closed / open / opening / closing / moving / pedestrian / unknown. `state_map` covers anything else.
-- **Per-state colors** from your theme (closed = green, open = orange, moving = blue, unknown = red), or a fixed `gate_color`.
+- **State normalization**: `Fermé`, `closed`, `ouverture`, `En mouvement`… are auto-detected (accent-insensitive, 12 languages) and mapped to closed / open / opening / closing / moving / pedestrian / unlocked / unknown. `state_map` covers anything else.
+- **Per-state colors** from your theme (closed = green, open & unlocked = orange, moving = blue, unknown = red), or a fixed `gate_color`.
 - **Four animated types**: `sliding`, `swing`, `door` (wicket / entrance door — display-only unless you configure command entities, handy for smart locks) and `garage` (roller door) — five `gate_style` designs each for sliding/swing, type-matched icons in compact mode and on the buttons. `compact: true` swaps the illustration for an icon.
 - **Pedestrian pass** (sliding/swing): set `pedestrian_entity` → a *Pedestrian* button while closed, one leaf opens with a pictogram, only *Close* is offered.
 - **Impulse-safe buttons**: only relevant commands are shown, **none while moving** (an extra impulse stops or reverses the leaf), optional two-tap confirmation and `show_stop`.
@@ -45,8 +45,8 @@ Not yet in the default HACS store — add it as a custom repository:
 | `entity` | **Required.** The `cover` — or `lock` (Nuki…): *Open* unlocks, *Close* locks — receiving commands. (Optional if you use overrides or `state_entity` only.) |
 | `state_entity` | Entity holding the reliable consolidated state (any domain). Defaults to `entity`. |
 | `contact_entity` | Physical open/closed sensor (door contact). Open contact + locked bolt → unknown. |
-| `battery_entity` | Battery percentage sensor, shown top-right (green/orange/red). |
-| `state_map` | Optional map: raw state → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unknown`. |
+| `battery_entity` | Battery percentage sensor, shown top-right (green/orange/red). Hidden in `compact` mode. |
+| `state_map` | Optional map: raw state → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`unknown`. |
 | `gate_type` | `sliding` (default), `swing`, `door` or `garage`. `door` is display-only unless command entities are set. |
 | `gate_style` | Leaf design (sliding/swing). Sliding: `slats` (default), `bars`, `semi`, `solid`. Swing: `bell` (default), `bars`, `slats`, `semi`, `solid`. |
 | `slide_direction` | `left` (default) or `right`. |

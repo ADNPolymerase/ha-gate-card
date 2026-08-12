@@ -22,8 +22,8 @@ Conçue pour le cas très courant où la *commande* et l'*état* sont deux canau
 ## Fonctionnalités
 
 - **Deux entités** : les commandes vont au `cover`, l'état affiché vient de n'importe quelle `state_entity` (`input_select`, sensor, template…).
-- **Normalisation d'état** : `Fermé`, `closed`, `ouverture`, `En mouvement`… sont détectés automatiquement (insensible aux accents, 12 langues) et convertis en fermé / ouvert / ouverture / fermeture / en mouvement / piéton / inconnu. `state_map` couvre le reste.
-- **Couleurs par état** via votre thème (fermé = vert, ouvert = orange, mouvement = bleu, inconnu = rouge), ou une couleur fixe `gate_color`.
+- **Normalisation d'état** : `Fermé`, `closed`, `ouverture`, `En mouvement`… sont détectés automatiquement (insensible aux accents, 12 langues) et convertis en fermé / ouvert / ouverture / fermeture / en mouvement / piéton / déverrouillé / inconnu. `state_map` couvre le reste.
+- **Couleurs par état** via votre thème (fermé = vert, ouvert & déverrouillé = orange, mouvement = bleu, inconnu = rouge), ou une couleur fixe `gate_color`.
 - **Quatre types animés** : `sliding`, `swing`, `door` (portillon / porte d'entrée — affichage seul sauf si des commandes sont configurées, pratique pour les serrures connectées) et `garage` (porte roulante) — cinq `gate_style` chacun pour coulissant/battants, icônes assorties au type en mode compact et sur les boutons. `compact: true` remplace l'illustration par une icône.
 - **Passage piéton** (coulissant/battants) : définissez `pedestrian_entity` → un bouton *Piéton* quand c'est fermé, un vantail s'ouvre avec un pictogramme, seul *Fermer* est proposé.
 - **Boutons sécurisés impulsion** : seules les commandes pertinentes s'affichent, **aucune pendant le mouvement** (une impulsion de plus stoppe ou inverse le vantail), confirmation double appui et `show_stop` en option.
@@ -45,8 +45,8 @@ Pas encore dans le store HACS par défaut — ajoutez un dépôt personnalisé :
 | `entity` | **Obligatoire.** Le `cover` — ou la serrure `lock` (Nuki…) : *Ouvrir* déverrouille, *Fermer* verrouille — qui reçoit les commandes. (Optionnel avec des overrides ou une `state_entity` seule.) |
 | `state_entity` | Entité portant l'état consolidé fiable (tout domaine). Défaut : `entity`. |
 | `contact_entity` | Capteur d'ouverture physique (contact de porte). Contact ouvert + pêne verrouillé → inconnu. |
-| `battery_entity` | Capteur de batterie en %, affiché en haut à droite (vert/orange/rouge). |
-| `state_map` | Map optionnelle : état brut → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unknown`. |
+| `battery_entity` | Capteur de batterie en %, affiché en haut à droite (vert/orange/rouge). Masqué en mode `compact`. |
+| `state_map` | Map optionnelle : état brut → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`unknown`. |
 | `gate_type` | `sliding` (défaut), `swing`, `door` ou `garage`. `door` est en affichage seul sauf si des commandes sont configurées. |
 | `gate_style` | Style du vantail (coulissant/battants). Coulissant : `slats` (défaut), `bars`, `semi`, `solid`. Battants : `bell` (défaut), `bars`, `slats`, `semi`, `solid`. |
 | `slide_direction` | `left` (défaut) ou `right`. |
