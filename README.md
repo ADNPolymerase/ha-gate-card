@@ -28,7 +28,7 @@ Built for the common setup where *command* and *state* are two different channel
 - **Pedestrian pass** (sliding/swing): set `pedestrian_entity` → a *Pedestrian* button while closed, one leaf opens with a pictogram, only *Close* is offered.
 - **Impulse-safe buttons**: only relevant commands are shown, **none while moving** (an extra impulse stops or reverses the leaf), optional two-tap confirmation and `show_stop`.
 - **Command overrides** (`open_entity` / `close_entity` / `stop_entity`) for gates that aren't covers, and a **visual editor** for every field.
-- **Smart locks** (Nuki…): a `lock` as `entity`, `contact_entity` for the real open/closed state (*Closed, unlocked* in orange) and a `battery_entity` corner indicator.
+- **Smart locks** (Nuki…): a `lock` as `entity`, an *Unlocked* state drawn closed in orange, an optional *Unlock* button next to the unlatch, `contact_entity` for the real open/closed state and a `battery_entity` corner indicator.
 
 ## Installation (HACS)
 
@@ -44,7 +44,7 @@ Not yet in the default HACS store — add it as a custom repository:
 |---|---|
 | `entity` | **Required.** The `cover` — or `lock` (Nuki…): *Open* unlocks, *Close* locks — receiving commands. (Optional if you use overrides or `state_entity` only.) |
 | `state_entity` | Entity holding the reliable consolidated state (any domain). Defaults to `entity`. |
-| `contact_entity` | Physical open/closed sensor (door contact). Closed contact + unlocked lock → orange *Closed, unlocked* state; open contact + locked bolt → unknown. |
+| `contact_entity` | Physical open/closed sensor (door contact). Open contact + locked bolt → unknown. |
 | `battery_entity` | Battery percentage sensor, shown top-right (green/orange/red). |
 | `state_map` | Optional map: raw state → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unknown`. |
 | `gate_type` | `sliding` (default), `swing`, `door` or `garage`. `door` is display-only unless command entities are set. |
@@ -59,7 +59,7 @@ Not yet in the default HACS store — add it as a custom repository:
 | `show_key` | Key symbol on the closed gate. Default `true`. |
 | `show_runner` | Pedestrian pictogram in pedestrian mode. Default `true`. |
 | `show_car` | Car pictogram in the opening when fully open (sliding/swing/garage). Default `true`. |
-| `open_entity` / `close_entity` / `stop_entity` | Button/script/switch/lock used instead of the cover services. A `lock` as `open_entity` maps *Open* to `lock.open` (unlatch). |
+| `open_entity` / `close_entity` / `stop_entity` | Button/script/switch/lock used instead of the cover services. A `lock` as `open_entity` maps *Open* to `lock.open` (unlatch) and adds a separate *Unlock* button while locked. |
 | `pedestrian_entity` | Button/script/switch for the partial pedestrian opening (sliding/swing). Enables the *Pedestrian* button while closed. |
 
 ### Example

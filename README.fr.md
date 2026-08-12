@@ -28,7 +28,7 @@ Conçue pour le cas très courant où la *commande* et l'*état* sont deux canau
 - **Passage piéton** (coulissant/battants) : définissez `pedestrian_entity` → un bouton *Piéton* quand c'est fermé, un vantail s'ouvre avec un pictogramme, seul *Fermer* est proposé.
 - **Boutons sécurisés impulsion** : seules les commandes pertinentes s'affichent, **aucune pendant le mouvement** (une impulsion de plus stoppe ou inverse le vantail), confirmation double appui et `show_stop` en option.
 - **Commandes personnalisées** (`open_entity` / `close_entity` / `stop_entity`) pour les portails qui ne sont pas des covers, et **éditeur visuel** pour chaque champ.
-- **Serrures connectées** (Nuki…) : une `lock` comme `entity`, `contact_entity` pour l'état d'ouverture physique réel (*Fermé, non verrouillé* en orange) et un indicateur `battery_entity` en coin.
+- **Serrures connectées** (Nuki…) : une `lock` comme `entity`, un état *Déverrouillé* dessiné porte fermée en orange, un bouton *Déverrouiller* optionnel à côté du bec de cane, `contact_entity` pour l'état d'ouverture physique réel et un indicateur `battery_entity` en coin.
 
 ## Installation (HACS)
 
@@ -44,7 +44,7 @@ Pas encore dans le store HACS par défaut — ajoutez un dépôt personnalisé :
 |---|---|
 | `entity` | **Obligatoire.** Le `cover` — ou la serrure `lock` (Nuki…) : *Ouvrir* déverrouille, *Fermer* verrouille — qui reçoit les commandes. (Optionnel avec des overrides ou une `state_entity` seule.) |
 | `state_entity` | Entité portant l'état consolidé fiable (tout domaine). Défaut : `entity`. |
-| `contact_entity` | Capteur d'ouverture physique (contact de porte). Contact fermé + serrure déverrouillée → état orange *Fermé, non verrouillé* ; contact ouvert + pêne verrouillé → inconnu. |
+| `contact_entity` | Capteur d'ouverture physique (contact de porte). Contact ouvert + pêne verrouillé → inconnu. |
 | `battery_entity` | Capteur de batterie en %, affiché en haut à droite (vert/orange/rouge). |
 | `state_map` | Map optionnelle : état brut → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unknown`. |
 | `gate_type` | `sliding` (défaut), `swing`, `door` ou `garage`. `door` est en affichage seul sauf si des commandes sont configurées. |
@@ -59,7 +59,7 @@ Pas encore dans le store HACS par défaut — ajoutez un dépôt personnalisé :
 | `show_key` | Clé sur le portail fermé. Défaut `true`. |
 | `show_runner` | Pictogramme piéton en mode piéton. Défaut `true`. |
 | `show_car` | Pictogramme voiture dans l'ouverture quand c'est totalement ouvert (coulissant/battant/garage). Défaut `true`. |
-| `open_entity` / `close_entity` / `stop_entity` | Bouton/script/switch/serrure utilisés à la place des services du cover. Une serrure `lock` en `open_entity` fait *Ouvrir* → `lock.open` (bec de cane). |
+| `open_entity` / `close_entity` / `stop_entity` | Bouton/script/switch/serrure utilisés à la place des services du cover. Une serrure `lock` en `open_entity` fait *Ouvrir* → `lock.open` (bec de cane) et ajoute un bouton *Déverrouiller* séparé quand c'est verrouillé. |
 | `pedestrian_entity` | Bouton/script/switch de l'ouverture partielle piéton (coulissant/battants). Active le bouton *Piéton* quand c'est fermé. |
 
 ### Exemple

@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.1.0-beta.1";
+const CARD_VERSION = "1.1.0-beta.2";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -18,10 +18,10 @@ const T = {
     closed: "Closed", open: "Open", opening: "Opening\u2026", closing: "Closing\u2026",
     unknown: "Unknown state", since: "since",
     pedestrian: "Pedestrian pass", moving: "Moving\u2026",
-    open_btn: "Open", close_btn: "Close", stop_btn: "Stop", confirm_tap: "Confirm?",
+    open_btn: "Open", close_btn: "Close", stop_btn: "Stop", unlock_btn: "Unlock", confirm_tap: "Confirm?",
     entity: "Gate cover or lock entity (required)",
     state_entity: "Consolidated state entity (optional)",
-    unlocked: "Closed, unlocked",
+    unlocked: "Unlocked",
     contact_entity: "Physical open/closed sensor (optional)", battery_entity: "Battery entity",
     name: "Name", compact: "Compact mode (icon instead of illustration)",
     confirm_opt: "Ask for confirmation before commands (tap twice)",
@@ -48,10 +48,10 @@ const T = {
     opening: "Ouverture en cours\u2026", closing: "Fermeture en cours\u2026",
     unknown: "\u00c9tat inconnu", since: "depuis",
     pedestrian: "Pi\u00e9ton", moving: "En mouvement\u2026",
-    open_btn: "Ouvrir", close_btn: "Fermer", stop_btn: "Stop", confirm_tap: "Confirmer ?",
+    open_btn: "Ouvrir", close_btn: "Fermer", stop_btn: "Stop", unlock_btn: "D\u00e9verrouiller", confirm_tap: "Confirmer ?",
     entity: "Entit\u00e9 cover ou serrure du portail (obligatoire)",
     state_entity: "Entit\u00e9 d'\u00e9tat consolid\u00e9 (optionnel)",
-    unlocked: "Ferm\u00e9, non verrouill\u00e9",
+    unlocked: "D\u00e9verrouill\u00e9",
     contact_entity: "Capteur d'ouverture physique (optionnel)", battery_entity: "Entit\u00e9 batterie",
     name: "Nom", compact: "Mode compact (ic\u00f4ne au lieu de l'illustration)",
     confirm_opt: "Demander confirmation avant les commandes (double appui)",
@@ -77,10 +77,10 @@ const T = {
     closed: "\u0417\u0430\u043a\u0440\u044b\u0442\u043e", open: "\u041e\u0442\u043a\u0440\u044b\u0442\u043e", opening: "\u041e\u0442\u043a\u0440\u044b\u0432\u0430\u0435\u0442\u0441\u044f\u2026", closing: "\u0417\u0430\u043a\u0440\u044b\u0432\u0430\u0435\u0442\u0441\u044f\u2026",
     unknown: "\u041d\u0435\u0438\u0437\u0432\u0435\u0441\u0442\u043d\u043e\u0435 \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u0435", since: "\u0441",
     pedestrian: "\u041f\u0435\u0448\u0435\u0445\u043e\u0434\u043d\u044b\u0439 \u043f\u0440\u043e\u0445\u043e\u0434", moving: "\u0412 \u0434\u0432\u0438\u0436\u0435\u043d\u0438\u0438\u2026",
-    open_btn: "\u041e\u0442\u043a\u0440\u044b\u0442\u044c", close_btn: "\u0417\u0430\u043a\u0440\u044b\u0442\u044c", stop_btn: "\u0421\u0442\u043e\u043f", confirm_tap: "\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044c?",
+    open_btn: "\u041e\u0442\u043a\u0440\u044b\u0442\u044c", close_btn: "\u0417\u0430\u043a\u0440\u044b\u0442\u044c", stop_btn: "\u0421\u0442\u043e\u043f", unlock_btn: "\u041e\u0442\u043f\u0435\u0440\u0435\u0442\u044c", confirm_tap: "\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0434\u0438\u0442\u044c?",
     entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c cover \u0438\u043b\u0438 \u0437\u0430\u043c\u043a\u0430 \u0432\u043e\u0440\u043e\u0442 (\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)",
     state_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0441\u0432\u043e\u0434\u043d\u043e\u0433\u043e \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)",
-    unlocked: "\u0417\u0430\u043a\u0440\u044b\u0442\u043e, \u043d\u0435 \u0437\u0430\u043f\u0435\u0440\u0442\u043e",
+    unlocked: "\u041d\u0435 \u0437\u0430\u043f\u0435\u0440\u0442\u043e",
     contact_entity: "\u0424\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0434\u0430\u0442\u0447\u0438\u043a \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)", battery_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0431\u0430\u0442\u0430\u0440\u0435\u0438",
     name: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435", compact: "\u041a\u043e\u043c\u043f\u0430\u043a\u0442\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c (\u0437\u043d\u0430\u0447\u043e\u043a \u0432\u043c\u0435\u0441\u0442\u043e \u0438\u043b\u043b\u044e\u0441\u0442\u0440\u0430\u0446\u0438\u0438)",
     confirm_opt: "\u0417\u0430\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0442\u044c \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u0434 \u043a\u043e\u043c\u0430\u043d\u0434\u0430\u043c\u0438 (\u0434\u0432\u043e\u0439\u043d\u043e\u0435 \u043d\u0430\u0436\u0430\u0442\u0438\u0435)",
@@ -106,10 +106,10 @@ const T = {
     closed: "Geschlossen", open: "Offen", opening: "\u00d6ffnet\u2026", closing: "Schlie\u00dft\u2026",
     unknown: "Unbekannter Zustand", since: "seit",
     pedestrian: "Personendurchgang", moving: "In Bewegung\u2026",
-    open_btn: "\u00d6ffnen", close_btn: "Schlie\u00dfen", stop_btn: "Stopp", confirm_tap: "Best\u00e4tigen?",
+    open_btn: "\u00d6ffnen", close_btn: "Schlie\u00dfen", stop_btn: "Stopp", unlock_btn: "Entriegeln", confirm_tap: "Best\u00e4tigen?",
     entity: "Tor-Cover- oder Schloss-Entit\u00e4t (erforderlich)",
     state_entity: "Konsolidierte Status-Entit\u00e4t (optional)",
-    unlocked: "Geschlossen, entriegelt",
+    unlocked: "Entriegelt",
     contact_entity: "Physischer \u00d6ffnungssensor (optional)", battery_entity: "Batterie-Entit\u00e4t",
     name: "Name", compact: "Kompaktmodus (Symbol statt Illustration)",
     confirm_opt: "Vor Befehlen best\u00e4tigen (zweimal tippen)",
@@ -135,10 +135,10 @@ const T = {
     closed: "Cerrado", open: "Abierto", opening: "Abriendo\u2026", closing: "Cerrando\u2026",
     unknown: "Estado desconocido", since: "desde",
     pedestrian: "Peatonal", moving: "En movimiento\u2026",
-    open_btn: "Abrir", close_btn: "Cerrar", stop_btn: "Parar", confirm_tap: "\u00bfConfirmar?",
+    open_btn: "Abrir", close_btn: "Cerrar", stop_btn: "Parar", unlock_btn: "Desbloquear", confirm_tap: "\u00bfConfirmar?",
     entity: "Entidad cover o cerradura del port\u00f3n (obligatoria)",
     state_entity: "Entidad de estado consolidado (opcional)",
-    unlocked: "Cerrado, sin bloquear",
+    unlocked: "Desbloqueado",
     contact_entity: "Sensor f\u00edsico de apertura (opcional)", battery_entity: "Entidad de bater\u00eda",
     name: "Nombre", compact: "Modo compacto (icono en lugar de ilustraci\u00f3n)",
     confirm_opt: "Pedir confirmaci\u00f3n antes de los comandos (doble toque)",
@@ -164,10 +164,10 @@ const T = {
     closed: "Chiuso", open: "Aperto", opening: "Apertura\u2026", closing: "Chiusura\u2026",
     unknown: "Stato sconosciuto", since: "dalle",
     pedestrian: "Pedonale", moving: "In movimento\u2026",
-    open_btn: "Apri", close_btn: "Chiudi", stop_btn: "Stop", confirm_tap: "Confermare?",
+    open_btn: "Apri", close_btn: "Chiudi", stop_btn: "Stop", unlock_btn: "Sblocca", confirm_tap: "Confermare?",
     entity: "Entit\u00e0 cover o serratura del cancello (obbligatoria)",
     state_entity: "Entit\u00e0 di stato consolidato (opzionale)",
-    unlocked: "Chiuso, non bloccato",
+    unlocked: "Sbloccato",
     contact_entity: "Sensore fisico di apertura (opzionale)", battery_entity: "Entit\u00e0 batteria",
     name: "Nome", compact: "Modalit\u00e0 compatta (icona invece dell'illustrazione)",
     confirm_opt: "Chiedere conferma prima dei comandi (doppio tocco)",
@@ -193,10 +193,10 @@ const T = {
     closed: "Gesloten", open: "Open", opening: "Opent\u2026", closing: "Sluit\u2026",
     unknown: "Onbekende status", since: "sinds",
     pedestrian: "Voetgangersstand", moving: "In beweging\u2026",
-    open_btn: "Openen", close_btn: "Sluiten", stop_btn: "Stop", confirm_tap: "Bevestigen?",
+    open_btn: "Openen", close_btn: "Sluiten", stop_btn: "Stop", unlock_btn: "Ontgrendelen", confirm_tap: "Bevestigen?",
     entity: "Poort cover- of slot-entiteit (verplicht)",
     state_entity: "Geconsolideerde status-entiteit (optioneel)",
-    unlocked: "Gesloten, niet vergrendeld",
+    unlocked: "Ontgrendeld",
     contact_entity: "Fysieke openingssensor (optioneel)", battery_entity: "Batterij-entiteit",
     name: "Naam", compact: "Compacte modus (pictogram i.p.v. illustratie)",
     confirm_opt: "Bevestiging vragen v\u00f3\u00f3r commando's (twee keer tikken)",
@@ -222,10 +222,10 @@ const T = {
     closed: "Fechado", open: "Aberto", opening: "A abrir\u2026", closing: "A fechar\u2026",
     unknown: "Estado desconhecido", since: "desde",
     pedestrian: "Pedonal", moving: "Em movimento\u2026",
-    open_btn: "Abrir", close_btn: "Fechar", stop_btn: "Parar", confirm_tap: "Confirmar?",
+    open_btn: "Abrir", close_btn: "Fechar", stop_btn: "Parar", unlock_btn: "Destrancar", confirm_tap: "Confirmar?",
     entity: "Entidade cover ou fechadura do port\u00e3o (obrigat\u00f3ria)",
     state_entity: "Entidade de estado consolidado (opcional)",
-    unlocked: "Fechado, destrancado",
+    unlocked: "Destrancado",
     contact_entity: "Sensor f\u00edsico de abertura (opcional)", battery_entity: "Entidade de bateria",
     name: "Nome", compact: "Modo compacto (\u00edcone em vez da ilustra\u00e7\u00e3o)",
     confirm_opt: "Pedir confirma\u00e7\u00e3o antes dos comandos (dois toques)",
@@ -251,10 +251,10 @@ const T = {
     closed: "St\u00e4ngd", open: "\u00d6ppen", opening: "\u00d6ppnar\u2026", closing: "St\u00e4nger\u2026",
     unknown: "Ok\u00e4nt l\u00e4ge", since: "sedan",
     pedestrian: "G\u00e5ngpassage", moving: "I r\u00f6relse\u2026",
-    open_btn: "\u00d6ppna", close_btn: "St\u00e4ng", stop_btn: "Stopp", confirm_tap: "Bekr\u00e4fta?",
+    open_btn: "\u00d6ppna", close_btn: "St\u00e4ng", stop_btn: "Stopp", unlock_btn: "L\u00e5s upp", confirm_tap: "Bekr\u00e4fta?",
     entity: "Grindens cover- eller l\u00e5sentitet (obligatorisk)",
     state_entity: "Konsoliderad status-entitet (valfri)",
-    unlocked: "St\u00e4ngd, ol\u00e5st",
+    unlocked: "Ol\u00e5st",
     contact_entity: "Fysisk \u00f6ppningssensor (valfri)", battery_entity: "Batterientitet",
     name: "Namn", compact: "Kompakt l\u00e4ge (ikon i st\u00e4llet f\u00f6r illustration)",
     confirm_opt: "Be om bekr\u00e4ftelse f\u00f6re kommandon (tryck tv\u00e5 g\u00e5nger)",
@@ -280,10 +280,10 @@ const T = {
     closed: "Lukket", open: "\u00c5pen", opening: "\u00c5pner\u2026", closing: "Lukker\u2026",
     unknown: "Ukjent tilstand", since: "siden",
     pedestrian: "Gangpassasje", moving: "I bevegelse\u2026",
-    open_btn: "\u00c5pne", close_btn: "Lukk", stop_btn: "Stopp", confirm_tap: "Bekreft?",
+    open_btn: "\u00c5pne", close_btn: "Lukk", stop_btn: "Stopp", unlock_btn: "L\u00e5s opp", confirm_tap: "Bekreft?",
     entity: "Portens cover- eller l\u00e5sentitet (p\u00e5krevd)",
     state_entity: "Konsolidert status-entitet (valgfri)",
-    unlocked: "Lukket, ul\u00e5st",
+    unlocked: "Ul\u00e5st",
     contact_entity: "Fysisk \u00e5pningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt modus (ikon i stedet for illustrasjon)",
     confirm_opt: "Be om bekreftelse f\u00f8r kommandoer (trykk to ganger)",
@@ -309,10 +309,10 @@ const T = {
     closed: "Lukket", open: "\u00c5ben", opening: "\u00c5bner\u2026", closing: "Lukker\u2026",
     unknown: "Ukendt tilstand", since: "siden",
     pedestrian: "Gangpassage", moving: "I bev\u00e6gelse\u2026",
-    open_btn: "\u00c5bn", close_btn: "Luk", stop_btn: "Stop", confirm_tap: "Bekr\u00e6ft?",
+    open_btn: "\u00c5bn", close_btn: "Luk", stop_btn: "Stop", unlock_btn: "L\u00e5s op", confirm_tap: "Bekr\u00e6ft?",
     entity: "Portens cover- eller l\u00e5sentitet (p\u00e5kr\u00e6vet)",
     state_entity: "Konsolideret status-entitet (valgfri)",
-    unlocked: "Lukket, ul\u00e5st",
+    unlocked: "Ul\u00e5st",
     contact_entity: "Fysisk \u00e5bningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt tilstand (ikon i stedet for illustration)",
     confirm_opt: "Bed om bekr\u00e6ftelse f\u00f8r kommandoer (tryk to gange)",
@@ -338,10 +338,10 @@ const T = {
     closed: "Zamkni\u0119ta", open: "Otwarta", opening: "Otwieranie\u2026", closing: "Zamykanie\u2026",
     unknown: "Stan nieznany", since: "od",
     pedestrian: "Furtka", moving: "W ruchu\u2026",
-    open_btn: "Otw\u00f3rz", close_btn: "Zamknij", stop_btn: "Stop", confirm_tap: "Potwierdzi\u0107?",
+    open_btn: "Otw\u00f3rz", close_btn: "Zamknij", stop_btn: "Stop", unlock_btn: "Odblokuj", confirm_tap: "Potwierdzi\u0107?",
     entity: "Encja cover lub zamka bramy (wymagana)",
     state_entity: "Encja stanu skonsolidowanego (opcjonalna)",
-    unlocked: "Zamkni\u0119ta, odblokowana",
+    unlocked: "Odblokowana",
     contact_entity: "Fizyczny czujnik otwarcia (opcjonalny)", battery_entity: "Encja baterii",
     name: "Nazwa", compact: "Tryb kompaktowy (ikona zamiast ilustracji)",
     confirm_opt: "Wymagaj potwierdzenia przed komendami (dwa dotkni\u0119cia)",
@@ -388,7 +388,8 @@ const STATE_KEYWORDS = {
   pedestrian: ["pieton", "pedestrian", "peaton", "pedonal", "voetganger", "fussgang", "durchgang", "gangpass", "ganglage", "gangport", "furtka"],
   moving: ["moving", "mouvement", "in motion", "bewegung", "movimiento", "movimento", "beweging", "rorelse", "bevegelse", "bevaegelse", "bev\u00e6gelse", "ruch"],
   closed: ["closed", "locked", "verrouill", "ferme", "geschlossen", "cerrado", "chiuso", "gesloten", "fechado", "stangd", "lukket", "zamkni"],
-  open: ["open", "unlocked", "deverrouill", "ouvert", "offen", "abierto", "aperto", "aberto", "oppen", "apen", "aben", "otwart"],
+  unlocked: ["unlocked", "deverrouill", "entriegelt", "desbloquead", "sbloccat", "ontgrendeld", "destrancad", "olast", "ulast", "odblokowan"],
+  open: ["open", "ouvert", "offen", "abierto", "aperto", "aberto", "oppen", "apen", "aben", "otwart"],
 };
 
 function stripAccents(str) {
@@ -487,7 +488,11 @@ function actionsFor(norm, cfg) {
   // Pedestrian pass only exists on sliding and swing gates.
   const ped = cfg.pedestrian_entity && cfg.gate_type !== "garage";
   switch (norm) {
-    case "closed": return ped ? ["pedestrian", "open"] : ["open"];
+    case "closed":
+      if (ped) return ["pedestrian", "open"];
+      // A lock with an unlatch override gets a separate Unlock button.
+      if (domainOf(cfg.entity || "") === "lock" && domainOf(cfg.open_entity || "") === "lock") return ["unlock", "open"];
+      return ["open"];
     case "open": return ["close"];
     case "unlocked": return ["open", "close"];
     case "pedestrian": return ["close"];
@@ -941,7 +946,7 @@ class GateCard extends HTMLElement {
     } else if (domainOf(cfg.entity) === "lock") {
       // Locks (Nuki and friends): Open unlocks the bolt, Close locks it. The
       // physical unlatch (lock.open) stays opt-in via a lock set as open_entity.
-      this._hass.callService("lock", action === "open" ? "unlock" : "lock", { entity_id: cfg.entity });
+      this._hass.callService("lock", action === "close" ? "lock" : "unlock", { entity_id: cfg.entity });
     } else {
       this._hass.callService("cover", action + "_cover", { entity_id: cfg.entity });
     }
@@ -979,7 +984,7 @@ class GateCard extends HTMLElement {
     // A physical door contact refines the stable states: closed contact turns
     // a lock-open state into "closed, unlocked"; an open contact over a locked
     // bolt is theoretically impossible -> unknown.
-    if (cfg.contact_entity && hass.states[cfg.contact_entity] && ["open", "closed"].includes(norm)) {
+    if (cfg.contact_entity && hass.states[cfg.contact_entity] && ["open", "closed", "unlocked"].includes(norm)) {
       const rawContact = String(hass.states[cfg.contact_entity].state).trim().toLowerCase();
       const contactNorm = ["on", "true"].includes(rawContact) ? "open"
         : ["off", "false"].includes(rawContact) ? "closed"
@@ -1017,6 +1022,7 @@ class GateCard extends HTMLElement {
         const icon =
           a === "open" ? (type === "garage" ? "mdi:garage-open" : type === "door" ? "mdi:door-open" : "mdi:gate-open")
           : a === "close" ? (type === "garage" ? "mdi:garage" : type === "door" ? "mdi:door-closed" : "mdi:gate")
+          : a === "unlock" ? "mdi:lock-open"
           : a === "pedestrian" ? "mdi:walk" : "mdi:stop";
         const label = pending ? t(hass, "confirm_tap") : t(hass, a + "_btn");
         return `<button data-action="${a}" class="${pending ? "pending" : ""}">
