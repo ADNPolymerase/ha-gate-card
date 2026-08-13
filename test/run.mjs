@@ -45,6 +45,20 @@ check("l'éditeur émet config-changed", ev?.type, 'config-changed');
 check('config-changed porte bien detail.config',
   ev?.detail?.config?.entity, 'cover.portail');
 
+// HA calls setConfig again after every config-changed the editor emits. If
+// that echo rebuilt the form, freshly created ha-entity-picker could fire an
+// empty value-changed and silently erase a configured entity (the
+// ha-dosing-tank-card v0.7.2 bug). The form must be built exactly once:
+// a sentinel written over the DOM has to survive the echo.
+
+const ed2 = new Editor();
+ed2.setConfig({ entity: 'cover.portail', state_entity: 'sensor.etat' });
+ed2.hass = { language: 'en', states: {} };          // first build
+ed2._root.innerHTML = 'SENTINELLE';
+ed2.setConfig({ entity: 'cover.portail', state_entity: 'sensor.etat' });  // écho HA
+check("l'écho setConfig ne reconstruit pas le formulaire (pickers préservés)",
+  markup(ed2), 'SENTINELLE');
+
 // ── State table: raw state → color + label ───────────────────────────────────
 
 check('closed → vert',        color(makeCard('closed')), 'var(--success-color, #4caf50)');
