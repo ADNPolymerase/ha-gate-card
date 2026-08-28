@@ -32,11 +32,8 @@ Conçue pour le cas très courant où la *commande* et l'*état* sont deux canau
 
 ## Installation (HACS)
 
-Pas encore dans le store HACS par défaut — ajoutez un dépôt personnalisé :
-
-1. HACS → menu « ⋮ » → **Dépôts personnalisés**.
-2. Dépôt : `https://github.com/ADNPolymerase/ha-gate-card`, catégorie : **Dashboard**.
-3. Installez **HA Gate Card**, puis ajoutez une card `custom:ha-gate-card` (YAML ou éditeur visuel).
+1. Cherchez **HA Gate Card** dans HACS et installez-la.
+2. Ajoutez une card `custom:ha-gate-card` (YAML ou éditeur visuel).
 
 ## Configuration
 

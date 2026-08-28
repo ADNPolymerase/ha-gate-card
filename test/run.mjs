@@ -75,6 +75,18 @@ check('state_map prioritaire sur les mots-clés',
 check('état inconnu → rouge', color(makeCard('blorp')), 'var(--error-color, #f44336)');
 check('état inconnu → libellé', label(makeCard('blorp')), 'Unknown state');
 
+// ── Escaping ─────────────────────────────────────────────────────────────────
+// friendly_name is device-supplied freeform text: it must never reach
+// innerHTML (or an attribute) unescaped.
+
+const evil = makeCard('closed', { name: 'Portail "<script>alert(1)</script>"' });
+contains('nom échappé dans le markup', evil, '&quot;&lt;script&gt;');
+check("nom : rien d'injecté", /<script>alert/.test(evil), false);
+
+check('state_map vers une valeur inconnue → couleur inconnu (pas undefined)',
+  color(makeCard('weird', { state_map: { weird: 'blorp' } })),
+  'var(--error-color, #f44336)');
+
 // ── Unavailable / missing entities must render, not throw ────────────────────
 
 check('cover unavailable → état inconnu, pas de crash',

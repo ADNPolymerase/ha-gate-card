@@ -32,11 +32,8 @@ Built for the common setup where *command* and *state* are two different channel
 
 ## Installation (HACS)
 
-Not yet in the default HACS store — add it as a custom repository:
-
-1. HACS → "⋮" menu → **Custom repositories**.
-2. Repository: `https://github.com/ADNPolymerase/ha-gate-card`, category: **Dashboard**.
-3. Install **HA Gate Card**, then add a `custom:ha-gate-card` card (YAML or visual editor).
+1. Search for **HA Gate Card** in HACS and install it.
+2. Add a `custom:ha-gate-card` card (YAML or visual editor).
 
 ## Configuration
 

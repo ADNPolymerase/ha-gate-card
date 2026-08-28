@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.1.0";
+const CARD_VERSION = "1.1.1";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -403,11 +403,22 @@ const STATE_KEYWORD_PATTERNS = Object.fromEntries(
   ])
 );
 
+// Freeform text (friendly_name is device-supplied) must never reach
+// innerHTML or an attribute unescaped.
+function escapeHtml(v) {
+  return String(v).replace(/[&<>"']/g, (c) => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+  ));
+}
+
 function normalizeState(raw, stateMap) {
   if (raw === undefined || raw === null) return "unknown";
   const s = String(raw).trim();
   if (["unknown", "unavailable", "none", "inconnu", ""].includes(s.toLowerCase())) return "unknown";
-  if (stateMap && Object.prototype.hasOwnProperty.call(stateMap, s)) return stateMap[s];
+  if (stateMap && Object.prototype.hasOwnProperty.call(stateMap, s)) {
+    const mapped = stateMap[s];
+    return STATE_COLORS[mapped] ? mapped : "unknown";
+  }
   const flat = stripAccents(s);
   for (const norm of Object.keys(STATE_KEYWORD_PATTERNS)) {
     if (STATE_KEYWORD_PATTERNS[norm].some((re) => re.test(flat))) return norm;
@@ -1108,7 +1119,7 @@ button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
 .badge ha-icon[icon="mdi:walk"] { position:relative; top:-2.4px; }
       </style>
       <ha-card class="${moving ? "moving" : ""}${cfg.compact ? " compact" : ""}${dirClass}">
-        ${batt !== null && !cfg.compact ? `<div class="corner-batt" title="${cfg.battery_entity} : ${batt}%">
+        ${batt !== null && !cfg.compact ? `<div class="corner-batt" title="${escapeHtml(cfg.battery_entity)} : ${batt}%">
           <svg width="26" height="15" viewBox="0 0 24 14">
             <rect x="1" y="2" width="19" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
             <rect x="21" y="5" width="2.4" height="4" rx="1" fill="currentColor"/>
@@ -1119,7 +1130,7 @@ button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
           : `<div class="illu">${gateSvg(norm, cfg)}</div>`}
         <div class="bottom">
           <div class="body">
-            <div class="name">${name}</div>
+            <div class="name">${escapeHtml(name)}</div>
             <div class="state">${t(hass, norm)}</div>
             ${since ? `<div class="since">${t(hass, "since")} ${since}</div>` : ""}
           </div>
@@ -1264,7 +1275,7 @@ details .form { padding-top:10px; }
         </div>
         <div class="row">
           <label>${t(hass, "name")}</label>
-          <input type="text" data-field="name" value="${cfg.name || ""}" />
+          <input type="text" data-field="name" value="${escapeHtml(cfg.name || "")}" />
         </div>
         <div class="row row-inline">
           <label><input type="checkbox" data-field="compact" ${cfg.compact ? "checked" : ""}/> ${t(hass, "compact")}</label>
