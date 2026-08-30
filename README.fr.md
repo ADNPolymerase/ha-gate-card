@@ -1,6 +1,6 @@
 # HA Gate Card
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/hacs/integration)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-blue.svg)](https://github.com/hacs/default)
 [![GitHub Release](https://img.shields.io/github/v/release/ADNPolymerase/ha-gate-card?sort=semver)](https://github.com/ADNPolymerase/ha-gate-card/releases)
 [![HACS Action](https://github.com/ADNPolymerase/ha-gate-card/actions/workflows/hacs.yml/badge.svg)](https://github.com/ADNPolymerase/ha-gate-card/actions/workflows/hacs.yml)
 [![HA Version](https://img.shields.io/badge/Home%20Assistant-2024.1%2B-blue.svg)](https://www.home-assistant.io)
@@ -14,7 +14,7 @@ Une card Lovelace pour portails — état réel consolidé, couleurs par état, 
 
 Conçue pour le cas très courant où la *commande* et l'*état* sont deux canaux différents : le portail est piloté par impulsion RF (AirSend, RFXCOM, relais Shelly, contact sec…) exposée en `cover`, tandis que la position **fiable** vient de capteurs ouvert/fermé séparés. La card affiche l'état consolidé et envoie les commandes au cover — sans deviner.
 
-> Statut : préversion. Retours et issues bienvenus.
+> Retours et issues bienvenus.
 > 🇬🇧 [Read in English](README.md)
 
 [![Capture d'écran HA Gate Card](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/screenshot.fr.png)](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/screenshot.fr.png)
