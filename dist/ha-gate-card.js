@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.1.2";
+const CARD_VERSION = "1.1.3";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -1045,7 +1045,7 @@ class GateCard extends HTMLElement {
     this._root.innerHTML = `
       <style>
 :host { --gate-color: ${color}; --leaf-color: ${leafColor}; --leaf-line: ${leafLine}; }
-ha-card { position:relative; display:flex; flex-direction:column; gap:12px; padding:16px; }
+ha-card { position:relative; container-type:inline-size; display:flex; flex-direction:column; gap:12px; padding:16px; }
 ha-card.compact { flex-direction:row; align-items:center; gap:16px; padding:8px 16px; }
 ha-card.tappable { cursor:pointer; }
 .illu { width:200px; max-width:70%; margin:0 auto; color:var(--leaf-color); }
@@ -1102,17 +1102,23 @@ ha-card.tappable { cursor:pointer; }
 .moving .badge { animation:gate-pulse 1.6s ease-in-out infinite; }
 @keyframes gate-pulse { 50% { opacity:.55; } }
 .bottom { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; }
-ha-card.compact .bottom { flex:1; align-items:center; }
-.body { min-width:0; }
+ha-card.compact .bottom { flex:1; align-items:center; flex-wrap:wrap; }
+.body { min-width:0; flex:1 1 100px; overflow-wrap:anywhere; }
+ha-card.compact .name, ha-card.compact .state, ha-card.compact .since { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .name { font-size:15px; font-weight:500; color:var(--primary-text-color); }
 .state { font-size:13.5px; font-weight:500; color:var(--gate-color); }
 .since { font-size:12px; color:var(--secondary-text-color); }
 .corner-batt { position:absolute; top:10px; right:12px; display:flex; align-items:center; gap:4px; font-size:12px; color:var(--secondary-text-color); z-index:2; }
-.actions { display:flex; gap:8px; }
-button { display:flex; align-items:center; justify-content:center; gap:6px; padding:8px 14px; min-width:96px; border:none; border-radius:12px; cursor:pointer; font:inherit; font-size:13px; background:var(--secondary-background-color); color:var(--primary-text-color); }
+.actions { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+button { display:flex; align-items:center; justify-content:center; gap:6px; padding:8px 14px; min-width:96px; max-width:100%; border:none; border-radius:12px; cursor:pointer; font:inherit; font-size:13px; background:var(--secondary-background-color); color:var(--primary-text-color); }
 button:hover { filter:brightness(.93); }
 button.pending { background:var(--gate-color); color:#fff; }
 button ha-icon { --mdc-icon-size:18px; }
+button span { overflow:hidden; text-overflow:ellipsis; }
+@container (max-width: 290px) {
+  .actions { width:100%; }
+  button { min-width:0; flex:1 1 auto; }
+}
 button ha-icon[icon^="mdi:gate"] { position:relative; top:-1.1px; }
 button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
 .badge ha-icon[icon^="mdi:gate"] { position:relative; top:-1.6px; }
