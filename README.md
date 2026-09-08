@@ -22,10 +22,11 @@ Built for the common setup where *command* and *state* are two different channel
 ## Features
 
 - **Two entities**: commands go to the `cover`, the displayed state comes from any `state_entity` (`input_select`, sensor, template…).
-- **State normalization**: `Fermé`, `closed`, `ouverture`, `En mouvement`… are auto-detected (accent-insensitive, 12 languages) and mapped to closed / open / opening / closing / moving / pedestrian / unlocked / unknown. `state_map` covers anything else.
+- **State normalization**: `Fermé`, `closed`, `ouverture`, `En mouvement`… are auto-detected (accent-insensitive, 12 languages) and mapped to closed / open / opening / closing / moving / pedestrian / unlocked / venting / part-open / unknown. `state_map` covers anything else.
 - **Per-state colors** from your theme (closed = green, open & unlocked = orange, moving = blue, unknown = red), or a fixed `gate_color`.
 - **Four animated types**: `sliding`, `swing`, `door` (wicket / entrance door — display-only unless you configure command entities, handy for smart locks) and `garage` (roller door) — five `gate_style` designs each for sliding/swing, type-matched icons in compact mode and on the buttons. `compact: true` swaps the illustration for an icon.
 - **Pedestrian pass** (sliding/swing): set `pedestrian_entity` → a *Pedestrian* button while closed, one leaf opens with a pictogram, only *Close* is offered.
+- **Part-open garage doors**: `vent_entity` opens a slot at the top (a breeze blows through it), `partial_entity` lifts the curtain off the floor (a cat walks through). Each adds its own button while closed; in either position only *Close* is offered.
 - **Impulse-safe buttons**: only relevant commands are shown, **none while moving** (an extra impulse stops or reverses the leaf), optional two-tap confirmation and `show_stop`.
 - **Command overrides** (`open_entity` / `close_entity` / `stop_entity`) for gates that aren't covers, and a **visual editor** for every field.
 - **Smart locks** (Nuki…): a `lock` as `entity`, an *Unlocked* state drawn closed in orange, an optional *Unlock* button next to the unlatch, `contact_entity` for the real open/closed state and a `battery_entity` corner indicator.
@@ -43,7 +44,7 @@ Built for the common setup where *command* and *state* are two different channel
 | `state_entity` | Entity holding the reliable consolidated state (any domain). Defaults to `entity`. |
 | `contact_entity` | Physical open/closed sensor (door contact). Open contact + locked bolt → unknown. |
 | `battery_entity` | Battery percentage sensor, shown top-right (green/orange/red). Hidden in `compact` mode. |
-| `state_map` | Optional map: raw state → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`unknown`. |
+| `state_map` | Optional map: raw state → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`unknown`. |
 | `gate_type` | `sliding` (default), `swing`, `door` or `garage`. `door` is display-only unless command entities are set. |
 | `gate_style` | Leaf design (sliding/swing). Sliding: `slats` (default), `bars`, `semi`, `solid`. Swing: `bell` (default), `bars`, `slats`, `semi`, `solid`. |
 | `slide_direction` | `left` (default) or `right`. |
@@ -56,8 +57,12 @@ Built for the common setup where *command* and *state* are two different channel
 | `show_key` | Key symbol on the closed gate. Default `true`. |
 | `show_runner` | Pedestrian pictogram in pedestrian mode. Default `true`. |
 | `show_car` | Car pictogram in the opening when fully open (sliding/swing/garage). Default `true`. |
+| `show_breeze` | Breeze pictogram in the venting slot (garage). Default `true`. |
+| `show_cat` | Cat pictogram in the part-open gap (garage). Default `true`. |
 | `open_entity` / `close_entity` / `stop_entity` | Button/script/switch/lock used instead of the cover services. A `lock` as `open_entity` maps *Open* to `lock.open` (unlatch) and adds a separate *Unlock* button while locked. |
 | `pedestrian_entity` | Button/script/switch for the partial pedestrian opening (sliding/swing). Enables the *Pedestrian* button while closed. |
+| `vent_entity` | Button/script/switch for the venting position (garage). Slot at the top, *Vent* button while closed. |
+| `partial_entity` | Button/script/switch for the part-open position (garage). Gap at the floor, *Part-open* button while closed. |
 
 ### Example
 

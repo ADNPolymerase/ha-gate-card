@@ -22,9 +22,10 @@ Conçue pour le cas très courant où la *commande* et l'*état* sont deux canau
 ## Fonctionnalités
 
 - **Deux entités** : les commandes vont au `cover`, l'état affiché vient de n'importe quelle `state_entity` (`input_select`, sensor, template…).
-- **Normalisation d'état** : `Fermé`, `closed`, `ouverture`, `En mouvement`… sont détectés automatiquement (insensible aux accents, 12 langues) et convertis en fermé / ouvert / ouverture / fermeture / en mouvement / piéton / déverrouillé / inconnu. `state_map` couvre le reste.
+- **Normalisation d'état** : `Fermé`, `closed`, `ouverture`, `En mouvement`… sont détectés automatiquement (insensible aux accents, 12 langues) et convertis en fermé / ouvert / ouverture / fermeture / en mouvement / piéton / déverrouillé / aération / ouverture partielle / inconnu. `state_map` couvre le reste.
 - **Couleurs par état** via votre thème (fermé = vert, ouvert & déverrouillé = orange, mouvement = bleu, inconnu = rouge), ou une couleur fixe `gate_color`.
 - **Quatre types animés** : `sliding`, `swing`, `door` (portillon / porte d'entrée — affichage seul sauf si des commandes sont configurées, pratique pour les serrures connectées) et `garage` (porte roulante) — cinq `gate_style` chacun pour coulissant/battants, icônes assorties au type en mode compact et sur les boutons. `compact: true` remplace l'illustration par une icône.
+- **Ouvertures partielles du garage** : `vent_entity` entrouvre une fente en haut (une brise la traverse), `partial_entity` décolle le tablier du sol (un chat s'y faufile). Chacune ajoute son bouton quand c'est fermé ; dans l'une ou l'autre position, seul *Fermer* est proposé.
 - **Passage piéton** (coulissant/battants) : définissez `pedestrian_entity` → un bouton *Piéton* quand c'est fermé, un vantail s'ouvre avec un pictogramme, seul *Fermer* est proposé.
 - **Boutons sécurisés impulsion** : seules les commandes pertinentes s'affichent, **aucune pendant le mouvement** (une impulsion de plus stoppe ou inverse le vantail), confirmation double appui et `show_stop` en option.
 - **Commandes personnalisées** (`open_entity` / `close_entity` / `stop_entity`) pour les portails qui ne sont pas des covers, et **éditeur visuel** pour chaque champ.
@@ -43,7 +44,7 @@ Conçue pour le cas très courant où la *commande* et l'*état* sont deux canau
 | `state_entity` | Entité portant l'état consolidé fiable (tout domaine). Défaut : `entity`. |
 | `contact_entity` | Capteur d'ouverture physique (contact de porte). Contact ouvert + pêne verrouillé → inconnu. |
 | `battery_entity` | Capteur de batterie en %, affiché en haut à droite (vert/orange/rouge). Masqué en mode `compact`. |
-| `state_map` | Map optionnelle : état brut → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`unknown`. |
+| `state_map` | Map optionnelle : état brut → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`unknown`. |
 | `gate_type` | `sliding` (défaut), `swing`, `door` ou `garage`. `door` est en affichage seul sauf si des commandes sont configurées. |
 | `gate_style` | Style du vantail (coulissant/battants). Coulissant : `slats` (défaut), `bars`, `semi`, `solid`. Battants : `bell` (défaut), `bars`, `slats`, `semi`, `solid`. |
 | `slide_direction` | `left` (défaut) ou `right`. |
@@ -56,8 +57,12 @@ Conçue pour le cas très courant où la *commande* et l'*état* sont deux canau
 | `show_key` | Clé sur le portail fermé. Défaut `true`. |
 | `show_runner` | Pictogramme piéton en mode piéton. Défaut `true`. |
 | `show_car` | Pictogramme voiture dans l'ouverture quand c'est totalement ouvert (coulissant/battant/garage). Défaut `true`. |
+| `show_breeze` | Pictogramme brise dans la fente d'aération (garage). Défaut `true`. |
+| `show_cat` | Pictogramme chat dans l'ouverture partielle (garage). Défaut `true`. |
 | `open_entity` / `close_entity` / `stop_entity` | Bouton/script/switch/serrure utilisés à la place des services du cover. Une serrure `lock` en `open_entity` fait *Ouvrir* → `lock.open` (bec de cane) et ajoute un bouton *Déverrouiller* séparé quand c'est verrouillé. |
 | `pedestrian_entity` | Bouton/script/switch de l'ouverture partielle piéton (coulissant/battants). Active le bouton *Piéton* quand c'est fermé. |
+| `vent_entity` | Bouton/script/switch de la position aération (garage). Fente en haut, bouton *Aérer* quand c'est fermé. |
+| `partial_entity` | Bouton/script/switch de l'ouverture partielle (garage). Fente au sol, bouton *Partiel* quand c'est fermé. |
 
 ### Exemple
 

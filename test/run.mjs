@@ -87,6 +87,53 @@ check('state_map vers une valeur inconnue → couleur inconnu (pas undefined)',
   color(makeCard('weird', { state_map: { weird: 'blorp' } })),
   'var(--error-color, #f44336)');
 
+// ── Garage part-open positions ───────────────────────────────────────────────
+// Keyword order matters: "Ouverture partielle" contains "ouverture", the
+// keyword for `opening`, so `partial` has to be matched first.
+
+check('« Ouverture partielle » → partiel, pas ouverture en cours',
+  label(makeCard('Ouverture partielle', { gate_type: 'garage' })), 'Part-open');
+check('« Ouverture en cours » reste une ouverture',
+  label(makeCard('Ouverture en cours', { gate_type: 'garage' })), 'Opening\u2026');
+check('« ventilation » → aération',
+  label(makeCard('ventilation', { gate_type: 'garage' })), 'Venting');
+check('aération → orange', color(makeCard('aeration', { gate_type: 'garage' })),
+  'var(--warning-color, #ff9800)');
+
+const btns = (st, cfg) => {
+  const c = new Card();
+  c.setConfig({ entity: 'cover.portail', gate_type: 'garage', ...cfg });
+  c.hass = { language: 'en',
+    states: { 'cover.portail': { state: st, attributes: {}, last_changed: '2026-09-09T10:00:00Z' } },
+    callService() {} };
+  return [...String(markup(c)).matchAll(/data-action="([^"]+)"/g)].map(m => m[1]).join(',');
+};
+
+check('fermé + les 2 options → Aérer, Partiel, Ouvrir',
+  btns('closed', { vent_entity: 's.a', partial_entity: 's.b' }), 'vent,partial,open');
+check('fermé + aération seule', btns('closed', { vent_entity: 's.a' }), 'vent,open');
+check('fermé + partiel seul', btns('closed', { partial_entity: 's.b' }), 'partial,open');
+check('fermé sans option → inchangé', btns('closed', {}), 'open');
+check('en aération → Fermer seul', btns('aeration', { vent_entity: 's.a' }), 'close');
+check('en ouverture partielle → Fermer seul', btns('partial', { partial_entity: 's.b' }), 'close');
+check('les options ne font rien hors garage',
+  btns('closed', { gate_type: 'sliding', vent_entity: 's.a', partial_entity: 's.b' }), 'open');
+
+// The stylesheet always carries the .gate-breeze / .gate-cat rules, so look for
+// the class attribute on a drawn node, not for the bare name.
+const drawn = (html, cls) => new RegExp('class="' + cls + '"').test(String(html));
+
+check('brise dessinée en aération',
+  drawn(makeCard('aeration', { gate_type: 'garage' }), 'gate-breeze'), true);
+check('show_breeze:false masque la brise',
+  drawn(makeCard('aeration', { gate_type: 'garage', show_breeze: false }), 'gate-breeze'), false);
+check('chat dessiné en ouverture partielle',
+  drawn(makeCard('partial', { gate_type: 'garage' }), 'gate-cat'), true);
+check('show_cat:false masque le chat',
+  drawn(makeCard('partial', { gate_type: 'garage', show_cat: false }), 'gate-cat'), false);
+check('pas de brise quand le garage est simplement fermé',
+  drawn(makeCard('closed', { gate_type: 'garage' }), 'gate-breeze'), false);
+
 // ── Unavailable / missing entities must render, not throw ────────────────────
 
 check('cover unavailable → état inconnu, pas de crash',

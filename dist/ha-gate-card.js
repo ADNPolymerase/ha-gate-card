@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.1.3";
+const CARD_VERSION = "1.2.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -22,6 +22,14 @@ const T = {
     entity: "Gate cover or lock entity (required)",
     state_entity: "Consolidated state entity (optional)",
     unlocked: "Unlocked",
+    vent: "Venting",
+    partial: "Part-open",
+    vent_btn: "Vent",
+    partial_btn: "Part-open",
+    vent_entity: "Venting command entity (garage)",
+    partial_entity: "Part-open command entity (garage)",
+    show_breeze: "Show the breeze pictogram",
+    show_cat: "Show the cat pictogram",
     contact_entity: "Physical open/closed sensor (optional)", battery_entity: "Battery entity",
     name: "Name", compact: "Compact mode (icon instead of illustration)",
     confirm_opt: "Ask for confirmation before commands (tap twice)",
@@ -52,6 +60,14 @@ const T = {
     entity: "Entit\u00e9 cover ou serrure du portail (obligatoire)",
     state_entity: "Entit\u00e9 d'\u00e9tat consolid\u00e9 (optionnel)",
     unlocked: "D\u00e9verrouill\u00e9",
+    vent: "A\u00e9ration",
+    partial: "Ouverture partielle",
+    vent_btn: "A\u00e9rer",
+    partial_btn: "Partiel",
+    vent_entity: "Entit\u00e9 de commande a\u00e9ration (garage)",
+    partial_entity: "Entit\u00e9 de commande ouverture partielle (garage)",
+    show_breeze: "Afficher le pictogramme brise",
+    show_cat: "Afficher le pictogramme chat",
     contact_entity: "Capteur d'ouverture physique (optionnel)", battery_entity: "Entit\u00e9 batterie",
     name: "Nom", compact: "Mode compact (ic\u00f4ne au lieu de l'illustration)",
     confirm_opt: "Demander confirmation avant les commandes (double appui)",
@@ -81,6 +97,14 @@ const T = {
     entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c cover \u0438\u043b\u0438 \u0437\u0430\u043c\u043a\u0430 \u0432\u043e\u0440\u043e\u0442 (\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)",
     state_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0441\u0432\u043e\u0434\u043d\u043e\u0433\u043e \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u044f (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)",
     unlocked: "\u041d\u0435 \u0437\u0430\u043f\u0435\u0440\u0442\u043e",
+    vent: "\u041f\u0440\u043e\u0432\u0435\u0442\u0440\u0438\u0432\u0430\u043d\u0438\u0435",
+    partial: "\u0427\u0430\u0441\u0442\u0438\u0447\u043d\u043e \u043e\u0442\u043a\u0440\u044b\u0442\u043e",
+    vent_btn: "\u041f\u0440\u043e\u0432\u0435\u0442\u0440\u0438\u0442\u044c",
+    partial_btn: "\u0427\u0430\u0441\u0442\u0438\u0447\u043d\u043e",
+    vent_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u043f\u0440\u043e\u0432\u0435\u0442\u0440\u0438\u0432\u0430\u043d\u0438\u044f (\u0433\u0430\u0440\u0430\u0436)",
+    partial_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u0447\u0430\u0441\u0442\u0438\u0447\u043d\u043e\u0433\u043e \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f (\u0433\u0430\u0440\u0430\u0436)",
+    show_breeze: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0438\u043a\u0442\u043e\u0433\u0440\u0430\u043c\u043c\u0443 \u0432\u043e\u0437\u0434\u0443\u0445\u0430",
+    show_cat: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0438\u043a\u0442\u043e\u0433\u0440\u0430\u043c\u043c\u0443 \u043a\u043e\u0448\u043a\u0438",
     contact_entity: "\u0424\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0434\u0430\u0442\u0447\u0438\u043a \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)", battery_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0431\u0430\u0442\u0430\u0440\u0435\u0438",
     name: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435", compact: "\u041a\u043e\u043c\u043f\u0430\u043a\u0442\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c (\u0437\u043d\u0430\u0447\u043e\u043a \u0432\u043c\u0435\u0441\u0442\u043e \u0438\u043b\u043b\u044e\u0441\u0442\u0440\u0430\u0446\u0438\u0438)",
     confirm_opt: "\u0417\u0430\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0442\u044c \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u0434 \u043a\u043e\u043c\u0430\u043d\u0434\u0430\u043c\u0438 (\u0434\u0432\u043e\u0439\u043d\u043e\u0435 \u043d\u0430\u0436\u0430\u0442\u0438\u0435)",
@@ -110,6 +134,14 @@ const T = {
     entity: "Tor-Cover- oder Schloss-Entit\u00e4t (erforderlich)",
     state_entity: "Konsolidierte Status-Entit\u00e4t (optional)",
     unlocked: "Entriegelt",
+    vent: "L\u00fcftung",
+    partial: "Teilweise offen",
+    vent_btn: "L\u00fcften",
+    partial_btn: "Teilweise",
+    vent_entity: "Entit\u00e4t f\u00fcr L\u00fcftungsbefehl (Garage)",
+    partial_entity: "Entit\u00e4t f\u00fcr Teil\u00f6ffnungsbefehl (Garage)",
+    show_breeze: "Luftstrom-Piktogramm anzeigen",
+    show_cat: "Katzen-Piktogramm anzeigen",
     contact_entity: "Physischer \u00d6ffnungssensor (optional)", battery_entity: "Batterie-Entit\u00e4t",
     name: "Name", compact: "Kompaktmodus (Symbol statt Illustration)",
     confirm_opt: "Vor Befehlen best\u00e4tigen (zweimal tippen)",
@@ -139,6 +171,14 @@ const T = {
     entity: "Entidad cover o cerradura del port\u00f3n (obligatoria)",
     state_entity: "Entidad de estado consolidado (opcional)",
     unlocked: "Desbloqueado",
+    vent: "Ventilaci\u00f3n",
+    partial: "Apertura parcial",
+    vent_btn: "Ventilar",
+    partial_btn: "Parcial",
+    vent_entity: "Entidad de comando de ventilaci\u00f3n (garaje)",
+    partial_entity: "Entidad de comando de apertura parcial (garaje)",
+    show_breeze: "Mostrar el pictograma de brisa",
+    show_cat: "Mostrar el pictograma del gato",
     contact_entity: "Sensor f\u00edsico de apertura (opcional)", battery_entity: "Entidad de bater\u00eda",
     name: "Nombre", compact: "Modo compacto (icono en lugar de ilustraci\u00f3n)",
     confirm_opt: "Pedir confirmaci\u00f3n antes de los comandos (doble toque)",
@@ -168,6 +208,14 @@ const T = {
     entity: "Entit\u00e0 cover o serratura del cancello (obbligatoria)",
     state_entity: "Entit\u00e0 di stato consolidato (opzionale)",
     unlocked: "Sbloccato",
+    vent: "Ventilazione",
+    partial: "Apertura parziale",
+    vent_btn: "Ventila",
+    partial_btn: "Parziale",
+    vent_entity: "Entit\u00e0 comando ventilazione (garage)",
+    partial_entity: "Entit\u00e0 comando apertura parziale (garage)",
+    show_breeze: "Mostra il pittogramma della brezza",
+    show_cat: "Mostra il pittogramma del gatto",
     contact_entity: "Sensore fisico di apertura (opzionale)", battery_entity: "Entit\u00e0 batteria",
     name: "Nome", compact: "Modalit\u00e0 compatta (icona invece dell'illustrazione)",
     confirm_opt: "Chiedere conferma prima dei comandi (doppio tocco)",
@@ -197,6 +245,14 @@ const T = {
     entity: "Poort cover- of slot-entiteit (verplicht)",
     state_entity: "Geconsolideerde status-entiteit (optioneel)",
     unlocked: "Ontgrendeld",
+    vent: "Ventilatie",
+    partial: "Gedeeltelijk open",
+    vent_btn: "Ventileren",
+    partial_btn: "Gedeeltelijk",
+    vent_entity: "Entiteit ventilatiecommando (garage)",
+    partial_entity: "Entiteit gedeeltelijk-open commando (garage)",
+    show_breeze: "Luchtstroompictogram tonen",
+    show_cat: "Kattenpictogram tonen",
     contact_entity: "Fysieke openingssensor (optioneel)", battery_entity: "Batterij-entiteit",
     name: "Naam", compact: "Compacte modus (pictogram i.p.v. illustratie)",
     confirm_opt: "Bevestiging vragen v\u00f3\u00f3r commando's (twee keer tikken)",
@@ -226,6 +282,14 @@ const T = {
     entity: "Entidade cover ou fechadura do port\u00e3o (obrigat\u00f3ria)",
     state_entity: "Entidade de estado consolidado (opcional)",
     unlocked: "Destrancado",
+    vent: "Ventila\u00e7\u00e3o",
+    partial: "Abertura parcial",
+    vent_btn: "Ventilar",
+    partial_btn: "Parcial",
+    vent_entity: "Entidade de comando de ventila\u00e7\u00e3o (garagem)",
+    partial_entity: "Entidade de comando de abertura parcial (garagem)",
+    show_breeze: "Mostrar o pictograma de brisa",
+    show_cat: "Mostrar o pictograma do gato",
     contact_entity: "Sensor f\u00edsico de abertura (opcional)", battery_entity: "Entidade de bateria",
     name: "Nome", compact: "Modo compacto (\u00edcone em vez da ilustra\u00e7\u00e3o)",
     confirm_opt: "Pedir confirma\u00e7\u00e3o antes dos comandos (dois toques)",
@@ -255,6 +319,14 @@ const T = {
     entity: "Grindens cover- eller l\u00e5sentitet (obligatorisk)",
     state_entity: "Konsoliderad status-entitet (valfri)",
     unlocked: "Ol\u00e5st",
+    vent: "V\u00e4dring",
+    partial: "Delvis \u00f6ppen",
+    vent_btn: "V\u00e4dra",
+    partial_btn: "Delvis",
+    vent_entity: "Entitet f\u00f6r v\u00e4dringskommando (garage)",
+    partial_entity: "Entitet f\u00f6r delvis \u00f6ppning (garage)",
+    show_breeze: "Visa luftpiktogrammet",
+    show_cat: "Visa kattpiktogrammet",
     contact_entity: "Fysisk \u00f6ppningssensor (valfri)", battery_entity: "Batterientitet",
     name: "Namn", compact: "Kompakt l\u00e4ge (ikon i st\u00e4llet f\u00f6r illustration)",
     confirm_opt: "Be om bekr\u00e4ftelse f\u00f6re kommandon (tryck tv\u00e5 g\u00e5nger)",
@@ -284,6 +356,14 @@ const T = {
     entity: "Portens cover- eller l\u00e5sentitet (p\u00e5krevd)",
     state_entity: "Konsolidert status-entitet (valgfri)",
     unlocked: "Ul\u00e5st",
+    vent: "Lufting",
+    partial: "Delvis \u00e5pen",
+    vent_btn: "Luft",
+    partial_btn: "Delvis",
+    vent_entity: "Entitet for luftekommando (garasje)",
+    partial_entity: "Entitet for delvis \u00e5pning (garasje)",
+    show_breeze: "Vis luftpiktogrammet",
+    show_cat: "Vis kattepiktogrammet",
     contact_entity: "Fysisk \u00e5pningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt modus (ikon i stedet for illustrasjon)",
     confirm_opt: "Be om bekreftelse f\u00f8r kommandoer (trykk to ganger)",
@@ -313,6 +393,14 @@ const T = {
     entity: "Portens cover- eller l\u00e5sentitet (p\u00e5kr\u00e6vet)",
     state_entity: "Konsolideret status-entitet (valgfri)",
     unlocked: "Ul\u00e5st",
+    vent: "Udluftning",
+    partial: "Delvist \u00e5ben",
+    vent_btn: "Udluft",
+    partial_btn: "Delvist",
+    vent_entity: "Entitet til udluftningskommando (garage)",
+    partial_entity: "Entitet til delvis \u00e5bning (garage)",
+    show_breeze: "Vis luftpiktogrammet",
+    show_cat: "Vis kattepiktogrammet",
     contact_entity: "Fysisk \u00e5bningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt tilstand (ikon i stedet for illustration)",
     confirm_opt: "Bed om bekr\u00e6ftelse f\u00f8r kommandoer (tryk to gange)",
@@ -342,6 +430,14 @@ const T = {
     entity: "Encja cover lub zamka bramy (wymagana)",
     state_entity: "Encja stanu skonsolidowanego (opcjonalna)",
     unlocked: "Odblokowana",
+    vent: "Wietrzenie",
+    partial: "Cz\u0119\u015bciowo otwarta",
+    vent_btn: "Wietrz",
+    partial_btn: "Cz\u0119\u015bciowo",
+    vent_entity: "Encja polecenia wietrzenia (gara\u017c)",
+    partial_entity: "Encja polecenia cz\u0119\u015bciowego otwarcia (gara\u017c)",
+    show_breeze: "Poka\u017c piktogram powiewu",
+    show_cat: "Poka\u017c piktogram kota",
     contact_entity: "Fizyczny czujnik otwarcia (opcjonalny)", battery_entity: "Encja baterii",
     name: "Nazwa", compact: "Tryb kompaktowy (ikona zamiast ilustracji)",
     confirm_opt: "Wymagaj potwierdzenia przed komendami (dwa dotkni\u0119cia)",
@@ -383,6 +479,10 @@ function t(hass, key) {
 // ---------------------------------------------------------------------------
 
 const STATE_KEYWORDS = {
+  // vent et partial passent avant opening/closing : "Ouverture partielle"
+  // contient "ouverture", et serait sinon lu comme une ouverture en cours.
+  vent: ["ventilation", "aeration", "airing", "luftung", "venting", "vadring", "lufting", "udluftning", "wietrzenie"],
+  partial: ["partiel", "partial", "parcial", "parziale", "teilweise", "gedeeltelijk", "delvis", "czesciowo", "animal", "chat"],
   opening: ["opening", "unlocking", "ouverture", "offnet", "abriendo", "apertura", "opent", "abrindo", "a abrir", "oppnar", "apner", "abner", "otwieranie"],
   closing: ["closing", "locking", "fermeture", "schliesst", "cerrando", "chiusura", "sluit", "fechando", "a fechar", "stanger", "lukker", "zamykanie"],
   pedestrian: ["pieton", "pedestrian", "peaton", "pedonal", "voetganger", "fussgang", "durchgang", "gangpass", "ganglage", "gangport", "furtka"],
@@ -434,6 +534,8 @@ const STATE_COLORS = {
   moving: "var(--info-color, #2196f3)",
   pedestrian: "var(--warning-color, #ff9800)",
   unlocked: "var(--warning-color, #ff9800)",
+  vent: "var(--warning-color, #ff9800)",
+  partial: "var(--warning-color, #ff9800)",
   unknown: "var(--error-color, #f44336)",
 };
 
@@ -445,6 +547,8 @@ const STATE_ICONS = {
   moving: "mdi:gate-arrow-right",
   pedestrian: "mdi:walk",
   unlocked: "mdi:gate",
+  vent: "mdi:weather-windy",
+  partial: "mdi:paw",
   unknown: "mdi:gate-alert",
 };
 
@@ -468,6 +572,8 @@ const TYPE_ICONS = {
     opening: "mdi:garage-open", closing: "mdi:garage",
     moving: "mdi:garage-open", pedestrian: "mdi:garage-open",
     unlocked: "mdi:garage",
+    vent: "mdi:garage-variant",
+    partial: "mdi:garage-variant",
     unknown: "mdi:garage-alert",
   },
   door: {
@@ -501,12 +607,22 @@ function actionsFor(norm, cfg) {
   switch (norm) {
     case "closed":
       if (ped) return ["pedestrian", "open"];
+      // Garage: part-open positions, venting slot at the top and a floor gap.
+      if (cfg.gate_type === "garage" && (cfg.vent_entity || cfg.partial_entity)) {
+        return [
+          ...(cfg.vent_entity ? ["vent"] : []),
+          ...(cfg.partial_entity ? ["partial"] : []),
+          "open",
+        ];
+      }
       // A lock with an unlatch override gets a separate Unlock button.
       if (domainOf(cfg.entity || "") === "lock" && domainOf(cfg.open_entity || "") === "lock") return ["unlock", "open"];
       return ["open"];
     case "open": return ["close"];
     case "unlocked": return ["open", "close"];
     case "pedestrian": return ["close"];
+    case "vent":
+    case "partial": return ["close"];
     case "opening":
     case "closing":
     case "moving": return stop;
@@ -850,14 +966,59 @@ function doorSvg(norm, cfg) {
 // Roller garage door: rounded box on top, side guides, ribbed horizontal
 // slats and a finishing bar with a handle. Closed shows 5 slats, moving 2
 // with a direction arrow, open just the bar under the box (JD-approved v2).
+// Breeze blowing through the venting slot. Outline of the "weather-windy"
+// glyph from Material Design Icons (Pictogrammers, pictogrammers.com), free to
+// use; its three strokes are extended to the left by EXT so the draught reaches
+// into the opening. Local box is 24 wide, the middle stroke sits at y = 13.
+const BREEZE_EXT = 16;
+const BREEZE_SCALE = 0.6;
+
+function breezeShape(e) {
+  return `<path d="M${4 - e},10A1,1 0 0,1 ${3 - e},9A1,1 0 0,1 ${4 - e},8H12A2,2 0 0,0 14,6A2,2 0 0,0 12,4C11.45,4 10.95,4.22 10.59,4.59C10.2,5 9.56,5 9.17,4.59C8.78,4.2 8.78,3.56 9.17,3.17C9.9,2.45 10.9,2 12,2A4,4 0 0,1 16,6A4,4 0 0,1 12,10H${4 - e}M19,12A1,1 0 0,0 20,11A1,1 0 0,0 19,10C18.72,10 18.47,10.11 18.29,10.29C17.9,10.68 17.27,10.68 16.88,10.29C16.5,9.9 16.5,9.27 16.88,8.88C17.42,8.34 18.17,8 19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14H${5 - e}A1,1 0 0,1 ${4 - e},13A1,1 0 0,1 ${5 - e},12H19M18,18H${4 - e}A1,1 0 0,1 ${3 - e},17A1,1 0 0,1 ${4 - e},16H18A3,3 0 0,1 21,19A3,3 0 0,1 18,22C17.17,22 16.42,21.66 15.88,21.12C15.5,20.73 15.5,20.1 15.88,19.71C16.27,19.32 16.9,19.32 17.29,19.71C17.47,19.89 17.72,20 18,20A1,1 0 0,0 19,19A1,1 0 0,0 18,18Z"/>`;
+}
+
+// (cx, cy) is the middle of the breeze: with the strokes extended the glyph
+// spans (3 - EXT) to 22, so its own middle sits at (25 - EXT) / 2.
+function gateBreeze(cx, cy) {
+  const shape = breezeShape(BREEZE_EXT);
+  return `
+  <g transform="translate(${cx} ${cy}) scale(${BREEZE_SCALE}) translate(${-(25 - BREEZE_EXT) / 2} -13)">
+    <g class="gate-breeze-halo">${shape}</g>
+    <g class="gate-breeze">${shape}</g>
+  </g>`;
+}
+
+// Cat walking through the floor gap, one continuous outline so the halo traces
+// the silhouette instead of cutting it into pieces.
+const CAT_SHAPES = `
+    <path d="M4.4 7.6 Q1.2 7.0 1.8 2.2 L3.6 2.7 Q3.2 5.8 5.3 6.2
+             Q7.2 4.6 11.0 4.6 Q13.8 4.6 15.0 5.4 L15.3 2.6 L17.1 4.9
+             L18.7 4.7 L19.5 2.3 L20.3 5.2 Q21.7 6.2 21.1 8.0
+             Q20.3 9.6 17.9 9.4 L16.7 9.2 L16.7 12.4 L14.9 12.4 L14.9 9.8
+             L9.3 9.8 L9.3 12.4 L7.5 12.4 L7.5 9.4 Q5.1 9.1 4.4 7.6 Z"/>`;
+
+function gateCat(cx, cy, s) {
+  return `
+  <g transform="translate(${cx - 11 * s} ${cy - 7.5 * s}) scale(${s})">
+    <g class="gate-cat-halo">${CAT_SHAPES}</g>
+    <g class="gate-cat">${CAT_SHAPES}</g>
+  </g>`;
+}
+
 function garageSvg(norm, cfg) {
   const closedLike = norm === "closed" || norm === "unknown" || norm === "unlocked";
-  const n = closedLike ? 5 : (norm === "opening" || norm === "closing" || norm === "moving" ? 2 : 0);
-  const barY = 19 + n * 6.6;
+  // Venting rolls one slat away and keeps the gap under the box; the part-open
+  // position rolls two and lifts the whole curtain off the ground.
+  const venting = norm === "vent";
+  const partial = norm === "partial";
+  const n = venting ? 4 : partial ? 3
+    : closedLike ? 5 : (norm === "opening" || norm === "closing" || norm === "moving" ? 2 : 0);
+  const y0 = venting ? 19 + 6.6 : 19;
+  const barY = y0 + n * 6.6;
   let curtain = "";
   let ribs = "";
   for (let i = 0; i < n; i++) {
-    const y = 19 + i * 6.6;
+    const y = y0 + i * 6.6;
     curtain += `<rect class="slat" x="19" y="${y}" width="102" height="5" rx="1.6"/>`;
     ribs += `<line class="garage-rib" x1="19" y1="${y + 2.5}" x2="121" y2="${y + 2.5}"/>`;
   }
@@ -879,6 +1040,8 @@ function garageSvg(norm, cfg) {
       <g class="leaf-fill">${shapes}</g>
       ${ribs}
       ${arrow}
+      ${venting && cfg.show_breeze !== false ? gateBreeze(70, 21.3) : ""}
+      ${partial && cfg.show_cat !== false ? gateCat(92, 50.6, 0.95) : ""}
       ${norm === "open" && cfg.show_car !== false ? gateCar(70, 41, 1.5) : ""}
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
@@ -1022,7 +1185,7 @@ class GateCard extends HTMLElement {
       const v = Number(hass.states[cfg.battery_entity].state);
       if (!Number.isNaN(v)) batt = Math.round(v);
     }
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.card_tap, batt]);
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, batt]);
     if (signature === this._signature) return;
     this._signature = signature;
 
@@ -1034,6 +1197,8 @@ class GateCard extends HTMLElement {
           a === "open" ? (type === "garage" ? "mdi:garage-open" : type === "door" ? "mdi:door-open" : "mdi:gate-open")
           : a === "close" ? (type === "garage" ? "mdi:garage" : type === "door" ? "mdi:door-closed" : "mdi:gate")
           : a === "unlock" ? "mdi:lock-open"
+          : a === "vent" ? "mdi:weather-windy"
+          : a === "partial" ? "mdi:paw"
           : a === "pedestrian" ? "mdi:walk" : "mdi:stop";
         const label = pending ? t(hass, "confirm_tap") : t(hass, a + "_btn");
         return `<button data-action="${a}" class="${pending ? "pending" : ""}">
@@ -1091,6 +1256,10 @@ ha-card.tappable { cursor:pointer; }
 .gate-car-halo { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:3; stroke-linejoin:round; }
 .gate-car { fill:var(--gate-color); }
 .gate-car-hole { fill:var(--ha-card-background, var(--card-background-color, #fff)); }
+.gate-breeze-halo { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:2.4; stroke-linejoin:round; }
+.gate-breeze { fill:var(--light-blue-color, #4fc3f7); }
+.gate-cat-halo { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:2.2; stroke-linejoin:round; }
+.gate-cat { fill:var(--gate-color); }
 .gate-post-g { fill:var(--secondary-text-color); opacity:.75; }
 .gate-ground { stroke:var(--secondary-text-color); stroke-width:2; stroke-linecap:round; opacity:.5; }
 .gate-key-halo { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:3; stroke-linejoin:round; }
@@ -1173,6 +1342,8 @@ const EDITOR_OVERRIDES = [
   { field: "close_entity", labelKey: "close_entity" },
   { field: "stop_entity", labelKey: "stop_entity" },
   { field: "pedestrian_entity", labelKey: "pedestrian_entity" },
+  { field: "vent_entity", labelKey: "vent_entity" },
+  { field: "partial_entity", labelKey: "partial_entity" },
 ];
 const OVERRIDE_DOMAINS = ["button", "input_button", "script", "switch", "input_boolean", "lock"];
 
@@ -1302,7 +1473,14 @@ details .form { padding-top:10px; }
         ${cfg.gate_type === "door" ? "" : `
         <div class="row row-inline">
           <label><input type="checkbox" data-field="show_car" ${cfg.show_car !== false ? "checked" : ""}/> ${t(hass, "show_car")}</label>
-        </div>`}
+        </div>
+        ${cfg.gate_type !== "garage" ? "" : `
+        <div class="row row-inline">
+          <label><input type="checkbox" data-field="show_breeze" ${cfg.show_breeze !== false ? "checked" : ""}/> ${t(hass, "show_breeze")}</label>
+        </div>
+        <div class="row row-inline">
+          <label><input type="checkbox" data-field="show_cat" ${cfg.show_cat !== false ? "checked" : ""}/> ${t(hass, "show_cat")}</label>
+        </div>`}`}
         <div class="row row-inline">
           <label><input type="checkbox" data-field="card_tap" ${cfg.card_tap ? "checked" : ""}/> ${t(hass, "card_tap")}</label>
         </div>
@@ -1310,7 +1488,13 @@ details .form { padding-top:10px; }
           <summary>${t(hass, "section_advanced")}</summary>
           <div class="form">
             ${EDITOR_OVERRIDES
-              .filter((o) => o.field !== "pedestrian_entity" || !["door", "garage"].includes(cfg.gate_type))
+              .filter((o) => {
+                // Pedestrian pass is for sliding/swing, the two part-open
+                // positions only make sense on a garage door.
+                if (o.field === "pedestrian_entity") return !["door", "garage"].includes(cfg.gate_type);
+                if (o.field === "vent_entity" || o.field === "partial_entity") return cfg.gate_type === "garage";
+                return true;
+              })
               .map((o) => `<div class="row" data-picker="${o.field}"></div>`).join("")}
           </div>
         </details>
@@ -1368,7 +1552,7 @@ details .form { padding-top:10px; }
       cb.addEventListener("change", () => {
         const field = cb.dataset.field;
         this._config = { ...this._config };
-        if (["confirm", "show_key", "show_runner", "show_car"].includes(field)) {
+        if (["confirm", "show_key", "show_runner", "show_car", "show_breeze", "show_cat"].includes(field)) {
           // defaults to true -- only store the key when disabled
           if (cb.checked) delete this._config[field];
           else this._config[field] = false;
