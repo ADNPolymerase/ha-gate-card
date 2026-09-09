@@ -186,4 +186,26 @@ check('light_position deplace le spot a gauche',
 check('un config gele ne fait pas planter le rendu (Lovelace le gele)',
   label(makeCard('closed', { light_entity: 'light.spot' })), 'Closed');
 
+// The card skips its render when a signature of the displayed values is
+// unchanged. Anything the markup depends on has to be in that signature, or
+// the card freezes on screen while the state moves underneath it. Every other
+// test above builds a fresh card, so only a second hass update catches this.
+
+const relit = () => {
+  const c = new Card();
+  c.setConfig(Object.freeze({ entity: 'cover.portail', light_entity: 'light.spot' }));
+  const hassAt = on => ({ language: 'en',
+    states: { 'cover.portail': { state: 'closed', attributes: {}, last_changed: '2026-09-09T10:00:00Z' },
+      'light.spot': { state: on ? 'on' : 'off', attributes: {} } },
+    callService() {} });
+  c.hass = hassAt(false);
+  const off = String(markup(c));
+  c.hass = hassAt(true);
+  return [off, String(markup(c))];
+};
+const [darkCard, litCard] = relit();
+check('la lampe eteinte ne dessine pas de faisceau', /class="lamp"/.test(darkCard), true);
+check('allumer la lampe redessine la card (etat dans la signature de rendu)',
+  /class="lamp on"/.test(litCard), true);
+
 report();
