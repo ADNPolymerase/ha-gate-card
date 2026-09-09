@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.3.2";
+const CARD_VERSION = "1.3.3";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -36,6 +36,7 @@ const T = {
     light_pos_right: "Right",
     light_pos_left: "Left",
     show_spot: "Show the spotlight and its button",
+    show_light_button: "Show the Light button",
     contact_entity: "Physical open/closed sensor (optional)", battery_entity: "Battery entity",
     name: "Name", compact: "Compact mode (icon instead of illustration)",
     confirm_opt: "Ask for confirmation before commands (tap twice)",
@@ -80,6 +81,7 @@ const T = {
     light_pos_right: "\u00c0 droite",
     light_pos_left: "\u00c0 gauche",
     show_spot: "Afficher le spot et son bouton",
+    show_light_button: "Afficher le bouton Lumi\u00e8re",
     contact_entity: "Capteur d'ouverture physique (optionnel)", battery_entity: "Entit\u00e9 batterie",
     name: "Nom", compact: "Mode compact (ic\u00f4ne au lieu de l'illustration)",
     confirm_opt: "Demander confirmation avant les commandes (double appui)",
@@ -123,6 +125,7 @@ const T = {
     light_pos_right: "\u0421\u043f\u0440\u0430\u0432\u0430",
     light_pos_left: "\u0421\u043b\u0435\u0432\u0430",
     show_spot: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0440\u043e\u0436\u0435\u043a\u0442\u043e\u0440 \u0438 \u0435\u0433\u043e \u043a\u043d\u043e\u043f\u043a\u0443",
+    show_light_button: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043a\u043d\u043e\u043f\u043a\u0443 \u0441\u0432\u0435\u0442\u0430",
     contact_entity: "\u0424\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0434\u0430\u0442\u0447\u0438\u043a \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)", battery_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0431\u0430\u0442\u0430\u0440\u0435\u0438",
     name: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435", compact: "\u041a\u043e\u043c\u043f\u0430\u043a\u0442\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c (\u0437\u043d\u0430\u0447\u043e\u043a \u0432\u043c\u0435\u0441\u0442\u043e \u0438\u043b\u043b\u044e\u0441\u0442\u0440\u0430\u0446\u0438\u0438)",
     confirm_opt: "\u0417\u0430\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0442\u044c \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u0434 \u043a\u043e\u043c\u0430\u043d\u0434\u0430\u043c\u0438 (\u0434\u0432\u043e\u0439\u043d\u043e\u0435 \u043d\u0430\u0436\u0430\u0442\u0438\u0435)",
@@ -166,6 +169,7 @@ const T = {
     light_pos_right: "Rechts",
     light_pos_left: "Links",
     show_spot: "Strahler und Schaltfl\u00e4che anzeigen",
+    show_light_button: "Licht-Schaltfl\u00e4che anzeigen",
     contact_entity: "Physischer \u00d6ffnungssensor (optional)", battery_entity: "Batterie-Entit\u00e4t",
     name: "Name", compact: "Kompaktmodus (Symbol statt Illustration)",
     confirm_opt: "Vor Befehlen best\u00e4tigen (zweimal tippen)",
@@ -209,6 +213,7 @@ const T = {
     light_pos_right: "Derecha",
     light_pos_left: "Izquierda",
     show_spot: "Mostrar el foco y su bot\u00f3n",
+    show_light_button: "Mostrar el bot\u00f3n Luz",
     contact_entity: "Sensor f\u00edsico de apertura (opcional)", battery_entity: "Entidad de bater\u00eda",
     name: "Nombre", compact: "Modo compacto (icono en lugar de ilustraci\u00f3n)",
     confirm_opt: "Pedir confirmaci\u00f3n antes de los comandos (doble toque)",
@@ -252,6 +257,7 @@ const T = {
     light_pos_right: "Destra",
     light_pos_left: "Sinistra",
     show_spot: "Mostra il faretto e il suo pulsante",
+    show_light_button: "Mostra il pulsante Luce",
     contact_entity: "Sensore fisico di apertura (opzionale)", battery_entity: "Entit\u00e0 batteria",
     name: "Nome", compact: "Modalit\u00e0 compatta (icona invece dell'illustrazione)",
     confirm_opt: "Chiedere conferma prima dei comandi (doppio tocco)",
@@ -295,6 +301,7 @@ const T = {
     light_pos_right: "Rechts",
     light_pos_left: "Links",
     show_spot: "Spot en bijbehorende knop tonen",
+    show_light_button: "De knop Licht tonen",
     contact_entity: "Fysieke openingssensor (optioneel)", battery_entity: "Batterij-entiteit",
     name: "Naam", compact: "Compacte modus (pictogram i.p.v. illustratie)",
     confirm_opt: "Bevestiging vragen v\u00f3\u00f3r commando's (twee keer tikken)",
@@ -338,6 +345,7 @@ const T = {
     light_pos_right: "Direita",
     light_pos_left: "Esquerda",
     show_spot: "Mostrar o foco e o seu bot\u00e3o",
+    show_light_button: "Mostrar o bot\u00e3o Luz",
     contact_entity: "Sensor f\u00edsico de abertura (opcional)", battery_entity: "Entidade de bateria",
     name: "Nome", compact: "Modo compacto (\u00edcone em vez da ilustra\u00e7\u00e3o)",
     confirm_opt: "Pedir confirma\u00e7\u00e3o antes dos comandos (dois toques)",
@@ -381,6 +389,7 @@ const T = {
     light_pos_right: "H\u00f6ger",
     light_pos_left: "V\u00e4nster",
     show_spot: "Visa str\u00e5lkastaren och dess knapp",
+    show_light_button: "Visa knappen Ljus",
     contact_entity: "Fysisk \u00f6ppningssensor (valfri)", battery_entity: "Batterientitet",
     name: "Namn", compact: "Kompakt l\u00e4ge (ikon i st\u00e4llet f\u00f6r illustration)",
     confirm_opt: "Be om bekr\u00e4ftelse f\u00f6re kommandon (tryck tv\u00e5 g\u00e5nger)",
@@ -424,6 +433,7 @@ const T = {
     light_pos_right: "H\u00f8yre",
     light_pos_left: "Venstre",
     show_spot: "Vis lyskasteren og knappen",
+    show_light_button: "Vis Lys-knappen",
     contact_entity: "Fysisk \u00e5pningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt modus (ikon i stedet for illustrasjon)",
     confirm_opt: "Be om bekreftelse f\u00f8r kommandoer (trykk to ganger)",
@@ -467,6 +477,7 @@ const T = {
     light_pos_right: "H\u00f8jre",
     light_pos_left: "Venstre",
     show_spot: "Vis spotten og dens knap",
+    show_light_button: "Vis Lys-knappen",
     contact_entity: "Fysisk \u00e5bningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt tilstand (ikon i stedet for illustration)",
     confirm_opt: "Bed om bekr\u00e6ftelse f\u00f8r kommandoer (tryk to gange)",
@@ -510,6 +521,7 @@ const T = {
     light_pos_right: "Prawa",
     light_pos_left: "Lewa",
     show_spot: "Poka\u017c reflektor i jego przycisk",
+    show_light_button: "Poka\u017c przycisk \u015awiat\u0142o",
     contact_entity: "Fizyczny czujnik otwarcia (opcjonalny)", battery_entity: "Encja baterii",
     name: "Nazwa", compact: "Tryb kompaktowy (ikona zamiast ilustracji)",
     confirm_opt: "Wymagaj potwierdzenia przed komendami (dwa dotkni\u0119cia)",
@@ -671,8 +683,11 @@ const MOVING = ["opening", "closing", "moving"];
 // opts back in for motors with a real, dedicated stop channel.
 function actionsFor(norm, cfg) {
   // The light is not a gate command: it stays available at all times, and the
-  // two-tap confirmation does not apply to it.
-  const lamp = cfg.light_entity && cfg.show_spot !== false ? ["light"] : [];
+  // two-tap confirmation does not apply to it. Drawing and button are
+  // separable, for a light one only wants to watch: no spot means no button,
+  // but the spot can be shown on its own.
+  const lamp = cfg.light_entity && cfg.show_spot !== false && cfg.show_light_button !== false
+    ? ["light"] : [];
   // Doors (wickets) are display-only unless command entities are
   // configured (smart locks like Nuki make buttons legitimate there).
   if (cfg.gate_type === "door" && !cfg.entity && !cfg.open_entity && !cfg.close_entity) return [];
@@ -1326,7 +1341,7 @@ class GateCard extends HTMLElement {
       const v = Number(hass.states[cfg.battery_entity].state);
       if (!Number.isNaN(v)) batt = Math.round(v);
     }
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, batt, !!cfg.light_entity, cfg.show_spot, cfg.light_position, lampOn]);
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, batt, !!cfg.light_entity, cfg.show_spot, cfg.show_light_button, cfg.light_position, lampOn]);
     if (signature === this._signature) return;
     this._signature = signature;
 
@@ -1569,6 +1584,9 @@ details .form { padding-top:10px; }
         <div class="row row-inline">
           <label><input type="checkbox" data-field="show_spot" ${cfg.show_spot !== false ? "checked" : ""}/> ${t(hass, "show_spot")}</label>
         </div>
+        <div class="row row-inline">
+          <label><input type="checkbox" data-field="show_light_button" ${cfg.show_light_button !== false ? "checked" : ""}/> ${t(hass, "show_light_button")}</label>
+        </div>
         ${cfg.gate_type === "door" ? "" : `
         <div class="row">
           <label>${t(hass, "light_position")}</label>
@@ -1722,7 +1740,7 @@ details .form { padding-top:10px; }
       cb.addEventListener("change", () => {
         const field = cb.dataset.field;
         this._config = { ...this._config };
-        if (["confirm", "show_key", "show_runner", "show_car", "show_breeze", "show_cat", "show_spot"].includes(field)) {
+        if (["confirm", "show_key", "show_runner", "show_car", "show_breeze", "show_cat", "show_spot", "show_light_button"].includes(field)) {
           // defaults to true -- only store the key when disabled
           if (cb.checked) delete this._config[field];
           else this._config[field] = false;

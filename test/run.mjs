@@ -165,6 +165,11 @@ check('light_entity -> spot dessine', spot(lit(LE, true)), true);
 check('light_entity -> bouton Lumiere', actions(lit(LE, true)), 'light,open');
 check('lampe allumee -> groupe .lamp.on', /class="lamp on"/.test(lit(LE, true)), true);
 check('lampe eteinte -> spot dessine sans halo', /class="lamp"/.test(lit(LE, false)), true);
+check('show_light_button:false garde le spot, retire le bouton',
+  spot(lit({ ...LE, show_light_button: false }, true)) + '|' + actions(lit({ ...LE, show_light_button: false }, true)),
+  'true|open');
+check('spot visible sans bouton : la lampe allumee se voit quand meme',
+  /class="lamp on"/.test(lit({ ...LE, show_light_button: false }, true)), true);
 check('show_spot:false masque le spot ET le bouton',
   spot(lit({ ...LE, show_spot: false }, true)) + '|' + actions(lit({ ...LE, show_spot: false }, true)),
   'false|open');
