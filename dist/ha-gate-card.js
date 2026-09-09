@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.2.0";
+const CARD_VERSION = "1.3.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -30,6 +30,12 @@ const T = {
     partial_entity: "Part-open command entity (garage)",
     show_breeze: "Show the breeze pictogram",
     show_cat: "Show the cat pictogram",
+    light_btn: "Light",
+    light_entity: "Light entity (spotlight on the gate)",
+    light_position: "Spotlight side",
+    light_pos_right: "Right",
+    light_pos_left: "Left",
+    show_spot: "Show the spotlight and its button",
     contact_entity: "Physical open/closed sensor (optional)", battery_entity: "Battery entity",
     name: "Name", compact: "Compact mode (icon instead of illustration)",
     confirm_opt: "Ask for confirmation before commands (tap twice)",
@@ -68,6 +74,12 @@ const T = {
     partial_entity: "Entit\u00e9 de commande ouverture partielle (garage)",
     show_breeze: "Afficher le pictogramme brise",
     show_cat: "Afficher le pictogramme chat",
+    light_btn: "Lumi\u00e8re",
+    light_entity: "Entit\u00e9 de la lumi\u00e8re (spot sur le portail)",
+    light_position: "C\u00f4t\u00e9 du spot",
+    light_pos_right: "\u00c0 droite",
+    light_pos_left: "\u00c0 gauche",
+    show_spot: "Afficher le spot et son bouton",
     contact_entity: "Capteur d'ouverture physique (optionnel)", battery_entity: "Entit\u00e9 batterie",
     name: "Nom", compact: "Mode compact (ic\u00f4ne au lieu de l'illustration)",
     confirm_opt: "Demander confirmation avant les commandes (double appui)",
@@ -105,6 +117,12 @@ const T = {
     partial_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u0447\u0430\u0441\u0442\u0438\u0447\u043d\u043e\u0433\u043e \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f (\u0433\u0430\u0440\u0430\u0436)",
     show_breeze: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0438\u043a\u0442\u043e\u0433\u0440\u0430\u043c\u043c\u0443 \u0432\u043e\u0437\u0434\u0443\u0445\u0430",
     show_cat: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0438\u043a\u0442\u043e\u0433\u0440\u0430\u043c\u043c\u0443 \u043a\u043e\u0448\u043a\u0438",
+    light_btn: "\u0421\u0432\u0435\u0442",
+    light_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0441\u0432\u0435\u0442\u0430 (\u043f\u0440\u043e\u0436\u0435\u043a\u0442\u043e\u0440 \u043d\u0430 \u0432\u043e\u0440\u043e\u0442\u0430\u0445)",
+    light_position: "\u0421\u0442\u043e\u0440\u043e\u043d\u0430 \u043f\u0440\u043e\u0436\u0435\u043a\u0442\u043e\u0440\u0430",
+    light_pos_right: "\u0421\u043f\u0440\u0430\u0432\u0430",
+    light_pos_left: "\u0421\u043b\u0435\u0432\u0430",
+    show_spot: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0440\u043e\u0436\u0435\u043a\u0442\u043e\u0440 \u0438 \u0435\u0433\u043e \u043a\u043d\u043e\u043f\u043a\u0443",
     contact_entity: "\u0424\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0434\u0430\u0442\u0447\u0438\u043a \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)", battery_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0431\u0430\u0442\u0430\u0440\u0435\u0438",
     name: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435", compact: "\u041a\u043e\u043c\u043f\u0430\u043a\u0442\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c (\u0437\u043d\u0430\u0447\u043e\u043a \u0432\u043c\u0435\u0441\u0442\u043e \u0438\u043b\u043b\u044e\u0441\u0442\u0440\u0430\u0446\u0438\u0438)",
     confirm_opt: "\u0417\u0430\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0442\u044c \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u0434 \u043a\u043e\u043c\u0430\u043d\u0434\u0430\u043c\u0438 (\u0434\u0432\u043e\u0439\u043d\u043e\u0435 \u043d\u0430\u0436\u0430\u0442\u0438\u0435)",
@@ -142,6 +160,12 @@ const T = {
     partial_entity: "Entit\u00e4t f\u00fcr Teil\u00f6ffnungsbefehl (Garage)",
     show_breeze: "Luftstrom-Piktogramm anzeigen",
     show_cat: "Katzen-Piktogramm anzeigen",
+    light_btn: "Licht",
+    light_entity: "Licht-Entit\u00e4t (Strahler am Tor)",
+    light_position: "Seite des Strahlers",
+    light_pos_right: "Rechts",
+    light_pos_left: "Links",
+    show_spot: "Strahler und Schaltfl\u00e4che anzeigen",
     contact_entity: "Physischer \u00d6ffnungssensor (optional)", battery_entity: "Batterie-Entit\u00e4t",
     name: "Name", compact: "Kompaktmodus (Symbol statt Illustration)",
     confirm_opt: "Vor Befehlen best\u00e4tigen (zweimal tippen)",
@@ -179,6 +203,12 @@ const T = {
     partial_entity: "Entidad de comando de apertura parcial (garaje)",
     show_breeze: "Mostrar el pictograma de brisa",
     show_cat: "Mostrar el pictograma del gato",
+    light_btn: "Luz",
+    light_entity: "Entidad de la luz (foco en la puerta)",
+    light_position: "Lado del foco",
+    light_pos_right: "Derecha",
+    light_pos_left: "Izquierda",
+    show_spot: "Mostrar el foco y su bot\u00f3n",
     contact_entity: "Sensor f\u00edsico de apertura (opcional)", battery_entity: "Entidad de bater\u00eda",
     name: "Nombre", compact: "Modo compacto (icono en lugar de ilustraci\u00f3n)",
     confirm_opt: "Pedir confirmaci\u00f3n antes de los comandos (doble toque)",
@@ -216,6 +246,12 @@ const T = {
     partial_entity: "Entit\u00e0 comando apertura parziale (garage)",
     show_breeze: "Mostra il pittogramma della brezza",
     show_cat: "Mostra il pittogramma del gatto",
+    light_btn: "Luce",
+    light_entity: "Entit\u00e0 della luce (faretto sul cancello)",
+    light_position: "Lato del faretto",
+    light_pos_right: "Destra",
+    light_pos_left: "Sinistra",
+    show_spot: "Mostra il faretto e il suo pulsante",
     contact_entity: "Sensore fisico di apertura (opzionale)", battery_entity: "Entit\u00e0 batteria",
     name: "Nome", compact: "Modalit\u00e0 compatta (icona invece dell'illustrazione)",
     confirm_opt: "Chiedere conferma prima dei comandi (doppio tocco)",
@@ -253,6 +289,12 @@ const T = {
     partial_entity: "Entiteit gedeeltelijk-open commando (garage)",
     show_breeze: "Luchtstroompictogram tonen",
     show_cat: "Kattenpictogram tonen",
+    light_btn: "Licht",
+    light_entity: "Lichtentiteit (spot op de poort)",
+    light_position: "Zijde van de spot",
+    light_pos_right: "Rechts",
+    light_pos_left: "Links",
+    show_spot: "Spot en bijbehorende knop tonen",
     contact_entity: "Fysieke openingssensor (optioneel)", battery_entity: "Batterij-entiteit",
     name: "Naam", compact: "Compacte modus (pictogram i.p.v. illustratie)",
     confirm_opt: "Bevestiging vragen v\u00f3\u00f3r commando's (twee keer tikken)",
@@ -290,6 +332,12 @@ const T = {
     partial_entity: "Entidade de comando de abertura parcial (garagem)",
     show_breeze: "Mostrar o pictograma de brisa",
     show_cat: "Mostrar o pictograma do gato",
+    light_btn: "Luz",
+    light_entity: "Entidade da luz (foco no port\u00e3o)",
+    light_position: "Lado do foco",
+    light_pos_right: "Direita",
+    light_pos_left: "Esquerda",
+    show_spot: "Mostrar o foco e o seu bot\u00e3o",
     contact_entity: "Sensor f\u00edsico de abertura (opcional)", battery_entity: "Entidade de bateria",
     name: "Nome", compact: "Modo compacto (\u00edcone em vez da ilustra\u00e7\u00e3o)",
     confirm_opt: "Pedir confirma\u00e7\u00e3o antes dos comandos (dois toques)",
@@ -327,6 +375,12 @@ const T = {
     partial_entity: "Entitet f\u00f6r delvis \u00f6ppning (garage)",
     show_breeze: "Visa luftpiktogrammet",
     show_cat: "Visa kattpiktogrammet",
+    light_btn: "Ljus",
+    light_entity: "Ljusentitet (str\u00e5lkastare p\u00e5 grinden)",
+    light_position: "Str\u00e5lkastarens sida",
+    light_pos_right: "H\u00f6ger",
+    light_pos_left: "V\u00e4nster",
+    show_spot: "Visa str\u00e5lkastaren och dess knapp",
     contact_entity: "Fysisk \u00f6ppningssensor (valfri)", battery_entity: "Batterientitet",
     name: "Namn", compact: "Kompakt l\u00e4ge (ikon i st\u00e4llet f\u00f6r illustration)",
     confirm_opt: "Be om bekr\u00e4ftelse f\u00f6re kommandon (tryck tv\u00e5 g\u00e5nger)",
@@ -364,6 +418,12 @@ const T = {
     partial_entity: "Entitet for delvis \u00e5pning (garasje)",
     show_breeze: "Vis luftpiktogrammet",
     show_cat: "Vis kattepiktogrammet",
+    light_btn: "Lys",
+    light_entity: "Lysenhet (lyskaster p\u00e5 porten)",
+    light_position: "Lyskasterens side",
+    light_pos_right: "H\u00f8yre",
+    light_pos_left: "Venstre",
+    show_spot: "Vis lyskasteren og knappen",
     contact_entity: "Fysisk \u00e5pningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt modus (ikon i stedet for illustrasjon)",
     confirm_opt: "Be om bekreftelse f\u00f8r kommandoer (trykk to ganger)",
@@ -401,6 +461,12 @@ const T = {
     partial_entity: "Entitet til delvis \u00e5bning (garage)",
     show_breeze: "Vis luftpiktogrammet",
     show_cat: "Vis kattepiktogrammet",
+    light_btn: "Lys",
+    light_entity: "Lysenhed (spot p\u00e5 porten)",
+    light_position: "Spottens side",
+    light_pos_right: "H\u00f8jre",
+    light_pos_left: "Venstre",
+    show_spot: "Vis spotten og dens knap",
     contact_entity: "Fysisk \u00e5bningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt tilstand (ikon i stedet for illustration)",
     confirm_opt: "Bed om bekr\u00e6ftelse f\u00f8r kommandoer (tryk to gange)",
@@ -438,6 +504,12 @@ const T = {
     partial_entity: "Encja polecenia cz\u0119\u015bciowego otwarcia (gara\u017c)",
     show_breeze: "Poka\u017c piktogram powiewu",
     show_cat: "Poka\u017c piktogram kota",
+    light_btn: "\u015awiat\u0142o",
+    light_entity: "Encja \u015bwiat\u0142a (reflektor na bramie)",
+    light_position: "Strona reflektora",
+    light_pos_right: "Prawa",
+    light_pos_left: "Lewa",
+    show_spot: "Poka\u017c reflektor i jego przycisk",
     contact_entity: "Fizyczny czujnik otwarcia (opcjonalny)", battery_entity: "Encja baterii",
     name: "Nazwa", compact: "Tryb kompaktowy (ikona zamiast ilustracji)",
     confirm_opt: "Wymagaj potwierdzenia przed komendami (dwa dotkni\u0119cia)",
@@ -598,6 +670,9 @@ const MOVING = ["opening", "closing", "moving"];
 // accidental tap mid-travel is exactly what we want to avoid. `show_stop`
 // opts back in for motors with a real, dedicated stop channel.
 function actionsFor(norm, cfg) {
+  // The light is not a gate command: it stays available at all times, and the
+  // two-tap confirmation does not apply to it.
+  const lamp = cfg.light_entity && cfg.show_spot !== false ? ["light"] : [];
   // Doors (wickets) are display-only unless command entities are
   // configured (smart locks like Nuki make buttons legitimate there).
   if (cfg.gate_type === "door" && !cfg.entity && !cfg.open_entity && !cfg.close_entity) return [];
@@ -606,27 +681,28 @@ function actionsFor(norm, cfg) {
   const ped = cfg.pedestrian_entity && cfg.gate_type !== "garage";
   switch (norm) {
     case "closed":
-      if (ped) return ["pedestrian", "open"];
+      if (ped) return [...lamp, "pedestrian", "open"];
       // Garage: part-open positions, venting slot at the top and a floor gap.
       if (cfg.gate_type === "garage" && (cfg.vent_entity || cfg.partial_entity)) {
         return [
+          ...lamp,
           ...(cfg.vent_entity ? ["vent"] : []),
           ...(cfg.partial_entity ? ["partial"] : []),
           "open",
         ];
       }
       // A lock with an unlatch override gets a separate Unlock button.
-      if (domainOf(cfg.entity || "") === "lock" && domainOf(cfg.open_entity || "") === "lock") return ["unlock", "open"];
-      return ["open"];
-    case "open": return ["close"];
-    case "unlocked": return ["open", "close"];
-    case "pedestrian": return ["close"];
+      if (domainOf(cfg.entity || "") === "lock" && domainOf(cfg.open_entity || "") === "lock") return [...lamp, "unlock", "open"];
+      return [...lamp, "open"];
+    case "open": return [...lamp, "close"];
+    case "unlocked": return [...lamp, "open", "close"];
+    case "pedestrian": return [...lamp, "close"];
     case "vent":
-    case "partial": return ["close"];
+    case "partial": return [...lamp, "close"];
     case "opening":
     case "closing":
-    case "moving": return stop;
-    default: return ["open", "close"];
+    case "moving": return [...lamp, ...stop];
+    default: return [...lamp, "open", "close"];
   }
 }
 
@@ -808,6 +884,7 @@ function slidingSvg(norm, cfg) {
       <defs>
         <clipPath id="gate-clip"><rect x="11" y="2" width="118" height="60"/></clipPath>
       </defs>
+      ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="2" y1="58" x2="138" y2="58" class="gate-ground"/>
       <g clip-path="url(#gate-clip)">
         <g class="gate-leaf" style="transform:translateX(${slideX(norm, cfg)}px)">
@@ -823,6 +900,7 @@ function slidingSvg(norm, cfg) {
       ${norm === "open" && cfg.show_car !== false ? gateCar(70, 36, 1.7) : ""}
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
+      ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, cfg._lampOn) : ""}
     </svg>`;
 }
 
@@ -912,6 +990,7 @@ function swingSvg(norm, cfg) {
   const [tl, tr] = SWING_POSE[norm] || ["", ""];
   return `
     <svg viewBox="-28 0 196 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="-26" y1="58" x2="166" y2="58" class="gate-ground"/>
       ${SCENE_CLOSE}
       ${swingLeaf("l", tl, cfg)}
@@ -920,6 +999,7 @@ function swingSvg(norm, cfg) {
       ${norm === "open" && cfg.show_car !== false ? gateCar(70, 33, 1.9) : ""}
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
+      ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, cfg._lampOn) : ""}
     </svg>`;
 }
 
@@ -947,6 +1027,7 @@ function doorSvg(norm, cfg) {
   const pose = DOOR_POSE[norm] || "";
   return `
     <svg viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="30" y1="58" x2="110" y2="58" class="gate-ground"/>
       <g class="gate-post-g">
         <rect x="48" y="9" width="5" height="49" rx="2"/>
@@ -960,6 +1041,7 @@ function doorSvg(norm, cfg) {
       </g>
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
+      ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, cfg._lampOn) : ""}
     </svg>`;
 }
 
@@ -1005,6 +1087,59 @@ function gateCat(cx, cy, s) {
   </g>`;
 }
 
+
+// Bracket-mounted spotlight on the post. The body and its beam share one
+// rotated frame, computed from the anchor towards AIM, so the light always
+// leaves the glass along the axis of the fitting -- turn the spot and the
+// beam follows. AIM sits low on the leaf: a spot aimed at the middle of the
+// gate reads as a floodlight, aimed at the foot it reads as a driveway light.
+const LAMP_AIM = { x: 70, y: 46 };
+const LAMP_REACH = 1.05;   // beam length, as a factor of the anchor-to-aim distance
+const LAMP_SPREAD = 32;    // half-width of the beam at its far end (~56 degrees)
+function lampAnchor(cfg) {
+  const left = cfg.light_position === "left";
+  if (cfg.gate_type === "garage") return { x: left ? 16 : 124, y: 13 };
+  return { x: left ? 11 : 129, y: 15 };
+}
+
+// A door has no post to bolt a bracket onto: the luminaire is a flat box
+// recessed in the lintel, and its beam falls straight down to the floor.
+function doorLight(cfg, on) {
+  const x = 70, y = 6.4;
+  return `
+    <g class="lamp${on ? " on" : ""}">
+      ${on ? `<path class="lamp-cone-v" d="M${x - 4} ${y + 1.4} L${x + 4} ${y + 1.4} L${x + 19} 46 L${x - 19} 46 Z"/>` : ""}
+      <rect class="lamp-body" x="${x - 5}" y="${y - 3.4}" width="10" height="4.2" rx="1.4"/>
+      <line class="lamp-glass" x1="${x - 3.6}" y1="${y + 1.2}" x2="${x + 3.6}" y2="${y + 1.2}"/>
+    </g>`;
+}
+
+function gateLight(cfg, on) {
+  if (cfg.gate_type === "door") return doorLight(cfg, on);
+  const p = lampAnchor(cfg);
+  const a = (Math.atan2(LAMP_AIM.y - p.y, LAMP_AIM.x - p.x) * 180) / Math.PI;
+  const reach = Math.hypot(LAMP_AIM.x - p.x, LAMP_AIM.y - p.y) * LAMP_REACH;
+  return `
+    <g class="lamp${on ? " on" : ""}" transform="translate(${p.x} ${p.y}) rotate(${a.toFixed(1)})">
+      ${on ? `<path class="lamp-cone" d="M9.4 -3 L${reach.toFixed(1)} -32 L${reach.toFixed(1)} 32 L9.4 3 Z"/>` : ""}
+      <line class="lamp-arm" x1="-2" y1="0" x2="4.2" y2="0"/>
+      <path class="lamp-body" d="M3.8 -2.4 L9.4 -3.4 L9.4 3.4 L3.8 2.4 Z"/>
+      <line class="lamp-glass" x1="9.6" y1="-3.2" x2="9.6" y2="3.2"/>
+    </g>`;
+}
+
+const LAMP_DEFS = `
+      <defs>
+        <linearGradient id="lamp-beam" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="var(--lamp-color)" stop-opacity=".5"/>
+          <stop offset="100%" stop-color="var(--lamp-color)" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="lamp-beam-v" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="var(--lamp-color)" stop-opacity=".5"/>
+          <stop offset="100%" stop-color="var(--lamp-color)" stop-opacity="0"/>
+        </linearGradient>
+      </defs>`;
+
 function garageSvg(norm, cfg) {
   const closedLike = norm === "closed" || norm === "unknown" || norm === "unlocked";
   // Venting rolls one slat away and keeps the gap under the box; the part-open
@@ -1035,6 +1170,7 @@ function garageSvg(norm, cfg) {
     norm === "moving" ? '<path class="garage-arrow" d="M70 41 L70 53 M66 44.5 L70 41 L74 44.5 M66 49.5 L70 53 L74 49.5"/>' : "";
   return `
     <svg viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="2" y1="58" x2="138" y2="58" class="gate-ground"/>
       <g class="leaf-line">${shapes}</g>
       <g class="leaf-fill">${shapes}</g>
@@ -1045,6 +1181,7 @@ function garageSvg(norm, cfg) {
       ${norm === "open" && cfg.show_car !== false ? gateCar(70, 41, 1.5) : ""}
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
+      ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, cfg._lampOn) : ""}
     </svg>`;
 }
 
@@ -1127,7 +1264,9 @@ class GateCard extends HTMLElement {
   }
 
   _onAction(action) {
-    if (this._config.confirm === false) {
+    // Toggling a light is harmless and instantly undone: it skips the
+    // confirmation, which only guards the impulse commands.
+    if (action === "light" || this._config.confirm === false) {
       this._do(action);
       return;
     }
@@ -1177,6 +1316,9 @@ class GateCard extends HTMLElement {
     const moving = MOVING.includes(norm);
     const name = cfg.name || (st && st.attributes.friendly_name) || "Gate";
     const since = !moving && st ? formatSince(st.last_changed) : null;
+    const lampState = cfg.light_entity && hass.states[cfg.light_entity];
+    const lampOn = !!lampState && ["on", "playing", "home", "open"].includes(String(lampState.state).toLowerCase());
+    cfg._lampOn = lampOn;
     const actions = actionsFor(norm, cfg);
     const dirClass = cfg.slide_direction === "right" ? " dir-r" : " dir-l";
 
@@ -1197,6 +1339,7 @@ class GateCard extends HTMLElement {
           a === "open" ? (type === "garage" ? "mdi:garage-open" : type === "door" ? "mdi:door-open" : "mdi:gate-open")
           : a === "close" ? (type === "garage" ? "mdi:garage" : type === "door" ? "mdi:door-closed" : "mdi:gate")
           : a === "unlock" ? "mdi:lock-open"
+          : a === "light" ? (lampOn ? "mdi:lightbulb-on" : "mdi:lightbulb-outline")
           : a === "vent" ? "mdi:weather-windy"
           : a === "partial" ? "mdi:paw"
           : a === "pedestrian" ? "mdi:walk" : "mdi:stop";
@@ -1261,6 +1404,13 @@ ha-card.tappable { cursor:pointer; }
 .gate-cat-halo { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:2.2; stroke-linejoin:round; }
 .gate-cat { fill:var(--gate-color); }
 .gate-post-g { fill:var(--secondary-text-color); opacity:.75; }
+:host { --lamp-color: var(--state-light-active-color, #ffca28); }
+.lamp .lamp-body { fill:var(--secondary-text-color); opacity:.9; }
+.lamp .lamp-arm { stroke:var(--secondary-text-color); stroke-width:1.6; stroke-linecap:round; opacity:.9; }
+.lamp .lamp-glass { stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:2; stroke-linecap:round; }
+.lamp.on .lamp-glass { stroke:var(--lamp-color); stroke-width:2.6; }
+.lamp .lamp-cone { fill:url(#lamp-beam); }
+.lamp .lamp-cone-v { fill:url(#lamp-beam-v); }
 .gate-ground { stroke:var(--secondary-text-color); stroke-width:2; stroke-linecap:round; opacity:.5; }
 .gate-key-halo { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:3; stroke-linejoin:round; }
 .gate-key { fill:var(--success-color, #4caf50); }
@@ -1336,6 +1486,7 @@ const EDITOR_PICKERS = [
   { field: "state_entity", labelKey: "state_entity", domains: null },
   { field: "contact_entity", labelKey: "contact_entity", domains: ["binary_sensor", "sensor", "input_boolean"] },
   { field: "battery_entity", labelKey: "battery_entity", domains: ["sensor"] },
+  { field: "light_entity", labelKey: "light_entity", domains: ["light", "switch", "input_boolean"] },
 ];
 const EDITOR_OVERRIDES = [
   { field: "open_entity", labelKey: "open_entity" },
@@ -1415,6 +1566,18 @@ details .form { padding-top:10px; }
         <div class="row" data-picker="state_entity"></div>
         <div class="row" data-picker="contact_entity"></div>
         <div class="row" data-picker="battery_entity"></div>
+        <div class="row" data-picker="light_entity"></div>
+        <div class="row row-inline">
+          <label><input type="checkbox" data-field="show_spot" ${cfg.show_spot !== false ? "checked" : ""}/> ${t(hass, "show_spot")}</label>
+        </div>
+        ${cfg.gate_type === "door" ? "" : `
+        <div class="row">
+          <label>${t(hass, "light_position")}</label>
+          <select data-field="light_position">
+            <option value="right" ${cfg.light_position !== "left" ? "selected" : ""}>${t(hass, "light_pos_right")}</option>
+            <option value="left" ${cfg.light_position === "left" ? "selected" : ""}>${t(hass, "light_pos_left")}</option>
+          </select>
+        </div>`}
         <div class="row">
           <label>${t(hass, "gate_type")}</label>
           <select data-field="gate_type">
@@ -1527,6 +1690,14 @@ details .form { padding-top:10px; }
       else this._config.gate_style = ev.target.value;
       this._emit();
     });
+    const posSel = this._root.querySelector('select[data-field="light_position"]');
+    if (posSel) posSel.addEventListener("change", (ev) => {
+      this._config = { ...this._config };
+      // right is the default -- only store the key when it differs
+      if (ev.target.value === "left") this._config.light_position = "left";
+      else delete this._config.light_position;
+      this._emit();
+    });
     const dirSel = this._root.querySelector('select[data-field="slide_direction"]');
     if (dirSel) dirSel.addEventListener("change", (ev) => {
       this._config = { ...this._config };
@@ -1552,7 +1723,7 @@ details .form { padding-top:10px; }
       cb.addEventListener("change", () => {
         const field = cb.dataset.field;
         this._config = { ...this._config };
-        if (["confirm", "show_key", "show_runner", "show_car", "show_breeze", "show_cat"].includes(field)) {
+        if (["confirm", "show_key", "show_runner", "show_car", "show_breeze", "show_cat", "show_spot"].includes(field)) {
           // defaults to true -- only store the key when disabled
           if (cb.checked) delete this._config[field];
           else this._config[field] = false;

@@ -143,4 +143,39 @@ check('entité absente de hass → état inconnu, pas de crash',
 contains('state_entity configurée mais absente → rend quand même',
   makeCard('open', { state_entity: 'sensor.fantome' }), '<div class="state">');
 
+// -- Light / spotlight -------------------------------------------------------
+// The luminaire and its button hang on the same key: configuring light_entity
+// turns both on, show_spot turns both off. The button is deliberately kept
+// while the gate moves -- switching a light on cannot reverse a leaf.
+
+const lit = (cfg, lamp, st = 'closed') => {
+  const c = new Card();
+  c.setConfig({ entity: 'cover.portail', ...cfg });
+  c.hass = { language: 'en',
+    states: { 'cover.portail': { state: st, attributes: {}, last_changed: '2026-09-09T10:00:00Z' },
+      ...(lamp === undefined ? {} : { 'light.spot': { state: lamp ? 'on' : 'off', attributes: {} } }) },
+    callService() {} };
+  return String(markup(c));
+};
+const actions = html => [...html.matchAll(/data-action="([^"]+)"/g)].map(m => m[1]).join(',');
+const spot = html => /class="lamp( on)?"/.test(html);
+const LE = { light_entity: 'light.spot' };
+
+check('light_entity -> spot dessine', spot(lit(LE, true)), true);
+check('light_entity -> bouton Lumiere', actions(lit(LE, true)), 'light,open');
+check('lampe allumee -> groupe .lamp.on', /class="lamp on"/.test(lit(LE, true)), true);
+check('lampe eteinte -> spot dessine sans halo', /class="lamp"/.test(lit(LE, false)), true);
+check('show_spot:false masque le spot ET le bouton',
+  spot(lit({ ...LE, show_spot: false }, true)) + '|' + actions(lit({ ...LE, show_spot: false }, true)),
+  'false|open');
+check('sans light_entity : ni spot ni bouton',
+  spot(lit({}, undefined)) + '|' + actions(lit({}, undefined)), 'false|open');
+check('le bouton Lumiere reste pendant le mouvement',
+  actions(lit(LE, true, 'opening')), 'light');
+check('porte : faisceau vertical du linteau, pas de spot sur potence',
+  /class="lamp-cone-v"/.test(lit({ ...LE, gate_type: 'door' }, true)), true);
+check('light_position deplace le spot a gauche',
+  /translate\(11 15\)/.test(lit({ ...LE, light_position: 'left' }, true)), true);
+
+
 report();

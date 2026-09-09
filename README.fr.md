@@ -27,6 +27,7 @@ Conçue pour le cas très courant où la *commande* et l'*état* sont deux canau
 - **Quatre types animés** : `sliding`, `swing`, `door` (portillon / porte d'entrée, affichage seul sauf si des commandes sont configurées, pratique pour les serrures connectées) et `garage` (porte roulante), avec cinq `gate_style` chacun pour coulissant/battants, icônes assorties au type en mode compact et sur les boutons. `compact: true` remplace l'illustration par une icône.
 - **Ouvertures partielles du garage** : `vent_entity` entrouvre une fente en haut (une brise la traverse), `partial_entity` décolle le tablier du sol (un chat s'y faufile). Chacune ajoute son bouton quand c'est fermé ; dans l'une ou l'autre position, seul *Fermer* est proposé.
 - **Passage piéton** (coulissant/battants) : définissez `pedestrian_entity` → un bouton *Piéton* quand c'est fermé, un vantail s'ouvre avec un pictogramme, seul *Fermer* est proposé.
+- **Spot sur le portail** : `light_entity` fixe un projecteur sur potence au montant (encastré dans le linteau pour `door`), envoie un faisceau sur le vantail quand il est allumé, et ajoute un bouton *Lumière* qui reste disponible même pendant le mouvement.
 - **Boutons sécurisés impulsion** : seules les commandes pertinentes s'affichent, **aucune pendant le mouvement** (une impulsion de plus stoppe ou inverse le vantail), confirmation double appui et `show_stop` en option.
 - **Commandes personnalisées** (`open_entity` / `close_entity` / `stop_entity`) pour les portails qui ne sont pas des covers, et **éditeur visuel** pour chaque champ.
 - **Serrures connectées** (Nuki…) : une `lock` comme `entity`, un état *Déverrouillé* dessiné porte fermée en orange, un bouton *Déverrouiller* optionnel à côté du bec de cane, `contact_entity` pour l'état d'ouverture physique réel et un indicateur `battery_entity` en coin.
@@ -59,6 +60,9 @@ Conçue pour le cas très courant où la *commande* et l'*état* sont deux canau
 | `show_car` | Pictogramme voiture dans l'ouverture quand c'est totalement ouvert (coulissant/battant/garage). Défaut `true`. |
 | `show_breeze` | Pictogramme brise dans la fente d'aération (garage). Défaut `true`. |
 | `show_cat` | Pictogramme chat dans l'ouverture partielle (garage). Défaut `true`. |
+| `light_entity` | Lumière (ou switch) commandée par un bouton *Lumière*, dessinée comme un spot orienté vers le portail. Sans confirmation, et le bouton reste pendant le mouvement. |
+| `light_position` | Côté du spot : `right` (défaut) ou `left`. Sans effet sur `door`, où le luminaire est au milieu du linteau. |
+| `show_spot` | Dessiner le spot et proposer son bouton. Défaut `true` ; `false` masque les deux. |
 | `open_entity` / `close_entity` / `stop_entity` | Bouton/script/switch/serrure utilisés à la place des services du cover. Une serrure `lock` en `open_entity` fait *Ouvrir* → `lock.open` (bec de cane) et ajoute un bouton *Déverrouiller* séparé quand c'est verrouillé. |
 | `pedestrian_entity` | Bouton/script/switch de l'ouverture partielle piéton (coulissant/battants). Active le bouton *Piéton* quand c'est fermé. |
 | `vent_entity` | Bouton/script/switch de la position aération (garage). Fente en haut, bouton *Aérer* quand c'est fermé. |
