@@ -19,7 +19,7 @@ const Editor = registry.get('ha-gate-card-editor');
 /** Markup of a card whose state entity reports `st`. */
 function makeCard(st, cfg = {}) {
   const c = new Card();
-  c.setConfig({ entity: 'cover.portail', ...cfg });
+  c.setConfig(Object.freeze({ entity: 'cover.portail', ...cfg }));
   c.hass = {
     language: 'en',
     states: st === undefined ? {} : {
@@ -102,7 +102,7 @@ check('aération → orange', color(makeCard('aeration', { gate_type: 'garage' }
 
 const btns = (st, cfg) => {
   const c = new Card();
-  c.setConfig({ entity: 'cover.portail', gate_type: 'garage', ...cfg });
+  c.setConfig(Object.freeze({ entity: 'cover.portail', gate_type: 'garage', ...cfg }));
   c.hass = { language: 'en',
     states: { 'cover.portail': { state: st, attributes: {}, last_changed: '2026-09-09T10:00:00Z' } },
     callService() {} };
@@ -150,7 +150,7 @@ contains('state_entity configurée mais absente → rend quand même',
 
 const lit = (cfg, lamp, st = 'closed') => {
   const c = new Card();
-  c.setConfig({ entity: 'cover.portail', ...cfg });
+  c.setConfig(Object.freeze({ entity: 'cover.portail', ...cfg }));
   c.hass = { language: 'en',
     states: { 'cover.portail': { state: st, attributes: {}, last_changed: '2026-09-09T10:00:00Z' },
       ...(lamp === undefined ? {} : { 'light.spot': { state: lamp ? 'on' : 'off', attributes: {} } }) },
@@ -177,5 +177,13 @@ check('porte : faisceau vertical du linteau, pas de spot sur potence',
 check('light_position deplace le spot a gauche',
   /translate\(11 15\)/.test(lit({ ...LE, light_position: 'left' }, true)), true);
 
+
+// Lovelace deep-freezes the stored card config before handing it to
+// setConfig, and the file is a module (strict mode): writing a scratch value
+// back onto it throws and the card vanishes from the dashboard. Every factory
+// above freezes its config; this states the rule outright.
+
+check('un config gele ne fait pas planter le rendu (Lovelace le gele)',
+  label(makeCard('closed', { light_entity: 'light.spot' })), 'Closed');
 
 report();

@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.3.0";
+const CARD_VERSION = "1.3.1";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -828,7 +828,7 @@ function laserDots(cells) {
     .join("");
 }
 
-function slidingSvg(norm, cfg) {
+function slidingSvg(norm, cfg, lampOn) {
   const style = normStyle(cfg, "sliding");
   let shapes;
   let extra = "";
@@ -900,7 +900,7 @@ function slidingSvg(norm, cfg) {
       ${norm === "open" && cfg.show_car !== false ? gateCar(70, 36, 1.7) : ""}
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
-      ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, cfg._lampOn) : ""}
+      ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, lampOn) : ""}
     </svg>`;
 }
 
@@ -986,7 +986,7 @@ function swingLeaf(side, transform, cfg) {
     </g>`;
 }
 
-function swingSvg(norm, cfg) {
+function swingSvg(norm, cfg, lampOn) {
   const [tl, tr] = SWING_POSE[norm] || ["", ""];
   return `
     <svg viewBox="-28 0 196 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -999,7 +999,7 @@ function swingSvg(norm, cfg) {
       ${norm === "open" && cfg.show_car !== false ? gateCar(70, 33, 1.9) : ""}
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
-      ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, cfg._lampOn) : ""}
+      ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, lampOn) : ""}
     </svg>`;
 }
 
@@ -1016,7 +1016,7 @@ const DOOR_POSE = {
   moving: "scaleX(0.4) skewY(8deg)",
 };
 
-function doorSvg(norm, cfg) {
+function doorSvg(norm, cfg, lampOn) {
   const panel = '<rect x="54" y="11" width="32" height="46" rx="1.5"/>';
   const details = `
       <g class="door-detail">
@@ -1041,7 +1041,7 @@ function doorSvg(norm, cfg) {
       </g>
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
-      ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, cfg._lampOn) : ""}
+      ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, lampOn) : ""}
     </svg>`;
 }
 
@@ -1140,7 +1140,7 @@ const LAMP_DEFS = `
         </linearGradient>
       </defs>`;
 
-function garageSvg(norm, cfg) {
+function garageSvg(norm, cfg, lampOn) {
   const closedLike = norm === "closed" || norm === "unknown" || norm === "unlocked";
   // Venting rolls one slat away and keeps the gap under the box; the part-open
   // position rolls two and lifts the whole curtain off the ground.
@@ -1181,15 +1181,15 @@ function garageSvg(norm, cfg) {
       ${norm === "open" && cfg.show_car !== false ? gateCar(70, 41, 1.5) : ""}
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
-      ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, cfg._lampOn) : ""}
+      ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, lampOn) : ""}
     </svg>`;
 }
 
-function gateSvg(norm, cfg) {
-  if (cfg.gate_type === "swing") return swingSvg(norm, cfg);
-  if (cfg.gate_type === "door") return doorSvg(norm, cfg);
-  if (cfg.gate_type === "garage") return garageSvg(norm, cfg);
-  return slidingSvg(norm, cfg);
+function gateSvg(norm, cfg, lampOn) {
+  if (cfg.gate_type === "swing") return swingSvg(norm, cfg, lampOn);
+  if (cfg.gate_type === "door") return doorSvg(norm, cfg, lampOn);
+  if (cfg.gate_type === "garage") return garageSvg(norm, cfg, lampOn);
+  return slidingSvg(norm, cfg, lampOn);
 }
 
 // ---------------------------------------------------------------------------
@@ -1318,7 +1318,6 @@ class GateCard extends HTMLElement {
     const since = !moving && st ? formatSince(st.last_changed) : null;
     const lampState = cfg.light_entity && hass.states[cfg.light_entity];
     const lampOn = !!lampState && ["on", "playing", "home", "open"].includes(String(lampState.state).toLowerCase());
-    cfg._lampOn = lampOn;
     const actions = actionsFor(norm, cfg);
     const dirClass = cfg.slide_direction === "right" ? " dir-r" : " dir-l";
 
@@ -1452,7 +1451,7 @@ button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
           </svg>${batt}%</div>` : ""}
         ${cfg.compact
           ? `<div class="badge"><ha-icon icon="${stateIcon(norm, cfg)}"></ha-icon></div>`
-          : `<div class="illu">${gateSvg(norm, cfg)}</div>`}
+          : `<div class="illu">${gateSvg(norm, cfg, lampOn)}</div>`}
         <div class="bottom">
           <div class="body">
             <div class="name">${escapeHtml(name)}</div>
