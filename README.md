@@ -10,9 +10,9 @@
 <a href="https://buymeacoffee.com/adnpolymerase" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" height="60"></a>
 <a href="https://adnpolymerase.github.io/HA/" target="_blank"><img src="https://raw.githubusercontent.com/ADNPolymerase/HA/main/assets/site-button.svg" alt="Link to my github.io for my other projects" height="60"></a>
 
-A Lovelace card for gates — real consolidated state, per-state colors, animated illustration, pedestrian pass mode and impulse-safe commands.
+A Lovelace card for gates: real consolidated state, per-state colors, animated illustration, pedestrian pass mode and impulse-safe commands.
 
-Built for the common setup where *command* and *state* are two different channels: the gate is driven by an RF impulse (AirSend, RFXCOM, Shelly relay, dry contact…) exposed as a `cover`, while the **reliable** position comes from separate open/closed sensors. The card shows the consolidated state and sends commands to the cover — no guessing.
+Built for the common setup where *command* and *state* are two different channels: the gate is driven by an RF impulse (AirSend, RFXCOM, Shelly relay, dry contact…) exposed as a `cover`, while the **reliable** position comes from separate open/closed sensors. The card shows the consolidated state and sends commands to the cover, without guessing.
 
 > Feedback and issues welcome.
 > 🇫🇷 [Lire en français](README.fr.md)
@@ -24,7 +24,7 @@ Built for the common setup where *command* and *state* are two different channel
 - **Two entities**: commands go to the `cover`, the displayed state comes from any `state_entity` (`input_select`, sensor, template…).
 - **State normalization**: `Fermé`, `closed`, `ouverture`, `En mouvement`… are auto-detected (accent-insensitive, 12 languages) and mapped to closed / open / opening / closing / moving / pedestrian / unlocked / venting / part-open / unknown. `state_map` covers anything else.
 - **Per-state colors** from your theme (closed = green, open & unlocked = orange, moving = blue, unknown = red), or a fixed `gate_color`.
-- **Four animated types**: `sliding`, `swing`, `door` (wicket / entrance door — display-only unless you configure command entities, handy for smart locks) and `garage` (roller door) — five `gate_style` designs each for sliding/swing, type-matched icons in compact mode and on the buttons. `compact: true` swaps the illustration for an icon.
+- **Four animated types**: `sliding`, `swing`, `door` (wicket / entrance door, display-only unless you configure command entities, handy for smart locks) and `garage` (roller door), with five `gate_style` designs each for sliding/swing, type-matched icons in compact mode and on the buttons. `compact: true` swaps the illustration for an icon.
 - **Pedestrian pass** (sliding/swing): set `pedestrian_entity` → a *Pedestrian* button while closed, one leaf opens with a pictogram, only *Close* is offered.
 - **Part-open garage doors**: `vent_entity` opens a slot at the top (a breeze blows through it), `partial_entity` lifts the curtain off the floor (a cat walks through). Each adds its own button while closed; in either position only *Close* is offered.
 - **Impulse-safe buttons**: only relevant commands are shown, **none while moving** (an extra impulse stops or reverses the leaf), optional two-tap confirmation and `show_stop`.
@@ -40,7 +40,7 @@ Built for the common setup where *command* and *state* are two different channel
 
 | Option | Description |
 |---|---|
-| `entity` | **Required.** The `cover` — or `lock` (Nuki…): *Open* unlocks, *Close* locks — receiving commands. (Optional if you use overrides or `state_entity` only.) |
+| `entity` | **Required.** The `cover`, or a `lock` (Nuki…) where *Open* unlocks and *Close* locks, receiving commands. (Optional if you use overrides or `state_entity` only.) |
 | `state_entity` | Entity holding the reliable consolidated state (any domain). Defaults to `entity`. |
 | `contact_entity` | Physical open/closed sensor (door contact). Open contact + locked bolt → unknown. |
 | `battery_entity` | Battery percentage sensor, shown top-right (green/orange/red). Hidden in `compact` mode. |
@@ -52,7 +52,7 @@ Built for the common setup where *command* and *state* are two different channel
 | `name` | Card title. Defaults to the state entity's friendly name. |
 | `compact` | `true` for a colored icon instead of the illustration. |
 | `confirm` | Two-tap confirmation. Default `true`. |
-| `show_stop` | *Stop* button while moving. Default `false` — leave off for impulse (RF) gates. |
+| `show_stop` | *Stop* button while moving. Default `false`, to be left off for impulse (RF) gates. |
 | `card_tap` | `true` makes the whole card tappable when a single command is available (big touch target for car dashboards). Same two-tap confirmation. Default `false`. |
 | `show_key` | Key symbol on the closed gate. Default `true`. |
 | `show_runner` | Pedestrian pictogram in pedestrian mode. Default `true`. |
@@ -76,4 +76,4 @@ name: Portail
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).
