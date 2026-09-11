@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.3.3";
+const CARD_VERSION = "1.4.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -1430,8 +1430,13 @@ ha-card.tappable { cursor:pointer; }
 .gate-key { fill:var(--success-color, #4caf50); }
 .gate-key-hole { fill:var(--ha-card-background, var(--card-background-color, #fff)); }
 .gate-question { fill:var(--gate-color); font:700 20px sans-serif; text-anchor:middle; stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:4; paint-order:stroke; }
-.badge { flex:none; width:44px; height:44px; border-radius:50%; background:var(--gate-color); color:#fff; display:flex; align-items:center; justify-content:center; }
+.badge { position:relative; flex:none; width:44px; height:44px; border-radius:50%; background:var(--gate-color); color:#fff; display:flex; align-items:center; justify-content:center; }
 .badge ha-icon { --mdc-icon-size:26px; }
+/* Compact mode has no illustration, so the lit spot shrinks to a pip on the
+   badge: it hangs off the state circle instead of taking room in the layout,
+   and it is drawn only while the light is on. */
+.lamp-dot { position:absolute; right:-3px; bottom:-3px; width:19px; height:19px; border-radius:50%; background:var(--lamp-color); border:2px solid var(--ha-card-background, var(--card-background-color, #fff)); display:flex; align-items:center; justify-content:center; color:#3d2c00; }
+.lamp-dot ha-icon { --mdc-icon-size:12px; }
 .moving .badge { animation:gate-pulse 1.6s ease-in-out infinite; }
 @keyframes gate-pulse { 50% { opacity:.55; } }
 .bottom { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; }
@@ -1465,7 +1470,10 @@ button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
             <rect x="3" y="4" width="${Math.max(0.8, (15 * Math.min(100, Math.max(0, batt))) / 100).toFixed(1)}" height="6" rx="1" fill="${batt <= 15 ? "var(--error-color, #f44336)" : batt <= 40 ? "var(--warning-color, #ff9800)" : "var(--success-color, #4caf50)"}"/>
           </svg>${batt}%</div>` : ""}
         ${cfg.compact
-          ? `<div class="badge"><ha-icon icon="${stateIcon(norm, cfg)}"></ha-icon></div>`
+          ? `<div class="badge"><ha-icon icon="${stateIcon(norm, cfg)}"></ha-icon>${
+              lampOn && cfg.light_entity && cfg.show_spot !== false
+                ? `<span class="lamp-dot" title="${escapeHtml(cfg.light_entity)}"><ha-icon icon="mdi:lightbulb-on"></ha-icon></span>`
+                : ""}</div>`
           : `<div class="illu">${gateSvg(norm, cfg, lampOn)}</div>`}
         <div class="bottom">
           <div class="body">

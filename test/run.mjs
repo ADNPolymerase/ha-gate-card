@@ -213,4 +213,24 @@ check('la lampe eteinte ne dessine pas de faisceau', /class="lamp"/.test(darkCar
 check('allumer la lampe redessine la card (etat dans la signature de rendu)',
   /class="lamp on"/.test(litCard), true);
 
+// -- Compact mode: the lit spot becomes a pip on the badge -------------------
+// Compact drops the illustration, so the only place left to say "the light is
+// on" is the state circle. It is drawn from the same key as the spot
+// (show_spot), never from the button key, and never while the light is off.
+
+const pip = html => /class="lamp-dot"/.test(html);
+
+check('compact + lampe allumee -> pastille sur la pastille',
+  pip(lit({ ...LE, compact: true }, true)), true);
+check('compact + lampe eteinte -> pas de pastille',
+  pip(lit({ ...LE, compact: true }, false)), false);
+check('compact sans light_entity -> pas de pastille',
+  pip(lit({ compact: true }, undefined)), false);
+check('show_spot:false retire aussi la pastille compacte',
+  pip(lit({ ...LE, compact: true, show_spot: false }, true)), false);
+check('show_light_button:false garde la pastille (elle n est pas le bouton)',
+  pip(lit({ ...LE, compact: true, show_light_button: false }, true)), true);
+check('hors compact : pas de pastille, c est le faisceau qui parle',
+  pip(lit({ ...LE }, true)), false);
+
 report();

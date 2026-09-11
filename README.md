@@ -27,7 +27,7 @@ Built for the common setup where *command* and *state* are two different channel
 - **Four animated types**: `sliding`, `swing`, `door` (wicket / entrance door, display-only unless you configure command entities, handy for smart locks) and `garage` (roller door), with five `gate_style` designs each for sliding/swing, type-matched icons in compact mode and on the buttons. `compact: true` swaps the illustration for an icon.
 - **Pedestrian pass** (sliding/swing): set `pedestrian_entity` → a *Pedestrian* button while closed, one leaf opens with a pictogram, only *Close* is offered.
 - **Part-open garage doors**: `vent_entity` opens a slot at the top (a breeze blows through it), `partial_entity` lifts the curtain off the floor (a cat walks through). Each adds its own button while closed; in either position only *Close* is offered.
-- **Gate spotlight**: `light_entity` bolts a bracket spot to the post (recessed in the lintel for `door`), throws a beam onto the leaf when it is on, and adds a *Light* button that stays available even while the gate moves. Drawing and button are separable: `show_light_button: false` shows the state without offering the control.
+- **Gate spotlight**: `light_entity` bolts a bracket spot to the post (recessed in the lintel for `door`), throws a beam onto the leaf when it is on, and adds a *Light* button that stays available even while the gate moves. Drawing and button are separable: `show_light_button: false` shows the state without offering the control. In `compact` mode the spot shrinks to a pip on the state circle, drawn only while the light is on.
 - **Impulse-safe buttons**: only relevant commands are shown, **none while moving** (an extra impulse stops or reverses the leaf), optional two-tap confirmation and `show_stop`.
 - **Command overrides** (`open_entity` / `close_entity` / `stop_entity`) for gates that aren't covers, and a **visual editor** for every field.
 - **Smart locks** (Nuki…): a `lock` as `entity`, an *Unlocked* state drawn closed in orange, an optional *Unlock* button next to the unlatch, `contact_entity` for the real open/closed state and a `battery_entity` corner indicator.
@@ -62,7 +62,7 @@ Built for the common setup where *command* and *state* are two different channel
 | `show_cat` | Cat pictogram in the part-open gap (garage). Default `true`. |
 | `light_entity` | Light (or switch) toggled by a *Light* button, drawn as a spotlight aimed at the gate. No confirmation, and the button stays while moving. |
 | `light_position` | Spotlight side: `right` (default) or `left`. Ignored for `door`, where the luminaire sits in the middle of the lintel. |
-| `show_spot` | Draw the spotlight. Default `true`; `false` hides the drawing and the button together. |
+| `show_spot` | Draw the spotlight, or its pip on the state circle in `compact` mode. Default `true`; `false` hides the drawing and the button together. |
 | `show_light_button` | Offer the *Light* button. Default `true`; `false` keeps the spot on the illustration but leaves the light out of your reach, for a light you only want to watch. |
 | `open_entity` / `close_entity` / `stop_entity` | Button/script/switch/lock used instead of the cover services. A `lock` as `open_entity` maps *Open* to `lock.open` (unlatch) and adds a separate *Unlock* button while locked. |
 | `pedestrian_entity` | Button/script/switch for the partial pedestrian opening (sliding/swing). Enables the *Pedestrian* button while closed. |
