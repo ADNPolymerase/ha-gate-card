@@ -52,6 +52,7 @@ Built for the common setup where *command* and *state* are two different channel
 | `gate_color` | `state` (default) or a fixed color: `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown`, or any CSS color. |
 | `name` | Card title. Defaults to the state entity's friendly name. |
 | `compact` | `true` for a colored icon instead of the illustration. |
+| `show_state` | Show the state in words under the name. Default `true`; `false` keeps only the name and the elapsed time, since the colour and the icon already carry the state. |
 | `confirm` | Two-tap confirmation. Default `true`. |
 | `show_stop` | *Stop* button while moving. Default `false`, to be left off for impulse (RF) gates. |
 | `card_tap` | `true` makes the whole card tappable when a single command is available (big touch target for car dashboards). Same two-tap confirmation. Default `false`. |

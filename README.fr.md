@@ -52,6 +52,7 @@ Conçue pour le cas très courant où la *commande* et l'*état* sont deux canau
 | `gate_color` | `state` (défaut) ou une couleur fixe : `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown`, ou toute couleur CSS. |
 | `name` | Titre de la card. Défaut : nom convivial de l'entité d'état. |
 | `compact` | `true` pour une icône colorée à la place de l'illustration. |
+| `show_state` | Afficher l'état en toutes lettres sous le nom. Défaut `true` ; `false` ne garde que le nom et l'heure, la couleur et l'icône disant déjà l'état. |
 | `confirm` | Confirmation par double appui. Défaut `true`. |
 | `show_stop` | Bouton *Stop* pendant le mouvement. Défaut `false`, à laisser désactivé pour les portails à impulsion (RF). |
 | `card_tap` | `true` rend toute la card cliquable quand une seule commande est disponible (grande zone tactile, pratique en voiture). Même confirmation double appui. Défaut `false`. |

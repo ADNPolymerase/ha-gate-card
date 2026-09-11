@@ -233,4 +233,21 @@ check('show_light_button:false garde la pastille (elle n est pas le bouton)',
 check('hors compact : pas de pastille, c est le faisceau qui parle',
   pip(lit({ ...LE }, true)), false);
 
+// -- Narrow cards and the written state --------------------------------------
+// Below 290px the buttons go full width; without a wrapping .bottom they stay
+// beside the text and the name breaks one letter per line (Freeman59, phone
+// dashboard in two columns, 176px per card).
+
+contains('les cartes etroites autorisent le retour a la ligne',
+  makeCard('closed'), '.bottom { flex-wrap:wrap; }');
+
+check("l'etat en toutes lettres est la par defaut",
+  label(makeCard('closed')), 'Closed');
+check('show_state:false retire la ligne d etat',
+  /<div class="state">/.test(makeCard('closed', { show_state: false })), false);
+contains('show_state:false garde le nom',
+  makeCard('closed', { show_state: false, name: 'Portail' }), '<div class="name">Portail</div>');
+contains("show_state:false garde l'heure, c est tout l interet",
+  makeCard('closed', { show_state: false }), '<div class="since">');
+
 report();
