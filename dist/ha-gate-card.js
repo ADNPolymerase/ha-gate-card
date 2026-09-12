@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.4.1";
+const CARD_VERSION = "1.4.2";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -1446,8 +1446,9 @@ ha-card.tappable { cursor:pointer; }
 .badge ha-icon { --mdc-icon-size:26px; }
 /* Compact mode has no illustration, so the lit spot shrinks to a pip on the
    badge: it hangs off the state circle instead of taking room in the layout,
-   and it is drawn only while the light is on. */
-.lamp-dot { position:absolute; right:-3px; bottom:-3px; width:19px; height:19px; border-radius:50%; background:var(--lamp-color); border:2px solid var(--ha-card-background, var(--card-background-color, #fff)); display:flex; align-items:center; justify-content:center; color:#3d2c00; }
+   and it is drawn only while the light is on. Top corner, not bottom: a lamp
+   hangs from the ceiling, not from the floor (roumano). */
+.lamp-dot { position:absolute; right:-3px; top:-3px; width:19px; height:19px; border-radius:50%; background:var(--lamp-color); border:2px solid var(--ha-card-background, var(--card-background-color, #fff)); display:flex; align-items:center; justify-content:center; color:#3d2c00; }
 .lamp-dot ha-icon { --mdc-icon-size:12px; }
 .moving .badge { animation:gate-pulse 1.6s ease-in-out infinite; }
 @keyframes gate-pulse { 50% { opacity:.55; } }
