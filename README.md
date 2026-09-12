@@ -44,7 +44,7 @@ Built for the common setup where *command* and *state* are two different channel
 | `entity` | **Required.** The `cover`, or a `lock` (Nuki…) where *Open* unlocks and *Close* locks, receiving commands. (Optional if you use overrides or `state_entity` only.) |
 | `state_entity` | Entity holding the reliable consolidated state (any domain). Defaults to `entity`. |
 | `contact_entity` | Physical open/closed sensor (door contact). Open contact + locked bolt → unknown. |
-| `battery_entity` | Battery percentage sensor, shown top-right (green/orange/red). Hidden in `compact` mode. |
+| `battery_entity` | Battery percentage sensor, shown top-right (green/orange/red), on a line of its own on a narrow card. Hidden in `compact` mode. |
 | `state_map` | Optional map: raw state → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`unknown`. |
 | `gate_type` | `sliding` (default), `swing`, `door` or `garage`. `door` is display-only unless command entities are set. |
 | `gate_style` | Leaf design (sliding/swing). Sliding: `slats` (default), `bars`, `semi`, `solid`. Swing: `bell` (default), `bars`, `slats`, `semi`, `solid`. |

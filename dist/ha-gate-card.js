@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.4.2";
+const CARD_VERSION = "1.4.3";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -1466,6 +1466,13 @@ button:hover { filter:brightness(.93); }
 button.pending { background:var(--gate-color); color:#fff; }
 button ha-icon { --mdc-icon-size:18px; }
 button span { overflow:hidden; text-overflow:ellipsis; }
+/* The corner battery is absolutely positioned, the illustration is centred at
+   min(200px, 70%): the badge needs about 66px free on the right, which only
+   exists above roughly 364px of card. Narrower than that it sits on top of the
+   drawing, so below 380px it takes a line of its own instead. */
+@container (max-width: 380px) {
+  .corner-batt { position:static; align-self:flex-end; margin-bottom:-8px; }
+}
 @container (max-width: 290px) {
   /* Without this the full-width actions below cannot move to a second line:
      they stay beside the text, both columns shrink, and the name breaks one

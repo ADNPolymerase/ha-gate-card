@@ -250,4 +250,11 @@ contains('show_state:false garde le nom',
 contains("show_state:false garde l'heure, c est tout l interet",
   makeCard('closed', { show_state: false }), '<div class="since">');
 
+// The corner battery overlaps the centred illustration on any card narrower
+// than about 364px, so below 380px it leaves the corner for a line of its own.
+
+contains('la batterie quitte le coin sur les cartes etroites',
+  makeCard('closed', { battery_entity: 'sensor.b' }),
+  '.corner-batt { position:static; align-self:flex-end;');
+
 report();

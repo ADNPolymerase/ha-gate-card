@@ -44,7 +44,7 @@ Conçue pour le cas très courant où la *commande* et l'*état* sont deux canau
 | `entity` | **Obligatoire.** Le `cover`, ou la serrure `lock` (Nuki…) où *Ouvrir* déverrouille et *Fermer* verrouille, qui reçoit les commandes. (Optionnel avec des overrides ou une `state_entity` seule.) |
 | `state_entity` | Entité portant l'état consolidé fiable (tout domaine). Défaut : `entity`. |
 | `contact_entity` | Capteur d'ouverture physique (contact de porte). Contact ouvert + pêne verrouillé → inconnu. |
-| `battery_entity` | Capteur de batterie en %, affiché en haut à droite (vert/orange/rouge). Masqué en mode `compact`. |
+| `battery_entity` | Capteur de batterie en %, affiché en haut à droite (vert/orange/rouge), sur sa propre ligne quand la carte est étroite. Masqué en mode `compact`. |
 | `state_map` | Map optionnelle : état brut → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`unknown`. |
 | `gate_type` | `sliding` (défaut), `swing`, `door` ou `garage`. `door` est en affichage seul sauf si des commandes sont configurées. |
 | `gate_style` | Style du vantail (coulissant/battants). Coulissant : `slats` (défaut), `bars`, `semi`, `solid`. Battants : `bell` (défaut), `bars`, `slats`, `semi`, `solid`. |
