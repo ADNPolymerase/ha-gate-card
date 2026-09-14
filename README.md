@@ -56,6 +56,7 @@ Built for the common setup where *command* and *state* are two different channel
 | `confirm` | Two-tap confirmation. Default `true`. |
 | `show_stop` | *Stop* button while moving. Default `false`, to be left off for impulse (RF) gates. |
 | `card_tap` | `true` makes the whole card tappable when a single command is available (big touch target for car dashboards). Same two-tap confirmation. Default `false`. |
+| `show_tap_button` | With `card_tap`, keep the command button. Default `true`; `false` leaves only the card to tap, and the button reappears just long enough to ask for confirmation. |
 | `show_key` | Key symbol on the closed gate. Default `true`. |
 | `show_runner` | Pedestrian pictogram in pedestrian mode. Default `true`. |
 | `show_car` | Car pictogram in the opening when fully open (sliding/swing/garage). Default `true`. |

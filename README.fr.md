@@ -56,6 +56,7 @@ Conçue pour le cas très courant où la *commande* et l'*état* sont deux canau
 | `confirm` | Confirmation par double appui. Défaut `true`. |
 | `show_stop` | Bouton *Stop* pendant le mouvement. Défaut `false`, à laisser désactivé pour les portails à impulsion (RF). |
 | `card_tap` | `true` rend toute la card cliquable quand une seule commande est disponible (grande zone tactile, pratique en voiture). Même confirmation double appui. Défaut `false`. |
+| `show_tap_button` | Avec `card_tap`, garder le bouton de commande. Défaut `true` ; `false` ne laisse que la carte à toucher, et le bouton réapparaît juste le temps de demander la confirmation. |
 | `show_key` | Clé sur le portail fermé. Défaut `true`. |
 | `show_runner` | Pictogramme piéton en mode piéton. Défaut `true`. |
 | `show_car` | Pictogramme voiture dans l'ouverture quand c'est totalement ouvert (coulissant/battant/garage). Défaut `true`. |

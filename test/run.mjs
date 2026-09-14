@@ -257,4 +257,29 @@ contains('la batterie quitte le coin sur les cartes etroites',
   makeCard('closed', { battery_entity: 'sensor.b' }),
   '.corner-batt { position:static; align-self:flex-end;');
 
+// -- card_tap without its button ----------------------------------------------
+// When the whole card runs the single command the button is redundant for some
+// dashboards, kept by default for readability. It must come back while a
+// confirmation is pending, or the first tap gives no feedback at all.
+
+const tapCard = (cfg) => {
+  const c = new Card();
+  c.setConfig(Object.freeze({ entity: 'cover.portail', ...cfg }));
+  c.hass = { language: 'en',
+    states: { 'cover.portail': { state: 'closed', attributes: {}, last_changed: '2026-09-14T10:00:00Z' } },
+    callService() {} };
+  return c;
+};
+const hasButton = c => /data-action="open"/.test(String(markup(c)));
+
+check('card_tap seul : le bouton reste (defaut)', hasButton(tapCard({ card_tap: true })), true);
+check('card_tap + show_tap_button:false : plus de bouton',
+  hasButton(tapCard({ card_tap: true, show_tap_button: false })), false);
+check('show_tap_button:false sans card_tap : le bouton reste, sinon plus de commande',
+  hasButton(tapCard({ show_tap_button: false })), true);
+const pendingCard = tapCard({ card_tap: true, show_tap_button: false });
+pendingCard._onAction('open');
+check('confirmation en attente : le bouton revient pour dire Confirmer',
+  /class="pending"/.test(String(markup(pendingCard))), true);
+
 report();

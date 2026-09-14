@@ -25,6 +25,8 @@ class FakeNode {
     this.style     = {};
     this.attributes= {};
     this._html     = '';
+    // Inert, like querySelector: lets card wiring that toggles classes run.
+    this.classList = { add() {}, remove() {}, toggle() {}, contains() { return false; } };
   }
   set innerHTML(v) { this._html = String(v); this.children = []; }
   get innerHTML()  { return this._html; }
