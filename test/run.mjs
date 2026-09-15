@@ -282,4 +282,33 @@ pendingCard._onAction('open');
 check('confirmation en attente : le bouton revient pour dire Confirmer',
   /class="pending"/.test(String(markup(pendingCard))), true);
 
+// single_line (Freeman59): name, state and time on one wrapping row. Opt-in,
+// so a card that asks for nothing keeps its three stacked lines.
+check('single_line absent : pas de classe single-line, rien ne change',
+  /class="[^"]*single-line/.test(String(makeCard('closed'))), false);
+check('single_line:true pose la classe sur ha-card',
+  /<ha-card class="[^"]*single-line/.test(String(makeCard('closed', { single_line: true }))), true);
+contains('single_line : la regle CSS qui aligne et replie existe',
+  makeCard('closed', { single_line: true }), 'ha-card.single-line .body { display:flex; flex-wrap:wrap;');
+contains('single_line garde les trois informations',
+  makeCard('closed', { single_line: true, name: 'Portail' }), '<div class="since">');
+{
+  const c = new Card();
+  c.setConfig(Object.freeze({ entity: 'cover.portail' }));
+  const h = { language: 'en', states: { 'cover.portail': { state: 'closed', attributes: {}, last_changed: '2026-08-12T10:00:00Z' } }, callService() {} };
+  c.hass = h;
+  c._config = Object.freeze({ ...c._config, single_line: true });
+  c.hass = { ...h };
+  check('single_line est dans la signature : la carte se redessine',
+    /<ha-card class="[^"]*single-line/.test(String(markup(c))), true);
+}
+{
+  // querySelector is an inert stub in the harness: read the editor markup.
+  const edHtml = cfg => { const e = new Editor(); e.hass = { language: 'fr', states: {} }; e.setConfig({ entity: 'cover.portail', ...cfg }); return String(markup(e)); };
+  check("l'editeur propose la case single_line, decochee par defaut",
+    /data-field="single_line" \/>/.test(edHtml({})), true);
+  check("l'editeur coche single_line quand l'option est active",
+    /data-field="single_line" checked\/>/.test(edHtml({ single_line: true })), true);
+}
+
 report();

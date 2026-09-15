@@ -53,6 +53,7 @@ Built for the common setup where *command* and *state* are two different channel
 | `name` | Card title. Defaults to the state entity's friendly name. |
 | `compact` | `true` for a colored icon instead of the illustration. |
 | `show_state` | Show the state in words under the name. Default `true`; `false` keeps only the name and the elapsed time, since the colour and the icon already carry the state. |
+| `single_line` | Put the name, the state and the time on one row, spread across the card. Default `false`. When they do not fit (buttons beside the text, long name, narrow card) they wrap to the next row on their own. |
 | `confirm` | Two-tap confirmation. Default `true`. |
 | `show_stop` | *Stop* button while moving. Default `false`, to be left off for impulse (RF) gates. |
 | `card_tap` | `true` makes the whole card tappable when a single command is available (big touch target for car dashboards). Same two-tap confirmation. Default `false`. |
