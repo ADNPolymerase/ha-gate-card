@@ -54,6 +54,7 @@ Conçue pour le cas très courant où la *commande* et l'*état* sont deux canau
 | `compact` | `true` pour une icône colorée à la place de l'illustration. |
 | `show_state` | Afficher l'état en toutes lettres sous le nom. Défaut `true` ; `false` ne garde que le nom et l'heure, la couleur et l'icône disant déjà l'état. |
 | `single_line` | Mettre le nom, l'état et l'heure sur une seule ligne, répartis sur la largeur. Défaut `false`. Quand ça ne tient pas (boutons à côté du texte, nom long, carte étroite), la suite passe à la ligne toute seule. |
+| `show_position` | Afficher la position de la cover (`current_position`) à côté de l'état, par exemple `Ouverture en cours… · 47 %`. `false` (défaut), `moving` (seulement pendant la course) ou `true` (toujours). Rien ne s'affiche si l'entité ne donne pas de position. |
 | `confirm` | Confirmation par double appui. Défaut `true`. |
 | `show_stop` | Bouton *Stop* pendant le mouvement. Défaut `false`, à laisser désactivé pour les portails à impulsion (RF). |
 | `card_tap` | `true` rend toute la card cliquable quand une seule commande est disponible (grande zone tactile, pratique en voiture). Même confirmation double appui. Défaut `false`. |

@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.5.1";
+const CARD_VERSION = "1.5.2";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -40,6 +40,7 @@ const T = {
     show_state: "Show the state in words",
     show_tap_button: "Keep the button when the whole card runs the command",
     single_line: "Name, state and time on one line",
+    show_position: "Show the position", pos_never: "Never", pos_moving: "While moving", pos_always: "Always",
     contact_entity: "Physical open/closed sensor (optional)", battery_entity: "Battery entity",
     name: "Name", compact: "Compact mode (icon instead of illustration)",
     confirm_opt: "Ask for confirmation before commands (tap twice)",
@@ -88,6 +89,7 @@ const T = {
     show_state: "Afficher l'\u00e9tat en toutes lettres",
     show_tap_button: "Garder le bouton quand toute la carte d\u00e9clenche la commande",
     single_line: "Nom, \u00e9tat et heure sur une ligne",
+    show_position: "Afficher la position", pos_never: "Jamais", pos_moving: "Pendant le mouvement", pos_always: "Toujours",
     contact_entity: "Capteur d'ouverture physique (optionnel)", battery_entity: "Entit\u00e9 batterie",
     name: "Nom", compact: "Mode compact (ic\u00f4ne au lieu de l'illustration)",
     confirm_opt: "Demander confirmation avant les commandes (double appui)",
@@ -135,6 +137,7 @@ const T = {
     show_state: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u0435 \u0441\u043b\u043e\u0432\u0430\u043c\u0438",
     show_tap_button: "\u041e\u0441\u0442\u0430\u0432\u043b\u044f\u0442\u044c \u043a\u043d\u043e\u043f\u043a\u0443, \u043a\u043e\u0433\u0434\u0430 \u043a\u043e\u043c\u0430\u043d\u0434\u0443 \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442 \u0432\u0441\u044f \u043a\u0430\u0440\u0442\u043e\u0447\u043a\u0430",
     single_line: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435, \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u0435 \u0438 \u0432\u0440\u0435\u043c\u044f \u0432 \u043e\u0434\u043d\u0443 \u0441\u0442\u0440\u043e\u043a\u0443",
+    show_position: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435", pos_never: "\u041d\u0438\u043a\u043e\u0433\u0434\u0430", pos_moving: "\u0412\u043e \u0432\u0440\u0435\u043c\u044f \u0434\u0432\u0438\u0436\u0435\u043d\u0438\u044f", pos_always: "\u0412\u0441\u0435\u0433\u0434\u0430",
     contact_entity: "\u0424\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0434\u0430\u0442\u0447\u0438\u043a \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)", battery_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0431\u0430\u0442\u0430\u0440\u0435\u0438",
     name: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435", compact: "\u041a\u043e\u043c\u043f\u0430\u043a\u0442\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c (\u0437\u043d\u0430\u0447\u043e\u043a \u0432\u043c\u0435\u0441\u0442\u043e \u0438\u043b\u043b\u044e\u0441\u0442\u0440\u0430\u0446\u0438\u0438)",
     confirm_opt: "\u0417\u0430\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0442\u044c \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u0434 \u043a\u043e\u043c\u0430\u043d\u0434\u0430\u043c\u0438 (\u0434\u0432\u043e\u0439\u043d\u043e\u0435 \u043d\u0430\u0436\u0430\u0442\u0438\u0435)",
@@ -182,6 +185,7 @@ const T = {
     show_state: "Zustand als Text anzeigen",
     show_tap_button: "Schaltfl\u00e4che behalten, wenn die ganze Karte den Befehl ausf\u00fchrt",
     single_line: "Name, Zustand und Uhrzeit in einer Zeile",
+    show_position: "Position anzeigen", pos_never: "Nie", pos_moving: "W\u00e4hrend der Bewegung", pos_always: "Immer",
     contact_entity: "Physischer \u00d6ffnungssensor (optional)", battery_entity: "Batterie-Entit\u00e4t",
     name: "Name", compact: "Kompaktmodus (Symbol statt Illustration)",
     confirm_opt: "Vor Befehlen best\u00e4tigen (zweimal tippen)",
@@ -229,6 +233,7 @@ const T = {
     show_state: "Mostrar el estado en palabras",
     show_tap_button: "Mantener el bot\u00f3n cuando toda la tarjeta ejecuta el comando",
     single_line: "Nombre, estado y hora en una l\u00ednea",
+    show_position: "Mostrar la posici\u00f3n", pos_never: "Nunca", pos_moving: "Durante el movimiento", pos_always: "Siempre",
     contact_entity: "Sensor f\u00edsico de apertura (opcional)", battery_entity: "Entidad de bater\u00eda",
     name: "Nombre", compact: "Modo compacto (icono en lugar de ilustraci\u00f3n)",
     confirm_opt: "Pedir confirmaci\u00f3n antes de los comandos (doble toque)",
@@ -276,6 +281,7 @@ const T = {
     show_state: "Mostra lo stato a parole",
     show_tap_button: "Mantieni il pulsante quando tutta la scheda esegue il comando",
     single_line: "Nome, stato e ora su una riga",
+    show_position: "Mostra la posizione", pos_never: "Mai", pos_moving: "Durante il movimento", pos_always: "Sempre",
     contact_entity: "Sensore fisico di apertura (opzionale)", battery_entity: "Entit\u00e0 batteria",
     name: "Nome", compact: "Modalit\u00e0 compatta (icona invece dell'illustrazione)",
     confirm_opt: "Chiedere conferma prima dei comandi (doppio tocco)",
@@ -323,6 +329,7 @@ const T = {
     show_state: "De status in woorden tonen",
     show_tap_button: "Knop behouden wanneer de hele kaart het commando uitvoert",
     single_line: "Naam, status en tijd op \u00e9\u00e9n regel",
+    show_position: "Positie tonen", pos_never: "Nooit", pos_moving: "Tijdens beweging", pos_always: "Altijd",
     contact_entity: "Fysieke openingssensor (optioneel)", battery_entity: "Batterij-entiteit",
     name: "Naam", compact: "Compacte modus (pictogram i.p.v. illustratie)",
     confirm_opt: "Bevestiging vragen v\u00f3\u00f3r commando's (twee keer tikken)",
@@ -370,6 +377,7 @@ const T = {
     show_state: "Mostrar o estado por extenso",
     show_tap_button: "Manter o bot\u00e3o quando todo o cart\u00e3o executa o comando",
     single_line: "Nome, estado e hora em uma linha",
+    show_position: "Mostrar a posi\u00e7\u00e3o", pos_never: "Nunca", pos_moving: "Durante o movimento", pos_always: "Sempre",
     contact_entity: "Sensor f\u00edsico de abertura (opcional)", battery_entity: "Entidade de bateria",
     name: "Nome", compact: "Modo compacto (\u00edcone em vez da ilustra\u00e7\u00e3o)",
     confirm_opt: "Pedir confirma\u00e7\u00e3o antes dos comandos (dois toques)",
@@ -417,6 +425,7 @@ const T = {
     show_state: "Visa tillst\u00e5ndet i ord",
     show_tap_button: "Beh\u00e5ll knappen n\u00e4r hela kortet k\u00f6r kommandot",
     single_line: "Namn, tillst\u00e5nd och tid p\u00e5 en rad",
+    show_position: "Visa positionen", pos_never: "Aldrig", pos_moving: "Under r\u00f6relse", pos_always: "Alltid",
     contact_entity: "Fysisk \u00f6ppningssensor (valfri)", battery_entity: "Batterientitet",
     name: "Namn", compact: "Kompakt l\u00e4ge (ikon i st\u00e4llet f\u00f6r illustration)",
     confirm_opt: "Be om bekr\u00e4ftelse f\u00f6re kommandon (tryck tv\u00e5 g\u00e5nger)",
@@ -464,6 +473,7 @@ const T = {
     show_state: "Vis tilstanden med ord",
     show_tap_button: "Behold knappen n\u00e5r hele kortet kj\u00f8rer kommandoen",
     single_line: "Navn, tilstand og tid p\u00e5 \u00e9n linje",
+    show_position: "Vis posisjonen", pos_never: "Aldri", pos_moving: "Under bevegelse", pos_always: "Alltid",
     contact_entity: "Fysisk \u00e5pningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt modus (ikon i stedet for illustrasjon)",
     confirm_opt: "Be om bekreftelse f\u00f8r kommandoer (trykk to ganger)",
@@ -511,6 +521,7 @@ const T = {
     show_state: "Vis tilstanden med ord",
     show_tap_button: "Behold knappen, n\u00e5r hele kortet k\u00f8rer kommandoen",
     single_line: "Navn, tilstand og tid p\u00e5 \u00e9n linje",
+    show_position: "Vis positionen", pos_never: "Aldrig", pos_moving: "Under bev\u00e6gelse", pos_always: "Altid",
     contact_entity: "Fysisk \u00e5bningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt tilstand (ikon i stedet for illustration)",
     confirm_opt: "Bed om bekr\u00e6ftelse f\u00f8r kommandoer (tryk to gange)",
@@ -558,6 +569,7 @@ const T = {
     show_state: "Poka\u017c stan s\u0142ownie",
     show_tap_button: "Zachowaj przycisk, gdy ca\u0142a karta wykonuje komend\u0119",
     single_line: "Nazwa, stan i godzina w jednej linii",
+    show_position: "Poka\u017c pozycj\u0119", pos_never: "Nigdy", pos_moving: "Podczas ruchu", pos_always: "Zawsze",
     contact_entity: "Fizyczny czujnik otwarcia (opcjonalny)", battery_entity: "Encja baterii",
     name: "Nazwa", compact: "Tryb kompaktowy (ikona zamiast ilustracji)",
     confirm_opt: "Wymagaj potwierdzenia przed komendami (dwa dotkni\u0119cia)",
@@ -763,6 +775,20 @@ function actionsFor(norm, cfg) {
 
 function stateObj(hass, entityId) {
   return entityId && hass.states[entityId] ? hass.states[entityId] : null;
+}
+
+// show_position (issue #3): cover travel as a percentage. The command entity
+// is the cover, so it is read first; a consolidated state_entity is only a
+// fallback. A missing, null or non-numeric attribute shows nothing, never NaN.
+function coverPosition(hass, cfg) {
+  for (const id of [cfg.entity, cfg.state_entity]) {
+    const o = stateObj(hass, id);
+    const v = o && o.attributes ? o.attributes.current_position : undefined;
+    if (typeof v === "number" ? Number.isFinite(v) : (typeof v === "string" && v.trim() !== "" && Number.isFinite(Number(v)))) {
+      return Math.round(Math.min(100, Math.max(0, Number(v))));
+    }
+  }
+  return null;
 }
 
 function domainOf(entityId) {
@@ -1367,6 +1393,10 @@ class GateCard extends HTMLElement {
     const moving = MOVING.includes(norm);
     const name = cfg.name || (st && st.attributes.friendly_name) || "Gate";
     const since = !moving && st ? formatSince(st.last_changed) : null;
+    const posMode = cfg.show_position === true || cfg.show_position === "always" ? "always"
+      : cfg.show_position === "moving" ? "moving" : null;
+    const pos = posMode && (posMode === "always" || moving) ? coverPosition(hass, cfg) : null;
+    const posHtml = pos === null ? "" : `<span class="pos">${new Intl.NumberFormat(lang(hass), { style: "percent", maximumFractionDigits: 0 }).format(pos / 100)}</span>`;
     const lampState = cfg.light_entity && hass.states[cfg.light_entity];
     const lampOn = !!lampState && ["on", "playing", "home", "open"].includes(String(lampState.state).toLowerCase());
     const actions = actionsFor(norm, cfg);
@@ -1377,7 +1407,7 @@ class GateCard extends HTMLElement {
       const v = Number(hass.states[cfg.battery_entity].state);
       if (!Number.isNaN(v)) batt = Math.round(v);
     }
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, cfg.show_tap_button, cfg.show_state, cfg.single_line, batt, !!cfg.light_entity, cfg.show_spot, cfg.show_light_button, cfg.light_position, lampOn]);
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, cfg.show_tap_button, cfg.show_state, cfg.single_line, cfg.show_position, pos, batt, !!cfg.light_entity, cfg.show_spot, cfg.show_light_button, cfg.light_position, lampOn]);
     if (signature === this._signature) return;
     this._signature = signature;
 
@@ -1487,6 +1517,9 @@ ha-card.compact .name, ha-card.compact .state, ha-card.compact .since { overflow
 .name { font-size:15px; font-weight:500; color:var(--primary-text-color); }
 .state { font-size:13.5px; font-weight:500; color:var(--gate-color); }
 .since { font-size:12px; color:var(--secondary-text-color); }
+/* Fixed-width digits: the percentage changes every update while moving and
+   must not make the line jitter. */
+.pos { font-variant-numeric:tabular-nums; }
 /* single_line (Freeman59): name, state and time share one row, spread out.
    Nothing measures the width: when the column is too narrow (buttons beside
    the text, long name, small card) the items simply wrap to the next row. */
@@ -1534,7 +1567,9 @@ button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
         <div class="bottom">
           <div class="body">
             <div class="name">${escapeHtml(name)}</div>
-            ${cfg.show_state === false ? "" : `<div class="state">${t(hass, norm)}</div>`}
+            ${cfg.show_state === false
+              ? (posHtml ? `<div class="state">${posHtml}</div>` : "")
+              : `<div class="state">${t(hass, norm)}${posHtml ? ` \u00b7 ${posHtml}` : ""}</div>`}
             ${since ? `<div class="since">${t(hass, "since")} ${since}</div>` : ""}
           </div>
           <div class="actions">${tapOnly ? "" : buttons}</div>
@@ -1716,6 +1751,15 @@ details .form { padding-top:10px; }
         <div class="row row-inline">
           <label><input type="checkbox" data-field="single_line" ${cfg.single_line ? "checked" : ""}/> ${t(hass, "single_line")}</label>
         </div>
+        ${cfg.gate_type === "door" ? "" : `
+        <div class="row">
+          <label>${t(hass, "show_position")}</label>
+          <select data-field="show_position">
+            <option value="never" ${!cfg.show_position ? "selected" : ""}>${t(hass, "pos_never")}</option>
+            <option value="moving" ${cfg.show_position === "moving" ? "selected" : ""}>${t(hass, "pos_moving")}</option>
+            <option value="always" ${cfg.show_position === true || cfg.show_position === "always" ? "selected" : ""}>${t(hass, "pos_always")}</option>
+          </select>
+        </div>`}
         ${["door", "garage"].includes(cfg.gate_type) ? "" : `
         <div class="row row-inline">
           <label><input type="checkbox" data-field="show_runner" ${cfg.show_runner !== false ? "checked" : ""}/> ${t(hass, "show_runner")}</label>
@@ -1778,6 +1822,15 @@ details .form { padding-top:10px; }
       const defStyle = this._config.gate_type === "swing" ? "bell" : "slats";
       if (ev.target.value === defStyle) delete this._config.gate_style;
       else this._config.gate_style = ev.target.value;
+      this._emit();
+    });
+    const showPosSel = this._root.querySelector('select[data-field="show_position"]');
+    if (showPosSel) showPosSel.addEventListener("change", (ev) => {
+      this._config = { ...this._config };
+      // never is the default -- only store the key when enabled
+      if (ev.target.value === "moving") this._config.show_position = "moving";
+      else if (ev.target.value === "always") this._config.show_position = true;
+      else delete this._config.show_position;
       this._emit();
     });
     const posSel = this._root.querySelector('select[data-field="light_position"]');

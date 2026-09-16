@@ -311,4 +311,58 @@ contains('single_line garde les trois informations',
     /data-field="single_line" checked\/>/.test(edHtml({ single_line: true })), true);
 }
 
+// show_position (issue #3): cover travel as a percentage next to the state.
+function posHass(state, attrs, extra = {}) {
+  return { language: 'fr', states: {
+    'cover.portail': { state, attributes: attrs, last_changed: '2026-08-12T10:00:00Z' }, ...extra }, callService() {} };
+}
+function posCard(state, attrs, cfg = {}, extra = {}) {
+  const c = new Card();
+  c.setConfig(Object.freeze({ entity: 'cover.portail', ...cfg }));
+  c.hass = posHass(state, attrs, extra);
+  return String(markup(c));
+}
+const hasPos = html => /class="pos"/.test(html);
+check('show_position absent : pas de pourcentage, rien ne change',
+  hasPos(posCard('opening', { current_position: 47 })), false);
+contains('show_position:moving pendant l ouverture : le pourcentage suit l etat',
+  posCard('opening', { current_position: 47 }, { show_position: 'moving' }), '\u00b7 <span class="pos">47');
+check('show_position:moving au repos : rien',
+  hasPos(posCard('closed', { current_position: 0 }, { show_position: 'moving' })), false);
+contains('show_position:true au repos : Ferme 0',
+  posCard('closed', { current_position: 0 }, { show_position: true }), '<span class="pos">0');
+contains('show_position:"always" accepte comme true',
+  posCard('open', { current_position: 100 }, { show_position: 'always' }), '<span class="pos">100');
+check('show_state:false + position : le pourcentage reste seul',
+  /<div class="state"><span class="pos">47/.test(posCard('opening', { current_position: 47 }, { show_position: 'moving', show_state: false })), true);
+check('attribut absent : rien, jamais NaN',
+  /class="pos"|NaN/.test(posCard('opening', {}, { show_position: true })), false);
+check('attribut null : rien (Number(null) vaudrait 0)',
+  hasPos(posCard('opening', { current_position: null }, { show_position: true })), false);
+check('attribut texte vide : rien',
+  hasPos(posCard('opening', { current_position: '' }, { show_position: true })), false);
+contains('valeur hors bornes ramenee a 100',
+  posCard('open', { current_position: 130 }, { show_position: true }), '<span class="pos">100');
+contains('repli sur state_entity quand la cover n a pas de position',
+  posCard('opening', {}, { show_position: true, state_entity: 'sensor.etat' },
+    { 'sensor.etat': { state: 'opening', attributes: { current_position: 33 } } }), '<span class="pos">33');
+{
+  const c = new Card();
+  c.setConfig(Object.freeze({ entity: 'cover.portail', show_position: 'moving' }));
+  c.hass = posHass('opening', { current_position: 10 });
+  markup(c);
+  c.hass = posHass('opening', { current_position: 60 });
+  contains('la position est dans la signature : le pourcentage avance pendant la course',
+    markup(c), '<span class="pos">60');
+}
+{
+  const edHtml = cfg => { const e = new Editor(); e.hass = { language: 'fr', states: {} }; e.setConfig({ entity: 'cover.portail', ...cfg }); return String(markup(e)); };
+  check("l'editeur propose show_position, Jamais par defaut",
+    /<option value="never" selected>/.test(edHtml({})), true);
+  check("l'editeur selectionne Pendant le mouvement",
+    /<option value="moving" selected>/.test(edHtml({ show_position: 'moving' })), true);
+  check("l'editeur selectionne Toujours pour true",
+    /<option value="always" selected>/.test(edHtml({ show_position: true })), true);
+}
+
 report();
