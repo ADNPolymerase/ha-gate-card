@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.5.2";
+const CARD_VERSION = "1.6.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -41,6 +41,7 @@ const T = {
     show_tap_button: "Keep the button when the whole card runs the command",
     single_line: "Name, state and time on one line",
     show_position: "Show the position", pos_never: "Never", pos_moving: "While moving", pos_always: "Always",
+    draw_position: "Draw the real position of the gate",
     contact_entity: "Physical open/closed sensor (optional)", battery_entity: "Battery entity",
     name: "Name", compact: "Compact mode (icon instead of illustration)",
     confirm_opt: "Ask for confirmation before commands (tap twice)",
@@ -90,6 +91,7 @@ const T = {
     show_tap_button: "Garder le bouton quand toute la carte d\u00e9clenche la commande",
     single_line: "Nom, \u00e9tat et heure sur une ligne",
     show_position: "Afficher la position", pos_never: "Jamais", pos_moving: "Pendant le mouvement", pos_always: "Toujours",
+    draw_position: "Dessiner la position r\u00e9elle du portail",
     contact_entity: "Capteur d'ouverture physique (optionnel)", battery_entity: "Entit\u00e9 batterie",
     name: "Nom", compact: "Mode compact (ic\u00f4ne au lieu de l'illustration)",
     confirm_opt: "Demander confirmation avant les commandes (double appui)",
@@ -138,6 +140,7 @@ const T = {
     show_tap_button: "\u041e\u0441\u0442\u0430\u0432\u043b\u044f\u0442\u044c \u043a\u043d\u043e\u043f\u043a\u0443, \u043a\u043e\u0433\u0434\u0430 \u043a\u043e\u043c\u0430\u043d\u0434\u0443 \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442 \u0432\u0441\u044f \u043a\u0430\u0440\u0442\u043e\u0447\u043a\u0430",
     single_line: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435, \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u0435 \u0438 \u0432\u0440\u0435\u043c\u044f \u0432 \u043e\u0434\u043d\u0443 \u0441\u0442\u0440\u043e\u043a\u0443",
     show_position: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435", pos_never: "\u041d\u0438\u043a\u043e\u0433\u0434\u0430", pos_moving: "\u0412\u043e \u0432\u0440\u0435\u043c\u044f \u0434\u0432\u0438\u0436\u0435\u043d\u0438\u044f", pos_always: "\u0412\u0441\u0435\u0433\u0434\u0430",
+    draw_position: "\u0420\u0438\u0441\u043e\u0432\u0430\u0442\u044c \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u0435 \u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u0432\u043e\u0440\u043e\u0442",
     contact_entity: "\u0424\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0434\u0430\u0442\u0447\u0438\u043a \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)", battery_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0431\u0430\u0442\u0430\u0440\u0435\u0438",
     name: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435", compact: "\u041a\u043e\u043c\u043f\u0430\u043a\u0442\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c (\u0437\u043d\u0430\u0447\u043e\u043a \u0432\u043c\u0435\u0441\u0442\u043e \u0438\u043b\u043b\u044e\u0441\u0442\u0440\u0430\u0446\u0438\u0438)",
     confirm_opt: "\u0417\u0430\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0442\u044c \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u0434 \u043a\u043e\u043c\u0430\u043d\u0434\u0430\u043c\u0438 (\u0434\u0432\u043e\u0439\u043d\u043e\u0435 \u043d\u0430\u0436\u0430\u0442\u0438\u0435)",
@@ -186,6 +189,7 @@ const T = {
     show_tap_button: "Schaltfl\u00e4che behalten, wenn die ganze Karte den Befehl ausf\u00fchrt",
     single_line: "Name, Zustand und Uhrzeit in einer Zeile",
     show_position: "Position anzeigen", pos_never: "Nie", pos_moving: "W\u00e4hrend der Bewegung", pos_always: "Immer",
+    draw_position: "Tats\u00e4chliche Position des Tores zeichnen",
     contact_entity: "Physischer \u00d6ffnungssensor (optional)", battery_entity: "Batterie-Entit\u00e4t",
     name: "Name", compact: "Kompaktmodus (Symbol statt Illustration)",
     confirm_opt: "Vor Befehlen best\u00e4tigen (zweimal tippen)",
@@ -234,6 +238,7 @@ const T = {
     show_tap_button: "Mantener el bot\u00f3n cuando toda la tarjeta ejecuta el comando",
     single_line: "Nombre, estado y hora en una l\u00ednea",
     show_position: "Mostrar la posici\u00f3n", pos_never: "Nunca", pos_moving: "Durante el movimiento", pos_always: "Siempre",
+    draw_position: "Dibujar la posici\u00f3n real del port\u00f3n",
     contact_entity: "Sensor f\u00edsico de apertura (opcional)", battery_entity: "Entidad de bater\u00eda",
     name: "Nombre", compact: "Modo compacto (icono en lugar de ilustraci\u00f3n)",
     confirm_opt: "Pedir confirmaci\u00f3n antes de los comandos (doble toque)",
@@ -282,6 +287,7 @@ const T = {
     show_tap_button: "Mantieni il pulsante quando tutta la scheda esegue il comando",
     single_line: "Nome, stato e ora su una riga",
     show_position: "Mostra la posizione", pos_never: "Mai", pos_moving: "Durante il movimento", pos_always: "Sempre",
+    draw_position: "Disegna la posizione reale del cancello",
     contact_entity: "Sensore fisico di apertura (opzionale)", battery_entity: "Entit\u00e0 batteria",
     name: "Nome", compact: "Modalit\u00e0 compatta (icona invece dell'illustrazione)",
     confirm_opt: "Chiedere conferma prima dei comandi (doppio tocco)",
@@ -330,6 +336,7 @@ const T = {
     show_tap_button: "Knop behouden wanneer de hele kaart het commando uitvoert",
     single_line: "Naam, status en tijd op \u00e9\u00e9n regel",
     show_position: "Positie tonen", pos_never: "Nooit", pos_moving: "Tijdens beweging", pos_always: "Altijd",
+    draw_position: "Werkelijke positie van het hek tekenen",
     contact_entity: "Fysieke openingssensor (optioneel)", battery_entity: "Batterij-entiteit",
     name: "Naam", compact: "Compacte modus (pictogram i.p.v. illustratie)",
     confirm_opt: "Bevestiging vragen v\u00f3\u00f3r commando's (twee keer tikken)",
@@ -378,6 +385,7 @@ const T = {
     show_tap_button: "Manter o bot\u00e3o quando todo o cart\u00e3o executa o comando",
     single_line: "Nome, estado e hora em uma linha",
     show_position: "Mostrar a posi\u00e7\u00e3o", pos_never: "Nunca", pos_moving: "Durante o movimento", pos_always: "Sempre",
+    draw_position: "Desenhar a posi\u00e7\u00e3o real do port\u00e3o",
     contact_entity: "Sensor f\u00edsico de abertura (opcional)", battery_entity: "Entidade de bateria",
     name: "Nome", compact: "Modo compacto (\u00edcone em vez da ilustra\u00e7\u00e3o)",
     confirm_opt: "Pedir confirma\u00e7\u00e3o antes dos comandos (dois toques)",
@@ -426,6 +434,7 @@ const T = {
     show_tap_button: "Beh\u00e5ll knappen n\u00e4r hela kortet k\u00f6r kommandot",
     single_line: "Namn, tillst\u00e5nd och tid p\u00e5 en rad",
     show_position: "Visa positionen", pos_never: "Aldrig", pos_moving: "Under r\u00f6relse", pos_always: "Alltid",
+    draw_position: "Rita grindens verkliga position",
     contact_entity: "Fysisk \u00f6ppningssensor (valfri)", battery_entity: "Batterientitet",
     name: "Namn", compact: "Kompakt l\u00e4ge (ikon i st\u00e4llet f\u00f6r illustration)",
     confirm_opt: "Be om bekr\u00e4ftelse f\u00f6re kommandon (tryck tv\u00e5 g\u00e5nger)",
@@ -474,6 +483,7 @@ const T = {
     show_tap_button: "Behold knappen n\u00e5r hele kortet kj\u00f8rer kommandoen",
     single_line: "Navn, tilstand og tid p\u00e5 \u00e9n linje",
     show_position: "Vis posisjonen", pos_never: "Aldri", pos_moving: "Under bevegelse", pos_always: "Alltid",
+    draw_position: "Tegn portens faktiske posisjon",
     contact_entity: "Fysisk \u00e5pningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt modus (ikon i stedet for illustrasjon)",
     confirm_opt: "Be om bekreftelse f\u00f8r kommandoer (trykk to ganger)",
@@ -522,6 +532,7 @@ const T = {
     show_tap_button: "Behold knappen, n\u00e5r hele kortet k\u00f8rer kommandoen",
     single_line: "Navn, tilstand og tid p\u00e5 \u00e9n linje",
     show_position: "Vis positionen", pos_never: "Aldrig", pos_moving: "Under bev\u00e6gelse", pos_always: "Altid",
+    draw_position: "Tegn portens faktiske position",
     contact_entity: "Fysisk \u00e5bningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt tilstand (ikon i stedet for illustration)",
     confirm_opt: "Bed om bekr\u00e6ftelse f\u00f8r kommandoer (tryk to gange)",
@@ -570,6 +581,7 @@ const T = {
     show_tap_button: "Zachowaj przycisk, gdy ca\u0142a karta wykonuje komend\u0119",
     single_line: "Nazwa, stan i godzina w jednej linii",
     show_position: "Poka\u017c pozycj\u0119", pos_never: "Nigdy", pos_moving: "Podczas ruchu", pos_always: "Zawsze",
+    draw_position: "Rysuj rzeczywiste po\u0142o\u017cenie bramy",
     contact_entity: "Fizyczny czujnik otwarcia (opcjonalny)", battery_entity: "Encja baterii",
     name: "Nazwa", compact: "Tryb kompaktowy (ikona zamiast ilustracji)",
     confirm_opt: "Wymagaj potwierdzenia przed komendami (dwa dotkni\u0119cia)",
@@ -876,8 +888,10 @@ function gateCar(cx, cy, s) {
   </g>`;
 }
 
-function slideX(norm, cfg) {
+function slideX(norm, cfg, frac) {
   const dir = cfg.slide_direction === "right" ? 1 : -1;
+  // Real travel reported by the cover (1.6.0): the leaf sits where the gate is.
+  if (frac !== null && frac !== undefined) return Math.round(98 * frac * 10) / 10 * dir;
   if (norm === "open") return 98 * dir;
   if (norm === "opening" || norm === "closing" || norm === "moving") return 49 * dir;
   if (norm === "pedestrian") return 49 * dir;
@@ -905,7 +919,7 @@ function laserDots(cells) {
     .join("");
 }
 
-function slidingSvg(norm, cfg, lampOn) {
+function slidingSvg(norm, cfg, lampOn, frac) {
   const style = normStyle(cfg, "sliding");
   let shapes;
   let extra = "";
@@ -964,7 +978,7 @@ function slidingSvg(norm, cfg, lampOn) {
       ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="2" y1="58" x2="138" y2="58" class="gate-ground"/>
       <g clip-path="url(#gate-clip)">
-        <g class="gate-leaf" style="transform:translateX(${slideX(norm, cfg)}px)">
+        <g class="gate-leaf" style="transform:translateX(${slideX(norm, cfg, frac)}px)">
           <g class="leaf-line">${shapes}</g>
           <g class="leaf-fill">${shapes}</g>
           ${extra}
@@ -974,7 +988,7 @@ function slidingSvg(norm, cfg, lampOn) {
       </g>
       ${SCENE_CLOSE}
       ${norm === "pedestrian" && cfg.show_runner !== false ? gateRunner(cfg.slide_direction === "right" ? 42 : 98, 34, 1.15) : ""}
-      ${norm === "open" && cfg.show_car !== false ? gateCar(70, 36, 1.7) : ""}
+      ${norm === "open" && (frac === null || frac === undefined) && cfg.show_car !== false ? gateCar(70, 36, 1.7) : ""}
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
       ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, lampOn) : ""}
@@ -1063,8 +1077,19 @@ function swingLeaf(side, transform, cfg) {
     </g>`;
 }
 
-function swingSvg(norm, cfg, lampOn) {
-  const [tl, tr] = SWING_POSE[norm] || ["", ""];
+// Leaves turn about their hinge: the open pose (scaleX -0.65) is ~130 degrees,
+// so the reported travel maps to an angle and the front view is its cosine.
+function swingPoseAt(frac) {
+  const a = frac * 130 * Math.PI / 180;
+  let sx = Math.cos(a);
+  if (Math.abs(sx) < 0.04) sx = sx < 0 ? -0.04 : 0.04;
+  const sk = 7 * Math.sin(a);
+  const f = (v) => Math.round(v * 100) / 100;
+  return [`scaleX(${f(sx)}) skewY(${f(sk)}deg)`, `scaleX(${f(sx)}) skewY(${f(-sk)}deg)`];
+}
+
+function swingSvg(norm, cfg, lampOn, frac) {
+  const [tl, tr] = frac !== null && frac !== undefined ? swingPoseAt(frac) : (SWING_POSE[norm] || ["", ""]);
   return `
     <svg viewBox="-28 0 196 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
@@ -1073,7 +1098,7 @@ function swingSvg(norm, cfg, lampOn) {
       ${swingLeaf("l", tl, cfg)}
       ${swingLeaf("r", tr, cfg)}
       ${norm === "pedestrian" && cfg.show_runner !== false ? gateRunner(97, 32, 1.55) : ""}
-      ${norm === "open" && cfg.show_car !== false ? gateCar(70, 33, 1.9) : ""}
+      ${norm === "open" && (frac === null || frac === undefined) && cfg.show_car !== false ? gateCar(70, 33, 1.9) : ""}
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
       ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, lampOn) : ""}
@@ -1217,7 +1242,7 @@ const LAMP_DEFS = `
         </linearGradient>
       </defs>`;
 
-function garageSvg(norm, cfg, lampOn) {
+function garageSvg(norm, cfg, lampOn, frac) {
   const closedLike = norm === "closed" || norm === "unknown" || norm === "unlocked";
   // Venting rolls one slat away and keeps the gap under the box; the part-open
   // position rolls two and lifts the whole curtain off the ground.
@@ -1226,13 +1251,27 @@ function garageSvg(norm, cfg, lampOn) {
   const n = venting ? 4 : partial ? 3
     : closedLike ? 5 : (norm === "opening" || norm === "closing" || norm === "moving" ? 2 : 0);
   const y0 = venting ? 19 + 6.6 : 19;
-  const barY = y0 + n * 6.6;
   let curtain = "";
   let ribs = "";
-  for (let i = 0; i < n; i++) {
-    const y = y0 + i * 6.6;
-    curtain += `<rect class="slat" x="19" y="${y}" width="102" height="5" rx="1.6"/>`;
-    ribs += `<line class="garage-rib" x1="19" y1="${y + 2.5}" x2="121" y2="${y + 2.5}"/>`;
+  let barY = y0 + n * 6.6;
+  if (frac !== null && frac !== undefined) {
+    // Real travel: the bottom bar rises continuously and the slats above it
+    // disappear into the box one by one (the top one can be partly rolled).
+    barY = Math.round((19 + 5 * 6.6 * (1 - frac)) * 10) / 10;
+    for (let i = 1; i <= 5; i++) {
+      const y = barY - i * 6.6;
+      const top = Math.max(y, 19);
+      const h = y + 5 - top;
+      if (h < 0.6) break;
+      curtain += `<rect class="slat" x="19" y="${Math.round(top * 10) / 10}" width="102" height="${Math.round(h * 10) / 10}" rx="1.6"/>`;
+      if (y >= 19) ribs += `<line class="garage-rib" x1="19" y1="${Math.round((y + 2.5) * 10) / 10}" x2="121" y2="${Math.round((y + 2.5) * 10) / 10}"/>`;
+    }
+  } else {
+    for (let i = 0; i < n; i++) {
+      const y = y0 + i * 6.6;
+      curtain += `<rect class="slat" x="19" y="${y}" width="102" height="5" rx="1.6"/>`;
+      ribs += `<line class="garage-rib" x1="19" y1="${y + 2.5}" x2="121" y2="${y + 2.5}"/>`;
+    }
   }
   const shapes = `
     <rect x="12" y="5" width="116" height="12" rx="4"/>
@@ -1241,10 +1280,16 @@ function garageSvg(norm, cfg, lampOn) {
     ${curtain}
     <rect x="19" y="${barY}" width="102" height="4" rx="2"/>
     <rect x="63" y="${barY + 3.2}" width="14" height="2.6" rx="1.3"/>`;
-  const arrow =
-    norm === "opening" ? '<path class="garage-arrow" d="M70 52 L70 42 M65.5 46.5 L70 42 L74.5 46.5"/>' :
-    norm === "closing" ? '<path class="garage-arrow" d="M70 42 L70 52 M65.5 47.5 L70 52 L74.5 47.5"/>' :
-    norm === "moving" ? '<path class="garage-arrow" d="M70 41 L70 53 M66 44.5 L70 41 L74 44.5 M66 49.5 L70 53 L74 49.5"/>' : "";
+  // With a real position the arrow sits in the opening under the bar, and is
+  // left out when that gap is too small to hold it.
+  const gap = 58 - (barY + 4);
+  const dy = frac !== null && frac !== undefined ? Math.round(((barY + 4 + 58) / 2 - 47) * 10) / 10 : 0;
+  const arrowD =
+    norm === "opening" ? "M70 52 L70 42 M65.5 46.5 L70 42 L74.5 46.5" :
+    norm === "closing" ? "M70 42 L70 52 M65.5 47.5 L70 52 L74.5 47.5" :
+    norm === "moving" ? "M70 41 L70 53 M66 44.5 L70 41 L74 44.5 M66 49.5 L70 53 L74 49.5" : "";
+  const arrow = !arrowD || (frac !== null && frac !== undefined && gap < 14) ? ""
+    : `<g transform="translate(0 ${dy})"><path class="garage-arrow" d="${arrowD}"/></g>`;
   return `
     <svg viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
@@ -1255,18 +1300,18 @@ function garageSvg(norm, cfg, lampOn) {
       ${arrow}
       ${venting && cfg.show_breeze !== false ? gateBreeze(70, 21.3) : ""}
       ${partial && cfg.show_cat !== false ? gateCat(92, 50.6, 0.95) : ""}
-      ${norm === "open" && cfg.show_car !== false ? gateCar(70, 41, 1.5) : ""}
+      ${norm === "open" && (frac === null || frac === undefined) && cfg.show_car !== false ? gateCar(70, 41, 1.5) : ""}
       ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
       ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, lampOn) : ""}
     </svg>`;
 }
 
-function gateSvg(norm, cfg, lampOn) {
-  if (cfg.gate_type === "swing") return swingSvg(norm, cfg, lampOn);
+function gateSvg(norm, cfg, lampOn, frac = null) {
+  if (cfg.gate_type === "swing") return swingSvg(norm, cfg, lampOn, frac);
   if (cfg.gate_type === "door") return doorSvg(norm, cfg, lampOn);
-  if (cfg.gate_type === "garage") return garageSvg(norm, cfg, lampOn);
-  return slidingSvg(norm, cfg, lampOn);
+  if (cfg.gate_type === "garage") return garageSvg(norm, cfg, lampOn, frac);
+  return slidingSvg(norm, cfg, lampOn, frac);
 }
 
 // ---------------------------------------------------------------------------
@@ -1396,6 +1441,14 @@ class GateCard extends HTMLElement {
     const posMode = cfg.show_position === true || cfg.show_position === "always" ? "always"
       : cfg.show_position === "moving" ? "moving" : null;
     const pos = posMode && (posMode === "always" || moving) ? coverPosition(hass, cfg) : null;
+    // draw_position: the drawing follows the reported travel while moving, and
+    // a gate stopped part-way (HA reports it "open" at 1-99 %) is drawn where it
+    // really is instead of wide open with the car.
+    let drawPos = null;
+    if (cfg.draw_position && cfg.gate_type !== "door" && (moving || norm === "open")) {
+      const p = coverPosition(hass, cfg);
+      if (p !== null && (moving || (p > 0 && p < 100))) drawPos = p;
+    }
     const posHtml = pos === null ? "" : `<span class="pos">${new Intl.NumberFormat(lang(hass), { style: "percent", maximumFractionDigits: 0 }).format(pos / 100)}</span>`;
     const lampState = cfg.light_entity && hass.states[cfg.light_entity];
     const lampOn = !!lampState && ["on", "playing", "home", "open"].includes(String(lampState.state).toLowerCase());
@@ -1407,7 +1460,7 @@ class GateCard extends HTMLElement {
       const v = Number(hass.states[cfg.battery_entity].state);
       if (!Number.isNaN(v)) batt = Math.round(v);
     }
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, cfg.show_tap_button, cfg.show_state, cfg.single_line, cfg.show_position, pos, batt, !!cfg.light_entity, cfg.show_spot, cfg.show_light_button, cfg.light_position, lampOn]);
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, cfg.show_tap_button, cfg.show_state, cfg.single_line, cfg.show_position, pos, cfg.draw_position, drawPos, batt, !!cfg.light_entity, cfg.show_spot, cfg.show_light_button, cfg.light_position, lampOn]);
     if (signature === this._signature) return;
     this._signature = signature;
 
@@ -1462,6 +1515,9 @@ ha-card.tappable { cursor:pointer; }
 .moving .leaf-r { animation:swing-r 1.8s ease-in-out infinite alternate; }
 @keyframes swing-l { from { transform:scaleX(.55) skewY(5deg); } to { transform:scaleX(.15) skewY(9deg); } }
 @keyframes swing-r { from { transform:scaleX(.55) skewY(-5deg); } to { transform:scaleX(.15) skewY(-9deg); } }
+/* With a real position the leaf is placed, not rocked: the travel animation
+   would fight the transform. Wheels and the garage arrow keep moving. */
+.moving.positioned .gate-leaf, .moving.positioned .leaf-l, .moving.positioned .leaf-r { animation:none; }
 .gate-wheel { transform-box:fill-box; transform-origin:center; }
 .gate-wheel circle { fill:var(--leaf-color); stroke:var(--leaf-line); stroke-width:1.6; vector-effect:non-scaling-stroke; }
 .gate-wheel line { stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.6; }
@@ -1551,7 +1607,7 @@ button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
 .badge ha-icon[icon^="mdi:gate"] { position:relative; top:-1.6px; }
 .badge ha-icon[icon="mdi:walk"] { position:relative; top:-2.4px; }
       </style>
-      <ha-card class="${moving ? "moving" : ""}${cfg.compact ? " compact" : ""}${cfg.single_line ? " single-line" : ""}${dirClass}">
+      <ha-card class="${moving ? "moving" : ""}${cfg.compact ? " compact" : ""}${cfg.single_line ? " single-line" : ""}${drawPos !== null ? " positioned" : ""}${dirClass}">
         ${batt !== null && !cfg.compact ? `<div class="corner-batt" title="${escapeHtml(cfg.battery_entity)} : ${batt}%">
           <svg width="26" height="15" viewBox="0 0 24 14">
             <rect x="1" y="2" width="19" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
@@ -1563,7 +1619,7 @@ button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
               lampOn && cfg.light_entity && cfg.show_spot !== false
                 ? `<span class="lamp-dot" title="${escapeHtml(cfg.light_entity)}"><ha-icon icon="mdi:lightbulb-on"></ha-icon></span>`
                 : ""}</div>`
-          : `<div class="illu">${gateSvg(norm, cfg, lampOn)}</div>`}
+          : `<div class="illu">${gateSvg(norm, cfg, lampOn, drawPos === null ? null : drawPos / 100)}</div>`}
         <div class="bottom">
           <div class="body">
             <div class="name">${escapeHtml(name)}</div>
@@ -1759,6 +1815,9 @@ details .form { padding-top:10px; }
             <option value="moving" ${cfg.show_position === "moving" ? "selected" : ""}>${t(hass, "pos_moving")}</option>
             <option value="always" ${cfg.show_position === true || cfg.show_position === "always" ? "selected" : ""}>${t(hass, "pos_always")}</option>
           </select>
+        </div>
+        <div class="row row-inline">
+          <label><input type="checkbox" data-field="draw_position" ${cfg.draw_position ? "checked" : ""}/> ${t(hass, "draw_position")}</label>
         </div>`}
         ${["door", "garage"].includes(cfg.gate_type) ? "" : `
         <div class="row row-inline">

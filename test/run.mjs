@@ -365,4 +365,60 @@ contains('repli sur state_entity quand la cover n a pas de position',
     /<option value="always" selected>/.test(edHtml({ show_position: true })), true);
 }
 
+// draw_position (1.6.0): the drawing follows the reported travel.
+const slideOf = html => (String(html).match(/class="gate-leaf" style="transform:translateX\(([-\d.]+)px\)"/) || [])[1];
+const hasCar = html => /<g class="gate-car">/.test(html);
+const garageBar = html => (String(html).match(/<rect x="19" y="([\d.]+)" width="102" height="4"/) || [])[1];
+check('draw_position absent : pose fixe pendant la course (49)',
+  slideOf(posCard('opening', { current_position: 10 })), '-49');
+check('draw_position coulissant a 47 % : le vantail est a 46.1',
+  slideOf(posCard('opening', { current_position: 47 }, { draw_position: true })), '-46.1');
+check('draw_position coulissant ouvre vers la droite : signe positif',
+  slideOf(posCard('closing', { current_position: 47 }, { draw_position: true, slide_direction: 'right' })), '46.1');
+check('draw_position sans attribut : pose fixe conservee',
+  slideOf(posCard('opening', {}, { draw_position: true })), '-49');
+check('arrete a 30 % : dessine a 30 %, pas grand ouvert',
+  slideOf(posCard('open', { current_position: 30 }, { draw_position: true })), '-29.4');
+check('arrete a 30 % : pas de voiture',
+  hasCar(posCard('open', { current_position: 30 }, { draw_position: true })), false);
+check('ouvert a 100 % : la voiture reste',
+  hasCar(posCard('open', { current_position: 100 }, { draw_position: true })), true);
+check('ouvert a 100 % : pose ouverte habituelle',
+  slideOf(posCard('open', { current_position: 100 }, { draw_position: true })), '-98');
+check('battant a 47 % : angle reel, plus la pose fixe 0.35',
+  /class="leaf-l" style="transform:scaleX\(0\.48\) skewY\(6\.13deg\)"/.test(posCard('opening', { current_position: 47 }, { draw_position: true, gate_type: 'swing' })), true);
+check('battant arrete a 30 % : pas de voiture',
+  hasCar(posCard('open', { current_position: 30 }, { draw_position: true, gate_type: 'swing' })), false);
+check('garage a 47 % : la barre du bas remonte a 36.5',
+  garageBar(posCard('opening', { current_position: 47 }, { draw_position: true, gate_type: 'garage' })), '36.5');
+check('garage fermeture a 15 % : plus de place, pas de fleche',
+  /<path class="garage-arrow"/.test(posCard('closing', { current_position: 15 }, { draw_position: true, gate_type: 'garage' })), false);
+check('garage fermeture a 53 % : la fleche est sous le tablier',
+  /<g transform="translate\(0 [\d.]+\)"><path class="garage-arrow"/.test(posCard('closing', { current_position: 53 }, { draw_position: true, gate_type: 'garage' })), true);
+check('garage arrete a 30 % : pas de voiture',
+  hasCar(posCard('open', { current_position: 30 }, { draw_position: true, gate_type: 'garage' })), false);
+check('porte : draw_position ignore',
+  /positioned/.test(posCard('opening', { current_position: 47 }, { draw_position: true, gate_type: 'door' }).replace(/<style>[\s\S]*?<\/style>/, '')), false);
+check('position connue : l animation de va-et-vient est coupee',
+  /<ha-card class="[^"]*moving[^"]*positioned/.test(posCard('opening', { current_position: 47 }, { draw_position: true })), true);
+{
+  // draw_position sans show_position : la position doit quand meme faire redessiner.
+  const c = new Card();
+  c.setConfig(Object.freeze({ entity: 'cover.portail', draw_position: true }));
+  c.hass = posHass('opening', { current_position: 10 });
+  markup(c);
+  c.hass = posHass('opening', { current_position: 60 });
+  check('draw_position seul : le vantail avance pendant la course',
+    slideOf(markup(c)), '-58.8');
+}
+{
+  const edHtml = cfg => { const e = new Editor(); e.hass = { language: 'fr', states: {} }; e.setConfig({ entity: 'cover.portail', ...cfg }); return String(markup(e)); };
+  check("l'editeur propose draw_position, decochee par defaut",
+    /data-field="draw_position" \/>/.test(edHtml({})), true);
+  check("l'editeur coche draw_position",
+    /data-field="draw_position" checked\/>/.test(edHtml({ draw_position: true })), true);
+  check("l'editeur masque draw_position pour une porte",
+    /data-field="draw_position"/.test(edHtml({ gate_type: 'door' })), false);
+}
+
 report();

@@ -10,27 +10,27 @@
 <a href="https://buymeacoffee.com/adnpolymerase" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-orange.png" alt="Buy Me A Coffee" height="60"></a>
 <a href="https://adnpolymerase.github.io/HA/" target="_blank"><img src="https://raw.githubusercontent.com/ADNPolymerase/HA/main/assets/site-button.svg" alt="Lien vers mon github.io pour mes autres projets" height="60"></a>
 
-Une card Lovelace pour portails : état réel consolidé, couleurs par état, illustration animée, mode passage piéton et commandes sécurisées pour portail à impulsion.
+Une card Lovelace pour portails : état consolidé, couleurs par état, illustration animée et commandes sûres pour portail à impulsion.
 
-Conçue pour le cas très courant où la *commande* et l'*état* sont deux canaux différents : le portail est piloté par impulsion RF (AirSend, RFXCOM, relais Shelly, contact sec…) exposée en `cover`, tandis que la position **fiable** vient de capteurs ouvert/fermé séparés. La card affiche l'état consolidé et envoie les commandes au cover, sans deviner.
+Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail est piloté par impulsion (AirSend, RFXCOM, relais Shelly…) exposée en `cover`, et l'état fiable vient d'autres capteurs. La card affiche cet état et envoie les commandes au cover, sans deviner.
 
-> Retours et issues bienvenus.
-> 🇬🇧 [Read in English](README.md)
+> Retours et issues bienvenus. 🇬🇧 [Read in English](README.md)
 
 [![Capture d'écran HA Gate Card](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/screenshot.fr.png)](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/screenshot.fr.png)
 
 ## Fonctionnalités
 
-- **Deux entités** : les commandes vont au `cover`, l'état affiché vient de n'importe quelle `state_entity` (`input_select`, sensor, template…).
-- **Normalisation d'état** : `Fermé`, `closed`, `ouverture`, `En mouvement`… sont détectés automatiquement (insensible aux accents, 12 langues) et convertis en fermé / ouvert / ouverture / fermeture / en mouvement / piéton / déverrouillé / aération / ouverture partielle / inconnu. `state_map` couvre le reste.
-- **Couleurs par état** via votre thème (fermé = vert, ouvert & déverrouillé = orange, mouvement = bleu, inconnu = rouge), ou une couleur fixe `gate_color`.
-- **Quatre types animés** : `sliding`, `swing`, `door` (portillon / porte d'entrée, affichage seul sauf si des commandes sont configurées, pratique pour les serrures connectées) et `garage` (porte roulante), avec cinq `gate_style` chacun pour coulissant/battants, icônes assorties au type en mode compact et sur les boutons. `compact: true` remplace l'illustration par une icône.
-- **Ouvertures partielles du garage** : `vent_entity` entrouvre une fente en haut (une brise la traverse), `partial_entity` décolle le tablier du sol (un chat s'y faufile). Chacune ajoute son bouton quand c'est fermé ; dans l'une ou l'autre position, seul *Fermer* est proposé.
-- **Passage piéton** (coulissant/battants) : définissez `pedestrian_entity` → un bouton *Piéton* quand c'est fermé, un vantail s'ouvre avec un pictogramme, seul *Fermer* est proposé.
-- **Spot sur le portail** : `light_entity` fixe un projecteur sur potence au montant (encastré dans le linteau pour `door`), envoie un faisceau sur le vantail quand il est allumé, et ajoute un bouton *Lumière* qui reste disponible même pendant le mouvement. Le dessin et le bouton sont dissociables : `show_light_button: false` montre l'état sans proposer la commande. En mode `compact`, le spot se réduit à une pastille sur la pastille d'état, dessinée seulement quand la lumière est allumée.
-- **Boutons sécurisés impulsion** : seules les commandes pertinentes s'affichent, **aucune pendant le mouvement** (une impulsion de plus stoppe ou inverse le vantail), confirmation double appui et `show_stop` en option.
-- **Commandes personnalisées** (`open_entity` / `close_entity` / `stop_entity`) pour les portails qui ne sont pas des covers, et **éditeur visuel** pour chaque champ.
-- **Serrures connectées** (Nuki…) : une `lock` comme `entity`, un état *Déverrouillé* dessiné porte fermée en orange, un bouton *Déverrouiller* optionnel à côté du bec de cane, `contact_entity` pour l'état d'ouverture physique réel et un indicateur `battery_entity` en coin.
+- **Deux entités** : commandes au `cover`, état lu dans n'importe quelle `state_entity` (`input_select`, sensor, template…).
+- **États reconnus automatiquement** (12 langues, sans accents) : fermé, ouvert, ouverture, fermeture, mouvement, piéton, déverrouillé, aération, partiel, inconnu. `state_map` pour le reste.
+- **Couleurs par état** issues du thème, ou une couleur fixe `gate_color`.
+- **Quatre types animés** : coulissant, battant, portillon (`door`) et garage, avec plusieurs styles de vantail. `compact` remplace le dessin par une icône.
+- **Positions intermédiaires** : passage piéton, aération et ouverture partielle du garage, chacune avec son bouton.
+- **Spot** : `light_entity` dessine un projecteur allumé ou éteint et ajoute un bouton *Lumière*.
+- **Position réelle** : `show_position` affiche le pourcentage, `draw_position` fait suivre le dessin pendant la course et à mi-course.
+
+  [![Position réelle](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/position.fr.png)](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/position.fr.png)
+- **Boutons sûrs** : seules les commandes utiles, aucune pendant le mouvement, confirmation par double appui.
+- **Serrures connectées** (Nuki…), commandes personnalisées et **éditeur visuel** complet.
 
 ## Installation (HACS)
 
@@ -41,37 +41,31 @@ Conçue pour le cas très courant où la *commande* et l'*état* sont deux canau
 
 | Option | Description |
 |---|---|
-| `entity` | **Obligatoire.** Le `cover`, ou la serrure `lock` (Nuki…) où *Ouvrir* déverrouille et *Fermer* verrouille, qui reçoit les commandes. (Optionnel avec des overrides ou une `state_entity` seule.) |
-| `state_entity` | Entité portant l'état consolidé fiable (tout domaine). Défaut : `entity`. |
-| `contact_entity` | Capteur d'ouverture physique (contact de porte). Contact ouvert + pêne verrouillé → inconnu. |
-| `battery_entity` | Capteur de batterie en %, affiché en haut à droite (vert/orange/rouge), sur sa propre ligne quand la carte est étroite. Masqué en mode `compact`. |
-| `state_map` | Map optionnelle : état brut → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`unknown`. |
-| `gate_type` | `sliding` (défaut), `swing`, `door` ou `garage`. `door` est en affichage seul sauf si des commandes sont configurées. |
-| `gate_style` | Style du vantail (coulissant/battants). Coulissant : `slats` (défaut), `bars`, `semi`, `solid`. Battants : `bell` (défaut), `bars`, `slats`, `semi`, `solid`. |
+| `entity` | **Obligatoire.** Le `cover`, ou une `lock` (*Ouvrir* déverrouille, *Fermer* verrouille). |
+| `state_entity` | Entité portant l'état fiable (tout domaine). Défaut : `entity`. |
+| `contact_entity` | Contact d'ouverture physique. Contact ouvert + pêne verrouillé → inconnu. |
+| `battery_entity` | Batterie en %, en haut à droite. Masquée en `compact`. |
+| `state_map` | État brut → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`unknown`. |
+| `gate_type` | `sliding` (défaut), `swing`, `door` ou `garage`. `door` est en affichage seul sans commande configurée. |
+| `gate_style` | Coulissant : `slats` (défaut), `bars`, `semi`, `solid`. Battant : `bell` (défaut), `bars`, `slats`, `semi`, `solid`. |
 | `slide_direction` | `left` (défaut) ou `right`. |
-| `gate_color` | `state` (défaut) ou une couleur fixe : `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown`, ou toute couleur CSS. |
-| `name` | Titre de la card. Défaut : nom convivial de l'entité d'état. |
-| `compact` | `true` pour une icône colorée à la place de l'illustration. |
-| `show_state` | Afficher l'état en toutes lettres sous le nom. Défaut `true` ; `false` ne garde que le nom et l'heure, la couleur et l'icône disant déjà l'état. |
-| `single_line` | Mettre le nom, l'état et l'heure sur une seule ligne, répartis sur la largeur. Défaut `false`. Quand ça ne tient pas (boutons à côté du texte, nom long, carte étroite), la suite passe à la ligne toute seule. |
-| `show_position` | Afficher la position de la cover (`current_position`) à côté de l'état, par exemple `Ouverture en cours… · 47 %`. `false` (défaut), `moving` (seulement pendant la course) ou `true` (toujours). Rien ne s'affiche si l'entité ne donne pas de position. |
+| `gate_color` | `state` (défaut), `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` ou toute couleur CSS. |
+| `name` | Titre. Défaut : nom de l'entité d'état. |
+| `compact` | Icône colorée à la place de l'illustration. |
+| `show_state` | État en toutes lettres sous le nom. Défaut `true`. |
+| `single_line` | Nom, état et heure sur une ligne, repliée si la place manque. Défaut `false`. |
+| `show_position` | Pourcentage `current_position` à côté de l'état : `false` (défaut), `moving` ou `true`. |
+| `draw_position` | Dessin à la position réelle pendant la course et à mi-course (coulissant, battant, garage). Défaut `false`. |
 | `confirm` | Confirmation par double appui. Défaut `true`. |
-| `show_stop` | Bouton *Stop* pendant le mouvement. Défaut `false`, à laisser désactivé pour les portails à impulsion (RF). |
-| `card_tap` | `true` rend toute la card cliquable quand une seule commande est disponible (grande zone tactile, pratique en voiture). Même confirmation double appui. Défaut `false`. |
-| `show_tap_button` | Avec `card_tap`, garder le bouton de commande. Défaut `true` ; `false` ne laisse que la carte à toucher, et le bouton réapparaît juste le temps de demander la confirmation. |
-| `show_key` | Clé sur le portail fermé. Défaut `true`. |
-| `show_runner` | Pictogramme piéton en mode piéton. Défaut `true`. |
-| `show_car` | Pictogramme voiture dans l'ouverture quand c'est totalement ouvert (coulissant/battant/garage). Défaut `true`. |
-| `show_breeze` | Pictogramme brise dans la fente d'aération (garage). Défaut `true`. |
-| `show_cat` | Pictogramme chat dans l'ouverture partielle (garage). Défaut `true`. |
-| `light_entity` | Lumière (ou switch) commandée par un bouton *Lumière*, dessinée comme un spot orienté vers le portail. Sans confirmation, et le bouton reste pendant le mouvement. |
-| `light_position` | Côté du spot : `right` (défaut) ou `left`. Sans effet sur `door`, où le luminaire est au milieu du linteau. |
-| `show_spot` | Dessiner le spot, ou sa pastille sur le rond d'état en mode `compact`. Défaut `true` ; `false` masque le dessin et le bouton ensemble. |
-| `show_light_button` | Proposer le bouton *Lumière*. Défaut `true` ; `false` garde le spot sur l'illustration mais retire la commande, pour une lumière que l'on veut seulement voir. |
-| `open_entity` / `close_entity` / `stop_entity` | Bouton/script/switch/serrure utilisés à la place des services du cover. Une serrure `lock` en `open_entity` fait *Ouvrir* → `lock.open` (bec de cane) et ajoute un bouton *Déverrouiller* séparé quand c'est verrouillé. |
-| `pedestrian_entity` | Bouton/script/switch de l'ouverture partielle piéton (coulissant/battants). Active le bouton *Piéton* quand c'est fermé. |
-| `vent_entity` | Bouton/script/switch de la position aération (garage). Fente en haut, bouton *Aérer* quand c'est fermé. |
-| `partial_entity` | Bouton/script/switch de l'ouverture partielle (garage). Fente au sol, bouton *Partiel* quand c'est fermé. |
+| `show_stop` | Bouton *Stop* pendant le mouvement. Défaut `false`, à éviter sur un portail à impulsion. |
+| `card_tap` | Toute la card déclenche la commande quand il n'y en a qu'une. Défaut `false`. |
+| `show_tap_button` | Avec `card_tap`, garder le bouton. Défaut `true`. |
+| `show_key` / `show_runner` / `show_car` / `show_breeze` / `show_cat` | Pictogrammes clé, piéton, voiture, brise et chat. Défaut `true`. |
+| `light_entity` | Lumière ou switch du bouton *Lumière*, dessiné en spot. Sans confirmation, disponible pendant le mouvement. |
+| `light_position` | Côté du spot : `right` (défaut) ou `left`. |
+| `show_spot` / `show_light_button` | Afficher le spot / le bouton *Lumière*. Défaut `true`. Sans spot, pas de bouton. |
+| `open_entity` / `close_entity` / `stop_entity` | Bouton, script, switch ou serrure à la place des services du cover. |
+| `pedestrian_entity` / `vent_entity` / `partial_entity` | Commandes piéton (coulissant, battant), aération et ouverture partielle (garage). Chacune ajoute son bouton quand c'est fermé. |
 
 ### Exemple
 
