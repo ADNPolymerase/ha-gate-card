@@ -21,9 +21,9 @@ Built for setups where *command* and *state* are separate: the gate is driven by
 ## Features
 
 - **Two entities**: commands go to the `cover`, the state is read from any `state_entity` (`input_select`, sensor, template…).
-- **States detected automatically** (12 languages, accent-insensitive): closed, open, opening, closing, moving, pedestrian, unlocked, venting, part-open, unknown. `state_map` for the rest.
+- **States detected automatically** (13 languages, accent-insensitive): closed, open, opening, closing, moving, pedestrian, unlocked, venting, part-open, unknown. `state_map` for the rest.
 - **Per-state colors** from your theme, or a fixed `gate_color`.
-- **Four animated types**: sliding, swing, wicket (`door`) and garage, with several leaf designs. `compact` swaps the drawing for an icon.
+- **Four animated types**: sliding, swing (two leaves or one, hinged left or right), wicket (`door`) and garage, with several leaf designs. `compact` swaps the drawing for an icon.
 - **Intermediate positions**: pedestrian pass, garage venting and part-open, each with its own button.
 - **Spotlight**: `light_entity` draws a lamp that is on or off and adds a *Light* button.
 - **Real position**: `show_position` shows the percentage, `draw_position` moves the drawing while travelling and when stopped part-way.
@@ -48,6 +48,7 @@ Built for setups where *command* and *state* are separate: the gate is driven by
 | `state_map` | Raw state → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`unknown`. |
 | `gate_type` | `sliding` (default), `swing`, `door` or `garage`. `door` is display-only without command entities. |
 | `gate_style` | Sliding: `slats` (default), `bars`, `semi`, `solid`. Swing: `bell` (default), `bars`, `slats`, `semi`, `solid`. |
+| `single_leaf` | Swing only: `left` or `right` for a single leaf hinged on that side. Default: two leaves. |
 | `slide_direction` | `left` (default) or `right`. |
 | `gate_color` | `state` (default), `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` or any CSS color. |
 | `name` | Title. Defaults to the state entity's name. |

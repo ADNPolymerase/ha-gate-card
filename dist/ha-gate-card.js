@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.6.0";
+const CARD_VERSION = "1.7.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -42,6 +42,7 @@ const T = {
     single_line: "Name, state and time on one line",
     show_position: "Show the position", pos_never: "Never", pos_moving: "While moving", pos_always: "Always",
     draw_position: "Draw the real position of the gate",
+    swing_leaves: "Leaves", leaves_double: "Two leaves", leaves_left: "One leaf, hinged on the left", leaves_right: "One leaf, hinged on the right",
     contact_entity: "Physical open/closed sensor (optional)", battery_entity: "Battery entity",
     name: "Name", compact: "Compact mode (icon instead of illustration)",
     confirm_opt: "Ask for confirmation before commands (tap twice)",
@@ -92,6 +93,7 @@ const T = {
     single_line: "Nom, \u00e9tat et heure sur une ligne",
     show_position: "Afficher la position", pos_never: "Jamais", pos_moving: "Pendant le mouvement", pos_always: "Toujours",
     draw_position: "Dessiner la position r\u00e9elle du portail",
+    swing_leaves: "Vantaux", leaves_double: "Deux vantaux", leaves_left: "Un vantail, charni\u00e8re \u00e0 gauche", leaves_right: "Un vantail, charni\u00e8re \u00e0 droite",
     contact_entity: "Capteur d'ouverture physique (optionnel)", battery_entity: "Entit\u00e9 batterie",
     name: "Nom", compact: "Mode compact (ic\u00f4ne au lieu de l'illustration)",
     confirm_opt: "Demander confirmation avant les commandes (double appui)",
@@ -141,6 +143,7 @@ const T = {
     single_line: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435, \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u0435 \u0438 \u0432\u0440\u0435\u043c\u044f \u0432 \u043e\u0434\u043d\u0443 \u0441\u0442\u0440\u043e\u043a\u0443",
     show_position: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435", pos_never: "\u041d\u0438\u043a\u043e\u0433\u0434\u0430", pos_moving: "\u0412\u043e \u0432\u0440\u0435\u043c\u044f \u0434\u0432\u0438\u0436\u0435\u043d\u0438\u044f", pos_always: "\u0412\u0441\u0435\u0433\u0434\u0430",
     draw_position: "\u0420\u0438\u0441\u043e\u0432\u0430\u0442\u044c \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u0435 \u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u0432\u043e\u0440\u043e\u0442",
+    swing_leaves: "\u0421\u0442\u0432\u043e\u0440\u043a\u0438", leaves_double: "\u0414\u0432\u0435 \u0441\u0442\u0432\u043e\u0440\u043a\u0438", leaves_left: "\u041e\u0434\u043d\u0430 \u0441\u0442\u0432\u043e\u0440\u043a\u0430, \u043f\u0435\u0442\u043b\u0438 \u0441\u043b\u0435\u0432\u0430", leaves_right: "\u041e\u0434\u043d\u0430 \u0441\u0442\u0432\u043e\u0440\u043a\u0430, \u043f\u0435\u0442\u043b\u0438 \u0441\u043f\u0440\u0430\u0432\u0430",
     contact_entity: "\u0424\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0434\u0430\u0442\u0447\u0438\u043a \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)", battery_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0431\u0430\u0442\u0430\u0440\u0435\u0438",
     name: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435", compact: "\u041a\u043e\u043c\u043f\u0430\u043a\u0442\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c (\u0437\u043d\u0430\u0447\u043e\u043a \u0432\u043c\u0435\u0441\u0442\u043e \u0438\u043b\u043b\u044e\u0441\u0442\u0440\u0430\u0446\u0438\u0438)",
     confirm_opt: "\u0417\u0430\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0442\u044c \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u0434 \u043a\u043e\u043c\u0430\u043d\u0434\u0430\u043c\u0438 (\u0434\u0432\u043e\u0439\u043d\u043e\u0435 \u043d\u0430\u0436\u0430\u0442\u0438\u0435)",
@@ -190,6 +193,7 @@ const T = {
     single_line: "Name, Zustand und Uhrzeit in einer Zeile",
     show_position: "Position anzeigen", pos_never: "Nie", pos_moving: "W\u00e4hrend der Bewegung", pos_always: "Immer",
     draw_position: "Tats\u00e4chliche Position des Tores zeichnen",
+    swing_leaves: "Torfl\u00fcgel", leaves_double: "Zweifl\u00fcglig", leaves_left: "Einfl\u00fcglig, Anschlag links", leaves_right: "Einfl\u00fcglig, Anschlag rechts",
     contact_entity: "Physischer \u00d6ffnungssensor (optional)", battery_entity: "Batterie-Entit\u00e4t",
     name: "Name", compact: "Kompaktmodus (Symbol statt Illustration)",
     confirm_opt: "Vor Befehlen best\u00e4tigen (zweimal tippen)",
@@ -239,6 +243,7 @@ const T = {
     single_line: "Nombre, estado y hora en una l\u00ednea",
     show_position: "Mostrar la posici\u00f3n", pos_never: "Nunca", pos_moving: "Durante el movimiento", pos_always: "Siempre",
     draw_position: "Dibujar la posici\u00f3n real del port\u00f3n",
+    swing_leaves: "Hojas", leaves_double: "Dos hojas", leaves_left: "Una hoja, bisagras a la izquierda", leaves_right: "Una hoja, bisagras a la derecha",
     contact_entity: "Sensor f\u00edsico de apertura (opcional)", battery_entity: "Entidad de bater\u00eda",
     name: "Nombre", compact: "Modo compacto (icono en lugar de ilustraci\u00f3n)",
     confirm_opt: "Pedir confirmaci\u00f3n antes de los comandos (doble toque)",
@@ -288,6 +293,7 @@ const T = {
     single_line: "Nome, stato e ora su una riga",
     show_position: "Mostra la posizione", pos_never: "Mai", pos_moving: "Durante il movimento", pos_always: "Sempre",
     draw_position: "Disegna la posizione reale del cancello",
+    swing_leaves: "Ante", leaves_double: "Due ante", leaves_left: "Un'anta, cerniere a sinistra", leaves_right: "Un'anta, cerniere a destra",
     contact_entity: "Sensore fisico di apertura (opzionale)", battery_entity: "Entit\u00e0 batteria",
     name: "Nome", compact: "Modalit\u00e0 compatta (icona invece dell'illustrazione)",
     confirm_opt: "Chiedere conferma prima dei comandi (doppio tocco)",
@@ -337,6 +343,7 @@ const T = {
     single_line: "Naam, status en tijd op \u00e9\u00e9n regel",
     show_position: "Positie tonen", pos_never: "Nooit", pos_moving: "Tijdens beweging", pos_always: "Altijd",
     draw_position: "Werkelijke positie van het hek tekenen",
+    swing_leaves: "Vleugels", leaves_double: "Twee vleugels", leaves_left: "E\u00e9n vleugel, scharnier links", leaves_right: "E\u00e9n vleugel, scharnier rechts",
     contact_entity: "Fysieke openingssensor (optioneel)", battery_entity: "Batterij-entiteit",
     name: "Naam", compact: "Compacte modus (pictogram i.p.v. illustratie)",
     confirm_opt: "Bevestiging vragen v\u00f3\u00f3r commando's (twee keer tikken)",
@@ -386,6 +393,7 @@ const T = {
     single_line: "Nome, estado e hora em uma linha",
     show_position: "Mostrar a posi\u00e7\u00e3o", pos_never: "Nunca", pos_moving: "Durante o movimento", pos_always: "Sempre",
     draw_position: "Desenhar a posi\u00e7\u00e3o real do port\u00e3o",
+    swing_leaves: "Folhas", leaves_double: "Duas folhas", leaves_left: "Uma folha, dobradi\u00e7as \u00e0 esquerda", leaves_right: "Uma folha, dobradi\u00e7as \u00e0 direita",
     contact_entity: "Sensor f\u00edsico de abertura (opcional)", battery_entity: "Entidade de bateria",
     name: "Nome", compact: "Modo compacto (\u00edcone em vez da ilustra\u00e7\u00e3o)",
     confirm_opt: "Pedir confirma\u00e7\u00e3o antes dos comandos (dois toques)",
@@ -435,6 +443,7 @@ const T = {
     single_line: "Namn, tillst\u00e5nd och tid p\u00e5 en rad",
     show_position: "Visa positionen", pos_never: "Aldrig", pos_moving: "Under r\u00f6relse", pos_always: "Alltid",
     draw_position: "Rita grindens verkliga position",
+    swing_leaves: "Grindblad", leaves_double: "Tv\u00e5 grindblad", leaves_left: "Ett grindblad, g\u00e5ngj\u00e4rn till v\u00e4nster", leaves_right: "Ett grindblad, g\u00e5ngj\u00e4rn till h\u00f6ger",
     contact_entity: "Fysisk \u00f6ppningssensor (valfri)", battery_entity: "Batterientitet",
     name: "Namn", compact: "Kompakt l\u00e4ge (ikon i st\u00e4llet f\u00f6r illustration)",
     confirm_opt: "Be om bekr\u00e4ftelse f\u00f6re kommandon (tryck tv\u00e5 g\u00e5nger)",
@@ -484,6 +493,7 @@ const T = {
     single_line: "Navn, tilstand og tid p\u00e5 \u00e9n linje",
     show_position: "Vis posisjonen", pos_never: "Aldri", pos_moving: "Under bevegelse", pos_always: "Alltid",
     draw_position: "Tegn portens faktiske posisjon",
+    swing_leaves: "Portfl\u00f8yer", leaves_double: "To fl\u00f8yer", leaves_left: "\u00c9n fl\u00f8y, hengsler til venstre", leaves_right: "\u00c9n fl\u00f8y, hengsler til h\u00f8yre",
     contact_entity: "Fysisk \u00e5pningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt modus (ikon i stedet for illustrasjon)",
     confirm_opt: "Be om bekreftelse f\u00f8r kommandoer (trykk to ganger)",
@@ -533,6 +543,7 @@ const T = {
     single_line: "Navn, tilstand og tid p\u00e5 \u00e9n linje",
     show_position: "Vis positionen", pos_never: "Aldrig", pos_moving: "Under bev\u00e6gelse", pos_always: "Altid",
     draw_position: "Tegn portens faktiske position",
+    swing_leaves: "L\u00e5gefl\u00f8je", leaves_double: "To fl\u00f8je", leaves_left: "\u00c9n fl\u00f8j, h\u00e6ngsler til venstre", leaves_right: "\u00c9n fl\u00f8j, h\u00e6ngsler til h\u00f8jre",
     contact_entity: "Fysisk \u00e5bningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt tilstand (ikon i stedet for illustration)",
     confirm_opt: "Bed om bekr\u00e6ftelse f\u00f8r kommandoer (tryk to gange)",
@@ -582,6 +593,7 @@ const T = {
     single_line: "Nazwa, stan i godzina w jednej linii",
     show_position: "Poka\u017c pozycj\u0119", pos_never: "Nigdy", pos_moving: "Podczas ruchu", pos_always: "Zawsze",
     draw_position: "Rysuj rzeczywiste po\u0142o\u017cenie bramy",
+    swing_leaves: "Skrzyd\u0142a", leaves_double: "Dwa skrzyd\u0142a", leaves_left: "Jedno skrzyd\u0142o, zawiasy po lewej", leaves_right: "Jedno skrzyd\u0142o, zawiasy po prawej",
     contact_entity: "Fizyczny czujnik otwarcia (opcjonalny)", battery_entity: "Encja baterii",
     name: "Nazwa", compact: "Tryb kompaktowy (ikona zamiast ilustracji)",
     confirm_opt: "Wymagaj potwierdzenia przed komendami (dwa dotkni\u0119cia)",
@@ -602,6 +614,56 @@ const T = {
     pedestrian_btn: "Furtka", type_door: "Drzwi / furtka", type_garage: "Brama gara\u017cowa rolowana",
     show_key: "Poka\u017c klucz, gdy zamkni\u0119ta", show_runner: "Poka\u017c piktogram pieszego", show_car: "Poka\u017c piktogram samochodu, gdy otwarta",
     card_tap: "Dotkni\u0119cie karty uruchamia jedyn\u0105 dost\u0119pn\u0105 komend\u0119",
+  },
+  hu: {
+    closed: "Z\u00e1rva", open: "Nyitva", opening: "Nyit\u00e1s\u2026", closing: "Z\u00e1r\u00e1s\u2026",
+    unknown: "Ismeretlen \u00e1llapot", since: "\u00f3ta",
+    pedestrian: "Gyalogos bej\u00e1r\u00f3", moving: "Mozg\u00e1s\u2026",
+    open_btn: "Nyit\u00e1s", close_btn: "Z\u00e1r\u00e1s", stop_btn: "Stop", unlock_btn: "Felold\u00e1s", confirm_tap: "Meger\u0151s\u00edted?",
+    entity: "Kapu (cover) vagy z\u00e1r (lock) entit\u00e1s (k\u00f6telez\u0151)",
+    state_entity: "\u00d6sszes\u00edtett \u00e1llapot entit\u00e1s (opcion\u00e1lis)",
+    unlocked: "Feloldva",
+    vent: "Szell\u0151ztet\u00e9s",
+    partial: "F\u00e9lig nyitva",
+    vent_btn: "Szell\u0151ztet\u00e9s",
+    partial_btn: "F\u00e9lig nyit\u00e1s",
+    vent_entity: "Szell\u0151ztet\u00e9s parancs entit\u00e1s (gar\u00e1zs)",
+    partial_entity: "F\u00e9lig nyit\u00e1s parancs entit\u00e1s (gar\u00e1zs)",
+    show_breeze: "Szell\u0151ztet\u00e9s piktogram megjelen\u00edt\u00e9se",
+    show_cat: "Macska piktogram megjelen\u00edt\u00e9se",
+    light_btn: "Vil\u00e1g\u00edt\u00e1s",
+    light_entity: "Vil\u00e1g\u00edt\u00e1s entit\u00e1s (reflektor a kapun)",
+    light_position: "Reflektor oldala",
+    light_pos_right: "Jobb",
+    light_pos_left: "Bal",
+    show_spot: "Reflektor \u00e9s a hozz\u00e1 tartoz\u00f3 gomb megjelen\u00edt\u00e9se",
+    show_light_button: "Vil\u00e1g\u00edt\u00e1s gomb megjelen\u00edt\u00e9se",
+    show_state: "\u00c1llapot megjelen\u00edt\u00e9se sz\u00f6veggel",
+    show_tap_button: "Gomb megtart\u00e1sa, ha az eg\u00e9sz k\u00e1rtya futtatja a parancsot",
+    single_line: "N\u00e9v, \u00e1llapot \u00e9s id\u0151 egy sorban",
+    show_position: "Poz\u00edci\u00f3 megjelen\u00edt\u00e9se", pos_never: "Soha", pos_moving: "Mozg\u00e1s k\u00f6zben", pos_always: "Mindig",
+    draw_position: "A kapu val\u00f3s poz\u00edci\u00f3j\u00e1nak kirajzol\u00e1sa",
+    swing_leaves: "Kapusz\u00e1rnyak", leaves_double: "K\u00e9t sz\u00e1rny", leaves_left: "Egy sz\u00e1rny, zsan\u00e9r bal oldalon", leaves_right: "Egy sz\u00e1rny, zsan\u00e9r jobb oldalon",
+    contact_entity: "Fizikai nyit\u00e1s/z\u00e1r\u00e1s \u00e9rz\u00e9kel\u0151 (opcion\u00e1lis)", battery_entity: "Akkumul\u00e1tor entit\u00e1s",
+    name: "N\u00e9v", compact: "Kompakt m\u00f3d (ikon az illusztr\u00e1ci\u00f3 helyett)",
+    confirm_opt: "Meger\u0151s\u00edt\u00e9s k\u00e9r\u00e9se a parancsok el\u0151tt (dupla koppint\u00e1s)",
+    show_stop: "Stop gomb megjelen\u00edt\u00e9se mozg\u00e1s k\u00f6zben",
+    gate_type: "Kapu t\u00edpusa", type_sliding: "Tol\u00f3kapu", type_swing: "Sz\u00e1rnyas kapu",
+    slide_direction: "Nyit\u00e1si ir\u00e1ny (tol\u00f3kapu)", dir_left: "Balra", dir_right: "Jobbra",
+    gate_style: "Kapu diz\u00e1jn", style_slats: "V\u00edzszintes l\u00e9cek", style_bars_sliding: "F\u00fcgg\u0151leges r\u00e1csok",
+    style_bars_swing: "\u00cdves / Konk\u00e1v", style_bell: "Harang forma", style_semi: "F\u00e9lig nyitott", style_solid: "Teli, l\u00e9zer v\u00e1gott mint\u00e1s",
+    gate_color: "Kapu sz\u00edne", color_state: "\u00c1llapot k\u00f6vet\u00e9se (alap\u00e9rtelmezett)",
+    color_white: "Feh\u00e9r", color_gray: "Vil\u00e1gossz\u00fcrke", color_anthracite: "Antracit",
+    color_black: "Fekete", color_green: "Feny\u0151z\u00f6ld", color_burgundy: "Bord\u00f3",
+    color_blue: "Ac\u00e9lk\u00e9k", color_brown: "Barna",
+    section_advanced: "Parancs fel\u00fclb\u00edr\u00e1l\u00e1sok (gombok / szkriptek)",
+    open_entity: "Nyit\u00e1s parancs entit\u00e1s",
+    close_entity: "Z\u00e1r\u00e1s parancs entit\u00e1s",
+    stop_entity: "Stop parancs entit\u00e1s",
+    pedestrian_entity: "Gyalogos nyit\u00e1s parancs entit\u00e1s",
+    pedestrian_btn: "Gyalogos", type_door: "Ajt\u00f3 / Kiskapu", type_garage: "Red\u0151nygar\u00e1zskapu",
+    show_key: "Kulcs szimb\u00f3lum megjelen\u00edt\u00e9se z\u00e1rt \u00e1llapotban", show_runner: "Gyalogos piktogram megjelen\u00edt\u00e9se", show_car: "Aut\u00f3 piktogram megjelen\u00edt\u00e9se nyitott \u00e1llapotban",
+    card_tap: "Koppints b\u00e1rhova a k\u00e1rty\u00e1n az egyetlen el\u00e9rhet\u0151 parancs futtat\u00e1s\u00e1hoz",
   },
 };
 
@@ -625,15 +687,15 @@ function t(hass, key) {
 const STATE_KEYWORDS = {
   // vent et partial passent avant opening/closing : "Ouverture partielle"
   // contient "ouverture", et serait sinon lu comme une ouverture en cours.
-  vent: ["ventilation", "aeration", "airing", "luftung", "venting", "vadring", "lufting", "udluftning", "wietrzenie"],
-  partial: ["partiel", "partial", "parcial", "parziale", "teilweise", "gedeeltelijk", "delvis", "czesciowo", "animal", "chat"],
-  opening: ["opening", "unlocking", "ouverture", "offnet", "abriendo", "apertura", "opent", "abrindo", "a abrir", "oppnar", "apner", "abner", "otwieranie"],
-  closing: ["closing", "locking", "fermeture", "schliesst", "cerrando", "chiusura", "sluit", "fechando", "a fechar", "stanger", "lukker", "zamykanie"],
-  pedestrian: ["pieton", "pedestrian", "peaton", "pedonal", "voetganger", "fussgang", "durchgang", "gangpass", "ganglage", "gangport", "furtka"],
-  moving: ["moving", "mouvement", "in motion", "bewegung", "movimiento", "movimento", "beweging", "rorelse", "bevegelse", "bevaegelse", "bev\u00e6gelse", "ruch"],
-  closed: ["closed", "locked", "verrouill", "ferme", "geschlossen", "cerrado", "chiuso", "gesloten", "fechado", "stangd", "lukket", "zamkni"],
-  unlocked: ["unlocked", "deverrouill", "entriegelt", "desbloquead", "sbloccat", "ontgrendeld", "destrancad", "olast", "ulast", "odblokowan"],
-  open: ["open", "ouvert", "offen", "abierto", "aperto", "aberto", "oppen", "apen", "aben", "otwart"],
+  vent: ["ventilation", "aeration", "airing", "luftung", "venting", "vadring", "lufting", "udluftning", "wietrzenie", "szelloztet"],
+  partial: ["partiel", "partial", "parcial", "parziale", "teilweise", "gedeeltelijk", "delvis", "czesciowo", "animal", "chat", "felig"],
+  opening: ["opening", "unlocking", "ouverture", "offnet", "abriendo", "apertura", "opent", "abrindo", "a abrir", "oppnar", "apner", "abner", "otwieranie", "nyitas"],
+  closing: ["closing", "locking", "fermeture", "schliesst", "cerrando", "chiusura", "sluit", "fechando", "a fechar", "stanger", "lukker", "zamykanie", "zaras"],
+  pedestrian: ["pieton", "pedestrian", "peaton", "pedonal", "voetganger", "fussgang", "durchgang", "gangpass", "ganglage", "gangport", "furtka", "gyalogos"],
+  moving: ["moving", "mouvement", "in motion", "bewegung", "movimiento", "movimento", "beweging", "rorelse", "bevegelse", "bevaegelse", "bev\u00e6gelse", "ruch", "mozgas"],
+  closed: ["closed", "locked", "verrouill", "ferme", "geschlossen", "cerrado", "chiuso", "gesloten", "fechado", "stangd", "lukket", "zamkni", "zarva", "zart", "zarol"],
+  unlocked: ["unlocked", "deverrouill", "entriegelt", "desbloquead", "sbloccat", "ontgrendeld", "destrancad", "olast", "ulast", "odblokowan", "feloldv"],
+  open: ["open", "ouvert", "offen", "abierto", "aperto", "aberto", "oppen", "apen", "aben", "otwart", "nyitva", "nyitott"],
 };
 
 function stripAccents(str) {
@@ -1088,7 +1150,100 @@ function swingPoseAt(frac) {
   return [`scaleX(${f(sx)}) skewY(${f(sk)}deg)`, `scaleX(${f(sx)}) skewY(${f(-sk)}deg)`];
 }
 
+// Single-leaf swing gate (issue #4): one leaf spans the whole opening and
+// turns about the post named by single_leaf ("left" or "right"). Drawn apart
+// from the double-leaf renderer so two-leaf gates stay byte-for-byte as before.
+// The open pose folds less than a half leaf would (-0.3 instead of -0.65):
+// a full-width leaf mirrored at -0.65 would leave the drawing.
+const SINGLE_OPEN_ANGLE = 107.5;
+const SINGLE_POSE = {
+  open: [-0.3, 9], opening: [0.35, 7], closing: [0.35, 7], moving: [0.35, 7], pedestrian: [0.55, 5],
+};
+
+function singleLeaf(hinge, cfg, norm, frac) {
+  const style = normStyle(cfg, "swing");
+  let sx = 1, sk = 0;
+  if (frac !== null && frac !== undefined) {
+    const a = frac * SINGLE_OPEN_ANGLE * Math.PI / 180;
+    sx = Math.cos(a);
+    if (Math.abs(sx) < 0.04) sx = sx < 0 ? -0.04 : 0.04;
+    sk = 7 * Math.sin(a);
+  } else if (SINGLE_POSE[norm]) {
+    [sx, sk] = SINGLE_POSE[norm];
+  }
+  // Folded, a full-width leaf squeezes every bar into a few pixels and turns
+  // into a blob: under 60 % of its width it is drawn with half the bars.
+  const light = Math.abs(sx) < 0.6;
+  const x0 = 13, w = 114, x1 = 127;
+  const railY = (x, top, mid) => top + (mid - top) * (1 - Math.pow((x - 70) / 57, 2));
+  let shapes;
+  let extra = "";
+  if (style === "slats") {
+    let slats = "";
+    const n = light ? 3 : 4, pitch = light ? 13.5 : 9.5;
+    for (let i = 0; i < n; i++) slats += `<rect class="slat" x="${x0}" y="${14 + i * pitch}" width="${w}" height="5.5" rx="1.5"/>`;
+    shapes = `${slats}
+      <rect x="${x0}" y="14" width="3" height="34" rx="1.5"/>
+      <rect x="68.5" y="14" width="3" height="34" rx="1.5"/>
+      <rect x="${x1 - 3}" y="14" width="3" height="34" rx="1.5"/>`;
+  } else if (style === "semi") {
+    let bars = "";
+    const n = light ? 7 : 14, pitch = light ? 15.6 : 7.8;
+    for (let i = 0; i < n; i++) bars += `<rect class="slat" x="${17 + i * pitch}" y="13" width="3.2" height="18" rx="1.6"/>`;
+    shapes = `
+      <rect x="${x0}" y="12" width="${w}" height="3.4" rx="1.7"/>
+      <rect x="${x0}" y="30" width="${w}" height="19" rx="2"/>
+      ${bars}`;
+  } else if (style === "solid") {
+    shapes = `<path d="M${x0} 49 L${x0} 20 Q 70 9, ${x1} 20 L${x1} 49 Z"/>`;
+    const cells = [];
+    const cols = light ? 7 : 13, step = light ? 16 : 8;
+    for (let r = 0; r < 3; r++) for (let c = 0; c < cols; c++) cells.push([r, c, 22 + c * step, 24 + r * 8]);
+    extra = laserDots(cells);
+  } else {
+    // bell: a single arch peaking mid-leaf; bars: a single concave dip.
+    const bell = style === "bell";
+    const top = bell ? 21 : 15, mid = bell ? 12 : 21;
+    const rail = `M14 ${top} Q 70 ${2 * mid - top}, 126 ${top}`;
+    let bars = "";
+    const n = light ? 5 : 10, pitch = light ? 25.66 : 11.55;
+    for (let i = 0; i < n; i++) {
+      const x = 16 + i * pitch;
+      const y = Math.round((railY(x + 2, top, mid) - 1) * 10) / 10;
+      bars += `<rect x="${Math.round(x * 10) / 10}" y="${y}" width="4" height="${Math.round((47 - y) * 10) / 10}" rx="2"/>`;
+    }
+    shapes = `
+      <path d="${rail}" class="leaf-rail"/>
+      <rect x="${x0}" y="44" width="${w}" height="5" rx="2.5"/>
+      ${bars}`;
+  }
+  const f = (v) => Math.round(v * 100) / 100;
+  const side = hinge === "right" ? "r" : "l";
+  const transform = sx === 1 && sk === 0 ? "none" : `scaleX(${f(sx)}) skewY(${f(side === "l" ? sk : -sk)}deg)`;
+  return `
+    <g class="leaf-${side}" style="transform:${transform}">
+      <g class="leaf-line">${shapes}</g>
+      <g class="leaf-fill">${shapes}</g>
+      ${extra}
+    </g>`;
+}
+
 function swingSvg(norm, cfg, lampOn, frac) {
+  if (cfg.single_leaf === "left" || cfg.single_leaf === "right") {
+    const hingeLeft = cfg.single_leaf === "left";
+    return `
+    <svg viewBox="-28 0 196 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
+      <line x1="-26" y1="58" x2="166" y2="58" class="gate-ground"/>
+      ${SCENE_CLOSE}
+      ${singleLeaf(cfg.single_leaf, cfg, norm, frac)}
+      ${norm === "pedestrian" && cfg.show_runner !== false ? gateRunner(hingeLeft ? 104 : 36, 32, 1.55) : ""}
+      ${norm === "open" && (frac === null || frac === undefined) && cfg.show_car !== false ? gateCar(hingeLeft ? 78 : 62, 33, 1.9) : ""}
+      ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
+      ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
+      ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, lampOn) : ""}
+    </svg>`;
+  }
   const [tl, tr] = frac !== null && frac !== undefined ? swingPoseAt(frac) : (SWING_POSE[norm] || ["", ""]);
   return `
     <svg viewBox="-28 0 196 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1460,7 +1615,7 @@ class GateCard extends HTMLElement {
       const v = Number(hass.states[cfg.battery_entity].state);
       if (!Number.isNaN(v)) batt = Math.round(v);
     }
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, cfg.show_tap_button, cfg.show_state, cfg.single_line, cfg.show_position, pos, cfg.draw_position, drawPos, batt, !!cfg.light_entity, cfg.show_spot, cfg.show_light_button, cfg.light_position, lampOn]);
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, cfg.single_leaf, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, cfg.show_tap_button, cfg.show_state, cfg.single_line, cfg.show_position, pos, cfg.draw_position, drawPos, batt, !!cfg.light_entity, cfg.show_spot, cfg.show_light_button, cfg.light_position, lampOn]);
     if (signature === this._signature) return;
     this._signature = signature;
 
@@ -1769,6 +1924,15 @@ details .form { padding-top:10px; }
               .join("")}
           </select>
         </div>`}
+        ${cfg.gate_type === "swing" ? `
+        <div class="row">
+          <label>${t(hass, "swing_leaves")}</label>
+          <select data-field="single_leaf">
+            <option value="double" ${cfg.single_leaf !== "left" && cfg.single_leaf !== "right" ? "selected" : ""}>${t(hass, "leaves_double")}</option>
+            <option value="left" ${cfg.single_leaf === "left" ? "selected" : ""}>${t(hass, "leaves_left")}</option>
+            <option value="right" ${cfg.single_leaf === "right" ? "selected" : ""}>${t(hass, "leaves_right")}</option>
+          </select>
+        </div>` : ""}
         ${(cfg.gate_type || "sliding") === "sliding" ? `
         <div class="row">
           <label>${t(hass, "slide_direction")}</label>
@@ -1881,6 +2045,14 @@ details .form { padding-top:10px; }
       const defStyle = this._config.gate_type === "swing" ? "bell" : "slats";
       if (ev.target.value === defStyle) delete this._config.gate_style;
       else this._config.gate_style = ev.target.value;
+      this._emit();
+    });
+    const leafSel = this._root.querySelector('select[data-field="single_leaf"]');
+    if (leafSel) leafSel.addEventListener("change", (ev) => {
+      this._config = { ...this._config };
+      // two leaves is the default -- only store the key for a single leaf
+      if (ev.target.value === "left" || ev.target.value === "right") this._config.single_leaf = ev.target.value;
+      else delete this._config.single_leaf;
       this._emit();
     });
     const showPosSel = this._root.querySelector('select[data-field="show_position"]');

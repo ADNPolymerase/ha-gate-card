@@ -421,4 +421,64 @@ check('position connue : l animation de va-et-vient est coupee',
     /data-field="draw_position"/.test(edHtml({ gate_type: 'door' })), false);
 }
 
+// Hungarian (issue #4): labels and state keywords.
+{
+  const huCard = (raw, cfg = {}) => {
+    const c = new Card();
+    c.setConfig(Object.freeze({ entity: 'cover.portail', ...cfg }));
+    c.hass = { language: 'hu', states: { 'cover.portail': { state: raw, attributes: {}, last_changed: '2026-08-12T10:00:00Z' } }, callService() {} };
+    return String(markup(c));
+  };
+  check('hongrois : ferme se dit Zarva', label(huCard('closed')), 'Zárva');
+  const norm = raw => label(makeCard(raw));
+  check('hongrois reconnu : Zarva = ferme', norm('Zárva'), 'Closed');
+  check('hongrois reconnu : Nyitva = ouvert', norm('Nyitva'), 'Open');
+  check('hongrois reconnu : Nyitas = ouverture', norm('Nyitás…'), 'Opening…');
+  check('hongrois reconnu : Zaras = fermeture', norm('Zárás…'), 'Closing…');
+  check('hongrois reconnu : Felig nyitva = partiel, pas ouvert', norm('Félig nyitva'), label(makeCard('partial')));
+  check('hongrois reconnu : Feloldva = deverrouille', norm('Feloldva'), label(makeCard('unlocked')));
+  check('hongrois reconnu : Gyalogos = pieton', norm('Gyalogos bejáró'), label(makeCard('pedestrian')));
+  check('hongrois reconnu : Szelloztetes = aeration', norm('Szellőztetés'), label(makeCard('venting')));
+  check('les mots hongrois ne cassent pas les autres langues : Ferme', norm('Fermé'), 'Closed');
+}
+
+// single_leaf (issue #4): one full-width swing leaf, hinged left or right.
+{
+  const sw = (state, cfg = {}, attrs = {}) => posCard(state, attrs, { gate_type: 'swing', ...cfg });
+  const leaves = html => (html.match(/<g class="leaf-[lr]"/g) || []).length;
+  const leafStyle = (html, side) => (html.match(new RegExp(`<g class="leaf-${side}" style="transform:([^"]*)"`)) || [])[1];
+  const bars = html => (html.match(/width="4" height=/g) || []).length / 2;
+  check('deux vantaux par defaut', leaves(sw('closed')), 2);
+  check('single_leaf:left : un seul vantail', leaves(sw('closed', { single_leaf: 'left' })), 1);
+  check('single_leaf:left pivote sur le poteau gauche', leafStyle(sw('closed', { single_leaf: 'left' }), 'l'), 'none');
+  check('single_leaf:right pivote sur le poteau droit', leafStyle(sw('closed', { single_leaf: 'right' }), 'r'), 'none');
+  check('ouvert a gauche : replie a -0.3, penche vers le haut',
+    leafStyle(sw('open', { single_leaf: 'left' }), 'l'), 'scaleX(-0.3) skewY(9deg)');
+  check('ouvert a droite : meme pose, inclinaison miroir',
+    leafStyle(sw('open', { single_leaf: 'right' }), 'r'), 'scaleX(-0.3) skewY(-9deg)');
+  check('ferme : vantail plein, 10 barreaux', bars(sw('closed', { single_leaf: 'left' })), 10);
+  check('replie : vantail allege, 5 barreaux', bars(sw('open', { single_leaf: 'left' })), 5);
+  check('draw_position a 40 % : angle reel du vantail unique',
+    leafStyle(sw('opening', { single_leaf: 'left', draw_position: true }, { current_position: 40 }), 'l'), 'scaleX(0.73) skewY(4.77deg)');
+  check('pieton : le pictogramme passe du cote libre',
+    sw('pedestrian', { single_leaf: 'left', pedestrian_entity: 'cover.p' }) !== sw('pedestrian', { single_leaf: 'right', pedestrian_entity: 'cover.p' }), true);
+  check('single_leaf:double ecrit a la main : deux vantaux', leaves(sw('closed', { single_leaf: 'double' })), 2);
+  check('single_leaf:true invalide : deux vantaux', leaves(sw('closed', { single_leaf: true })), 2);
+  check('single_leaf ignore hors battant', leaves(posCard('closed', {}, { gate_type: 'sliding', single_leaf: 'left' })), 0);
+  const c = new Card();
+  c.setConfig(Object.freeze({ entity: 'cover.portail', gate_type: 'swing' }));
+  c.hass = posHass('closed', {});
+  markup(c);
+  c._config = Object.freeze({ ...c._config, single_leaf: 'right' });
+  c.hass = posHass('closed', {});
+  check('single_leaf est dans la signature : la carte se redessine', leaves(String(markup(c))), 1);
+  const edHtml = cfg => { const e = new Editor(); e.hass = { language: 'fr', states: {} }; e.setConfig({ entity: 'cover.portail', ...cfg }); return String(markup(e)); };
+  check("l'editeur propose Vantaux sur un battant, deux par defaut",
+    /<option value="double" selected>/.test(edHtml({ gate_type: 'swing' })), true);
+  check("l'editeur selectionne la charniere droite",
+    /<option value="right" selected>Un vantail/.test(edHtml({ gate_type: 'swing', single_leaf: 'right' })), true);
+  check("l'editeur masque Vantaux hors battant",
+    /data-field="single_leaf"/.test(edHtml({ gate_type: 'sliding' })), false);
+}
+
 report();

@@ -21,9 +21,9 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 ## Fonctionnalités
 
 - **Deux entités** : commandes au `cover`, état lu dans n'importe quelle `state_entity` (`input_select`, sensor, template…).
-- **États reconnus automatiquement** (12 langues, sans accents) : fermé, ouvert, ouverture, fermeture, mouvement, piéton, déverrouillé, aération, partiel, inconnu. `state_map` pour le reste.
+- **États reconnus automatiquement** (13 langues, sans accents) : fermé, ouvert, ouverture, fermeture, mouvement, piéton, déverrouillé, aération, partiel, inconnu. `state_map` pour le reste.
 - **Couleurs par état** issues du thème, ou une couleur fixe `gate_color`.
-- **Quatre types animés** : coulissant, battant, portillon (`door`) et garage, avec plusieurs styles de vantail. `compact` remplace le dessin par une icône.
+- **Quatre types animés** : coulissant, battant (deux vantaux ou un seul, charnière à gauche ou à droite), portillon (`door`) et garage, avec plusieurs styles de vantail. `compact` remplace le dessin par une icône.
 - **Positions intermédiaires** : passage piéton, aération et ouverture partielle du garage, chacune avec son bouton.
 - **Spot** : `light_entity` dessine un projecteur allumé ou éteint et ajoute un bouton *Lumière*.
 - **Position réelle** : `show_position` affiche le pourcentage, `draw_position` fait suivre le dessin pendant la course et à mi-course.
@@ -48,6 +48,7 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 | `state_map` | État brut → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`unknown`. |
 | `gate_type` | `sliding` (défaut), `swing`, `door` ou `garage`. `door` est en affichage seul sans commande configurée. |
 | `gate_style` | Coulissant : `slats` (défaut), `bars`, `semi`, `solid`. Battant : `bell` (défaut), `bars`, `slats`, `semi`, `solid`. |
+| `single_leaf` | Battant uniquement : `left` ou `right` pour un seul vantail, charnière de ce côté. Défaut : deux vantaux. |
 | `slide_direction` | `left` (défaut) ou `right`. |
 | `gate_color` | `state` (défaut), `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` ou toute couleur CSS. |
 | `name` | Titre. Défaut : nom de l'entité d'état. |
