@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.8.0";
+const CARD_VERSION = "1.8.1";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -636,11 +636,11 @@ const T = {
     state_entity: "\u00d6sszes\u00edtett \u00e1llapot entit\u00e1s (opcion\u00e1lis)",
     unlocked: "Feloldva",
     vent: "Szell\u0151ztet\u00e9s",
-    partial: "F\u00e9lig nyitva",
+    partial: "R\u00e9szlegesen nyitva",
     vent_btn: "Szell\u0151ztet\u00e9s",
-    partial_btn: "F\u00e9lig nyit\u00e1s",
+    partial_btn: "R\u00e9szleges nyit\u00e1s",
     vent_entity: "Szell\u0151ztet\u00e9s parancs entit\u00e1s (gar\u00e1zs)",
-    partial_entity: "F\u00e9lig nyit\u00e1s parancs entit\u00e1s (gar\u00e1zs)",
+    partial_entity: "R\u00e9szleges nyit\u00e1s parancs entit\u00e1s (gar\u00e1zs)",
     show_breeze: "Szell\u0151ztet\u00e9s piktogram megjelen\u00edt\u00e9se",
     show_cat: "Macska piktogram megjelen\u00edt\u00e9se",
     light_btn: "Vil\u00e1g\u00edt\u00e1s",
@@ -737,7 +737,7 @@ const STATE_KEYWORDS = {
   // vent et partial passent avant opening/closing : "Ouverture partielle"
   // contient "ouverture", et serait sinon lu comme une ouverture en cours.
   vent: ["ventilation", "aeration", "airing", "luftung", "venting", "vadring", "lufting", "udluftning", "wietrzenie", "szelloztet"],
-  partial: ["partiel", "partial", "parcial", "parziale", "teilweise", "gedeeltelijk", "delvis", "czesciowo", "animal", "chat", "felig"],
+  partial: ["partiel", "partial", "parcial", "parziale", "teilweise", "gedeeltelijk", "delvis", "czesciowo", "animal", "chat", "felig", "reszleges"],
   opening: ["opening", "unlocking", "ouverture", "offnet", "abriendo", "apertura", "opent", "abrindo", "a abrir", "oppnar", "apner", "abner", "otwieranie", "nyitas"],
   closing: ["closing", "locking", "fermeture", "schliesst", "cerrando", "chiusura", "sluit", "fechando", "a fechar", "stanger", "lukker", "zamykanie", "zaras"],
   pedestrian: ["pieton", "pedestrian", "peaton", "pedonal", "voetganger", "fussgang", "durchgang", "gangpass", "ganglage", "gangport", "furtka", "gyalogos"],

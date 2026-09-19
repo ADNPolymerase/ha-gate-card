@@ -439,6 +439,8 @@ check('position connue : l animation de va-et-vient est coupee',
   check('hongrois reconnu : Feloldva = deverrouille', norm('Feloldva'), label(makeCard('unlocked')));
   check('hongrois reconnu : Gyalogos = pieton', norm('Gyalogos bejáró'), label(makeCard('pedestrian')));
   check('hongrois reconnu : Szelloztetes = aeration', norm('Szellőztetés'), label(makeCard('venting')));
+  check('hongrois reconnu : Reszlegesen nyitva = partiel, pas ouvert', norm('R\u00e9szlegesen nyitva'), label(makeCard('partial')));
+  check('hongrois : le libelle partiel est Reszlegesen nyitva', label(huCard('partial')), 'R\u00e9szlegesen nyitva');
   check('les mots hongrois ne cassent pas les autres langues : Ferme', norm('Fermé'), 'Closed');
 }
 
