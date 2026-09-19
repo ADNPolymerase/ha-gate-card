@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.7.0";
+const CARD_VERSION = "1.8.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -43,6 +43,7 @@ const T = {
     show_position: "Show the position", pos_never: "Never", pos_moving: "While moving", pos_always: "Always",
     draw_position: "Draw the real position of the gate",
     swing_leaves: "Leaves", leaves_double: "Two leaves", leaves_left: "One leaf, hinged on the left", leaves_right: "One leaf, hinged on the right",
+    card_language: "Card language", lang_auto: "Same as Home Assistant",
     contact_entity: "Physical open/closed sensor (optional)", battery_entity: "Battery entity",
     name: "Name", compact: "Compact mode (icon instead of illustration)",
     confirm_opt: "Ask for confirmation before commands (tap twice)",
@@ -94,6 +95,7 @@ const T = {
     show_position: "Afficher la position", pos_never: "Jamais", pos_moving: "Pendant le mouvement", pos_always: "Toujours",
     draw_position: "Dessiner la position r\u00e9elle du portail",
     swing_leaves: "Vantaux", leaves_double: "Deux vantaux", leaves_left: "Un vantail, charni\u00e8re \u00e0 gauche", leaves_right: "Un vantail, charni\u00e8re \u00e0 droite",
+    card_language: "Langue de la carte", lang_auto: "Comme Home Assistant",
     contact_entity: "Capteur d'ouverture physique (optionnel)", battery_entity: "Entit\u00e9 batterie",
     name: "Nom", compact: "Mode compact (ic\u00f4ne au lieu de l'illustration)",
     confirm_opt: "Demander confirmation avant les commandes (double appui)",
@@ -144,6 +146,7 @@ const T = {
     show_position: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435", pos_never: "\u041d\u0438\u043a\u043e\u0433\u0434\u0430", pos_moving: "\u0412\u043e \u0432\u0440\u0435\u043c\u044f \u0434\u0432\u0438\u0436\u0435\u043d\u0438\u044f", pos_always: "\u0412\u0441\u0435\u0433\u0434\u0430",
     draw_position: "\u0420\u0438\u0441\u043e\u0432\u0430\u0442\u044c \u0440\u0435\u0430\u043b\u044c\u043d\u043e\u0435 \u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435 \u0432\u043e\u0440\u043e\u0442",
     swing_leaves: "\u0421\u0442\u0432\u043e\u0440\u043a\u0438", leaves_double: "\u0414\u0432\u0435 \u0441\u0442\u0432\u043e\u0440\u043a\u0438", leaves_left: "\u041e\u0434\u043d\u0430 \u0441\u0442\u0432\u043e\u0440\u043a\u0430, \u043f\u0435\u0442\u043b\u0438 \u0441\u043b\u0435\u0432\u0430", leaves_right: "\u041e\u0434\u043d\u0430 \u0441\u0442\u0432\u043e\u0440\u043a\u0430, \u043f\u0435\u0442\u043b\u0438 \u0441\u043f\u0440\u0430\u0432\u0430",
+    card_language: "\u042f\u0437\u044b\u043a \u043a\u0430\u0440\u0442\u043e\u0447\u043a\u0438", lang_auto: "\u041a\u0430\u043a \u0432 Home Assistant",
     contact_entity: "\u0424\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0434\u0430\u0442\u0447\u0438\u043a \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)", battery_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0431\u0430\u0442\u0430\u0440\u0435\u0438",
     name: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435", compact: "\u041a\u043e\u043c\u043f\u0430\u043a\u0442\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c (\u0437\u043d\u0430\u0447\u043e\u043a \u0432\u043c\u0435\u0441\u0442\u043e \u0438\u043b\u043b\u044e\u0441\u0442\u0440\u0430\u0446\u0438\u0438)",
     confirm_opt: "\u0417\u0430\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0442\u044c \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u0434 \u043a\u043e\u043c\u0430\u043d\u0434\u0430\u043c\u0438 (\u0434\u0432\u043e\u0439\u043d\u043e\u0435 \u043d\u0430\u0436\u0430\u0442\u0438\u0435)",
@@ -194,6 +197,7 @@ const T = {
     show_position: "Position anzeigen", pos_never: "Nie", pos_moving: "W\u00e4hrend der Bewegung", pos_always: "Immer",
     draw_position: "Tats\u00e4chliche Position des Tores zeichnen",
     swing_leaves: "Torfl\u00fcgel", leaves_double: "Zweifl\u00fcglig", leaves_left: "Einfl\u00fcglig, Anschlag links", leaves_right: "Einfl\u00fcglig, Anschlag rechts",
+    card_language: "Kartensprache", lang_auto: "Wie Home Assistant",
     contact_entity: "Physischer \u00d6ffnungssensor (optional)", battery_entity: "Batterie-Entit\u00e4t",
     name: "Name", compact: "Kompaktmodus (Symbol statt Illustration)",
     confirm_opt: "Vor Befehlen best\u00e4tigen (zweimal tippen)",
@@ -244,6 +248,7 @@ const T = {
     show_position: "Mostrar la posici\u00f3n", pos_never: "Nunca", pos_moving: "Durante el movimiento", pos_always: "Siempre",
     draw_position: "Dibujar la posici\u00f3n real del port\u00f3n",
     swing_leaves: "Hojas", leaves_double: "Dos hojas", leaves_left: "Una hoja, bisagras a la izquierda", leaves_right: "Una hoja, bisagras a la derecha",
+    card_language: "Idioma de la tarjeta", lang_auto: "Igual que Home Assistant",
     contact_entity: "Sensor f\u00edsico de apertura (opcional)", battery_entity: "Entidad de bater\u00eda",
     name: "Nombre", compact: "Modo compacto (icono en lugar de ilustraci\u00f3n)",
     confirm_opt: "Pedir confirmaci\u00f3n antes de los comandos (doble toque)",
@@ -294,6 +299,7 @@ const T = {
     show_position: "Mostra la posizione", pos_never: "Mai", pos_moving: "Durante il movimento", pos_always: "Sempre",
     draw_position: "Disegna la posizione reale del cancello",
     swing_leaves: "Ante", leaves_double: "Due ante", leaves_left: "Un'anta, cerniere a sinistra", leaves_right: "Un'anta, cerniere a destra",
+    card_language: "Lingua della scheda", lang_auto: "Come Home Assistant",
     contact_entity: "Sensore fisico di apertura (opzionale)", battery_entity: "Entit\u00e0 batteria",
     name: "Nome", compact: "Modalit\u00e0 compatta (icona invece dell'illustrazione)",
     confirm_opt: "Chiedere conferma prima dei comandi (doppio tocco)",
@@ -344,6 +350,7 @@ const T = {
     show_position: "Positie tonen", pos_never: "Nooit", pos_moving: "Tijdens beweging", pos_always: "Altijd",
     draw_position: "Werkelijke positie van het hek tekenen",
     swing_leaves: "Vleugels", leaves_double: "Twee vleugels", leaves_left: "E\u00e9n vleugel, scharnier links", leaves_right: "E\u00e9n vleugel, scharnier rechts",
+    card_language: "Taal van de kaart", lang_auto: "Zoals Home Assistant",
     contact_entity: "Fysieke openingssensor (optioneel)", battery_entity: "Batterij-entiteit",
     name: "Naam", compact: "Compacte modus (pictogram i.p.v. illustratie)",
     confirm_opt: "Bevestiging vragen v\u00f3\u00f3r commando's (twee keer tikken)",
@@ -394,6 +401,7 @@ const T = {
     show_position: "Mostrar a posi\u00e7\u00e3o", pos_never: "Nunca", pos_moving: "Durante o movimento", pos_always: "Sempre",
     draw_position: "Desenhar a posi\u00e7\u00e3o real do port\u00e3o",
     swing_leaves: "Folhas", leaves_double: "Duas folhas", leaves_left: "Uma folha, dobradi\u00e7as \u00e0 esquerda", leaves_right: "Uma folha, dobradi\u00e7as \u00e0 direita",
+    card_language: "Idioma do cart\u00e3o", lang_auto: "Igual ao Home Assistant",
     contact_entity: "Sensor f\u00edsico de abertura (opcional)", battery_entity: "Entidade de bateria",
     name: "Nome", compact: "Modo compacto (\u00edcone em vez da ilustra\u00e7\u00e3o)",
     confirm_opt: "Pedir confirma\u00e7\u00e3o antes dos comandos (dois toques)",
@@ -444,6 +452,7 @@ const T = {
     show_position: "Visa positionen", pos_never: "Aldrig", pos_moving: "Under r\u00f6relse", pos_always: "Alltid",
     draw_position: "Rita grindens verkliga position",
     swing_leaves: "Grindblad", leaves_double: "Tv\u00e5 grindblad", leaves_left: "Ett grindblad, g\u00e5ngj\u00e4rn till v\u00e4nster", leaves_right: "Ett grindblad, g\u00e5ngj\u00e4rn till h\u00f6ger",
+    card_language: "Kortets spr\u00e5k", lang_auto: "Samma som Home Assistant",
     contact_entity: "Fysisk \u00f6ppningssensor (valfri)", battery_entity: "Batterientitet",
     name: "Namn", compact: "Kompakt l\u00e4ge (ikon i st\u00e4llet f\u00f6r illustration)",
     confirm_opt: "Be om bekr\u00e4ftelse f\u00f6re kommandon (tryck tv\u00e5 g\u00e5nger)",
@@ -494,6 +503,7 @@ const T = {
     show_position: "Vis posisjonen", pos_never: "Aldri", pos_moving: "Under bevegelse", pos_always: "Alltid",
     draw_position: "Tegn portens faktiske posisjon",
     swing_leaves: "Portfl\u00f8yer", leaves_double: "To fl\u00f8yer", leaves_left: "\u00c9n fl\u00f8y, hengsler til venstre", leaves_right: "\u00c9n fl\u00f8y, hengsler til h\u00f8yre",
+    card_language: "Kortets spr\u00e5k", lang_auto: "Samme som Home Assistant",
     contact_entity: "Fysisk \u00e5pningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt modus (ikon i stedet for illustrasjon)",
     confirm_opt: "Be om bekreftelse f\u00f8r kommandoer (trykk to ganger)",
@@ -544,6 +554,7 @@ const T = {
     show_position: "Vis positionen", pos_never: "Aldrig", pos_moving: "Under bev\u00e6gelse", pos_always: "Altid",
     draw_position: "Tegn portens faktiske position",
     swing_leaves: "L\u00e5gefl\u00f8je", leaves_double: "To fl\u00f8je", leaves_left: "\u00c9n fl\u00f8j, h\u00e6ngsler til venstre", leaves_right: "\u00c9n fl\u00f8j, h\u00e6ngsler til h\u00f8jre",
+    card_language: "Kortets sprog", lang_auto: "Samme som Home Assistant",
     contact_entity: "Fysisk \u00e5bningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt tilstand (ikon i stedet for illustration)",
     confirm_opt: "Bed om bekr\u00e6ftelse f\u00f8r kommandoer (tryk to gange)",
@@ -594,6 +605,7 @@ const T = {
     show_position: "Poka\u017c pozycj\u0119", pos_never: "Nigdy", pos_moving: "Podczas ruchu", pos_always: "Zawsze",
     draw_position: "Rysuj rzeczywiste po\u0142o\u017cenie bramy",
     swing_leaves: "Skrzyd\u0142a", leaves_double: "Dwa skrzyd\u0142a", leaves_left: "Jedno skrzyd\u0142o, zawiasy po lewej", leaves_right: "Jedno skrzyd\u0142o, zawiasy po prawej",
+    card_language: "J\u0119zyk karty", lang_auto: "Jak w Home Assistant",
     contact_entity: "Fizyczny czujnik otwarcia (opcjonalny)", battery_entity: "Encja baterii",
     name: "Nazwa", compact: "Tryb kompaktowy (ikona zamiast ilustracji)",
     confirm_opt: "Wymagaj potwierdzenia przed komendami (dwa dotkni\u0119cia)",
@@ -617,7 +629,7 @@ const T = {
   },
   hu: {
     closed: "Z\u00e1rva", open: "Nyitva", opening: "Nyit\u00e1s\u2026", closing: "Z\u00e1r\u00e1s\u2026",
-    unknown: "Ismeretlen \u00e1llapot", since: "\u00f3ta",
+    unknown: "Ismeretlen \u00e1llapot", since: "\u00f3ta", since_fmt: "{time} \u00f3ta",
     pedestrian: "Gyalogos bej\u00e1r\u00f3", moving: "Mozg\u00e1s\u2026",
     open_btn: "Nyit\u00e1s", close_btn: "Z\u00e1r\u00e1s", stop_btn: "Stop", unlock_btn: "Felold\u00e1s", confirm_tap: "Meger\u0151s\u00edted?",
     entity: "Kapu (cover) vagy z\u00e1r (lock) entit\u00e1s (k\u00f6telez\u0151)",
@@ -644,6 +656,7 @@ const T = {
     show_position: "Poz\u00edci\u00f3 megjelen\u00edt\u00e9se", pos_never: "Soha", pos_moving: "Mozg\u00e1s k\u00f6zben", pos_always: "Mindig",
     draw_position: "A kapu val\u00f3s poz\u00edci\u00f3j\u00e1nak kirajzol\u00e1sa",
     swing_leaves: "Kapusz\u00e1rnyak", leaves_double: "K\u00e9t sz\u00e1rny", leaves_left: "Egy sz\u00e1rny, zsan\u00e9r bal oldalon", leaves_right: "Egy sz\u00e1rny, zsan\u00e9r jobb oldalon",
+    card_language: "K\u00e1rtya nyelve", lang_auto: "Home Assistant szerint",
     contact_entity: "Fizikai nyit\u00e1s/z\u00e1r\u00e1s \u00e9rz\u00e9kel\u0151 (opcion\u00e1lis)", battery_entity: "Akkumul\u00e1tor entit\u00e1s",
     name: "N\u00e9v", compact: "Kompakt m\u00f3d (ikon az illusztr\u00e1ci\u00f3 helyett)",
     confirm_opt: "Meger\u0151s\u00edt\u00e9s k\u00e9r\u00e9se a parancsok el\u0151tt (dupla koppint\u00e1s)",
@@ -672,9 +685,45 @@ function lang(hass) {
     .toLowerCase().split("-")[0];
   return T[l] ? l : "en";
 }
+// language (1.8.0): the card can be shown in another language than Home
+// Assistant. Only the rendering follows it; the editor stays in the user's
+// own language. An unknown code is ignored rather than falling back to English.
+const LANGUAGE_NAMES = [
+  ["en", "English"],
+  ["fr", "Fran\u00e7ais"],
+  ["de", "Deutsch"],
+  ["es", "Espa\u00f1ol"],
+  ["it", "Italiano"],
+  ["nl", "Nederlands"],
+  ["pt", "Portugu\u00eas"],
+  ["sv", "Svenska"],
+  ["no", "Norsk"],
+  ["da", "Dansk"],
+  ["pl", "Polski"],
+  ["hu", "Magyar"],
+  ["ru", "\u0420\u0443\u0441\u0441\u043a\u0438\u0439"],
+];
+
+function withLanguage(hass, language) {
+  if (!hass || !language || !T[language]) return hass;
+  return Object.create(hass, {
+    language: { value: language },
+    locale: { value: { ...(hass.locale || {}), language } },
+  });
+}
+
 function t(hass, key) {
   const l = lang(hass);
   return (T[l] && T[l][key]) || T.en[key] || key;
+}
+
+// "since 09:41" in most languages, but Hungarian puts the time first
+// ("09:41 ota", issue #5). A language sets since_fmt only when its word
+// order differs; there is deliberately no English fallback for it.
+function sinceText(hass, time) {
+  const l = lang(hass);
+  const fmt = T[l] && T[l].since_fmt;
+  return fmt ? fmt.replace("{time}", time) : `${t(hass, "since")} ${time}`;
 }
 
 // ---------------------------------------------------------------------------
@@ -1564,8 +1613,8 @@ class GateCard extends HTMLElement {
   }
 
   _render() {
-    const hass = this._hass;
     const cfg = this._config;
+    const hass = withLanguage(this._hass, cfg && cfg.language);
     if (!hass || !cfg) return;
 
     const stateEntity = cfg.state_entity || cfg.entity;
@@ -1781,7 +1830,7 @@ button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
             ${cfg.show_state === false
               ? (posHtml ? `<div class="state">${posHtml}</div>` : "")
               : `<div class="state">${t(hass, norm)}${posHtml ? ` \u00b7 ${posHtml}` : ""}</div>`}
-            ${since ? `<div class="since">${t(hass, "since")} ${since}</div>` : ""}
+            ${since ? `<div class="since">${sinceText(hass, since)}</div>` : ""}
           </div>
           <div class="actions">${tapOnly ? "" : buttons}</div>
         </div>
@@ -1953,6 +2002,13 @@ details .form { padding-top:10px; }
           <label>${t(hass, "name")}</label>
           <input type="text" data-field="name" value="${escapeHtml(cfg.name || "")}" />
         </div>
+        <div class="row">
+          <label>${t(hass, "card_language")}</label>
+          <select data-field="language">
+            <option value="" ${!cfg.language || !T[cfg.language] ? "selected" : ""}>${t(hass, "lang_auto")}</option>
+            ${LANGUAGE_NAMES.map(([c, n]) => `<option value="${c}" ${cfg.language === c ? "selected" : ""}>${n}</option>`).join("")}
+          </select>
+        </div>
         <div class="row row-inline">
           <label><input type="checkbox" data-field="compact" ${cfg.compact ? "checked" : ""}/> ${t(hass, "compact")}</label>
         </div>
@@ -2085,6 +2141,14 @@ details .form { padding-top:10px; }
       // state-colored is the default -- only store the key when it differs
       if (ev.target.value !== "state") this._config.gate_color = ev.target.value;
       else delete this._config.gate_color;
+      this._emit();
+    });
+    const langSel = this._root.querySelector('select[data-field="language"]');
+    if (langSel) langSel.addEventListener("change", (ev) => {
+      this._config = { ...this._config };
+      // following Home Assistant is the default -- only store a forced language
+      if (ev.target.value) this._config.language = ev.target.value;
+      else delete this._config.language;
       this._emit();
     });
     this._root.querySelector('input[data-field="name"]').addEventListener("change", (ev) => {

@@ -481,4 +481,46 @@ check('position connue : l animation de va-et-vient est coupee',
     /data-field="single_leaf"/.test(edHtml({ gate_type: 'sliding' })), false);
 }
 
+// Hungarian word order (issue #5): the time comes before "óta".
+{
+  const sinceOf = (language) => {
+    const c = new Card();
+    c.setConfig(Object.freeze({ entity: 'cover.portail' }));
+    c.hass = { language, states: { 'cover.portail': { state: 'closed', attributes: {}, last_changed: '2026-08-12T10:00:00Z' } }, callService() {} };
+    return (String(markup(c)).match(/<div class="since">([^<]*)</) || [])[1];
+  };
+  check('hongrois : l heure vient avant ota', /^\d.* \u00f3ta$/.test(sinceOf('hu')), true);
+  check('francais : depuis reste devant l heure', /^depuis \d/.test(sinceOf('fr')), true);
+  check('anglais : since reste devant l heure', /^since \d/.test(sinceOf('en')), true);
+}
+
+// language (1.8.0): the card can be forced to another language than HA.
+{
+  const langCard = (haLang, cfg = {}, st = 'closed') => {
+    const c = new Card();
+    c.setConfig(Object.freeze({ entity: 'cover.portail', ...cfg }));
+    c.hass = { language: haLang, states: { 'cover.portail': { state: st, attributes: { current_position: 47 }, last_changed: '2026-08-12T10:00:00Z' } }, callService() {} };
+    return c;
+  };
+  check('sans option : la carte suit la langue de HA', label(String(markup(langCard('en')))), 'Closed');
+  check('language:fr sur un HA anglais : la carte parle francais', label(String(markup(langCard('en', { language: 'fr' })))), 'Fermé');
+  check('language:hu : ordre hongrois de l heure respecte',
+    / óta$/.test((String(markup(langCard('en', { language: 'hu' }))).match(/<div class="since">([^<]*)</) || [])[1]), true);
+  check('language:fr : le pourcentage suit aussi la langue forcee (47 % avec espace insecable)',
+    /<span class="pos">47[\u00a0\u202f]%/.test(String(markup(langCard('en', { language: 'fr', show_position: true })))), true);
+  check('code de langue inconnu : on garde celle de HA, pas l anglais',
+    label(String(markup(langCard('fr', { language: 'xx' })))), 'Fermé');
+  {
+    const c = langCard('en');
+    markup(c);
+    c._config = Object.freeze({ ...c._config, language: 'de' });
+    c.hass = { ...c._hass };
+    check('language est dans la signature : la carte se redessine', label(String(markup(c))), 'Geschlossen');
+  }
+  const edHtml = cfg => { const e = new Editor(); e.hass = { language: 'fr', states: {} }; e.setConfig({ entity: 'cover.portail', ...cfg }); return String(markup(e)); };
+  check("l'editeur propose la langue, Comme Home Assistant par defaut", /<option value="" selected>Comme Home Assistant/.test(edHtml({})), true);
+  check("l'editeur selectionne la langue forcee", /<option value="hu" selected>Magyar/.test(edHtml({ language: 'hu' })), true);
+  check("l'editeur reste dans la langue de l'utilisateur", /Langue de la carte/.test(edHtml({ language: 'hu' })), true);
+}
+
 report();

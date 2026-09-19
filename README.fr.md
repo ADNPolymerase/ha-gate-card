@@ -52,6 +52,7 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 | `slide_direction` | `left` (défaut) ou `right`. |
 | `gate_color` | `state` (défaut), `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` ou toute couleur CSS. |
 | `name` | Titre. Défaut : nom de l'entité d'état. |
+| `language` | Afficher la carte dans une autre langue que Home Assistant : `en`, `fr`, `de`, `es`, `it`, `nl`, `pt`, `sv`, `no`, `da`, `pl`, `hu` ou `ru`. L'éditeur reste dans votre langue. |
 | `compact` | Icône colorée à la place de l'illustration. |
 | `show_state` | État en toutes lettres sous le nom. Défaut `true`. |
 | `single_line` | Nom, état et heure sur une ligne, repliée si la place manque. Défaut `false`. |

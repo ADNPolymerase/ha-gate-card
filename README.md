@@ -52,6 +52,7 @@ Built for setups where *command* and *state* are separate: the gate is driven by
 | `slide_direction` | `left` (default) or `right`. |
 | `gate_color` | `state` (default), `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` or any CSS color. |
 | `name` | Title. Defaults to the state entity's name. |
+| `language` | Show the card in another language than Home Assistant: `en`, `fr`, `de`, `es`, `it`, `nl`, `pt`, `sv`, `no`, `da`, `pl`, `hu` or `ru`. The editor keeps your own language. |
 | `compact` | Colored icon instead of the illustration. |
 | `show_state` | State in words under the name. Default `true`. |
 | `single_line` | Name, state and time on one row, wrapping when space runs out. Default `false`. |
