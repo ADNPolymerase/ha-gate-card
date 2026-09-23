@@ -525,4 +525,98 @@ check('position connue : l animation de va-et-vient est coupee',
   check("l'editeur reste dans la langue de l'utilisateur", /Langue de la carte/.test(edHtml({ language: 'hu' })), true);
 }
 
+// Locks (1.9.0): a door with no handle. The lock either pulls the bolt back or
+// releases the latch and opens for real, and the card must never offer to lock
+// a door that is standing open.
+{
+  const lockCard = (cfg = {}, lock = 'locked', contact) => {
+    const c = new Card();
+    c.setConfig(Object.freeze({ gate_type: 'door', entity: 'lock.porte', ...cfg }));
+    const states = { 'lock.porte': { state: lock, attributes: {}, last_changed: '2026-08-12T10:00:00Z' } };
+    if (contact !== undefined) states['binary_sensor.porte'] = { state: contact, attributes: {}, last_changed: '2026-08-12T10:00:00Z' };
+    c.hass = { language: 'fr', states, callService() {} };
+    return c;
+  };
+  const acts = (...a) => [...String(markup(lockCard(...a))).matchAll(/data-action="([a-z]+)"/g)].map(m => m[1]).join(',');
+  const tappable = (...a) => /class="[^"]*tappable/.test(String(markup(lockCard(...a))));
+
+  // The legacy shape: the same lock named twice was the only way to unlatch.
+  const legacy = { open_entity: 'lock.porte', contact_entity: 'binary_sensor.porte' };
+  check('serrure : porte ouverte au capteur, aucune commande', acts(legacy, 'unlocked', 'on'), '');
+  check('serrure : verrou degage, aucune commande', acts({}, 'open'), '');
+  check('portail cover ouvert : Fermer reste propose, le retrait ne vise que les serrures',
+    /data-action="close"/.test(makeCard('open')), true);
+  check('serrure simple deverrouillee : Ouvrir ne ferait rien, il disparait', acts({}, 'unlocked'), 'close');
+  check('serrure qui degage, deverrouillee : Ouvrir ouvre vraiment, il reste', acts(legacy, 'unlocked', 'off'), 'open,close');
+  check('doublon historique : plus de bouton Deverrouiller par defaut', acts(legacy, 'locked', 'off'), 'open');
+  check('bouton Deverrouiller sur demande', acts({ ...legacy, show_unlock_button: true }, 'locked', 'off'), 'unlock,open');
+  check('lock_open_action remplace le doublon', acts({ lock_open_action: 'open' }, 'unlocked'), 'open,close');
+
+  // Which service each button really calls.
+  const callsFor = (cfg, action, lock = 'unlocked') => {
+    const seen = [];
+    const c = new Card();
+    c.setConfig(Object.freeze({ gate_type: 'door', entity: 'lock.porte', confirm: false, ...cfg }));
+    c.hass = { language: 'fr', states: { 'lock.porte': { state: lock, attributes: {}, last_changed: '2026-08-12T10:00:00Z' } },
+      callService(d, s) { seen.push(d + '.' + s); } };
+    c._onAction(action);
+    return seen.join(',');
+  };
+  check('serrure simple : Ouvrir deverrouille', callsFor({}, 'open'), 'lock.unlock');
+  check('lock_open_action:open : Ouvrir degage', callsFor({ lock_open_action: 'open' }, 'open'), 'lock.open');
+  check('Deverrouiller degage jamais, il deverrouille', callsFor({ lock_open_action: 'open' }, 'unlock'), 'lock.unlock');
+  check('Fermer verrouille', callsFor({ lock_open_action: 'open' }, 'close'), 'lock.lock');
+
+  // The whole-card tap can now name its command instead of needing a single one.
+  check('toucher auto : inactif quand deux commandes existent', tappable({ ...legacy, card_tap: true }, 'unlocked', 'off'), false);
+  check('toucher auto : actif quand il n en reste qu une', tappable({ ...legacy, card_tap: true }, 'locked', 'off'), true);
+  check('toucher Fermer : actif verrou ouvert', tappable({ ...legacy, card_tap: 'close' }, 'unlocked', 'off'), true);
+  check('toucher Fermer : inerte porte verrouillee, pas d ouverture par megarde',
+    tappable({ ...legacy, card_tap: 'close' }, 'locked', 'off'), false);
+  check('toucher Fermer : inerte porte ouverte', tappable({ ...legacy, card_tap: 'close' }, 'unlocked', 'on'), false);
+  check('sans reglage : la carte n est jamais cliquable', tappable(legacy, 'locked', 'off'), false);
+  check('toucher nomme : les boutons restent, on n en cache aucun',
+    acts({ ...legacy, card_tap: 'close', show_tap_button: false }, 'unlocked', 'off'), 'open,close');
+
+  // Confirmation: guarding only what lets someone in.
+  const taps = (confirm, action) => {
+    const seen = [];
+    const c = new Card();
+    c.setConfig(Object.freeze({ gate_type: 'door', entity: 'lock.porte', lock_open_action: 'open', confirm }));
+    c.hass = { language: 'fr', states: { 'lock.porte': { state: 'unlocked', attributes: {}, last_changed: '2026-08-12T10:00:00Z' } },
+      callService(d, s) { seen.push(d + '.' + s); } };
+    c._onAction(action);
+    return seen.length;
+  };
+  check('confirm par defaut : Fermer demande deux appuis', taps(undefined, 'close'), 0);
+  check('confirm:open : Fermer part au premier appui', taps('open', 'close'), 1);
+  check('confirm:open : Ouvrir attend le second appui', taps('open', 'open'), 0);
+  check('confirm:false : rien ne demande confirmation', taps(false, 'open'), 1);
+
+  // The clock follows a pinned language, and only a pinned one.
+  const sinceOf = (cfg) => {
+    const c = new Card();
+    c.setConfig(Object.freeze({ entity: 'cover.portail', ...cfg }));
+    c.hass = { language: 'fr', states: { 'cover.portail': { state: 'closed', attributes: {}, last_changed: '2026-08-12T10:00:00Z' } }, callService() {} };
+    return (String(markup(c)).match(/<div class="since">([^<]*)</) || [])[1];
+  };
+  check('language:en : l heure passe en 12 h', / (AM|PM)$/.test(sinceOf({ language: 'en' })), true);
+  check('language:fr : l heure reste en 24 h', / (AM|PM)$/.test(sinceOf({ language: 'fr' })), false);
+
+  const edHtml = cfg => { const e = new Editor(); e.hass = { language: 'fr', states: {} }; e.setConfig({ entity: 'lock.porte', ...cfg }); return String(markup(e)); };
+  check("l'editeur : toucher sur Non par defaut", /<option value="no" selected>/.test(edHtml({})), true);
+  check("l'editeur : toucher sur Toujours Fermer", /<option value="close" selected>Toujours Fermer/.test(edHtml({ card_tap: 'close' })), true);
+  check("l'editeur : l ancien card_tap true tombe sur la commande unique",
+    /<option value="auto" selected>/.test(edHtml({ card_tap: true })), true);
+  check("l'editeur : confirmation sur Toujours par defaut", /<option value="always" selected>/.test(edHtml({})), true);
+  check("l'editeur : confirmation a l ouverture seulement", /<option value="open" selected>À l'ouverture/.test(edHtml({ confirm: 'open' })), true);
+  check("l'editeur : confirmation jamais quand confirm vaut false", /<option value="never" selected>/.test(edHtml({ confirm: false })), true);
+  check("l'editeur : Ouvrir sur une serrure, deverrouiller par defaut",
+    /<option value="unlock" selected>/.test(edHtml({})), true);
+  check("l'editeur : Ouvrir sur une serrure, degagement", /<option value="open" selected>Ouvrir la porte/.test(edHtml({ lock_open_action: 'open' })), true);
+  check("l'editeur : bouton Deverrouiller decoche par defaut",
+    /data-field="show_unlock_button" checked/.test(edHtml({})), false);
+  check("l'editeur : bouton Deverrouiller coche", /data-field="show_unlock_button" checked/.test(edHtml({ show_unlock_button: true })), true);
+}
+
 report();

@@ -25,6 +25,7 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 - **Couleurs par état** issues du thème, ou une couleur fixe `gate_color`.
 - **Quatre types animés** : coulissant, battant (deux vantaux ou un seul, charnière à gauche ou à droite), portillon (`door`) et garage, avec plusieurs styles de vantail. `compact` remplace le dessin par une icône.
 - **Positions intermédiaires** : passage piéton, aération et ouverture partielle du garage, chacune avec son bouton.
+- **Serrures** : *Ouvrir* déverrouille ou dégage le pêne demi-tour pour ouvrir la porte, et toute commande disparaît tant que la porte est ouverte.
 - **Spot** : `light_entity` dessine un projecteur allumé ou éteint et ajoute un bouton *Lumière*.
 - **Position réelle** : `show_position` affiche le pourcentage, `draw_position` fait suivre le dessin pendant la course et à mi-course.
 
@@ -41,9 +42,9 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 
 | Option | Description |
 |---|---|
-| `entity` | **Obligatoire.** Le `cover`, ou une `lock` (*Ouvrir* déverrouille, *Fermer* verrouille). |
+| `entity` | **Obligatoire.** Le `cover`, ou une `lock` (*Fermer* verrouille, *Ouvrir* suit `lock_open_action`). |
 | `state_entity` | Entité portant l'état fiable (tout domaine). Défaut : `entity`. |
-| `contact_entity` | Contact d'ouverture physique. Contact ouvert + pêne verrouillé → inconnu. |
+| `contact_entity` | Contact d'ouverture physique. Contact ouvert + pêne verrouillé → inconnu. Sur une serrure, porte ouverte retire toute commande. |
 | `battery_entity` | Batterie en %, en haut à droite. Masquée en `compact`. |
 | `state_map` | État brut → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`unknown`. |
 | `gate_type` | `sliding` (défaut), `swing`, `door` ou `garage`. `door` est en affichage seul sans commande configurée. |
@@ -58,15 +59,17 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 | `single_line` | Nom, état et heure sur une ligne, repliée si la place manque. Défaut `false`. |
 | `show_position` | Pourcentage `current_position` à côté de l'état : `false` (défaut), `moving` ou `true`. |
 | `draw_position` | Dessin à la position réelle pendant la course et à mi-course (coulissant, battant, garage). Défaut `false`. |
-| `confirm` | Confirmation par double appui. Défaut `true`. |
+| `confirm` | Confirmation par double appui : `true` (défaut), `open` pour les seules commandes d'ouverture, ou `false`. |
 | `show_stop` | Bouton *Stop* pendant le mouvement. Défaut `false`, à éviter sur un portail à impulsion. |
-| `card_tap` | Toute la card déclenche la commande quand il n'y en a qu'une. Défaut `false`. |
-| `show_tap_button` | Avec `card_tap`, garder le bouton. Défaut `true`. |
+| `card_tap` | Commande portée par un appui n'importe où sur la carte : `false` (défaut), `true` pour la commande unique disponible, ou `close` / `open` pour la nommer. La carte reste inerte là où cette commande n'est pas proposée. |
+| `show_tap_button` | Avec `card_tap: true`, garder le bouton. Défaut `true`. Une commande nommée garde toujours ses boutons. |
 | `show_key` / `show_runner` / `show_car` / `show_breeze` / `show_cat` | Pictogrammes clé, piéton, voiture, brise et chat. Défaut `true`. |
 | `light_entity` | Lumière ou switch du bouton *Lumière*, dessiné en spot. Sans confirmation, disponible pendant le mouvement. |
 | `light_position` | Côté du spot : `right` (défaut) ou `left`. |
 | `show_spot` / `show_light_button` | Afficher le spot / le bouton *Lumière*. Défaut `true`. Sans spot, pas de bouton. |
 | `open_entity` / `close_entity` / `stop_entity` | Bouton, script, switch ou serrure à la place des services du cover. |
+| `lock_open_action` | Serrures : ce que fait *Ouvrir*, `unlock` (défaut) ou `open` pour dégager le pêne demi-tour et ouvrir la porte. |
+| `show_unlock_button` | Serrure réglée sur `open` : bouton *Déverrouiller* séparé. Défaut `false`. |
 | `pedestrian_entity` / `vent_entity` / `partial_entity` | Commandes piéton (coulissant, battant), aération et ouverture partielle (garage). Chacune ajoute son bouton quand c'est fermé. |
 
 ### Exemple

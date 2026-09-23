@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.8.1";
+const CARD_VERSION = "1.9.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -46,7 +46,7 @@ const T = {
     card_language: "Card language", lang_auto: "Same as Home Assistant",
     contact_entity: "Physical open/closed sensor (optional)", battery_entity: "Battery entity",
     name: "Name", compact: "Compact mode (icon instead of illustration)",
-    confirm_opt: "Ask for confirmation before commands (tap twice)",
+    confirm_opt: "Confirmation before a command (tap twice)",
     show_stop: "Show a Stop button while moving",
     gate_type: "Gate type", type_sliding: "Sliding", type_swing: "Swing (two leaves)",
     slide_direction: "Opening direction (sliding)", dir_left: "To the left", dir_right: "To the right",
@@ -63,7 +63,11 @@ const T = {
     pedestrian_entity: "Pedestrian pass command entity",
     pedestrian_btn: "Pedestrian", type_door: "Door / wicket", type_garage: "Roller garage door",
     show_key: "Show the key symbol when closed", show_runner: "Show the pedestrian pictogram", show_car: "Show the car pictogram when open",
-    card_tap: "Tap anywhere on the card to run the single available command",
+    card_tap: "Tap on the card",
+    tap_no: "No", tap_auto: "The single available command", tap_close: "Always Close", tap_open: "Always Open",
+    confirm_never: "Never", confirm_open: "Opening commands only", confirm_always: "Always",
+    lock_open_action: "What Open does on a lock", lock_open_unlock: "Unlock", lock_open_open: "Open the door (latch release)",
+    show_unlock_button: "Separate Unlock button (locks)",
   },
   fr: {
     closed: "Ferm\u00e9", open: "Ouvert",
@@ -98,7 +102,7 @@ const T = {
     card_language: "Langue de la carte", lang_auto: "Comme Home Assistant",
     contact_entity: "Capteur d'ouverture physique (optionnel)", battery_entity: "Entit\u00e9 batterie",
     name: "Nom", compact: "Mode compact (ic\u00f4ne au lieu de l'illustration)",
-    confirm_opt: "Demander confirmation avant les commandes (double appui)",
+    confirm_opt: "Confirmation avant une commande (double appui)",
     show_stop: "Afficher un bouton Stop pendant le mouvement",
     gate_type: "Type de portail", type_sliding: "Coulissant", type_swing: "\u00c0 battants",
     slide_direction: "Sens d'ouverture (coulissant)", dir_left: "Vers la gauche", dir_right: "Vers la droite",
@@ -115,7 +119,11 @@ const T = {
     pedestrian_entity: "Entit\u00e9 commande Pi\u00e9ton",
     pedestrian_btn: "Pi\u00e9ton", type_door: "Portillon / porte", type_garage: "Porte de garage roulante",
     show_key: "Afficher la cl\u00e9 quand c'est ferm\u00e9", show_runner: "Afficher le pictogramme pi\u00e9ton", show_car: "Afficher le pictogramme voiture quand c'est ouvert",
-    card_tap: "Toute la carte d\u00e9clenche la commande unique disponible",
+    card_tap: "Toucher sur la carte",
+    tap_no: "Non", tap_auto: "La commande unique disponible", tap_close: "Toujours Fermer", tap_open: "Toujours Ouvrir",
+    confirm_never: "Jamais", confirm_open: "\u00c0 l'ouverture seulement", confirm_always: "Toujours",
+    lock_open_action: "Ce que fait Ouvrir sur une serrure", lock_open_unlock: "D\u00e9verrouiller", lock_open_open: "Ouvrir la porte (d\u00e9gagement)",
+    show_unlock_button: "Bouton D\u00e9verrouiller s\u00e9par\u00e9 (serrures)",
   },
   ru: {
     closed: "\u0417\u0430\u043a\u0440\u044b\u0442\u043e", open: "\u041e\u0442\u043a\u0440\u044b\u0442\u043e", opening: "\u041e\u0442\u043a\u0440\u044b\u0432\u0430\u0435\u0442\u0441\u044f\u2026", closing: "\u0417\u0430\u043a\u0440\u044b\u0432\u0430\u0435\u0442\u0441\u044f\u2026",
@@ -149,7 +157,7 @@ const T = {
     card_language: "\u042f\u0437\u044b\u043a \u043a\u0430\u0440\u0442\u043e\u0447\u043a\u0438", lang_auto: "\u041a\u0430\u043a \u0432 Home Assistant",
     contact_entity: "\u0424\u0438\u0437\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0434\u0430\u0442\u0447\u0438\u043a \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f (\u043d\u0435\u043e\u0431\u044f\u0437\u0430\u0442\u0435\u043b\u044c\u043d\u043e)", battery_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u0431\u0430\u0442\u0430\u0440\u0435\u0438",
     name: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435", compact: "\u041a\u043e\u043c\u043f\u0430\u043a\u0442\u043d\u044b\u0439 \u0440\u0435\u0436\u0438\u043c (\u0437\u043d\u0430\u0447\u043e\u043a \u0432\u043c\u0435\u0441\u0442\u043e \u0438\u043b\u043b\u044e\u0441\u0442\u0440\u0430\u0446\u0438\u0438)",
-    confirm_opt: "\u0417\u0430\u043f\u0440\u0430\u0448\u0438\u0432\u0430\u0442\u044c \u043f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u0434 \u043a\u043e\u043c\u0430\u043d\u0434\u0430\u043c\u0438 (\u0434\u0432\u043e\u0439\u043d\u043e\u0435 \u043d\u0430\u0436\u0430\u0442\u0438\u0435)",
+    confirm_opt: "\u041f\u043e\u0434\u0442\u0432\u0435\u0440\u0436\u0434\u0435\u043d\u0438\u0435 \u043f\u0435\u0440\u0435\u0434 \u043a\u043e\u043c\u0430\u043d\u0434\u043e\u0439 (\u0434\u0432\u043e\u0439\u043d\u043e\u0435 \u043d\u0430\u0436\u0430\u0442\u0438\u0435)",
     show_stop: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043a\u043d\u043e\u043f\u043a\u0443 \u0421\u0442\u043e\u043f \u0432\u043e \u0432\u0440\u0435\u043c\u044f \u0434\u0432\u0438\u0436\u0435\u043d\u0438\u044f",
     gate_type: "\u0422\u0438\u043f \u0432\u043e\u0440\u043e\u0442", type_sliding: "\u041e\u0442\u043a\u0430\u0442\u043d\u044b\u0435", type_swing: "\u0420\u0430\u0441\u043f\u0430\u0448\u043d\u044b\u0435 (\u0434\u0432\u0435 \u0441\u0442\u0432\u043e\u0440\u043a\u0438)",
     slide_direction: "\u041d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u043e\u0442\u043a\u0440\u044b\u0442\u0438\u044f (\u043e\u0442\u043a\u0430\u0442\u043d\u044b\u0435)", dir_left: "\u0412\u043b\u0435\u0432\u043e", dir_right: "\u0412\u043f\u0440\u0430\u0432\u043e",
@@ -166,7 +174,11 @@ const T = {
     pedestrian_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u041f\u0435\u0448\u0435\u0445\u043e\u0434",
     pedestrian_btn: "\u041f\u0435\u0448\u0435\u0445\u043e\u0434", type_door: "\u0414\u0432\u0435\u0440\u044c / \u043a\u0430\u043b\u0438\u0442\u043a\u0430", type_garage: "\u0420\u0443\u043b\u043e\u043d\u043d\u044b\u0435 \u0433\u0430\u0440\u0430\u0436\u043d\u044b\u0435 \u0432\u043e\u0440\u043e\u0442\u0430",
     show_key: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043a\u043b\u044e\u0447, \u043a\u043e\u0433\u0434\u0430 \u0437\u0430\u043a\u0440\u044b\u0442\u043e", show_runner: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0438\u043a\u0442\u043e\u0433\u0440\u0430\u043c\u043c\u0443 \u043f\u0435\u0448\u0435\u0445\u043e\u0434\u0430", show_car: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0438\u043a\u0442\u043e\u0433\u0440\u0430\u043c\u043c\u0443 \u0430\u0432\u0442\u043e\u043c\u043e\u0431\u0438\u043b\u044f, \u043a\u043e\u0433\u0434\u0430 \u043e\u0442\u043a\u0440\u044b\u0442\u043e",
-    card_tap: "\u041d\u0430\u0436\u0430\u0442\u0438\u0435 \u043d\u0430 \u043a\u0430\u0440\u0442\u043e\u0447\u043a\u0443 \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442 \u0435\u0434\u0438\u043d\u0441\u0442\u0432\u0435\u043d\u043d\u0443\u044e \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u0443\u044e \u043a\u043e\u043c\u0430\u043d\u0434\u0443",
+    card_tap: "\u041d\u0430\u0436\u0430\u0442\u0438\u0435 \u043d\u0430 \u043a\u0430\u0440\u0442\u043e\u0447\u043a\u0443",
+    tap_no: "\u041d\u0435\u0442", tap_auto: "\u0415\u0434\u0438\u043d\u0441\u0442\u0432\u0435\u043d\u043d\u0430\u044f \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u0430\u044f \u043a\u043e\u043c\u0430\u043d\u0434\u0430", tap_close: "\u0412\u0441\u0435\u0433\u0434\u0430 \u0417\u0430\u043a\u0440\u044b\u0442\u044c", tap_open: "\u0412\u0441\u0435\u0433\u0434\u0430 \u041e\u0442\u043a\u0440\u044b\u0442\u044c",
+    confirm_never: "\u041d\u0438\u043a\u043e\u0433\u0434\u0430", confirm_open: "\u0422\u043e\u043b\u044c\u043a\u043e \u043f\u0440\u0438 \u043e\u0442\u043a\u0440\u044b\u0432\u0430\u043d\u0438\u0438", confirm_always: "\u0412\u0441\u0435\u0433\u0434\u0430",
+    lock_open_action: "\u0427\u0442\u043e \u0434\u0435\u043b\u0430\u0435\u0442 \u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0434\u043b\u044f \u0437\u0430\u043c\u043a\u0430", lock_open_unlock: "\u041e\u0442\u043f\u0435\u0440\u0435\u0442\u044c", lock_open_open: "\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0434\u0432\u0435\u0440\u044c (\u043e\u0442\u0432\u043e\u0434 \u0437\u0430\u0449\u0451\u043b\u043a\u0438)",
+    show_unlock_button: "\u041e\u0442\u0434\u0435\u043b\u044c\u043d\u0430\u044f \u043a\u043d\u043e\u043f\u043a\u0430 \u041e\u0442\u043f\u0435\u0440\u0435\u0442\u044c (\u0437\u0430\u043c\u043a\u0438)",
   },
   de: {
     closed: "Geschlossen", open: "Offen", opening: "\u00d6ffnet\u2026", closing: "Schlie\u00dft\u2026",
@@ -200,7 +212,7 @@ const T = {
     card_language: "Kartensprache", lang_auto: "Wie Home Assistant",
     contact_entity: "Physischer \u00d6ffnungssensor (optional)", battery_entity: "Batterie-Entit\u00e4t",
     name: "Name", compact: "Kompaktmodus (Symbol statt Illustration)",
-    confirm_opt: "Vor Befehlen best\u00e4tigen (zweimal tippen)",
+    confirm_opt: "Best\u00e4tigung vor einem Befehl (zweimal tippen)",
     show_stop: "Stopp-Taste w\u00e4hrend der Bewegung anzeigen",
     gate_type: "Tortyp", type_sliding: "Schiebetor", type_swing: "Fl\u00fcgeltor",
     slide_direction: "\u00d6ffnungsrichtung (Schiebetor)", dir_left: "Nach links", dir_right: "Nach rechts",
@@ -217,7 +229,11 @@ const T = {
     pedestrian_entity: "Entit\u00e4t Befehl Fu\u00dfg\u00e4nger",
     pedestrian_btn: "Fu\u00dfg\u00e4nger", type_door: "T\u00fcr / Pforte", type_garage: "Rolltor (Garage)",
     show_key: "Schl\u00fcsselsymbol anzeigen, wenn geschlossen", show_runner: "Fu\u00dfg\u00e4nger-Piktogramm anzeigen", show_car: "Auto-Piktogramm anzeigen, wenn offen",
-    card_tap: "Tippen auf die ganze Karte f\u00fchrt den einzigen verf\u00fcgbaren Befehl aus",
+    card_tap: "Tippen auf die Karte",
+    tap_no: "Nein", tap_auto: "Der einzige verf\u00fcgbare Befehl", tap_close: "Immer Schlie\u00dfen", tap_open: "Immer \u00d6ffnen",
+    confirm_never: "Nie", confirm_open: "Nur beim \u00d6ffnen", confirm_always: "Immer",
+    lock_open_action: "Was \u00d6ffnen bei einem Schloss tut", lock_open_unlock: "Entriegeln", lock_open_open: "T\u00fcr \u00f6ffnen (Falle zur\u00fcckziehen)",
+    show_unlock_button: "Separate Taste Entriegeln (Schl\u00f6sser)",
   },
   es: {
     closed: "Cerrado", open: "Abierto", opening: "Abriendo\u2026", closing: "Cerrando\u2026",
@@ -251,7 +267,7 @@ const T = {
     card_language: "Idioma de la tarjeta", lang_auto: "Igual que Home Assistant",
     contact_entity: "Sensor f\u00edsico de apertura (opcional)", battery_entity: "Entidad de bater\u00eda",
     name: "Nombre", compact: "Modo compacto (icono en lugar de ilustraci\u00f3n)",
-    confirm_opt: "Pedir confirmaci\u00f3n antes de los comandos (doble toque)",
+    confirm_opt: "Confirmaci\u00f3n antes de un comando (doble toque)",
     show_stop: "Mostrar bot\u00f3n Parar durante el movimiento",
     gate_type: "Tipo de port\u00f3n", type_sliding: "Corredero", type_swing: "Batiente",
     slide_direction: "Sentido de apertura (corredero)", dir_left: "Hacia la izquierda", dir_right: "Hacia la derecha",
@@ -268,7 +284,11 @@ const T = {
     pedestrian_entity: "Entidad comando Peatonal",
     pedestrian_btn: "Peatonal", type_door: "Puerta peatonal", type_garage: "Puerta de garaje enrollable",
     show_key: "Mostrar la llave cuando est\u00e1 cerrado", show_runner: "Mostrar el pictograma peatonal", show_car: "Mostrar el pictograma del coche cuando est\u00e1 abierto",
-    card_tap: "Tocar la tarjeta ejecuta el \u00fanico comando disponible",
+    card_tap: "Tocar la tarjeta",
+    tap_no: "No", tap_auto: "El \u00fanico comando disponible", tap_close: "Siempre Cerrar", tap_open: "Siempre Abrir",
+    confirm_never: "Nunca", confirm_open: "Solo al abrir", confirm_always: "Siempre",
+    lock_open_action: "Qu\u00e9 hace Abrir en una cerradura", lock_open_unlock: "Desbloquear", lock_open_open: "Abrir la puerta (retirar el pestillo)",
+    show_unlock_button: "Bot\u00f3n Desbloquear aparte (cerraduras)",
   },
   it: {
     closed: "Chiuso", open: "Aperto", opening: "Apertura\u2026", closing: "Chiusura\u2026",
@@ -302,7 +322,7 @@ const T = {
     card_language: "Lingua della scheda", lang_auto: "Come Home Assistant",
     contact_entity: "Sensore fisico di apertura (opzionale)", battery_entity: "Entit\u00e0 batteria",
     name: "Nome", compact: "Modalit\u00e0 compatta (icona invece dell'illustrazione)",
-    confirm_opt: "Chiedere conferma prima dei comandi (doppio tocco)",
+    confirm_opt: "Conferma prima di un comando (doppio tocco)",
     show_stop: "Mostra il pulsante Stop durante il movimento",
     gate_type: "Tipo di cancello", type_sliding: "Scorrevole", type_swing: "A battente",
     slide_direction: "Direzione di apertura (scorrevole)", dir_left: "Verso sinistra", dir_right: "Verso destra",
@@ -319,7 +339,11 @@ const T = {
     pedestrian_entity: "Entit\u00e0 comando Pedonale",
     pedestrian_btn: "Pedonale", type_door: "Porta pedonale", type_garage: "Serranda del garage",
     show_key: "Mostra la chiave quando \u00e8 chiuso", show_runner: "Mostra il pittogramma pedonale", show_car: "Mostra il pittogramma dell'auto quando \u00e8 aperto",
-    card_tap: "Toccare la scheda esegue l'unico comando disponibile",
+    card_tap: "Tocco sulla scheda",
+    tap_no: "No", tap_auto: "L'unico comando disponibile", tap_close: "Sempre Chiudi", tap_open: "Sempre Apri",
+    confirm_never: "Mai", confirm_open: "Solo in apertura", confirm_always: "Sempre",
+    lock_open_action: "Cosa fa Apri su una serratura", lock_open_unlock: "Sblocca", lock_open_open: "Aprire la porta (scrocco)",
+    show_unlock_button: "Pulsante Sblocca separato (serrature)",
   },
   nl: {
     closed: "Gesloten", open: "Open", opening: "Opent\u2026", closing: "Sluit\u2026",
@@ -353,7 +377,7 @@ const T = {
     card_language: "Taal van de kaart", lang_auto: "Zoals Home Assistant",
     contact_entity: "Fysieke openingssensor (optioneel)", battery_entity: "Batterij-entiteit",
     name: "Naam", compact: "Compacte modus (pictogram i.p.v. illustratie)",
-    confirm_opt: "Bevestiging vragen v\u00f3\u00f3r commando's (twee keer tikken)",
+    confirm_opt: "Bevestiging v\u00f3\u00f3r een commando (twee keer tikken)",
     show_stop: "Stopknop tonen tijdens beweging",
     gate_type: "Poorttype", type_sliding: "Schuifpoort", type_swing: "Draaipoort",
     slide_direction: "Openingsrichting (schuifpoort)", dir_left: "Naar links", dir_right: "Naar rechts",
@@ -370,7 +394,11 @@ const T = {
     pedestrian_entity: "Entiteit commando Voetganger",
     pedestrian_btn: "Voetganger", type_door: "Deur / poortje", type_garage: "Garageroldeur",
     show_key: "Sleutel tonen wanneer gesloten", show_runner: "Voetgangerspictogram tonen", show_car: "Autopictogram tonen wanneer open",
-    card_tap: "Tik op de kaart om het enige beschikbare commando uit te voeren",
+    card_tap: "Tik op de kaart",
+    tap_no: "Nee", tap_auto: "Het enige beschikbare commando", tap_close: "Altijd Sluiten", tap_open: "Altijd Openen",
+    confirm_never: "Nooit", confirm_open: "Alleen bij openen", confirm_always: "Altijd",
+    lock_open_action: "Wat Openen doet bij een slot", lock_open_unlock: "Ontgrendelen", lock_open_open: "De deur openen (dagschoot)",
+    show_unlock_button: "Aparte knop Ontgrendelen (sloten)",
   },
   pt: {
     closed: "Fechado", open: "Aberto", opening: "A abrir\u2026", closing: "A fechar\u2026",
@@ -404,7 +432,7 @@ const T = {
     card_language: "Idioma do cart\u00e3o", lang_auto: "Igual ao Home Assistant",
     contact_entity: "Sensor f\u00edsico de abertura (opcional)", battery_entity: "Entidade de bateria",
     name: "Nome", compact: "Modo compacto (\u00edcone em vez da ilustra\u00e7\u00e3o)",
-    confirm_opt: "Pedir confirma\u00e7\u00e3o antes dos comandos (dois toques)",
+    confirm_opt: "Confirma\u00e7\u00e3o antes de um comando (dois toques)",
     show_stop: "Mostrar bot\u00e3o Parar durante o movimento",
     gate_type: "Tipo de port\u00e3o", type_sliding: "De correr", type_swing: "De batente",
     slide_direction: "Sentido de abertura (de correr)", dir_left: "Para a esquerda", dir_right: "Para a direita",
@@ -421,7 +449,11 @@ const T = {
     pedestrian_entity: "Entidade comando Pedonal",
     pedestrian_btn: "Pedonal", type_door: "Porta pedonal", type_garage: "Port\u00e3o de garagem de enrolar",
     show_key: "Mostrar a chave quando fechado", show_runner: "Mostrar o pictograma pedonal", show_car: "Mostrar o pictograma do carro quando aberto",
-    card_tap: "Tocar no cart\u00e3o executa o \u00fanico comando dispon\u00edvel",
+    card_tap: "Toque no cart\u00e3o",
+    tap_no: "N\u00e3o", tap_auto: "O \u00fanico comando dispon\u00edvel", tap_close: "Sempre Fechar", tap_open: "Sempre Abrir",
+    confirm_never: "Nunca", confirm_open: "Apenas na abertura", confirm_always: "Sempre",
+    lock_open_action: "O que Abrir faz numa fechadura", lock_open_unlock: "Destrancar", lock_open_open: "Abrir a porta (recolher o trinco)",
+    show_unlock_button: "Bot\u00e3o Destrancar separado (fechaduras)",
   },
   sv: {
     closed: "St\u00e4ngd", open: "\u00d6ppen", opening: "\u00d6ppnar\u2026", closing: "St\u00e4nger\u2026",
@@ -455,7 +487,7 @@ const T = {
     card_language: "Kortets spr\u00e5k", lang_auto: "Samma som Home Assistant",
     contact_entity: "Fysisk \u00f6ppningssensor (valfri)", battery_entity: "Batterientitet",
     name: "Namn", compact: "Kompakt l\u00e4ge (ikon i st\u00e4llet f\u00f6r illustration)",
-    confirm_opt: "Be om bekr\u00e4ftelse f\u00f6re kommandon (tryck tv\u00e5 g\u00e5nger)",
+    confirm_opt: "Bekr\u00e4ftelse f\u00f6re ett kommando (tryck tv\u00e5 g\u00e5nger)",
     show_stop: "Visa stoppknapp under r\u00f6relse",
     gate_type: "Grindtyp", type_sliding: "Skjutgrind", type_swing: "Slaggrind",
     slide_direction: "\u00d6ppningsriktning (skjutgrind)", dir_left: "\u00c5t v\u00e4nster", dir_right: "\u00c5t h\u00f6ger",
@@ -472,7 +504,11 @@ const T = {
     pedestrian_entity: "Entitet kommando G\u00e5ng",
     pedestrian_btn: "G\u00e5ng", type_door: "D\u00f6rr / g\u00e5nggrind", type_garage: "Garageport (rullport)",
     show_key: "Visa nyckeln n\u00e4r st\u00e4ngd", show_runner: "Visa g\u00e5ngpiktogrammet", show_car: "Visa bilpiktogrammet n\u00e4r \u00f6ppen",
-    card_tap: "Tryck var som helst p\u00e5 kortet f\u00f6r att k\u00f6ra det enda tillg\u00e4ngliga kommandot",
+    card_tap: "Tryck p\u00e5 kortet",
+    tap_no: "Nej", tap_auto: "Det enda tillg\u00e4ngliga kommandot", tap_close: "Alltid St\u00e4ng", tap_open: "Alltid \u00d6ppna",
+    confirm_never: "Aldrig", confirm_open: "Endast vid \u00f6ppning", confirm_always: "Alltid",
+    lock_open_action: "Vad \u00d6ppna g\u00f6r p\u00e5 ett l\u00e5s", lock_open_unlock: "L\u00e5s upp", lock_open_open: "\u00d6ppna d\u00f6rren (dra in regeln)",
+    show_unlock_button: "Separat knapp L\u00e5s upp (l\u00e5s)",
   },
   no: {
     closed: "Lukket", open: "\u00c5pen", opening: "\u00c5pner\u2026", closing: "Lukker\u2026",
@@ -506,7 +542,7 @@ const T = {
     card_language: "Kortets spr\u00e5k", lang_auto: "Samme som Home Assistant",
     contact_entity: "Fysisk \u00e5pningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt modus (ikon i stedet for illustrasjon)",
-    confirm_opt: "Be om bekreftelse f\u00f8r kommandoer (trykk to ganger)",
+    confirm_opt: "Bekreftelse f\u00f8r en kommando (trykk to ganger)",
     show_stop: "Vis stoppknapp under bevegelse",
     gate_type: "Porttype", type_sliding: "Skyveport", type_swing: "Slagport",
     slide_direction: "\u00c5pningsretning (skyveport)", dir_left: "Mot venstre", dir_right: "Mot h\u00f8yre",
@@ -523,7 +559,11 @@ const T = {
     pedestrian_entity: "Entitet kommando Gang",
     pedestrian_btn: "Gang", type_door: "D\u00f8r / gangport", type_garage: "Garasjeport (rulleport)",
     show_key: "Vis n\u00f8kkelen n\u00e5r lukket", show_runner: "Vis gangpiktogrammet", show_car: "Vis bilpiktogrammet n\u00e5r \u00e5pen",
-    card_tap: "Trykk hvor som helst p\u00e5 kortet for \u00e5 kj\u00f8re den eneste tilgjengelige kommandoen",
+    card_tap: "Trykk p\u00e5 kortet",
+    tap_no: "Nei", tap_auto: "Den eneste tilgjengelige kommandoen", tap_close: "Alltid Lukk", tap_open: "Alltid \u00c5pne",
+    confirm_never: "Aldri", confirm_open: "Bare ved \u00e5pning", confirm_always: "Alltid",
+    lock_open_action: "Hva \u00c5pne gj\u00f8r p\u00e5 en l\u00e5s", lock_open_unlock: "L\u00e5s opp", lock_open_open: "\u00c5pne d\u00f8ren (trekk inn fallen)",
+    show_unlock_button: "Egen knapp L\u00e5s opp (l\u00e5ser)",
   },
   da: {
     closed: "Lukket", open: "\u00c5ben", opening: "\u00c5bner\u2026", closing: "Lukker\u2026",
@@ -557,7 +597,7 @@ const T = {
     card_language: "Kortets sprog", lang_auto: "Samme som Home Assistant",
     contact_entity: "Fysisk \u00e5bningssensor (valgfri)", battery_entity: "Batterientitet",
     name: "Navn", compact: "Kompakt tilstand (ikon i stedet for illustration)",
-    confirm_opt: "Bed om bekr\u00e6ftelse f\u00f8r kommandoer (tryk to gange)",
+    confirm_opt: "Bekr\u00e6ftelse f\u00f8r en kommando (tryk to gange)",
     show_stop: "Vis stopknap under bev\u00e6gelse",
     gate_type: "Porttype", type_sliding: "Skydeport", type_swing: "Fl\u00f8jport",
     slide_direction: "\u00c5bningsretning (skydeport)", dir_left: "Mod venstre", dir_right: "Mod h\u00f8jre",
@@ -574,7 +614,11 @@ const T = {
     pedestrian_entity: "Entitet kommando Gang",
     pedestrian_btn: "Gang", type_door: "D\u00f8r / gangl\u00e5ge", type_garage: "Garageport (rulleport)",
     show_key: "Vis n\u00f8glen n\u00e5r lukket", show_runner: "Vis gangpiktogrammet", show_car: "Vis bilpiktogrammet n\u00e5r \u00e5ben",
-    card_tap: "Tryk hvor som helst p\u00e5 kortet for at k\u00f8re den eneste tilg\u00e6ngelige kommando",
+    card_tap: "Tryk p\u00e5 kortet",
+    tap_no: "Nej", tap_auto: "Den eneste tilg\u00e6ngelige kommando", tap_close: "Altid Luk", tap_open: "Altid \u00c5bn",
+    confirm_never: "Aldrig", confirm_open: "Kun ved \u00e5bning", confirm_always: "Altid",
+    lock_open_action: "Hvad \u00c5bn g\u00f8r p\u00e5 en l\u00e5s", lock_open_unlock: "L\u00e5s op", lock_open_open: "\u00c5bn d\u00f8ren (tr\u00e6k sm\u00e6kl\u00e5sen ind)",
+    show_unlock_button: "Separat knap L\u00e5s op (l\u00e5se)",
   },
   pl: {
     closed: "Zamkni\u0119ta", open: "Otwarta", opening: "Otwieranie\u2026", closing: "Zamykanie\u2026",
@@ -608,7 +652,7 @@ const T = {
     card_language: "J\u0119zyk karty", lang_auto: "Jak w Home Assistant",
     contact_entity: "Fizyczny czujnik otwarcia (opcjonalny)", battery_entity: "Encja baterii",
     name: "Nazwa", compact: "Tryb kompaktowy (ikona zamiast ilustracji)",
-    confirm_opt: "Wymagaj potwierdzenia przed komendami (dwa dotkni\u0119cia)",
+    confirm_opt: "Potwierdzenie przed komend\u0105 (dwa dotkni\u0119cia)",
     show_stop: "Poka\u017c przycisk Stop podczas ruchu",
     gate_type: "Typ bramy", type_sliding: "Przesuwna", type_swing: "Dwuskrzyd\u0142owa",
     slide_direction: "Kierunek otwierania (przesuwna)", dir_left: "W lewo", dir_right: "W prawo",
@@ -625,7 +669,11 @@ const T = {
     pedestrian_entity: "Encja komendy Furtka",
     pedestrian_btn: "Furtka", type_door: "Drzwi / furtka", type_garage: "Brama gara\u017cowa rolowana",
     show_key: "Poka\u017c klucz, gdy zamkni\u0119ta", show_runner: "Poka\u017c piktogram pieszego", show_car: "Poka\u017c piktogram samochodu, gdy otwarta",
-    card_tap: "Dotkni\u0119cie karty uruchamia jedyn\u0105 dost\u0119pn\u0105 komend\u0119",
+    card_tap: "Dotkni\u0119cie karty",
+    tap_no: "Nie", tap_auto: "Jedyna dost\u0119pna komenda", tap_close: "Zawsze Zamknij", tap_open: "Zawsze Otw\u00f3rz",
+    confirm_never: "Nigdy", confirm_open: "Tylko przy otwieraniu", confirm_always: "Zawsze",
+    lock_open_action: "Co robi Otw\u00f3rz w zamku", lock_open_unlock: "Odblokuj", lock_open_open: "Otw\u00f3rz drzwi (zwolnienie zapadki)",
+    show_unlock_button: "Osobny przycisk Odblokuj (zamki)",
   },
   hu: {
     closed: "Z\u00e1rva", open: "Nyitva", opening: "Nyit\u00e1s\u2026", closing: "Z\u00e1r\u00e1s\u2026",
@@ -659,7 +707,7 @@ const T = {
     card_language: "K\u00e1rtya nyelve", lang_auto: "Home Assistant szerint",
     contact_entity: "Fizikai nyit\u00e1s/z\u00e1r\u00e1s \u00e9rz\u00e9kel\u0151 (opcion\u00e1lis)", battery_entity: "Akkumul\u00e1tor entit\u00e1s",
     name: "N\u00e9v", compact: "Kompakt m\u00f3d (ikon az illusztr\u00e1ci\u00f3 helyett)",
-    confirm_opt: "Meger\u0151s\u00edt\u00e9s k\u00e9r\u00e9se a parancsok el\u0151tt (dupla koppint\u00e1s)",
+    confirm_opt: "Meger\u0151s\u00edt\u00e9s parancs el\u0151tt (dupla koppint\u00e1s)",
     show_stop: "Stop gomb megjelen\u00edt\u00e9se mozg\u00e1s k\u00f6zben",
     gate_type: "Kapu t\u00edpusa", type_sliding: "Tol\u00f3kapu", type_swing: "Sz\u00e1rnyas kapu",
     slide_direction: "Nyit\u00e1si ir\u00e1ny (tol\u00f3kapu)", dir_left: "Balra", dir_right: "Jobbra",
@@ -676,7 +724,11 @@ const T = {
     pedestrian_entity: "Gyalogos nyit\u00e1s parancs entit\u00e1s",
     pedestrian_btn: "Gyalogos", type_door: "Ajt\u00f3 / Kiskapu", type_garage: "Red\u0151nygar\u00e1zskapu",
     show_key: "Kulcs szimb\u00f3lum megjelen\u00edt\u00e9se z\u00e1rt \u00e1llapotban", show_runner: "Gyalogos piktogram megjelen\u00edt\u00e9se", show_car: "Aut\u00f3 piktogram megjelen\u00edt\u00e9se nyitott \u00e1llapotban",
-    card_tap: "Koppints b\u00e1rhova a k\u00e1rty\u00e1n az egyetlen el\u00e9rhet\u0151 parancs futtat\u00e1s\u00e1hoz",
+    card_tap: "Koppint\u00e1s a k\u00e1rty\u00e1ra",
+    tap_no: "Nem", tap_auto: "Az egyetlen el\u00e9rhet\u0151 parancs", tap_close: "Mindig Z\u00e1r\u00e1s", tap_open: "Mindig Nyit\u00e1s",
+    confirm_never: "Soha", confirm_open: "Csak nyit\u00e1skor", confirm_always: "Mindig",
+    lock_open_action: "Mit tesz a Nyit\u00e1s egy z\u00e1rn\u00e1l", lock_open_unlock: "Felold\u00e1s", lock_open_open: "Ajt\u00f3 nyit\u00e1sa (retesz visszah\u00faz\u00e1sa)",
+    show_unlock_button: "K\u00fcl\u00f6n Felold\u00e1s gomb (z\u00e1rak)",
   },
 };
 
@@ -852,6 +904,35 @@ const MOVING = ["opening", "closing", "moving"];
 // dry-contact motors) an extra impulse stops or reverses the leaf, so an
 // accidental tap mid-travel is exactly what we want to avoid. `show_stop`
 // opts back in for motors with a real, dedicated stop channel.
+// A lock understands two different requests: pull the bolt back (lock.unlock)
+// or go all the way and release the latch so the door really opens
+// (lock.open). The second used to be reachable only by naming the same lock in
+// both entity and open_entity; lock_open_action says it plainly, and that old
+// config keeps working.
+function unlatches(cfg) {
+  if (cfg.lock_open_action === "open") return true;
+  return domainOf(cfg.entity || "") === "lock" && domainOf(cfg.open_entity || "") === "lock";
+}
+
+// Which command the whole card carries. "auto", and the historical true, only
+// fires when a single command is available, so it never has to guess. Naming
+// open or close picks one and leaves the card inert in the states where that
+// command is not offered -- a front door must not open on a stray tap.
+function tapAction(cfg, actions) {
+  const mode = cfg.card_tap === true ? "auto" : cfg.card_tap;
+  if (mode === "auto") return actions.length === 1 ? actions[0] : null;
+  if (mode === "open" || mode === "close") return actions.includes(mode) ? mode : null;
+  return null;
+}
+
+// Whether a command has to be tapped twice. "open" guards only what lets
+// someone in, so locking stays a single tap while opening does not.
+function confirms(cfg, action) {
+  if (cfg.confirm === false) return false;
+  if (cfg.confirm === "open") return !["close", "stop"].includes(action);
+  return true;
+}
+
 function actionsFor(norm, cfg) {
   // The light is not a gate command: it stays available at all times, and the
   // two-tap confirmation does not apply to it. Drawing and button are
@@ -862,6 +943,12 @@ function actionsFor(norm, cfg) {
   // Doors (wickets) are display-only unless command entities are
   // configured (smart locks like Nuki make buttons legitimate there).
   if (cfg.gate_type === "door" && !cfg.entity && !cfg.open_entity && !cfg.close_entity) return [];
+  const isLock = domainOf(cfg.entity || "") === "lock";
+  // Nothing can be usefully commanded on a lock while the door stands open:
+  // locking would drive the bolt into the void and some locks jam on that. The
+  // card knows it either from the contact sensor or from the lock declaring
+  // itself unlatched, and it withdraws the command instead of warning about it.
+  if (isLock && norm === "open") return [...lamp];
   const stop = cfg.show_stop ? ["stop"] : [];
   // Pedestrian pass only exists on sliding and swing gates.
   const ped = cfg.pedestrian_entity && cfg.gate_type !== "garage";
@@ -877,11 +964,18 @@ function actionsFor(norm, cfg) {
           "open",
         ];
       }
-      // A lock with an unlatch override gets a separate Unlock button.
-      if (domainOf(cfg.entity || "") === "lock" && domainOf(cfg.open_entity || "") === "lock") return [...lamp, "unlock", "open"];
+      // Unlocking without opening is a command of its own on a lock that
+      // unlatches, but it is dead weight on a door with no handle: opt-in.
+      if (isLock && unlatches(cfg) && cfg.show_unlock_button) return [...lamp, "unlock", "open"];
       return [...lamp, "open"];
     case "open": return [...lamp, "close"];
-    case "unlocked": return [...lamp, "open", "close"];
+    case "unlocked": {
+      // Open here means lock.unlock, which does nothing on a lock that is
+      // already unlocked. It is only offered when it really opens something:
+      // an override entity, or a lock asked to unlatch.
+      const opens = !isLock || !!cfg.open_entity || unlatches(cfg);
+      return opens ? [...lamp, "open", "close"] : [...lamp, "close"];
+    }
     case "pedestrian": return [...lamp, "close"];
     case "vent":
     case "partial": return [...lamp, "close"];
@@ -918,10 +1012,12 @@ function domainOf(entityId) {
   return entityId ? entityId.split(".")[0] : null;
 }
 
-function formatSince(isoDate) {
+function formatSince(isoDate, locale) {
   const d = new Date(isoDate);
   if (isNaN(d)) return null;
-  return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  // No locale means the browser one, which is what a card following Home
+  // Assistant wants. A card pinned to a language formats its clock in it.
+  return d.toLocaleTimeString(locale || [], { hour: "2-digit", minute: "2-digit" });
 }
 
 // ---------------------------------------------------------------------------
@@ -1581,9 +1677,12 @@ class GateCard extends HTMLElement {
         this._hass.callService("homeassistant", "toggle", { entity_id: override });
       }
     } else if (domainOf(cfg.entity) === "lock") {
-      // Locks (Nuki and friends): Open unlocks the bolt, Close locks it. The
-      // physical unlatch (lock.open) stays opt-in via a lock set as open_entity.
-      this._hass.callService("lock", action === "close" ? "lock" : "unlock", { entity_id: cfg.entity });
+      // Locks (Nuki and friends): Close locks the bolt, Open either pulls it
+      // back or, when the lock is set to unlatch, releases the latch so the
+      // door itself opens.
+      const service = action === "close" ? "lock"
+        : action === "open" && unlatches(cfg) ? "open" : "unlock";
+      this._hass.callService("lock", service, { entity_id: cfg.entity });
     } else {
       this._hass.callService("cover", action + "_cover", { entity_id: cfg.entity });
     }
@@ -1592,7 +1691,7 @@ class GateCard extends HTMLElement {
   _onAction(action) {
     // Toggling a light is harmless and instantly undone: it skips the
     // confirmation, which only guards the impulse commands.
-    if (action === "light" || this._config.confirm === false) {
+    if (action === "light" || !confirms(this._config, action)) {
       this._do(action);
       return;
     }
@@ -1641,7 +1740,7 @@ class GateCard extends HTMLElement {
     }
     const moving = MOVING.includes(norm);
     const name = cfg.name || (st && st.attributes.friendly_name) || "Gate";
-    const since = !moving && st ? formatSince(st.last_changed) : null;
+    const since = !moving && st ? formatSince(st.last_changed, cfg.language && T[cfg.language] ? cfg.language : null) : null;
     const posMode = cfg.show_position === true || cfg.show_position === "always" ? "always"
       : cfg.show_position === "moving" ? "moving" : null;
     const pos = posMode && (posMode === "always" || moving) ? coverPosition(hass, cfg) : null;
@@ -1664,14 +1763,18 @@ class GateCard extends HTMLElement {
       const v = Number(hass.states[cfg.battery_entity].state);
       if (!Number.isNaN(v)) batt = Math.round(v);
     }
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, cfg.single_leaf, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, cfg.show_tap_button, cfg.show_state, cfg.single_line, cfg.show_position, pos, cfg.draw_position, drawPos, batt, !!cfg.light_entity, cfg.show_spot, cfg.show_light_button, cfg.light_position, lampOn]);
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, cfg.single_leaf, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, cfg.show_tap_button, cfg.confirm, cfg.lock_open_action, cfg.show_unlock_button, cfg.show_state, cfg.single_line, cfg.show_position, pos, cfg.draw_position, drawPos, batt, !!cfg.light_entity, cfg.show_spot, cfg.show_light_button, cfg.light_position, lampOn]);
     if (signature === this._signature) return;
     this._signature = signature;
 
     // With card_tap the whole card already runs the single command, so the
     // button can go. It comes back while a confirmation is pending: the first
     // tap needs somewhere to say "Confirm?", or it looks like nothing happened.
-    const tapOnly = cfg.card_tap && actions.length === 1 && cfg.show_tap_button === false && !this._pending;
+    const tapCmd = tapAction(cfg, actions);
+    // Dropping the button only makes sense when the card carries the one and
+    // only command. With several buttons, hiding one hides a function.
+    const tapOnly = tapCmd && (cfg.card_tap === true || cfg.card_tap === "auto")
+      && actions.length === 1 && cfg.show_tap_button === false && !this._pending;
     const buttons = actions
       .map((a) => {
         const pending = this._pending === a;
@@ -1811,7 +1914,7 @@ button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
 .badge ha-icon[icon^="mdi:gate"] { position:relative; top:-1.6px; }
 .badge ha-icon[icon="mdi:walk"] { position:relative; top:-2.4px; }
       </style>
-      <ha-card class="${moving ? "moving" : ""}${cfg.compact ? " compact" : ""}${cfg.single_line ? " single-line" : ""}${drawPos !== null ? " positioned" : ""}${dirClass}">
+      <ha-card class="${moving ? "moving" : ""}${cfg.compact ? " compact" : ""}${cfg.single_line ? " single-line" : ""}${drawPos !== null ? " positioned" : ""}${tapCmd ? " tappable" : ""}${dirClass}">
         ${batt !== null && !cfg.compact ? `<div class="corner-batt" title="${escapeHtml(cfg.battery_entity)} : ${batt}%">
           <svg width="26" height="15" viewBox="0 0 24 14">
             <rect x="1" y="2" width="19" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/>
@@ -1842,11 +1945,9 @@ button ha-icon[icon="mdi:walk"] { position:relative; top:-1.7px; }
         this._onAction(b.dataset.action);
       });
     });
-    if (cfg.card_tap && actions.length === 1) {
-      const cardEl = this._root.querySelector("ha-card");
-      cardEl.classList.add("tappable");
-      cardEl.addEventListener("click", () => this._onAction(actions[0]));
-    }
+    // The class is in the template, not added here, so that what the card
+    // considers tappable is visible in the markup and can be asserted on.
+    if (tapCmd) this._root.querySelector("ha-card").addEventListener("click", () => this._onAction(tapCmd));
   }
 }
 
@@ -2012,8 +2113,13 @@ details .form { padding-top:10px; }
         <div class="row row-inline">
           <label><input type="checkbox" data-field="compact" ${cfg.compact ? "checked" : ""}/> ${t(hass, "compact")}</label>
         </div>
-        <div class="row row-inline">
-          <label><input type="checkbox" data-field="confirm" ${cfg.confirm !== false ? "checked" : ""}/> ${t(hass, "confirm_opt")}</label>
+        <div class="row">
+          <label>${t(hass, "confirm_opt")}</label>
+          <select data-field="confirm">
+            <option value="always" ${cfg.confirm !== false && cfg.confirm !== "open" ? "selected" : ""}>${t(hass, "confirm_always")}</option>
+            <option value="open" ${cfg.confirm === "open" ? "selected" : ""}>${t(hass, "confirm_open")}</option>
+            <option value="never" ${cfg.confirm === false ? "selected" : ""}>${t(hass, "confirm_never")}</option>
+          </select>
         </div>
         <div class="row row-inline">
           <label><input type="checkbox" data-field="show_stop" ${cfg.show_stop ? "checked" : ""}/> ${t(hass, "show_stop")}</label>
@@ -2054,13 +2160,19 @@ details .form { padding-top:10px; }
         <div class="row row-inline">
           <label><input type="checkbox" data-field="show_cat" ${cfg.show_cat !== false ? "checked" : ""}/> ${t(hass, "show_cat")}</label>
         </div>`}`}
-        <div class="row row-inline">
-          <label><input type="checkbox" data-field="card_tap" ${cfg.card_tap ? "checked" : ""}/> ${t(hass, "card_tap")}</label>
+        <div class="row">
+          <label>${t(hass, "card_tap")}</label>
+          <select data-field="card_tap">
+            <option value="no" ${!cfg.card_tap ? "selected" : ""}>${t(hass, "tap_no")}</option>
+            <option value="auto" ${cfg.card_tap === true || cfg.card_tap === "auto" ? "selected" : ""}>${t(hass, "tap_auto")}</option>
+            <option value="close" ${cfg.card_tap === "close" ? "selected" : ""}>${t(hass, "tap_close")}</option>
+            <option value="open" ${cfg.card_tap === "open" ? "selected" : ""}>${t(hass, "tap_open")}</option>
+          </select>
         </div>
         <div class="row row-inline">
           <label><input type="checkbox" data-field="show_tap_button" ${cfg.show_tap_button !== false ? "checked" : ""}/> ${t(hass, "show_tap_button")}</label>
         </div>
-        <details ${EDITOR_OVERRIDES.some((o) => cfg[o.field]) ? "open" : ""}>
+        <details ${EDITOR_OVERRIDES.some((o) => cfg[o.field]) || cfg.lock_open_action || cfg.show_unlock_button ? "open" : ""}>
           <summary>${t(hass, "section_advanced")}</summary>
           <div class="form">
             ${EDITOR_OVERRIDES
@@ -2072,6 +2184,16 @@ details .form { padding-top:10px; }
                 return true;
               })
               .map((o) => `<div class="row" data-picker="${o.field}"></div>`).join("")}
+            <div class="row">
+              <label>${t(hass, "lock_open_action")}</label>
+              <select data-field="lock_open_action">
+                <option value="unlock" ${cfg.lock_open_action !== "open" ? "selected" : ""}>${t(hass, "lock_open_unlock")}</option>
+                <option value="open" ${cfg.lock_open_action === "open" ? "selected" : ""}>${t(hass, "lock_open_open")}</option>
+              </select>
+            </div>
+            <div class="row row-inline">
+              <label><input type="checkbox" data-field="show_unlock_button" ${cfg.show_unlock_button ? "checked" : ""}/> ${t(hass, "show_unlock_button")}</label>
+            </div>
           </div>
         </details>
       </div>`;
@@ -2143,6 +2265,32 @@ details .form { padding-top:10px; }
       else delete this._config.gate_color;
       this._emit();
     });
+    const confirmSel = this._root.querySelector('select[data-field="confirm"]');
+    if (confirmSel) confirmSel.addEventListener("change", (ev) => {
+      this._config = { ...this._config };
+      // always is the default -- only store the key when it differs
+      if (ev.target.value === "never") this._config.confirm = false;
+      else if (ev.target.value === "open") this._config.confirm = "open";
+      else delete this._config.confirm;
+      this._emit();
+    });
+    const tapSel = this._root.querySelector('select[data-field="card_tap"]');
+    if (tapSel) tapSel.addEventListener("change", (ev) => {
+      this._config = { ...this._config };
+      // no tap is the default -- true keeps the historical shape of the key
+      if (ev.target.value === "no") delete this._config.card_tap;
+      else if (ev.target.value === "auto") this._config.card_tap = true;
+      else this._config.card_tap = ev.target.value;
+      this._emit();
+    });
+    const lockOpenSel = this._root.querySelector('select[data-field="lock_open_action"]');
+    if (lockOpenSel) lockOpenSel.addEventListener("change", (ev) => {
+      this._config = { ...this._config };
+      // unlocking is the default -- only store the key for the unlatch
+      if (ev.target.value === "open") this._config.lock_open_action = "open";
+      else delete this._config.lock_open_action;
+      this._emit();
+    });
     const langSel = this._root.querySelector('select[data-field="language"]');
     if (langSel) langSel.addEventListener("change", (ev) => {
       this._config = { ...this._config };
@@ -2161,7 +2309,7 @@ details .form { padding-top:10px; }
       cb.addEventListener("change", () => {
         const field = cb.dataset.field;
         this._config = { ...this._config };
-        if (["confirm", "show_key", "show_runner", "show_car", "show_breeze", "show_cat", "show_spot", "show_light_button", "show_state", "show_tap_button"].includes(field)) {
+        if (["show_key", "show_runner", "show_car", "show_breeze", "show_cat", "show_spot", "show_light_button", "show_state", "show_tap_button"].includes(field)) {
           // defaults to true -- only store the key when disabled
           if (cb.checked) delete this._config[field];
           else this._config[field] = false;
