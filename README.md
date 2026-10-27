@@ -42,7 +42,7 @@ Built for setups where *command* and *state* are separate: the gate is driven by
 
 | Option | Description |
 |---|---|
-| `entity` | **Required.** The `cover`, or a `lock` (*Close* locks, *Open* follows `lock_open_action`). |
+| `entity` | **Required.** The `cover`, a `lock` (*Close* locks, *Open* follows `lock_open_action`), or a dry contact exposed as `switch`, `button`, `input_boolean` or `script`: both commands then send the same impulse. |
 | `state_entity` | Entity holding the reliable state (any domain). Defaults to `entity`. |
 | `contact_entity` | Physical door contact. Open contact + locked bolt → *open, bolt out*. On a lock, an open door withdraws every command. |
 | `battery_entity` | Battery %, top right. Hidden in `compact`. |

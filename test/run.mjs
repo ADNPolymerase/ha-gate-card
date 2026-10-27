@@ -668,4 +668,41 @@ check('position connue : l animation de va-et-vient est coupee',
   check("l'editeur : la finition bois est proposee", /<option value="wood"[^>]*>Bois/.test(edDoor({})), true);
 }
 
+// Dry contacts (1.10.1): a gate whose `entity` is a switch, a button or a
+// script. There is one contact, so Open and Close send the same impulse --
+// what must never happen is a cover service on something that is not a cover.
+{
+  const impulse = (entity, action = 'open', extra = {}) => {
+    const calls = [];
+    const c = new Card();
+    c.setConfig(Object.freeze({ entity, confirm: false, state_entity: 'binary_sensor.portail',
+      state_map: { on: 'open', off: 'closed' }, ...extra }));
+    c.hass = {
+      language: 'fr',
+      states: {
+        [entity]: { state: 'off', attributes: {}, last_changed: '2026-10-27T20:00:00Z' },
+        'binary_sensor.portail': { state: 'off', attributes: {}, last_changed: '2026-10-27T20:00:00Z' },
+      },
+      callService: (d, sv, data) => calls.push(`${d}.${sv} ${data.entity_id}`),
+    };
+    markup(c);
+    c._onAction(action);
+    return calls.join('|');
+  };
+
+  check('contact sec en switch : une impulsion, pas un service cover',
+    impulse('switch.portail'), 'switch.toggle switch.portail');
+  check('contact sec en switch : Fermer envoie la meme impulsion',
+    impulse('switch.portail', 'close'), 'switch.toggle switch.portail');
+  check('contact sec en button : press', impulse('button.portail'), 'button.press button.portail');
+  check('contact sec en script : turn_on', impulse('script.portail'), 'script.turn_on script.portail');
+  check('input_boolean : toggle', impulse('input_boolean.portail'), 'input_boolean.toggle input_boolean.portail');
+  check('un cover reste un cover', impulse('cover.portail'), 'cover.open_cover cover.portail');
+  check('une serrure reste une serrure',
+    impulse('lock.porte', 'close', { gate_type: 'door', state_map: undefined, state_entity: undefined }),
+    'lock.lock lock.porte');
+  check('la commande personnalisee garde la priorite sur le domaine',
+    impulse('switch.portail', 'open', { open_entity: 'script.ouvrir' }), 'script.turn_on script.ouvrir');
+}
+
 report();

@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.10.0";
+const CARD_VERSION = "1.10.1";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -1059,6 +1059,23 @@ function domainOf(entityId) {
   return entityId ? entityId.split(".")[0] : null;
 }
 
+// Impulse entities. A dry-contact gate is usually exposed as a switch, a
+// button or a script rather than as a cover: there is one contact and it has
+// no notion of opening or closing, so Open and Close send the same impulse.
+// Used both for command overrides and for an `entity` that is not a cover.
+function impulseCall(hass, entityId) {
+  const domain = domainOf(entityId);
+  if (domain === "button" || domain === "input_button") {
+    hass.callService(domain, "press", { entity_id: entityId });
+  } else if (domain === "script") {
+    hass.callService("script", "turn_on", { entity_id: entityId });
+  } else if (["switch", "input_boolean"].includes(domain)) {
+    hass.callService(domain, "toggle", { entity_id: entityId });
+  } else {
+    hass.callService("homeassistant", "toggle", { entity_id: entityId });
+  }
+}
+
 function formatSince(isoDate, locale) {
   const d = new Date(isoDate);
   if (isNaN(d)) return null;
@@ -1746,17 +1763,10 @@ class GateCard extends HTMLElement {
     const cfg = this._config;
     const override = cfg[action + "_entity"];
     if (override) {
-      const domain = domainOf(override);
-      if (domain === "button" || domain === "input_button") {
-        this._hass.callService(domain, "press", { entity_id: override });
-      } else if (domain === "script") {
-        this._hass.callService("script", "turn_on", { entity_id: override });
-      } else if (["switch", "input_boolean"].includes(domain)) {
-        this._hass.callService(domain, "toggle", { entity_id: override });
-      } else if (domain === "lock") {
+      if (domainOf(override) === "lock") {
         this._hass.callService("lock", action === "close" ? "lock" : "open", { entity_id: override });
       } else {
-        this._hass.callService("homeassistant", "toggle", { entity_id: override });
+        impulseCall(this._hass, override);
       }
     } else if (domainOf(cfg.entity) === "lock") {
       // Locks (Nuki and friends): Close locks the bolt, Open either pulls it
@@ -1765,8 +1775,12 @@ class GateCard extends HTMLElement {
       const service = action === "close" ? "lock"
         : action === "open" && unlatches(cfg) ? "open" : "unlock";
       this._hass.callService("lock", service, { entity_id: cfg.entity });
-    } else {
+    } else if (domainOf(cfg.entity) === "cover") {
       this._hass.callService("cover", action + "_cover", { entity_id: cfg.entity });
+    } else {
+      // Not a cover and not a lock: a dry contact. Sending it cover.open_cover
+      // could only fail, so it gets the impulse its domain understands.
+      impulseCall(this._hass, cfg.entity);
     }
   }
 

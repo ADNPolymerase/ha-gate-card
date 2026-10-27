@@ -42,7 +42,7 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 
 | Option | Description |
 |---|---|
-| `entity` | **Obligatoire.** Le `cover`, ou une `lock` (*Fermer* verrouille, *Ouvrir* suit `lock_open_action`). |
+| `entity` | **Obligatoire.** Le `cover`, une `lock` (*Fermer* verrouille, *Ouvrir* suit `lock_open_action`), ou un contact sec exposé en `switch`, `button`, `input_boolean` ou `script` : les deux commandes envoient alors la même impulsion. |
 | `state_entity` | Entité portant l'état fiable (tout domaine). Défaut : `entity`. |
 | `contact_entity` | Contact d'ouverture physique. Contact ouvert + pêne verrouillé → *ouverte, pêne sorti*. Sur une serrure, porte ouverte retire toute commande. |
 | `battery_entity` | Batterie en %, en haut à droite. Masquée en `compact`. |
