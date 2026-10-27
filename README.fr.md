@@ -21,9 +21,9 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 ## Fonctionnalités
 
 - **Deux entités** : commandes au `cover`, état lu dans n'importe quelle `state_entity` (`input_select`, sensor, template…).
-- **États reconnus automatiquement** (13 langues, sans accents) : fermé, ouvert, ouverture, fermeture, mouvement, piéton, déverrouillé, aération, partiel, inconnu. `state_map` pour le reste.
+- **États reconnus automatiquement** (13 langues, sans accents) : fermé, ouvert, ouverture, fermeture, mouvement, piéton, déverrouillé, aération, partiel, bloqué, inconnu. `state_map` pour le reste.
 - **Couleurs par état** issues du thème, ou une couleur fixe `gate_color`.
-- **Quatre types animés** : coulissant, battant (deux vantaux ou un seul, charnière à gauche ou à droite), portillon (`door`) et garage, avec plusieurs styles de vantail. `compact` remplace le dessin par une icône.
+- **Quatre types animés** : coulissant, battant (deux vantaux ou un seul, charnière à gauche ou à droite), portillon (`door`, pleine, semi-vitrée ou vitrée) et garage, avec plusieurs styles de vantail. `compact` remplace le dessin par une icône.
 - **Positions intermédiaires** : passage piéton, aération et ouverture partielle du garage, chacune avec son bouton.
 - **Serrures** : *Ouvrir* déverrouille ou dégage le pêne demi-tour pour ouvrir la porte, et toute commande disparaît tant que la porte est ouverte.
 - **Spot** : `light_entity` dessine un projecteur allumé ou éteint et ajoute un bouton *Lumière*.
@@ -44,14 +44,14 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 |---|---|
 | `entity` | **Obligatoire.** Le `cover`, ou une `lock` (*Fermer* verrouille, *Ouvrir* suit `lock_open_action`). |
 | `state_entity` | Entité portant l'état fiable (tout domaine). Défaut : `entity`. |
-| `contact_entity` | Contact d'ouverture physique. Contact ouvert + pêne verrouillé → inconnu. Sur une serrure, porte ouverte retire toute commande. |
+| `contact_entity` | Contact d'ouverture physique. Contact ouvert + pêne verrouillé → *ouverte, pêne sorti*. Sur une serrure, porte ouverte retire toute commande. |
 | `battery_entity` | Batterie en %, en haut à droite. Masquée en `compact`. |
-| `state_map` | État brut → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`unknown`. |
+| `state_map` | État brut → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`jammed`\|`unknown`. |
 | `gate_type` | `sliding` (défaut), `swing`, `door` ou `garage`. `door` est en affichage seul sans commande configurée. |
-| `gate_style` | Coulissant : `slats` (défaut), `bars`, `semi`, `solid`. Battant : `bell` (défaut), `bars`, `slats`, `semi`, `solid`. |
+| `gate_style` | Coulissant : `slats` (défaut), `bars`, `semi`, `solid`. Battant : `bell` (défaut), `bars`, `slats`, `semi`, `solid`. Porte : `solid` (défaut), `semi`, `glazed`. |
 | `single_leaf` | Battant uniquement : `left` ou `right` pour un seul vantail, charnière de ce côté. Défaut : deux vantaux. |
 | `slide_direction` | `left` (défaut) ou `right`. |
-| `gate_color` | `state` (défaut), `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` ou toute couleur CSS. |
+| `gate_color` | `state` (défaut), `wood`, `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` ou toute couleur CSS. |
 | `name` | Titre. Défaut : nom de l'entité d'état. |
 | `language` | Afficher la carte dans une autre langue que Home Assistant : `en`, `fr`, `de`, `es`, `it`, `nl`, `pt`, `sv`, `no`, `da`, `pl`, `hu` ou `ru`. L'éditeur reste dans votre langue. |
 | `compact` | Icône colorée à la place de l'illustration. |

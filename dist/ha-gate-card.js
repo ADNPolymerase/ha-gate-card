@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.9.0";
+const CARD_VERSION = "1.10.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -56,6 +56,9 @@ const T = {
     color_white: "White", color_gray: "Light gray", color_anthracite: "Anthracite",
     color_black: "Black", color_green: "Fir green", color_burgundy: "Burgundy",
     color_blue: "Steel blue", color_brown: "Brown",
+    color_wood: "Wood",
+    door_style_solid: "Solid", door_style_semi: "Half-glazed", door_style_glazed: "Glazed",
+    jammed: "Jammed", conflict: "Open, bolt out",
     section_advanced: "Command overrides (buttons / scripts)",
     open_entity: "Open command entity",
     close_entity: "Close command entity",
@@ -112,6 +115,9 @@ const T = {
     color_white: "Blanc", color_gray: "Gris clair", color_anthracite: "Anthracite",
     color_black: "Noir", color_green: "Vert sapin", color_burgundy: "Bordeaux",
     color_blue: "Bleu acier", color_brown: "Marron",
+    color_wood: "Bois",
+    door_style_solid: "Pleine", door_style_semi: "Semi-vitr\u00e9e", door_style_glazed: "Vitr\u00e9e",
+    jammed: "Bloqu\u00e9e", conflict: "Ouverte, p\u00eane sorti",
     section_advanced: "Commandes personnalis\u00e9es (boutons / scripts)",
     open_entity: "Entit\u00e9 commande Ouvrir",
     close_entity: "Entit\u00e9 commande Fermer",
@@ -167,6 +173,9 @@ const T = {
     color_white: "\u0411\u0435\u043b\u044b\u0439", color_gray: "\u0421\u0432\u0435\u0442\u043b\u043e-\u0441\u0435\u0440\u044b\u0439", color_anthracite: "\u0410\u043d\u0442\u0440\u0430\u0446\u0438\u0442",
     color_black: "\u0427\u0451\u0440\u043d\u044b\u0439", color_green: "\u0417\u0435\u043b\u0451\u043d\u044b\u0439 (\u0435\u043b\u044c)", color_burgundy: "\u0411\u043e\u0440\u0434\u043e\u0432\u044b\u0439",
     color_blue: "\u0421\u0442\u0430\u043b\u044c\u043d\u043e\u0439 \u0441\u0438\u043d\u0438\u0439", color_brown: "\u041a\u043e\u0440\u0438\u0447\u043d\u0435\u0432\u044b\u0439",
+    color_wood: "\u0414\u0435\u0440\u0435\u0432\u043e",
+    door_style_solid: "\u0413\u043b\u0443\u0445\u0430\u044f", door_style_semi: "\u041f\u043e\u043b\u0443\u0441\u0442\u0435\u043a\u043b\u044f\u043d\u043d\u0430\u044f", door_style_glazed: "\u0421\u0442\u0435\u043a\u043b\u044f\u043d\u043d\u0430\u044f",
+    jammed: "\u0417\u0430\u043a\u043b\u0438\u043d\u0438\u043b\u043e", conflict: "\u041e\u0442\u043a\u0440\u044b\u0442\u0430, \u0440\u0438\u0433\u0435\u043b\u044c \u0432\u044b\u0434\u0432\u0438\u043d\u0443\u0442",
     section_advanced: "\u041a\u0430\u0441\u0442\u043e\u043c\u043d\u044b\u0435 \u043a\u043e\u043c\u0430\u043d\u0434\u044b (\u043a\u043d\u043e\u043f\u043a\u0438 / \u0441\u043a\u0440\u0438\u043f\u0442\u044b)",
     open_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u041e\u0442\u043a\u0440\u044b\u0442\u044c",
     close_entity: "\u0421\u0443\u0449\u043d\u043e\u0441\u0442\u044c \u043a\u043e\u043c\u0430\u043d\u0434\u044b \u0417\u0430\u043a\u0440\u044b\u0442\u044c",
@@ -222,6 +231,9 @@ const T = {
     color_white: "Wei\u00df", color_gray: "Hellgrau", color_anthracite: "Anthrazit",
     color_black: "Schwarz", color_green: "Tannengr\u00fcn", color_burgundy: "Bordeauxrot",
     color_blue: "Stahlblau", color_brown: "Braun",
+    color_wood: "Holz",
+    door_style_solid: "Geschlossen", door_style_semi: "Halb verglast", door_style_glazed: "Verglast",
+    jammed: "Blockiert", conflict: "Offen, Riegel ausgefahren",
     section_advanced: "Befehls-Overrides (Buttons / Skripte)",
     open_entity: "Entit\u00e4t Befehl \u00d6ffnen",
     close_entity: "Entit\u00e4t Befehl Schlie\u00dfen",
@@ -277,6 +289,9 @@ const T = {
     color_white: "Blanco", color_gray: "Gris claro", color_anthracite: "Antracita",
     color_black: "Negro", color_green: "Verde abeto", color_burgundy: "Burdeos",
     color_blue: "Azul acero", color_brown: "Marr\u00f3n",
+    color_wood: "Madera",
+    door_style_solid: "Ciega", door_style_semi: "Semiacristalada", door_style_glazed: "Acristalada",
+    jammed: "Atascada", conflict: "Abierta, pestillo fuera",
     section_advanced: "Comandos personalizados (botones / scripts)",
     open_entity: "Entidad comando Abrir",
     close_entity: "Entidad comando Cerrar",
@@ -332,6 +347,9 @@ const T = {
     color_white: "Bianco", color_gray: "Grigio chiaro", color_anthracite: "Antracite",
     color_black: "Nero", color_green: "Verde abete", color_burgundy: "Bordeaux",
     color_blue: "Blu acciaio", color_brown: "Marrone",
+    color_wood: "Legno",
+    door_style_solid: "Cieca", door_style_semi: "Semivetrata", door_style_glazed: "Vetrata",
+    jammed: "Bloccata", conflict: "Aperta, chiavistello fuori",
     section_advanced: "Comandi personalizzati (pulsanti / script)",
     open_entity: "Entit\u00e0 comando Apri",
     close_entity: "Entit\u00e0 comando Chiudi",
@@ -387,6 +405,9 @@ const T = {
     color_white: "Wit", color_gray: "Lichtgrijs", color_anthracite: "Antraciet",
     color_black: "Zwart", color_green: "Dennengroen", color_burgundy: "Bordeaux",
     color_blue: "Staalblauw", color_brown: "Bruin",
+    color_wood: "Hout",
+    door_style_solid: "Dicht", door_style_semi: "Half glas", door_style_glazed: "Volglas",
+    jammed: "Geblokkeerd", conflict: "Open, grendel uit",
     section_advanced: "Commando-overrides (knoppen / scripts)",
     open_entity: "Entiteit commando Openen",
     close_entity: "Entiteit commando Sluiten",
@@ -442,6 +463,9 @@ const T = {
     color_white: "Branco", color_gray: "Cinzento claro", color_anthracite: "Antracite",
     color_black: "Preto", color_green: "Verde abeto", color_burgundy: "Bord\u00f4",
     color_blue: "Azul a\u00e7o", color_brown: "Castanho",
+    color_wood: "Madeira",
+    door_style_solid: "Cega", door_style_semi: "Semienvidra\u00e7ada", door_style_glazed: "Envidra\u00e7ada",
+    jammed: "Bloqueada", conflict: "Aberta, trinco fora",
     section_advanced: "Comandos personalizados (bot\u00f5es / scripts)",
     open_entity: "Entidade comando Abrir",
     close_entity: "Entidade comando Fechar",
@@ -497,6 +521,9 @@ const T = {
     color_white: "Vit", color_gray: "Ljusgr\u00e5", color_anthracite: "Antracit",
     color_black: "Svart", color_green: "Grangr\u00f6n", color_burgundy: "Vinr\u00f6d",
     color_blue: "St\u00e5lbl\u00e5", color_brown: "Brun",
+    color_wood: "Tr\u00e4",
+    door_style_solid: "T\u00e4t", door_style_semi: "Halvglasad", door_style_glazed: "Helglasad",
+    jammed: "K\u00e4rvar", conflict: "\u00d6ppen, kolven ute",
     section_advanced: "Kommando-\u00f6verstyrningar (knappar / skript)",
     open_entity: "Entitet kommando \u00d6ppna",
     close_entity: "Entitet kommando St\u00e4ng",
@@ -552,6 +579,9 @@ const T = {
     color_white: "Hvit", color_gray: "Lysegr\u00e5", color_anthracite: "Antrasitt",
     color_black: "Svart", color_green: "Grangr\u00f8nn", color_burgundy: "Burgunder",
     color_blue: "St\u00e5lbl\u00e5", color_brown: "Brun",
+    color_wood: "Tre",
+    door_style_solid: "Tett", door_style_semi: "Halvglass", door_style_glazed: "Helglass",
+    jammed: "Sitter fast", conflict: "\u00c5pen, l\u00e5sen ute",
     section_advanced: "Kommando-overstyringer (knapper / skript)",
     open_entity: "Entitet kommando \u00c5pne",
     close_entity: "Entitet kommando Lukk",
@@ -607,6 +637,9 @@ const T = {
     color_white: "Hvid", color_gray: "Lysegr\u00e5", color_anthracite: "Antracit",
     color_black: "Sort", color_green: "Grangr\u00f8n", color_burgundy: "Bordeaux",
     color_blue: "St\u00e5lbl\u00e5", color_brown: "Brun",
+    color_wood: "Tr\u00e6",
+    door_style_solid: "T\u00e6t", door_style_semi: "Halvglas", door_style_glazed: "Helglas",
+    jammed: "Sidder fast", conflict: "\u00c5ben, rigel ude",
     section_advanced: "Kommando-tilsides\u00e6ttelser (knapper / scripts)",
     open_entity: "Entitet kommando \u00c5bn",
     close_entity: "Entitet kommando Luk",
@@ -662,6 +695,9 @@ const T = {
     color_white: "Bia\u0142y", color_gray: "Jasnoszary", color_anthracite: "Antracyt",
     color_black: "Czarny", color_green: "Ziele\u0144 jod\u0142owa", color_burgundy: "Bordowy",
     color_blue: "Stalowy niebieski", color_brown: "Br\u0105zowy",
+    color_wood: "Drewno",
+    door_style_solid: "Pe\u0142ne", door_style_semi: "P\u00f3\u0142przeszklone", door_style_glazed: "Przeszklone",
+    jammed: "Zablokowane", conflict: "Otwarte, rygiel wysuni\u0119ty",
     section_advanced: "Niestandardowe komendy (przyciski / skrypty)",
     open_entity: "Encja komendy Otw\u00f3rz",
     close_entity: "Encja komendy Zamknij",
@@ -717,6 +753,9 @@ const T = {
     color_white: "Feh\u00e9r", color_gray: "Vil\u00e1gossz\u00fcrke", color_anthracite: "Antracit",
     color_black: "Fekete", color_green: "Feny\u0151z\u00f6ld", color_burgundy: "Bord\u00f3",
     color_blue: "Ac\u00e9lk\u00e9k", color_brown: "Barna",
+    color_wood: "Fa",
+    door_style_solid: "T\u00f6m\u00f6r", door_style_semi: "F\u00e9lig \u00fcveges", door_style_glazed: "\u00dcveges",
+    jammed: "Beszorult", conflict: "Nyitva, retesz kint",
     section_advanced: "Parancs fel\u00fclb\u00edr\u00e1l\u00e1sok (gombok / szkriptek)",
     open_entity: "Nyit\u00e1s parancs entit\u00e1s",
     close_entity: "Z\u00e1r\u00e1s parancs entit\u00e1s",
@@ -794,6 +833,7 @@ const STATE_KEYWORDS = {
   closing: ["closing", "locking", "fermeture", "schliesst", "cerrando", "chiusura", "sluit", "fechando", "a fechar", "stanger", "lukker", "zamykanie", "zaras"],
   pedestrian: ["pieton", "pedestrian", "peaton", "pedonal", "voetganger", "fussgang", "durchgang", "gangpass", "ganglage", "gangport", "furtka", "gyalogos"],
   moving: ["moving", "mouvement", "in motion", "bewegung", "movimiento", "movimento", "beweging", "rorelse", "bevegelse", "bevaegelse", "bev\u00e6gelse", "ruch", "mozgas"],
+  jammed: ["jammed", "bloqu", "blockiert", "atascad", "bloccat", "geblokkeerd", "karvar", "zablokowan", "beszorult"],
   closed: ["closed", "locked", "verrouill", "ferme", "geschlossen", "cerrado", "chiuso", "gesloten", "fechado", "stangd", "lukket", "zamkni", "zarva", "zart", "zarol"],
   unlocked: ["unlocked", "deverrouill", "entriegelt", "desbloquead", "sbloccat", "ontgrendeld", "destrancad", "olast", "ulast", "odblokowan", "feloldv"],
   open: ["open", "ouvert", "offen", "abierto", "aperto", "aberto", "oppen", "apen", "aben", "otwart", "nyitva", "nyitott"],
@@ -843,6 +883,8 @@ const STATE_COLORS = {
   unlocked: "var(--warning-color, #ff9800)",
   vent: "var(--warning-color, #ff9800)",
   partial: "var(--warning-color, #ff9800)",
+  jammed: "var(--error-color, #f44336)",
+  conflict: "var(--error-color, #f44336)",
   unknown: "var(--error-color, #f44336)",
 };
 
@@ -856,6 +898,8 @@ const STATE_ICONS = {
   unlocked: "mdi:gate",
   vent: "mdi:weather-windy",
   partial: "mdi:paw",
+  jammed: "mdi:lock-alert",
+  conflict: "mdi:gate-open",
   unknown: "mdi:gate-alert",
 };
 
@@ -871,6 +915,7 @@ const GATE_COLORS = {
   burgundy: { fill: "#6b1c23", line: "#6b1c23" },
   blue: { fill: "#1f3855", line: "#1f3855" },
   brown: { fill: "#59392f", line: "#59392f" },
+  wood: { fill: "#c08b5a", line: "#7d5331" },
 };
 
 const TYPE_ICONS = {
@@ -888,6 +933,7 @@ const TYPE_ICONS = {
     opening: "mdi:door-open", closing: "mdi:door-closed",
     moving: "mdi:door-open", pedestrian: "mdi:door-open",
     unlocked: "mdi:door-closed",
+    jammed: "mdi:lock-alert", conflict: "mdi:door-open",
     unknown: "mdi:door",
   },
 };
@@ -948,7 +994,7 @@ function actionsFor(norm, cfg) {
   // locking would drive the bolt into the void and some locks jam on that. The
   // card knows it either from the contact sensor or from the lock declaring
   // itself unlatched, and it withdraws the command instead of warning about it.
-  if (isLock && norm === "open") return [...lamp];
+  if (isLock && (norm === "open" || norm === "conflict")) return [...lamp];
   const stop = cfg.show_stop ? ["stop"] : [];
   // Pedestrian pass only exists on sliding and swing gates.
   const ped = cfg.pedestrian_entity && cfg.gate_type !== "garage";
@@ -976,7 +1022,8 @@ function actionsFor(norm, cfg) {
       const opens = !isLock || !!cfg.open_entity || unlatches(cfg);
       return opens ? [...lamp, "open", "close"] : [...lamp, "close"];
     }
-    case "pedestrian": return [...lamp, "close"];
+    case "pedestrian":
+    case "conflict": return [...lamp, "close"];
     case "vent":
     case "partial": return [...lamp, "close"];
     case "opening":
@@ -1405,12 +1452,18 @@ function swingSvg(norm, cfg, lampOn, frac) {
     </svg>`;
 }
 
-// Door / wicket: a classic house entrance door -- solid narrow panel with two
-// inset moldings and a knob, in a jamb-and-lintel frame. Display-only (no
-// command buttons); the open pose folds the leaf back, the opening stays in
-// the card background color (JD-approved v3).
+// Door / wicket: a classic house entrance door in a jamb-and-lintel frame,
+// in three shapes (solid, half-glazed, glazed) with hinges, a lock and a
+// bolt. Display-only unless command entities are configured.
+//
+// Two color modes. By default the leaf keeps the state color and every
+// detail is knocked out of it in the card background, exactly as the v1.9.0
+// drawing did; pick a gate_color and the leaf takes that material instead,
+// the state then showing on the lock and the bolt alone. The glazing keeps
+// its own tint in both modes, otherwise a glazed door reads as a hole.
 const DOOR_POSE = {
-  closed: "", unknown: "", unlocked: "",
+  closed: "", unknown: "", unlocked: "", jammed: "",
+  conflict: "scaleX(-0.72) skewY(10deg)",
   open: "scaleX(-0.72) skewY(10deg)",
   pedestrian: "scaleX(-0.72) skewY(10deg)",
   opening: "scaleX(0.4) skewY(8deg)",
@@ -1418,30 +1471,59 @@ const DOOR_POSE = {
   moving: "scaleX(0.4) skewY(8deg)",
 };
 
-function doorSvg(norm, cfg, lampOn) {
-  const panel = '<rect x="54" y="11" width="32" height="46" rx="1.5"/>';
-  const details = `
-      <g class="door-detail">
-        <rect x="59" y="17" width="22" height="15" rx="1.5"/>
-        <rect x="59" y="37" width="22" height="15" rx="1.5"/>
-      </g>
-      <circle cx="81.5" cy="34" r="2.3" class="door-knob"/>`;
-  const pose = DOOR_POSE[norm] || "";
+// A glazed pane: tinted glass, a slanted highlight clipped to the opening,
+// and a frame drawn on top so the rebate stays visible in both color modes.
+function doorPane(x, y, w, h) {
+  const i = 2.2;
+  const id = `pane-${x}-${y}`;
   return `
-    <svg viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <clipPath id="${id}"><rect x="${x + i}" y="${y + i}" width="${w - 2 * i}" height="${h - 2 * i}" rx="1"/></clipPath>
+        <rect x="${x + i}" y="${y + i}" width="${w - 2 * i}" height="${h - 2 * i}" rx="1" class="door-glass"/>
+        <g clip-path="url(#${id})"><path class="door-shine" d="M${x + i} ${y + h} L${x + w * 0.62} ${y + i} h${w * 0.2} L${x + i + w * 0.18} ${y + h} Z"/></g>
+        <rect x="${x + i}" y="${y + i}" width="${w - 2 * i}" height="${h - 2 * i}" rx="1" class="door-glass-frame"/>`;
+}
+
+function doorStyle(cfg) {
+  const known = ["solid", "semi", "glazed"];
+  return known.includes(cfg.gate_style) ? cfg.gate_style : "solid";
+}
+
+function doorSvg(norm, cfg, lampOn) {
+  // A finish picked by hand moves the state onto the lock and the bolt; with
+  // no finish the leaf itself carries the state, as it always has.
+  const tint = cfg.gate_color && cfg.gate_color !== "state" ? " door-tint" : " door-state";
+  const pose = DOOR_POSE[norm] || "";
+  const swung = pose !== "";
+  const style = doorStyle(cfg);
+  // Jammed: the bolt is only halfway out, which is the whole point.
+  const boltLen = norm === "jammed" ? 3.2 : 6.4;
+  const bolt = `<rect x="85" y="33.6" width="${boltLen}" height="4" rx="1.3" class="door-bolt"/>`;
+  const inner = style === "glazed"
+    ? `${doorPane(58, 15, 17, 38)}
+        <g class="door-muntin"><path d="M58 28.5 H75 M58 40.5 H75"/></g>`
+    : style === "semi"
+      ? `${doorPane(58, 15, 24, 15)}
+        <g class="door-panel"><rect x="58" y="40" width="24" height="13" rx="1"/></g>`
+      : `<g class="door-panel"><rect x="58" y="15" width="24" height="15" rx="1"/><rect x="58" y="40" width="24" height="13" rx="1"/></g>`;
+  const leaf = `<rect x="54" y="11" width="32" height="46" rx="1.5" class="door-wood"/>
+        ${inner}
+        <g class="door-hinge"><rect x="52.7" y="17" width="2.6" height="5" rx="1"/><rect x="52.7" y="45.5" width="2.6" height="5" rx="1"/></g>
+        <circle cx="80.4" cy="35.6" r="4.3" class="door-lock"/>
+        <rect x="79.5" y="33.7" width="1.8" height="4.2" rx=".9" class="door-keyhole"/>
+        ${norm === "conflict" ? bolt : ""}`;
+  return `
+    <svg viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="door-svg${tint}">
       ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="30" y1="58" x2="110" y2="58" class="gate-ground"/>
+      ${swung ? '<rect x="53" y="10" width="34" height="48" rx="1" class="door-void"/>' : ""}
       <g class="gate-post-g">
         <rect x="48" y="9" width="5" height="49" rx="2"/>
         <rect x="87" y="9" width="5" height="49" rx="2"/>
         <rect x="46" y="4" width="48" height="6" rx="2"/>
       </g>
-      <g class="door-leaf" style="transform:${pose || "none"}">
-        <g class="leaf-line">${panel}</g>
-        <g class="leaf-fill">${panel}</g>
-        ${details}
-      </g>
-      ${norm === "closed" && cfg.show_key !== false ? GATE_KEY : ""}
+      <rect x="87.2" y="31.6" width="4.6" height="8" rx="1.2" class="door-strike"/>
+      <g class="door-leaf${norm === "unknown" ? " door-faded" : ""}" style="transform:${pose || "none"}">${leaf}</g>
+      ${(norm === "closed" || norm === "jammed") && cfg.show_key !== false ? bolt : ""}
       ${norm === "unknown" ? '<text x="70" y="38" class="gate-question">?</text>' : ""}
       ${cfg.light_entity && cfg.show_spot !== false ? gateLight(cfg, lampOn) : ""}
     </svg>`;
@@ -1727,7 +1809,7 @@ class GateCard extends HTMLElement {
       const contactNorm = ["on", "true"].includes(rawContact) ? "open"
         : ["off", "false"].includes(rawContact) ? "closed"
         : normalizeState(rawContact, null);
-      if (contactNorm === "open") norm = norm === "closed" ? "unknown" : "open";
+      if (contactNorm === "open") norm = norm === "closed" ? "conflict" : "open";
       else if (contactNorm === "closed" && norm === "open") norm = "unlocked";
     }
     const color = STATE_COLORS[norm];
@@ -1833,8 +1915,27 @@ ha-card.tappable { cursor:pointer; }
 .door-leaf { transform-box:view-box; transform-origin:54px 34px; transition:transform .9s ease; }
 .moving .door-leaf { animation:door-swing 1.8s ease-in-out infinite alternate; }
 @keyframes door-swing { from { transform:scaleX(.55) skewY(6deg); } to { transform:scaleX(.15) skewY(10deg); } }
-.door-detail rect { fill:none; stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.8; }
-.door-knob { fill:var(--ha-card-background, var(--card-background-color, #fff)); }
+.door-wood { fill:var(--leaf-color); stroke:var(--leaf-line); stroke-width:1.6; }
+.door-panel rect { fill:none; stroke:var(--leaf-line); stroke-width:1.4; opacity:.75; }
+.door-glass { fill:#b9d4e2; }
+.door-glass-frame { fill:none; stroke:var(--leaf-line); stroke-width:1.4; opacity:.75; }
+.door-shine { fill:#fff; opacity:.42; }
+.door-muntin path { stroke:var(--leaf-line); stroke-width:1.4; opacity:.75; fill:none; }
+.door-hinge rect { fill:#9aa3ad; }
+.door-lock { fill:var(--gate-color); stroke:#0000002e; stroke-width:1.2; }
+.door-keyhole { fill:#00000059; }
+.door-strike { fill:#9aa3ad; opacity:.85; }
+.door-bolt { fill:var(--gate-color); stroke:#0000002e; stroke-width:1.2; }
+.door-void { fill:var(--secondary-text-color); opacity:.22; }
+.door-faded { opacity:.4; }
+/* State mode: the details are holes cut in the colored leaf. The glazing is
+   the exception, it keeps its tint so a glazed door does not read as a hole,
+   and the glazing bars then have to be drawn in the leaf color to show. */
+.door-state .door-panel rect, .door-state .door-glass-frame { stroke:var(--ha-card-background, var(--card-background-color, #fff)); opacity:1; }
+.door-state .door-muntin path { stroke:var(--leaf-color); opacity:1; }
+.door-state .door-hinge rect, .door-state .door-lock { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:none; }
+.door-state .door-keyhole { fill:var(--leaf-color); }
+.door-state .door-bolt { fill:var(--leaf-color); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.6; }
 .garage-rib { stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.4; }
 .garage-arrow { fill:none; stroke:var(--gate-color); stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
 .moving .garage-arrow { animation:garage-bob 1.2s ease-in-out infinite alternate; }
@@ -2063,7 +2164,15 @@ details .form { padding-top:10px; }
               .join("")}
           </select>
         </div>
-        ${["door", "garage"].includes(cfg.gate_type) ? "" : `
+        ${cfg.gate_type === "garage" ? "" : cfg.gate_type === "door" ? `
+        <div class="row">
+          <label>${t(hass, "gate_style")}</label>
+          <select data-field="gate_style">
+            ${[["solid", "door_style_solid"], ["semi", "door_style_semi"], ["glazed", "door_style_glazed"]]
+              .map(([v, k]) => `<option value="${v}" ${doorStyle(cfg) === v ? "selected" : ""}>${t(hass, k)}</option>`)
+              .join("")}
+          </select>
+        </div>` : `
         <div class="row">
           <label>${t(hass, "gate_style")}</label>
           <select data-field="gate_style">
@@ -2094,7 +2203,7 @@ details .form { padding-top:10px; }
         <div class="row">
           <label>${t(hass, "gate_color")}</label>
           <select data-field="gate_color">
-            ${["state", "white", "gray", "anthracite", "black", "green", "burgundy", "blue", "brown"]
+            ${["state", "wood", "white", "gray", "anthracite", "black", "green", "burgundy", "blue", "brown"]
               .map((c) => `<option value="${c}" ${(cfg.gate_color || "state") === c ? "selected" : ""}>${t(hass, "color_" + c)}</option>`)
               .join("")}
           </select>

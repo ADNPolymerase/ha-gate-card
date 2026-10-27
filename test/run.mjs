@@ -619,4 +619,53 @@ check('position connue : l animation de va-et-vient est coupee',
   check("l'editeur : bouton Deverrouiller coche", /data-field="show_unlock_button" checked/.test(edHtml({ show_unlock_button: true })), true);
 }
 
+// Doors (1.10.0): three shapes, a lock drawn on the leaf, and two states that
+// used to collapse into "unknown" -- a jammed bolt, and a bolt driven out
+// while the contact says the door is open.
+{
+  const door = (cfg = {}, st = 'locked', contact) => {
+    const c = new Card();
+    c.setConfig(Object.freeze({ gate_type: 'door', entity: 'lock.porte', ...cfg }));
+    const states = { 'lock.porte': { state: st, attributes: {}, last_changed: '2026-08-12T10:00:00Z' } };
+    if (contact !== undefined) states['binary_sensor.porte'] = { state: contact, attributes: {}, last_changed: '2026-08-12T10:00:00Z' };
+    c.hass = { language: 'fr', states, callService() {} };
+    return String(markup(c));
+  };
+  const acts = (...a) => [...door(...a).matchAll(/data-action="([a-z]+)"/g)].map(m => m[1]).join(',');
+  const leafColor = html => (String(html).match(/--leaf-color: ([^;]*);/) || [])[1];
+  // markup() carries the <style> block, where every .door-* name also shows up.
+  const svg = (...a) => door(...a).replace(/<style>[\s\S]*?<\/style>/, '');
+
+  check('porte bloquee : etat nomme, plus "inconnu"', label(door({}, 'Bloquee')), 'Bloquée');
+  check('porte bloquee : couleur erreur', color(door({}, 'Bloquee')), 'var(--error-color, #f44336)');
+  check('porte bloquee : le pene ne sort qu a moitie', /width="3.2"[^>]*class="door-bolt"/.test(door({}, 'Bloquee')), true);
+  check('porte verrouillee : le pene sort en entier', /width="6.4"[^>]*class="door-bolt"/.test(door({}, 'locked')), true);
+
+  const conflict = { contact_entity: 'binary_sensor.porte' };
+  check('verrou sorti sur une porte ouverte : etat nomme', label(door(conflict, 'locked', 'on')), 'Ouverte, pêne sorti');
+  check('verrou sorti sur une porte ouverte : aucune commande', acts(conflict, 'locked', 'on'), '');
+  check('verrou sorti : le vantail est dessine ouvert', /class="door-leaf" style="transform:scaleX\(-0.72\)/.test(door(conflict, 'locked', 'on')), true);
+
+  // Shapes. Solid is the default and keeps the v1.9.0 silhouette.
+  check('porte pleine par defaut : deux panneaux, pas de vitrage', /door-glass/.test(svg({})), false);
+  check('porte semi-vitree : un vitrage', (door({ gate_style: 'semi' }).match(/class="door-glass"/g) || []).length, 1);
+  check('porte vitree : un vitrage et des petits bois', /class="door-muntin"/.test(svg({ gate_style: 'glazed' })), true);
+  check('style inconnu sur une porte : repli sur pleine', /door-glass/.test(svg({ gate_style: 'bell' })), false);
+
+  // Color modes.
+  check('par defaut : le vantail garde la couleur d etat', leafColor(door({})), 'var(--success-color, #4caf50)');
+  check('par defaut : mode etat sur le dessin', /class="door-svg door-state"/.test(door({})), true);
+  check('finition choisie : le vantail prend la matiere', leafColor(door({ gate_color: 'wood' })), '#c08b5a');
+  check('finition choisie : mode teinte sur le dessin', /class="door-svg door-tint"/.test(door({ gate_color: 'wood' })), true);
+  check('le vitrage garde sa teinte meme en couleur d etat',
+    /class="door-glass"/.test(door({ gate_style: 'glazed' })), true);
+
+  const edDoor = cfg => { const e = new Editor(); e.hass = { language: 'fr', states: {} }; e.setConfig({ gate_type: 'door', entity: 'lock.porte', ...cfg }); return String(markup(e)); };
+  check("l'editeur : les formes de porte remplacent les styles de portail",
+    /<option value="glazed"/.test(edDoor({})) && !/style_slats|Lames horizontales/.test(edDoor({})), true);
+  check("l'editeur : pleine selectionnee par defaut", /<option value="solid" selected>Pleine/.test(edDoor({})), true);
+  check("l'editeur : la forme choisie est selectionnee", /<option value="semi" selected>Semi-vitr/.test(edDoor({ gate_style: 'semi' })), true);
+  check("l'editeur : la finition bois est proposee", /<option value="wood"[^>]*>Bois/.test(edDoor({})), true);
+}
+
 report();

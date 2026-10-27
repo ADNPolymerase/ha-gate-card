@@ -21,9 +21,9 @@ Built for setups where *command* and *state* are separate: the gate is driven by
 ## Features
 
 - **Two entities**: commands go to the `cover`, the state is read from any `state_entity` (`input_select`, sensor, template…).
-- **States detected automatically** (13 languages, accent-insensitive): closed, open, opening, closing, moving, pedestrian, unlocked, venting, part-open, unknown. `state_map` for the rest.
+- **States detected automatically** (13 languages, accent-insensitive): closed, open, opening, closing, moving, pedestrian, unlocked, venting, part-open, jammed, unknown. `state_map` for the rest.
 - **Per-state colors** from your theme, or a fixed `gate_color`.
-- **Four animated types**: sliding, swing (two leaves or one, hinged left or right), wicket (`door`) and garage, with several leaf designs. `compact` swaps the drawing for an icon.
+- **Four animated types**: sliding, swing (two leaves or one, hinged left or right), wicket (`door`, solid, half-glazed or glazed) and garage, with several leaf designs. `compact` swaps the drawing for an icon.
 - **Intermediate positions**: pedestrian pass, garage venting and part-open, each with its own button.
 - **Locks**: *Open* either unlocks or releases the latch and opens the door, and every command is withdrawn while the door stands open.
 - **Spotlight**: `light_entity` draws a lamp that is on or off and adds a *Light* button.
@@ -44,14 +44,14 @@ Built for setups where *command* and *state* are separate: the gate is driven by
 |---|---|
 | `entity` | **Required.** The `cover`, or a `lock` (*Close* locks, *Open* follows `lock_open_action`). |
 | `state_entity` | Entity holding the reliable state (any domain). Defaults to `entity`. |
-| `contact_entity` | Physical door contact. Open contact + locked bolt → unknown. On a lock, an open door withdraws every command. |
+| `contact_entity` | Physical door contact. Open contact + locked bolt → *open, bolt out*. On a lock, an open door withdraws every command. |
 | `battery_entity` | Battery %, top right. Hidden in `compact`. |
-| `state_map` | Raw state → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`unknown`. |
+| `state_map` | Raw state → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`jammed`\|`unknown`. |
 | `gate_type` | `sliding` (default), `swing`, `door` or `garage`. `door` is display-only without command entities. |
-| `gate_style` | Sliding: `slats` (default), `bars`, `semi`, `solid`. Swing: `bell` (default), `bars`, `slats`, `semi`, `solid`. |
+| `gate_style` | Sliding: `slats` (default), `bars`, `semi`, `solid`. Swing: `bell` (default), `bars`, `slats`, `semi`, `solid`. Door: `solid` (default), `semi`, `glazed`. |
 | `single_leaf` | Swing only: `left` or `right` for a single leaf hinged on that side. Default: two leaves. |
 | `slide_direction` | `left` (default) or `right`. |
-| `gate_color` | `state` (default), `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` or any CSS color. |
+| `gate_color` | `state` (default), `wood`, `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` or any CSS color. |
 | `name` | Title. Defaults to the state entity's name. |
 | `language` | Show the card in another language than Home Assistant: `en`, `fr`, `de`, `es`, `it`, `nl`, `pt`, `sv`, `no`, `da`, `pl`, `hu` or `ru`. The editor keeps your own language. |
 | `compact` | Colored icon instead of the illustration. |
