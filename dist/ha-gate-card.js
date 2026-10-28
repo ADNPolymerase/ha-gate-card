@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.10.1";
+const CARD_VERSION = "1.11.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -768,7 +768,7 @@ const T = {
     confirm_never: "Soha", confirm_open: "Csak nyit\u00e1skor", confirm_always: "Mindig",
     lock_open_action: "Mit tesz a Nyit\u00e1s egy z\u00e1rn\u00e1l", lock_open_unlock: "Felold\u00e1s", lock_open_open: "Ajt\u00f3 nyit\u00e1sa (retesz visszah\u00faz\u00e1sa)",
     show_unlock_button: "K\u00fcl\u00f6n Felold\u00e1s gomb (z\u00e1rak)",
-    },
+  },
   cs: {
     closed: "Zav\u0159eno", open: "Otev\u0159eno", opening: "Otev\u00edr\u00e1n\u00ed\u2026", closing: "Zav\u00edr\u00e1n\u00ed\u2026",
     unknown: "Nezn\u00e1m\u00fd stav", since: "od",
@@ -886,13 +886,13 @@ function sinceText(hass, time) {
 const STATE_KEYWORDS = {
   // vent et partial passent avant opening/closing : "Ouverture partielle"
   // contient "ouverture", et serait sinon lu comme une ouverture en cours.
-  vent: ["ventilation", "aeration", "airing", "luftung", "venting", "vadring", "lufting", "udluftning", "wietrzenie", "szelloztet", "vetrani"],
+  vent: ["ventilation", "aeration", "airing", "luftung", "venting", "vadring", "lufting", "udluftning", "wietrzenie", "szelloztet", "vetrani", "ventilac"],
   partial: ["partiel", "partial", "parcial", "parziale", "teilweise", "gedeeltelijk", "delvis", "czesciowo", "animal", "chat", "felig", "reszleges", "castecne", "castecne otevreni", "pootevreno"],
   opening: ["opening", "unlocking", "ouverture", "offnet", "abriendo", "apertura", "opent", "abrindo", "a abrir", "oppnar", "apner", "abner", "otwieranie", "nyitas", "otevirani", "otevreni"],
   closing: ["closing", "locking", "fermeture", "schliesst", "cerrando", "chiusura", "sluit", "fechando", "a fechar", "stanger", "lukker", "zamykanie", "zaras", "zavirani", "zavreni"],
   pedestrian: ["pieton", "pedestrian", "peaton", "pedonal", "voetganger", "fussgang", "durchgang", "gangpass", "ganglage", "gangport", "furtka", "gyalogos", "chodec", "pesi"],
   moving: ["moving", "mouvement", "in motion", "bewegung", "movimiento", "movimento", "beweging", "rorelse", "bevegelse", "bevaegelse", "bev\u00e6gelse", "ruch", "mozgas", "pohyb", "v pohybu"],
-  jammed: ["jammed", "bloqu", "blockiert", "atascad", "bloccat", "geblokkeerd", "karvar", "zablokowan", "beszorult", "zaseknuto", "zablokovano"],
+  jammed: ["jammed", "bloqu", "blockiert", "atascad", "bloccat", "geblokkeerd", "karvar", "zablokowan", "beszorult", "zaseknut", "zablokovano"],
   closed: ["closed", "locked", "verrouill", "ferme", "geschlossen", "cerrado", "chiuso", "gesloten", "fechado", "stangd", "lukket", "zamkni", "zarva", "zart", "zarol", "zavreno", "zavreny", "zavrena", "zavrene"],
   unlocked: ["unlocked", "deverrouill", "entriegelt", "desbloquead", "sbloccat", "ontgrendeld", "destrancad", "olast", "ulast", "odblokowan", "feloldv", "odemceno", "odemceny", "odemcena", "odemcene"],
   open: ["open", "ouvert", "offen", "abierto", "aperto", "aberto", "oppen", "apen", "aben", "otwart", "nyitva", "nyitott", "otevreno", "otevreny", "otevrena", "otevrene"],

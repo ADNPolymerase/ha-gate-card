@@ -21,7 +21,7 @@ Built for setups where *command* and *state* are separate: the gate is driven by
 ## Features
 
 - **Two entities**: commands go to the `cover`, the state is read from any `state_entity` (`input_select`, sensor, template…).
-- **States detected automatically** (13 languages, accent-insensitive): closed, open, opening, closing, moving, pedestrian, unlocked, venting, part-open, jammed, unknown. `state_map` for the rest.
+- **States detected automatically** (14 languages, accent-insensitive): closed, open, opening, closing, moving, pedestrian, unlocked, venting, part-open, jammed, unknown. `state_map` for the rest.
 - **Per-state colors** from your theme, or a fixed `gate_color`.
 - **Four animated types**: sliding, swing (two leaves or one, hinged left or right), wicket (`door`, solid, half-glazed or glazed) and garage, with several leaf designs. `compact` swaps the drawing for an icon.
 - **Intermediate positions**: pedestrian pass, garage venting and part-open, each with its own button.
@@ -53,7 +53,7 @@ Built for setups where *command* and *state* are separate: the gate is driven by
 | `slide_direction` | `left` (default) or `right`. |
 | `gate_color` | `state` (default), `wood`, `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` or any CSS color. |
 | `name` | Title. Defaults to the state entity's name. |
-| `language` | Show the card in another language than Home Assistant: `en`, `fr`, `de`, `es`, `it`, `nl`, `pt`, `sv`, `no`, `da`, `pl`, `hu` or `ru`. The editor keeps your own language. |
+| `language` | Show the card in another language than Home Assistant: `en`, `fr`, `de`, `es`, `it`, `nl`, `pt`, `sv`, `no`, `da`, `pl`, `hu`, `ru` or `cs`. The editor keeps your own language. |
 | `compact` | Colored icon instead of the illustration. |
 | `show_state` | State in words under the name. Default `true`. |
 | `single_line` | Name, state and time on one row, wrapping when space runs out. Default `false`. |

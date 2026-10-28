@@ -444,6 +444,36 @@ check('position connue : l animation de va-et-vient est coupee',
   check('les mots hongrois ne cassent pas les autres langues : Ferme', norm('Fermé'), 'Closed');
 }
 
+// Czech (PR #9): labels and state keywords.
+{
+  const csCard = (raw, cfg = {}) => {
+    const c = new Card();
+    c.setConfig(Object.freeze({ entity: 'cover.portail', ...cfg }));
+    c.hass = { language: 'cs', states: { 'cover.portail': { state: raw, attributes: {}, last_changed: '2026-08-12T10:00:00Z' } }, callService() {} };
+    return String(markup(c));
+  };
+  const norm = raw => label(makeCard(raw));
+  check('tcheque : ferme se dit Zavreno', label(csCard('closed')), 'Zav\u0159eno');
+  check('tcheque reconnu : Zavreno = ferme', norm('Zav\u0159eno'), 'Closed');
+  check('tcheque reconnu : Otevreno = ouvert', norm('Otev\u0159eno'), 'Open');
+  check('tcheque reconnu : Otevirani = ouverture', norm('Otev\u00edr\u00e1n\u00ed\u2026'), 'Opening\u2026');
+  check('tcheque reconnu : Zavirani = fermeture', norm('Zav\u00edr\u00e1n\u00ed\u2026'), 'Closing\u2026');
+  check('tcheque reconnu : Castecne otevreno = partiel, pas ouvert', norm('\u010c\u00e1ste\u010dn\u011b otev\u0159eno'), label(makeCard('partial')));
+  check('tcheque reconnu : Odemceno = deverrouille', norm('Odem\u010deno'), label(makeCard('unlocked')));
+  check('tcheque reconnu : Pesi = pieton', norm('Pr\u016fchod pro p\u011b\u0161\u00ed'), label(makeCard('pedestrian')));
+  check('tcheque reconnu : Pohyb = mouvement', norm('Pohyb\u2026'), label(makeCard('moving')));
+  // The card's own Czech wording must survive a round trip through the keywords:
+  // the translation says Ventilace and Zaseknute, the keyword list said vetrani
+  // and zaseknuto, so both labels used to come back as "unknown".
+  check('tcheque reconnu : Ventilace = aeration', norm('Ventilace'), label(makeCard('venting')));
+  check('tcheque reconnu : Vetrani = aeration', norm('V\u011btr\u00e1n\u00ed'), label(makeCard('venting')));
+  check('tcheque reconnu : Zaseknute = bloque', norm('Zaseknut\u00e9'), label(makeCard('jammed')));
+  check('tcheque reconnu : Zaseknuto = bloque', norm('Zaseknuto'), label(makeCard('jammed')));
+  check('tcheque reconnu : Zablokovano = bloque', norm('Zablokov\u00e1no'), label(makeCard('jammed')));
+  check('les mots tcheques ne cassent pas les autres langues : Ventilation', norm('Ventilation'), label(makeCard('venting')));
+  check('les mots tcheques ne cassent pas les autres langues : Jammed', norm('Jammed'), label(makeCard('jammed')));
+}
+
 // single_leaf (issue #4): one full-width swing leaf, hinged left or right.
 {
   const sw = (state, cfg = {}, attrs = {}) => posCard(state, attrs, { gate_type: 'swing', ...cfg });

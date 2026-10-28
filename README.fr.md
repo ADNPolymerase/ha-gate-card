@@ -21,7 +21,7 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 ## Fonctionnalités
 
 - **Deux entités** : commandes au `cover`, état lu dans n'importe quelle `state_entity` (`input_select`, sensor, template…).
-- **États reconnus automatiquement** (13 langues, sans accents) : fermé, ouvert, ouverture, fermeture, mouvement, piéton, déverrouillé, aération, partiel, bloqué, inconnu. `state_map` pour le reste.
+- **États reconnus automatiquement** (14 langues, sans accents) : fermé, ouvert, ouverture, fermeture, mouvement, piéton, déverrouillé, aération, partiel, bloqué, inconnu. `state_map` pour le reste.
 - **Couleurs par état** issues du thème, ou une couleur fixe `gate_color`.
 - **Quatre types animés** : coulissant, battant (deux vantaux ou un seul, charnière à gauche ou à droite), portillon (`door`, pleine, semi-vitrée ou vitrée) et garage, avec plusieurs styles de vantail. `compact` remplace le dessin par une icône.
 - **Positions intermédiaires** : passage piéton, aération et ouverture partielle du garage, chacune avec son bouton.
@@ -53,7 +53,7 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 | `slide_direction` | `left` (défaut) ou `right`. |
 | `gate_color` | `state` (défaut), `wood`, `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` ou toute couleur CSS. |
 | `name` | Titre. Défaut : nom de l'entité d'état. |
-| `language` | Afficher la carte dans une autre langue que Home Assistant : `en`, `fr`, `de`, `es`, `it`, `nl`, `pt`, `sv`, `no`, `da`, `pl`, `hu` ou `ru`. L'éditeur reste dans votre langue. |
+| `language` | Afficher la carte dans une autre langue que Home Assistant : `en`, `fr`, `de`, `es`, `it`, `nl`, `pt`, `sv`, `no`, `da`, `pl`, `hu`, `ru` ou `cs`. L'éditeur reste dans votre langue. |
 | `compact` | Icône colorée à la place de l'illustration. |
 | `show_state` | État en toutes lettres sous le nom. Défaut `true`. |
 | `single_line` | Nom, état et heure sur une ligne, repliée si la place manque. Défaut `false`. |
