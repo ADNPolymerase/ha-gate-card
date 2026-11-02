@@ -1,5 +1,7 @@
 # HA Gate Card
 
+<a href="https://github.com/ADNPolymerase/ha-gate-card/blob/main/README.md"><img src="https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/lang-en.svg" alt="Read in English" height="60"></a>
+
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-blue.svg)](https://github.com/hacs/default)
 [![GitHub Release](https://img.shields.io/github/v/release/ADNPolymerase/ha-gate-card?sort=semver)](https://github.com/ADNPolymerase/ha-gate-card/releases)
 [![HACS Action](https://github.com/ADNPolymerase/ha-gate-card/actions/workflows/hacs.yml/badge.svg)](https://github.com/ADNPolymerase/ha-gate-card/actions/workflows/hacs.yml)
@@ -14,7 +16,7 @@ Une card Lovelace pour portails : état consolidé, couleurs par état, illustra
 
 Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail est piloté par impulsion (AirSend, RFXCOM, relais Shelly…) exposée en `cover`, et l'état fiable vient d'autres capteurs. La card affiche cet état et envoie les commandes au cover, sans deviner.
 
-> Retours et issues bienvenus. 🇬🇧 [Read in English](README.md)
+> Retours et issues bienvenus.
 
 [![Capture d'écran HA Gate Card](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/screenshot.fr.png)](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/screenshot.fr.png)
 

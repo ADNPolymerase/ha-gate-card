@@ -1,5 +1,7 @@
 # HA Gate Card
 
+<a href="https://github.com/ADNPolymerase/ha-gate-card/blob/main/README.fr.md"><img src="https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/lang-fr.svg" alt="Lire en français" height="60"></a>
+
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-blue.svg)](https://github.com/hacs/default)
 [![GitHub Release](https://img.shields.io/github/v/release/ADNPolymerase/ha-gate-card?sort=semver)](https://github.com/ADNPolymerase/ha-gate-card/releases)
 [![HACS Action](https://github.com/ADNPolymerase/ha-gate-card/actions/workflows/hacs.yml/badge.svg)](https://github.com/ADNPolymerase/ha-gate-card/actions/workflows/hacs.yml)
@@ -14,7 +16,7 @@ A Lovelace card for gates: consolidated state, per-state colors, animated illust
 
 Built for setups where *command* and *state* are separate: the gate is driven by an impulse (AirSend, RFXCOM, Shelly relay…) exposed as a `cover`, and the reliable state comes from other sensors. The card shows that state and sends commands to the cover, without guessing.
 
-> Feedback and issues welcome. 🇫🇷 [Lire en français](README.fr.md)
+> Feedback and issues welcome.
 
 [![HA Gate Card screenshot](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/screenshot.png)](https://raw.githubusercontent.com/ADNPolymerase/ha-gate-card/main/docs/screenshot.png)
 
