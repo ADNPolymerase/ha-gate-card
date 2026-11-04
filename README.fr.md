@@ -25,7 +25,9 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 - **Deux entités** : commandes au `cover`, état lu dans n'importe quelle `state_entity` (`input_select`, sensor, template…).
 - **États reconnus automatiquement** (14 langues, sans accents) : fermé, ouvert, ouverture, fermeture, mouvement, piéton, déverrouillé, aération, partiel, bloqué, inconnu. `state_map` pour le reste.
 - **Couleurs par état** issues du thème, ou une couleur fixe `gate_color`.
-- **Quatre types animés** : coulissant, battant (deux vantaux ou un seul, charnière à gauche ou à droite), portillon (`door`, pleine, semi-vitrée ou vitrée) et garage, avec plusieurs styles de vantail. `compact` remplace le dessin par une icône.
+- **Quatre types animés** : coulissant, battant (deux vantaux ou un seul, charnière à gauche ou à droite), portillon (`door`, huit modèles) et garage (cinq modèles). `compact` remplace le dessin par une icône.
+- **Cinquante-quatre vantaux** : un portail coulissant ou à battants est une forme de haut (`gate_shape`, six) croisée avec un remplissage (`gate_fill`, neuf). Laissez les deux de côté et `gate_style` choisit la paire pour vous, comme avant.
+- **Onze finitions** : `gate_color` peint le vantail dans une matière (alu blanc, anthracite, chêne, sable…) et l'état passe alors sur les seuls pictogrammes, qui gardent leur couleur.
 - **Positions intermédiaires** : passage piéton, aération et ouverture partielle du garage, chacune avec son bouton.
 - **Serrures** : *Ouvrir* déverrouille ou dégage le pêne demi-tour pour ouvrir la porte, et toute commande disparaît tant que la porte est ouverte.
 - **Spot** : `light_entity` dessine un projecteur allumé ou éteint et ajoute un bouton *Lumière*.
@@ -50,10 +52,13 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 | `battery_entity` | Batterie en %, en haut à droite. Masquée en `compact`. |
 | `state_map` | État brut → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`jammed`\|`unknown`. |
 | `gate_type` | `sliding` (défaut), `swing`, `door` ou `garage`. `door` est en affichage seul sans commande configurée. |
-| `gate_style` | Coulissant : `slats` (défaut), `bars`, `semi`, `solid`. Battant : `bell` (défaut), `bars`, `slats`, `semi`, `solid`. Porte : `solid` (défaut), `semi`, `glazed`. |
+| `gate_style` | Une forme et un remplissage d'un coup. Coulissant : `slats` (défaut), `bars`, `semi`, `solid`. Battant : `bell` (défaut), `bars`, `slats`, `semi`, `solid`. Porte : `solid` (défaut), `semi`, `glazed`, `mouldings`, `boards`, `inox`, `transom`, `sidelight`. |
+| `gate_shape` | Coulissant et battant, forme du haut : `straight`, `bevel`, `bell`, `inverted`, `arched`, `peak`. Absent, suit `gate_style`. |
+| `gate_fill` | Coulissant et battant, ce qui remplit le vantail : `slats_h`, `slats_v`, `bars`, `semi`, `grid`, `chevron`, `panel`, `solid`, `perfo`. Absent, suit `gate_style`. |
+| `garage_fill` | Garage uniquement : `slats` (défaut, sectionnelle), `grooved`, `cassette`, `windows`, `tilt`. |
 | `single_leaf` | Battant uniquement : `left` ou `right` pour un seul vantail, charnière de ce côté. Défaut : deux vantaux. |
 | `slide_direction` | `left` (défaut) ou `right`. |
-| `gate_color` | `state` (défaut), `wood`, `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` ou toute couleur CSS. |
+| `gate_color` | `state` (défaut), `wood`, `oak`, `sand`, `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` ou n'importe quelle couleur CSS. Une finition déplace l'état sur les pictogrammes, la serrure et le pêne. |
 | `name` | Titre. Défaut : nom de l'entité d'état. |
 | `language` | Afficher la carte dans une autre langue que Home Assistant : `en`, `fr`, `de`, `es`, `it`, `nl`, `pt`, `sv`, `no`, `da`, `pl`, `hu`, `ru` ou `cs`. L'éditeur reste dans votre langue. |
 | `compact` | Icône colorée à la place de l'illustration. |

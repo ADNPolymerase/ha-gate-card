@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.11.1";
+const CARD_VERSION = "2.0.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -1777,9 +1777,14 @@ function leafDesign(cfg, type) {
   let key = normStyle(cfg, type);
   if (key === "bars" && type === "swing") key = "bars_swing";
   const preset = STYLE_PRESETS[key] || STYLE_PRESETS.slats;
+  const shaped = LEAF_SHAPE_KEYS.includes(cfg.gate_shape);
+  const filled = LEAF_FILLS.includes(cfg.gate_fill);
   return {
-    shape: LEAF_SHAPE_KEYS.includes(cfg.gate_shape) ? cfg.gate_shape : preset.shape,
-    fill: LEAF_FILLS.includes(cfg.gate_fill) ? cfg.gate_fill : preset.fill,
+    // The untouched preset still goes through its own hand drawn geometry.
+    style: normStyle(cfg, type),
+    composed: shaped || filled,
+    shape: shaped ? cfg.gate_shape : preset.shape,
+    fill: filled ? cfg.gate_fill : preset.fill,
   };
 }
 
@@ -1841,6 +1846,119 @@ function leafFrame(shape, xa, xb, uprights) {
   return `
       <path class="leaf-rail" d="${leafTopPath(shape, xa, xb)}"/>
       <rect x="${r1(xa)}" y="44" width="${r1(xb - xa)}" height="5" rx="2.5"/>${ends}`;
+}
+
+// The five drawings that shipped before the 2.0.0, kept to the unit. They
+// are hand composed, not combinations: "bars" on a straight edge hangs its
+// bars between two solid rails, the same "bars" under a bell top hangs them
+// off a stroked rail, and the semi open leaf puts its bars at a height the
+// generic motif would not guess. Asking for a shape or a fill switches to
+// leafBody, which composes; touching neither lands here, so a card written
+// before the 2.0.0 draws what it drew.
+//
+// variant: "sliding" (x 14..126), "half" (x0 + 56, side l or r), "single"
+// (x 13..127, the full width leaf, halved when folded).
+function leafPreset(style, variant, side, light) {
+  const half = variant === "half";
+  const single = variant === "single";
+  const x0 = half ? (side === "l" ? 13 : 71) : single ? 13 : 14;
+  const w = half ? 56 : single ? 114 : 112;
+  let shapes = "";
+  let extra = "";
+
+  if (style === "slats") {
+    const n = light ? 3 : 4;
+    const pitch = light ? 13.5 : 9.5;
+    let slats = "";
+    for (let i = 0; i < n; i++) {
+      slats += `<rect class="slat" x="${x0}" y="${14 + i * pitch}" width="${w}" height="5.5" rx="1.5"/>`;
+    }
+    const mid = half ? "" : `<rect class="vbar" x="68.5" y="14" width="3" height="34" rx="1.5"/>`;
+    shapes = `${slats}
+      <rect class="vbar" x="${x0}" y="14" width="3" height="34" rx="1.5"/>
+      ${mid}
+      <rect class="vbar" x="${half ? x0 + 53 : x0 + w - 3}" y="14" width="3" height="34" rx="1.5"/>`;
+  } else if (style === "semi") {
+    const n = half ? 7 : light ? 7 : 14;
+    const pitch = half ? 7.6 : light ? 15.6 : 7.8;
+    const bx = half ? x0 + 3 : 17;
+    let bars = "";
+    for (let i = 0; i < n; i++) {
+      bars += `<rect class="slat${half ? "" : " vbar"}" x="${r1(bx + i * pitch)}" y="13" width="3.2" height="18" rx="1.6"/>`;
+    }
+    shapes = `
+      <rect x="${x0}" y="12" width="${w}" height="3.4" rx="1.7"/>
+      <rect x="${x0}" y="30" width="${w}" height="19" rx="2"/>
+      ${bars}`;
+  } else if (style === "solid") {
+    shapes = half
+      ? (side === "l"
+        ? `<path d="M13 49 L13 20 Q 45 11, 69 12.5 L69 49 Z"/>`
+        : `<path d="M127 49 L127 20 Q 95 11, 71 12.5 L71 49 Z"/>`)
+      : `<path d="M${x0} 49 L${x0} ${single ? 20 : 19} Q 70 ${single ? 9 : 9}, ${x0 + w} ${single ? 20 : 19} L${x0 + w} 49 Z"/>`;
+    const cells = [];
+    if (half) {
+      for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 7; c++) {
+          cells.push([r, c, side === "l" ? 21 + c * 7.4 : 119 - c * 7.4, 23 + r * 8]);
+        }
+      }
+    } else {
+      const cols = single && light ? 7 : 13;
+      const step = single && light ? 16 : 8;
+      for (let r = 0; r < 3; r++) for (let c = 0; c < cols; c++) cells.push([r, c, 22 + c * step, 24 + r * 8]);
+    }
+    extra = laserDots(cells);
+  } else if (style === "bars" && !half && !single) {
+    // Sliding: straight bars between two solid rails, the original design.
+    let bars = "";
+    for (const x of [18, 31.5, 45, 58.5, 72, 85.5, 99, 112.5]) {
+      bars += `<rect class="vbar" x="${x}" y="18" width="4" height="27" rx="2"/>`;
+    }
+    shapes = `
+    <rect x="14" y="14" width="112" height="5" rx="2.5"/>
+    <rect x="14" y="41" width="112" height="5" rx="2.5"/>
+    ${bars}`;
+  } else if (half) {
+    // Swing half leaf: bell arches up toward the middle, bars dip.
+    const bell = style === "bell";
+    const xs = side === "l" ? [16, 26.5, 37, 47.5, 58] : [120, 109.5, 99, 88.5, 78];
+    const bars = xs
+      .map((x, i) => {
+        const y = bell ? 19 - i * 1.5 : 15.5 + i * 1.6;
+        return `<rect x="${x}" y="${y}" width="4" height="${47 - y}" rx="2"/>`;
+      })
+      .join("");
+    const rail = bell
+      ? (side === "l" ? "M14 21 Q 48 10, 68 11.5" : "M126 21 Q 92 10, 72 11.5")
+      : (side === "l" ? "M14 16 Q 44 12.5, 68 21" : "M126 16 Q 96 12.5, 72 21");
+    const bottom = side === "l"
+      ? '<rect x="13" y="44" width="56" height="5" rx="2.5"/>'
+      : '<rect x="71" y="44" width="56" height="5" rx="2.5"/>';
+    shapes = `
+      <path d="${rail}" class="leaf-rail"/>
+      ${bottom}
+      ${bars}`;
+  } else {
+    // Single full width leaf: one arch, or one dip, across the whole opening.
+    const bell = style === "bell";
+    const top = bell ? 21 : 15, mid = bell ? 12 : 21;
+    const railY = (x) => top + (mid - top) * (1 - Math.pow((x - 70) / 57, 2));
+    const rail = `M14 ${top} Q 70 ${2 * mid - top}, 126 ${top}`;
+    let bars = "";
+    const n = light ? 5 : 10;
+    const pitch = light ? 25.66 : 11.55;
+    for (let i = 0; i < n; i++) {
+      const x = 16 + i * pitch;
+      const y = Math.round((railY(x + 2) - 1) * 10) / 10;
+      bars += `<rect class="vbar" x="${Math.round(x * 10) / 10}" y="${y}" width="4" height="${Math.round((47 - y) * 10) / 10}" rx="2"/>`;
+    }
+    shapes = `
+      <path d="${rail}" class="leaf-rail"/>
+      <rect x="13" y="44" width="114" height="5" rx="2.5"/>
+      ${bars}`;
+  }
+  return { clip: "", shapes, extra };
 }
 
 // Build a leaf: the silhouette, the members inside it, and whatever has to be
@@ -1935,23 +2053,34 @@ function leafBody(shape, fill, xa, xb, light, tag) {
   } else {
     // Horizontal slats (the 2026 aluminium look). The outline layer strokes
     // .slat thinner so the gaps between blades never get swallowed.
+    //
+    // No bottom rail and no top rail under a straight edge: the blades ARE
+    // the leaf, and adding a frame here would quietly redraw every card that
+    // never asked for a shape. A shaped edge does get the rail, otherwise the
+    // silhouette it was picked for would not read at all.
     const n = light ? 3 : 4;
     const pitch = light ? 13.5 : 9.5;
+    const top = Math.min(leafTopY(shape, xa), leafTopY(shape, xb), leafTopY(shape, (xa + xb) / 2));
     let slats = "";
     for (let i = 0; i < n; i++) {
-      slats += `<rect class="slat" x="${r1(xa)}" y="${r1(12 + i * pitch)}" width="${r1(w)}" height="5.5" rx="1.5"/>`;
+      slats += `<rect class="slat" x="${r1(xa)}" y="${r1(top + i * pitch)}" width="${r1(w)}" height="5.5" rx="1.5"/>`;
     }
-    const mid = w > 80
-      ? `<rect class="vbar" x="${r1(xa + w / 2 - 1.5)}" y="${r1(leafTopY(shape, xa + w / 2))}" width="3" height="${r1(LEAF_BOTTOM - leafTopY(shape, xa + w / 2))}" rx="1.5"/>`
-      : "";
-    shapes = `${clipped(slats)}${leafFrame(shape, xa, xb)}${mid}`;
+    const foot = top + 34;
+    const upright = (x) => `<rect class="vbar" x="${r1(x)}" y="${r1(leafTopY(shape, x))}" width="3" height="${r1(foot - leafTopY(shape, x))}" rx="1.5"/>`;
+    const mid = w > 80 ? upright(xa + w / 2 - 1.5) : "";
+    // No rail at all: the blades are cut by the silhouette and the end
+    // uprights follow it, which draws the shape without a 7 unit band
+    // sitting on top of the top blade.
+    shapes = `${clipped(slats)}${upright(xa)}${upright(xb - 3)}${mid}`;
   }
   return { clip, shapes, extra };
 }
 
 function slidingSvg(norm, cfg, lampOn, frac) {
-  const { shape, fill } = leafDesign(cfg, "sliding");
-  const { clip, shapes, extra } = leafBody(shape, fill, 14, 126, false, "c");
+  const d = leafDesign(cfg, "sliding");
+  const { clip, shapes, extra } = d.composed
+    ? leafBody(d.shape, d.fill, 14, 126, false, "c")
+    : leafPreset(d.style, "sliding", "c", false);
   const wheel = (cx) => `
     <g class="gate-wheel">
       <circle cx="${cx}" cy="52" r="4.5"/>
@@ -2000,9 +2129,11 @@ const SWING_POSE = {
 };
 
 function swingLeaf(side, transform, cfg) {
-  const { shape, fill } = leafDesign(cfg, "swing");
+  const d = leafDesign(cfg, "swing");
   const x0 = side === "l" ? 13 : 71;
-  const { clip, shapes, extra } = leafBody(shape, fill, x0, x0 + 56, false, side);
+  const { clip, shapes, extra } = d.composed
+    ? leafBody(d.shape, d.fill, x0, x0 + 56, false, side)
+    : leafPreset(d.style, "half", side, false);
   return `
     <g class="leaf-${side}" style="transform:${transform || "none"}">
       ${clip}
@@ -2035,7 +2166,7 @@ const SINGLE_POSE = {
 };
 
 function singleLeaf(hinge, cfg, norm, frac) {
-  const { shape, fill } = leafDesign(cfg, "swing");
+  const d = leafDesign(cfg, "swing");
   let sx = 1, sk = 0;
   if (frac !== null && frac !== undefined) {
     const a = frac * SINGLE_OPEN_ANGLE * Math.PI / 180;
@@ -2048,7 +2179,9 @@ function singleLeaf(hinge, cfg, norm, frac) {
   // Folded, a full-width leaf squeezes every member into a few pixels and
   // turns into a blob: under 60 % of its width it is drawn half as dense.
   const light = Math.abs(sx) < 0.6;
-  const { clip, shapes, extra } = leafBody(shape, fill, 13, 127, light, "s");
+  const { clip, shapes, extra } = d.composed
+    ? leafBody(d.shape, d.fill, 13, 127, light, "s")
+    : leafPreset(d.style, "single", "c", light);
   const f = (v) => Math.round(v * 100) / 100;
   const side = hinge === "right" ? "r" : "l";
   const transform = sx === 1 && sk === 0 ? "none" : `scaleX(${f(sx)}) skewY(${f(side === "l" ? sk : -sk)}deg)`;

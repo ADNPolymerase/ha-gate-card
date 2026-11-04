@@ -720,11 +720,30 @@ check('position connue : l animation de va-et-vient est coupee',
   const sl = (cfg = {}, st = 'closed') => String(makeCard(st, { gate_type: 'sliding', ...cfg }));
   const rail = html => /class="leaf-rail" d="M14 14L126 14"/.test(html);
 
-  check('sans forme ni remplissage : le preset slats est inchange',
-    sl() === sl({ gate_shape: 'straight', gate_fill: 'slats_h' }), true);
-  check('un preset inconnu retombe sur slats', sl({ gate_style: 'zigzag' }) === sl(), true);
+  const geom = html => ((html.match(/<g class="leaf-line">([\s\S]*?)<\/g>\s*<g class="leaf-fill">/) || [])[1] || '')
+    .replace(/\s+/g, ' ').trim();
+
+  // The five presets are hand drawn, not combinations: left untouched they go
+  // through their own geometry, to the unit. These signatures were lifted
+  // from the 1.11.1 output, so a card written before the 2.0.0 cannot drift.
+  check('preset coulissant slats : geometrie du 1.11.1',
+    geom(sl()),
+    '<rect class="slat" x="14" y="14" width="112" height="5.5" rx="1.5"/><rect class="slat" x="14" y="23.5" width="112" height="5.5" rx="1.5"/>'
+    + '<rect class="slat" x="14" y="33" width="112" height="5.5" rx="1.5"/><rect class="slat" x="14" y="42.5" width="112" height="5.5" rx="1.5"/> '
+    + '<rect class="vbar" x="14" y="14" width="3" height="34" rx="1.5"/> <rect class="vbar" x="68.5" y="14" width="3" height="34" rx="1.5"/> '
+    + '<rect class="vbar" x="123" y="14" width="3" height="34" rx="1.5"/>');
+  check('preset coulissant bars : deux rails pleins, huit barreaux',
+    geom(sl({ gate_style: 'bars' })).startsWith('<rect x="14" y="14" width="112" height="5" rx="2.5"/> <rect x="14" y="41" width="112" height="5" rx="2.5"/>')
+      && (geom(sl({ gate_style: 'bars' })).match(/y="18" width="4" height="27"/g) || []).length === 8, true);
+  check('preset coulissant solid : la courbe d origine, pas un echantillonnage',
+    geom(sl({ gate_style: 'solid' })), '<path d="M14 49 L14 19 Q 70 9, 126 19 L126 49 Z"/>');
+  check('preset battant bell : le rail en Q du demi-vantail',
+    /<path d="M14 21 Q 48 10, 68 11.5" class="leaf-rail"\/>/.test(String(makeCard('closed', { gate_type: 'swing' }))), true);
   check('le battant garde sa version concave de bars',
-    /class="leaf-rail" d="M13 15/.test(String(makeCard('closed', { gate_type: 'swing', gate_style: 'bars' }))), true);
+    /<path d="M14 16 Q 44 12.5, 68 21" class="leaf-rail"\/>/.test(String(makeCard('closed', { gate_type: 'swing', gate_style: 'bars' }))), true);
+  check('un preset inconnu retombe sur slats', sl({ gate_style: 'zigzag' }) === sl(), true);
+  check('demander la forme du preset bascule quand meme sur le compositeur',
+    sl({ gate_shape: 'straight' }) !== sl(), true);
   check('forme droite : le rail du haut est une ligne', rail(sl({ gate_fill: 'bars' })), true);
   check('chapeau de gendarme : le rail est echantillonne', rail(sl({ gate_shape: 'bell', gate_fill: 'bars' })), false);
   check('la forme seule ne change pas le remplissage',
@@ -742,6 +761,8 @@ check('position connue : l animation de va-et-vient est coupee',
     sl({ gate_fill: 'tartan' }) === sl(), true);
   check('une forme inconnue retombe sur le preset',
     sl({ gate_shape: 'tartan' }) === sl(), true);
+  check('une forme valide et un remplissage inconnu : le remplissage suit le preset',
+    sl({ gate_shape: 'peak', gate_fill: 'tartan' }) === sl({ gate_shape: 'peak' }), true);
 
   // The folded single leaf halves its members whatever the fill.
   const one = (fill, st) => String(makeCard(st, { gate_type: 'swing', single_leaf: 'left', gate_fill: fill }));
