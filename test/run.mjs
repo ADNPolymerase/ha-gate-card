@@ -479,7 +479,8 @@ check('position connue : l animation de va-et-vient est coupee',
   const sw = (state, cfg = {}, attrs = {}) => posCard(state, attrs, { gate_type: 'swing', ...cfg });
   const leaves = html => (html.match(/<g class="leaf-[lr]"/g) || []).length;
   const leafStyle = (html, side) => (html.match(new RegExp(`<g class="leaf-${side}" style="transform:([^"]*)"`)) || [])[1];
-  const bars = html => (html.match(/width="4" height=/g) || []).length / 2;
+  // trois couches depuis la 2.0.0 : contour, remplissage, relief
+  const bars = html => (html.match(/width="4" height=/g) || []).length / 3;
   check('deux vantaux par defaut', leaves(sw('closed')), 2);
   check('single_leaf:left : un seul vantail', leaves(sw('closed', { single_leaf: 'left' })), 1);
   check('single_leaf:left pivote sur le poteau gauche', leafStyle(sw('closed', { single_leaf: 'left' }), 'l'), 'none');

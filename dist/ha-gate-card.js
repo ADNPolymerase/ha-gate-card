@@ -1153,8 +1153,50 @@ function formatSince(isoDate, locale) {
 // mirrors them past the posts like real fully-opened leaves.
 // ---------------------------------------------------------------------------
 
+// Shared paint for the relief pass (2.0.0). The gate keeps being filled with
+// --leaf-color, whatever that color means: the state in mode A, the material
+// in mode B. Volume is a separate layer on top, a white-to-black ramp at low
+// opacity, so it reads the same on a green gate and on a white one.
+// The vertical ramp lights horizontal members from above; the horizontal one
+// lights vertical members from the side, the way a round bar catches light.
+const RELIEF_DEFS = `
+      <defs>
+        <linearGradient id="gc-shade-v" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fff" stop-opacity=".5"/>
+          <stop offset=".34" stop-color="#fff" stop-opacity="0"/>
+          <stop offset=".72" stop-color="#000" stop-opacity="0"/>
+          <stop offset="1" stop-color="#000" stop-opacity=".3"/>
+        </linearGradient>
+        <linearGradient id="gc-shade-h" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#000" stop-opacity=".26"/>
+          <stop offset=".22" stop-color="#fff" stop-opacity=".44"/>
+          <stop offset=".5" stop-color="#fff" stop-opacity="0"/>
+          <stop offset="1" stop-color="#000" stop-opacity=".3"/>
+        </linearGradient>
+        <linearGradient id="gc-post" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#000" stop-opacity=".22"/>
+          <stop offset=".26" stop-color="#fff" stop-opacity=".4"/>
+          <stop offset=".55" stop-color="#fff" stop-opacity="0"/>
+          <stop offset="1" stop-color="#000" stop-opacity=".34"/>
+        </linearGradient>
+        <radialGradient id="gc-drop" cx=".5" cy=".5" r=".5">
+          <stop offset="0" stop-color="#000" stop-opacity=".28"/>
+          <stop offset="1" stop-color="#000" stop-opacity="0"/>
+        </radialGradient>
+      </defs>`;
+
 const SCENE_CLOSE = `
+  <g class="gate-shadow">
+    <ellipse cx="6.5" cy="58.6" rx="9" ry="2"/>
+    <ellipse cx="133.5" cy="58.6" rx="9" ry="2"/>
+  </g>
   <g class="gate-post-g">
+    <rect x="2" y="10" width="9" height="48" rx="2"/>
+    <rect x="0" y="6" width="13" height="6" rx="2"/>
+    <rect x="129" y="10" width="9" height="48" rx="2"/>
+    <rect x="127" y="6" width="13" height="6" rx="2"/>
+  </g>
+  <g class="gate-post-relief">
     <rect x="2" y="10" width="9" height="48" rx="2"/>
     <rect x="0" y="6" width="13" height="6" rx="2"/>
     <rect x="129" y="10" width="9" height="48" rx="2"/>
@@ -1257,7 +1299,7 @@ function slidingSvg(norm, cfg, lampOn, frac) {
     // Straight vertical bars between two rails (the original design).
     let bars = "";
     for (const x of [18, 31.5, 45, 58.5, 72, 85.5, 99, 112.5]) {
-      bars += `<rect x="${x}" y="18" width="4" height="27" rx="2"/>`;
+      bars += `<rect class="vbar" x="${x}" y="18" width="4" height="27" rx="2"/>`;
     }
     shapes = `
     <rect x="14" y="14" width="112" height="5" rx="2.5"/>
@@ -1267,7 +1309,7 @@ function slidingSvg(norm, cfg, lampOn, frac) {
     // Semi-open: solid lower panel, thin bars above, thin top rail.
     let bars = "";
     for (let i = 0; i < 14; i++) {
-      bars += `<rect class="slat" x="${17 + i * 7.8}" y="13" width="3.2" height="18" rx="1.6"/>`;
+      bars += `<rect class="slat vbar" x="${17 + i * 7.8}" y="13" width="3.2" height="18" rx="1.6"/>`;
     }
     shapes = `
     <rect x="14" y="12" width="112" height="3.4" rx="1.7"/>
@@ -1290,9 +1332,9 @@ function slidingSvg(norm, cfg, lampOn, frac) {
     }
     shapes = `
     ${slats}
-    <rect x="14" y="14" width="3" height="34" rx="1.5"/>
-    <rect x="68.5" y="14" width="3" height="34" rx="1.5"/>
-    <rect x="123" y="14" width="3" height="34" rx="1.5"/>`;
+    <rect class="vbar" x="14" y="14" width="3" height="34" rx="1.5"/>
+    <rect class="vbar" x="68.5" y="14" width="3" height="34" rx="1.5"/>
+    <rect class="vbar" x="123" y="14" width="3" height="34" rx="1.5"/>`;
   }
   const wheel = (cx) => `
     <g class="gate-wheel">
@@ -1302,6 +1344,7 @@ function slidingSvg(norm, cfg, lampOn, frac) {
     </g>`;
   return `
     <svg viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      ${RELIEF_DEFS}
       <defs>
         <clipPath id="gate-clip"><rect x="11" y="2" width="118" height="60"/></clipPath>
       </defs>
@@ -1311,6 +1354,7 @@ function slidingSvg(norm, cfg, lampOn, frac) {
         <g class="gate-leaf" style="transform:translateX(${slideX(norm, cfg, frac)}px)">
           <g class="leaf-line">${shapes}</g>
           <g class="leaf-fill">${shapes}</g>
+      <g class="leaf-shade">${shapes}</g>
           ${extra}
           ${wheel(40)}
           ${wheel(100)}
@@ -1403,6 +1447,7 @@ function swingLeaf(side, transform, cfg) {
     <g class="leaf-${side}" style="transform:${transform || "none"}">
       <g class="leaf-line">${shapes}</g>
       <g class="leaf-fill">${shapes}</g>
+      <g class="leaf-shade">${shapes}</g>
       ${extra}
     </g>`;
 }
@@ -1451,13 +1496,13 @@ function singleLeaf(hinge, cfg, norm, frac) {
     const n = light ? 3 : 4, pitch = light ? 13.5 : 9.5;
     for (let i = 0; i < n; i++) slats += `<rect class="slat" x="${x0}" y="${14 + i * pitch}" width="${w}" height="5.5" rx="1.5"/>`;
     shapes = `${slats}
-      <rect x="${x0}" y="14" width="3" height="34" rx="1.5"/>
-      <rect x="68.5" y="14" width="3" height="34" rx="1.5"/>
-      <rect x="${x1 - 3}" y="14" width="3" height="34" rx="1.5"/>`;
+      <rect class="vbar" x="${x0}" y="14" width="3" height="34" rx="1.5"/>
+      <rect class="vbar" x="68.5" y="14" width="3" height="34" rx="1.5"/>
+      <rect class="vbar" x="${x1 - 3}" y="14" width="3" height="34" rx="1.5"/>`;
   } else if (style === "semi") {
     let bars = "";
     const n = light ? 7 : 14, pitch = light ? 15.6 : 7.8;
-    for (let i = 0; i < n; i++) bars += `<rect class="slat" x="${17 + i * pitch}" y="13" width="3.2" height="18" rx="1.6"/>`;
+    for (let i = 0; i < n; i++) bars += `<rect class="slat vbar" x="${17 + i * pitch}" y="13" width="3.2" height="18" rx="1.6"/>`;
     shapes = `
       <rect x="${x0}" y="12" width="${w}" height="3.4" rx="1.7"/>
       <rect x="${x0}" y="30" width="${w}" height="19" rx="2"/>
@@ -1478,7 +1523,7 @@ function singleLeaf(hinge, cfg, norm, frac) {
     for (let i = 0; i < n; i++) {
       const x = 16 + i * pitch;
       const y = Math.round((railY(x + 2, top, mid) - 1) * 10) / 10;
-      bars += `<rect x="${Math.round(x * 10) / 10}" y="${y}" width="4" height="${Math.round((47 - y) * 10) / 10}" rx="2"/>`;
+      bars += `<rect class="vbar" x="${Math.round(x * 10) / 10}" y="${y}" width="4" height="${Math.round((47 - y) * 10) / 10}" rx="2"/>`;
     }
     shapes = `
       <path d="${rail}" class="leaf-rail"/>
@@ -1492,6 +1537,7 @@ function singleLeaf(hinge, cfg, norm, frac) {
     <g class="leaf-${side}" style="transform:${transform}">
       <g class="leaf-line">${shapes}</g>
       <g class="leaf-fill">${shapes}</g>
+      <g class="leaf-shade">${shapes}</g>
       ${extra}
     </g>`;
 }
@@ -1501,6 +1547,7 @@ function swingSvg(norm, cfg, lampOn, frac) {
     const hingeLeft = cfg.single_leaf === "left";
     return `
     <svg viewBox="-28 0 196 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      ${RELIEF_DEFS}
       ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="-26" y1="58" x2="166" y2="58" class="gate-ground"/>
       ${SCENE_CLOSE}
@@ -1515,6 +1562,7 @@ function swingSvg(norm, cfg, lampOn, frac) {
   const [tl, tr] = frac !== null && frac !== undefined ? swingPoseAt(frac) : (SWING_POSE[norm] || ["", ""]);
   return `
     <svg viewBox="-28 0 196 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      ${RELIEF_DEFS}
       ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="-26" y1="58" x2="166" y2="58" class="gate-ground"/>
       ${SCENE_CLOSE}
@@ -1589,6 +1637,7 @@ function doorSvg(norm, cfg, lampOn) {
         ${norm === "conflict" ? bolt : ""}`;
   return `
     <svg viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="door-svg${tint}">
+      ${RELIEF_DEFS}
       ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="30" y1="58" x2="110" y2="58" class="gate-ground"/>
       ${swung ? '<rect x="53" y="10" width="34" height="48" rx="1" class="door-void"/>' : ""}
@@ -1750,10 +1799,12 @@ function garageSvg(norm, cfg, lampOn, frac) {
     : `<g transform="translate(0 ${dy})"><path class="garage-arrow" d="${arrowD}"/></g>`;
   return `
     <svg viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      ${RELIEF_DEFS}
       ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="2" y1="58" x2="138" y2="58" class="gate-ground"/>
       <g class="leaf-line">${shapes}</g>
       <g class="leaf-fill">${shapes}</g>
+      <g class="leaf-shade">${shapes}</g>
       ${ribs}
       ${arrow}
       ${venting && cfg.show_breeze !== false ? gateBreeze(70, 21.3) : ""}
@@ -1958,12 +2009,12 @@ ha-card.tappable { cursor:pointer; }
 .illu { width:200px; max-width:70%; margin:0 auto; color:var(--leaf-color); }
 .illu svg { display:block; width:100%; }
 .gate-leaf, .leaf-l, .leaf-r { transition:transform .9s ease; }
-.leaf-line rect { fill:var(--leaf-line); stroke:var(--leaf-line); stroke-width:3.2; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
-.leaf-line path { fill:var(--leaf-line); stroke:var(--leaf-line); stroke-width:3.2; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.leaf-line rect { fill:var(--leaf-line); stroke:var(--leaf-line); stroke-width:1.8; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.leaf-line path { fill:var(--leaf-line); stroke:var(--leaf-line); stroke-width:1.8; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
 .leaf-fill path { fill:var(--leaf-color); }
-.leaf-line .slat { stroke-width:2.2; }
+.leaf-line .slat { stroke-width:1.3; }
 .gate-hole { fill:var(--ha-card-background, var(--card-background-color, #fff)); }
-.leaf-line .leaf-rail { fill:none; stroke:var(--leaf-line); stroke-width:8.4; stroke-linecap:round; vector-effect:non-scaling-stroke; }
+.leaf-line .leaf-rail { fill:none; stroke:var(--leaf-line); stroke-width:7.2; stroke-linecap:round; vector-effect:non-scaling-stroke; }
 .leaf-fill rect { fill:var(--leaf-color); }
 .leaf-fill .leaf-rail { fill:none; stroke:var(--leaf-color); stroke-width:5.6; stroke-linecap:round; vector-effect:non-scaling-stroke; }
 .leaf-l, .leaf-r { transform-box:view-box; }
@@ -1981,7 +2032,7 @@ ha-card.tappable { cursor:pointer; }
    would fight the transform. Wheels and the garage arrow keep moving. */
 .moving.positioned .gate-leaf, .moving.positioned .leaf-l, .moving.positioned .leaf-r { animation:none; }
 .gate-wheel { transform-box:fill-box; transform-origin:center; }
-.gate-wheel circle { fill:var(--leaf-color); stroke:var(--leaf-line); stroke-width:1.6; vector-effect:non-scaling-stroke; }
+.gate-wheel circle { fill:var(--leaf-color); stroke:var(--leaf-line); stroke-width:1.2; vector-effect:non-scaling-stroke; }
 .gate-wheel line { stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.6; }
 .moving .gate-wheel { animation:wheel-spin 1.1s linear infinite; }
 @keyframes wheel-spin { to { transform:rotate(360deg); } }
@@ -2025,6 +2076,14 @@ ha-card.tappable { cursor:pointer; }
 .gate-cat-halo { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:2.2; stroke-linejoin:round; }
 .gate-cat { fill:var(--gate-color); }
 .gate-post-g { fill:var(--secondary-text-color); opacity:.75; }
+/* Relief pass (2.0.0): the shapes are painted a third time with a neutral
+   light-to-dark ramp, so every member gets a lit edge and a shaded one
+   whatever color the leaf carries. .vbar members are lit from the side. */
+.leaf-shade rect, .leaf-shade path { fill:url(#gc-shade-v); stroke:none; }
+.leaf-shade .vbar { fill:url(#gc-shade-h); }
+.leaf-shade .leaf-rail { fill:none; stroke:url(#gc-shade-v); stroke-width:5.6; stroke-linecap:round; vector-effect:non-scaling-stroke; }
+.gate-post-relief rect { fill:url(#gc-post); }
+.gate-shadow ellipse { fill:url(#gc-drop); }
 :host { --lamp-color: var(--state-light-active-color, #ffca28); }
 .lamp .lamp-body { fill:var(--secondary-text-color); opacity:.9; }
 .lamp .lamp-arm { stroke:var(--secondary-text-color); stroke-width:1.6; stroke-linecap:round; opacity:.9; }
