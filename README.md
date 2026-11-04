@@ -25,7 +25,9 @@ Built for setups where *command* and *state* are separate: the gate is driven by
 - **Two entities**: commands go to the `cover`, the state is read from any `state_entity` (`input_select`, sensor, template…).
 - **States detected automatically** (14 languages, accent-insensitive): closed, open, opening, closing, moving, pedestrian, unlocked, venting, part-open, jammed, unknown. `state_map` for the rest.
 - **Per-state colors** from your theme, or a fixed `gate_color`.
-- **Four animated types**: sliding, swing (two leaves or one, hinged left or right), wicket (`door`, solid, half-glazed or glazed) and garage, with several leaf designs. `compact` swaps the drawing for an icon.
+- **Four animated types**: sliding, swing (two leaves or one, hinged left or right), wicket (`door`, eight leaves) and garage (five curtains). `compact` swaps the drawing for an icon.
+- **Fifty-four leaves**: a sliding or swing gate is a top shape (`gate_shape`, six of them) crossed with an infill (`gate_fill`, nine of them). Leave both out and `gate_style` picks the pair for you, exactly as before.
+- **Eleven finishes**: `gate_color` paints the leaf in a material (white aluminium, anthracite, oak, sand…) and the state then shows on the pictograms alone, which stay color-coded.
 - **Intermediate positions**: pedestrian pass, garage venting and part-open, each with its own button.
 - **Locks**: *Open* either unlocks or releases the latch and opens the door, and every command is withdrawn while the door stands open.
 - **Spotlight**: `light_entity` draws a lamp that is on or off and adds a *Light* button.
@@ -50,10 +52,13 @@ Built for setups where *command* and *state* are separate: the gate is driven by
 | `battery_entity` | Battery %, top right. Hidden in `compact`. |
 | `state_map` | Raw state → `closed`\|`open`\|`opening`\|`closing`\|`moving`\|`pedestrian`\|`unlocked`\|`vent`\|`partial`\|`jammed`\|`unknown`. |
 | `gate_type` | `sliding` (default), `swing`, `door` or `garage`. `door` is display-only without command entities. |
-| `gate_style` | Sliding: `slats` (default), `bars`, `semi`, `solid`. Swing: `bell` (default), `bars`, `slats`, `semi`, `solid`. Door: `solid` (default), `semi`, `glazed`. |
+| `gate_style` | A shape and an infill in one. Sliding: `slats` (default), `bars`, `semi`, `solid`. Swing: `bell` (default), `bars`, `slats`, `semi`, `solid`. Door: `solid` (default), `semi`, `glazed`, `mouldings`, `boards`, `inox`, `transom`, `sidelight`. |
+| `gate_shape` | Sliding and swing, top edge: `straight`, `bevel`, `bell`, `inverted`, `arched`, `peak`. Left out, it follows `gate_style`. |
+| `gate_fill` | Sliding and swing, what fills the leaf: `slats_h`, `slats_v`, `bars`, `semi`, `grid`, `chevron`, `panel`, `solid`, `perfo`. Left out, it follows `gate_style`. |
+| `garage_fill` | Garage only: `slats` (default, sectional), `grooved`, `cassette`, `windows`, `tilt`. |
 | `single_leaf` | Swing only: `left` or `right` for a single leaf hinged on that side. Default: two leaves. |
 | `slide_direction` | `left` (default) or `right`. |
-| `gate_color` | `state` (default), `wood`, `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` or any CSS color. |
+| `gate_color` | `state` (default), `wood`, `oak`, `sand`, `white`, `gray`, `anthracite`, `black`, `green`, `burgundy`, `blue`, `brown` or any CSS color. A finish moves the state onto the pictograms, the lock and the bolt. |
 | `name` | Title. Defaults to the state entity's name. |
 | `language` | Show the card in another language than Home Assistant: `en`, `fr`, `de`, `es`, `it`, `nl`, `pt`, `sv`, `no`, `da`, `pl`, `hu`, `ru` or `cs`. The editor keeps your own language. |
 | `compact` | Colored icon instead of the illustration. |

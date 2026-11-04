@@ -1,4 +1,4 @@
-const CARD_VERSION = "1.11.1";
+const CARD_VERSION = "2.0.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -57,6 +57,38 @@ const T = {
     color_black: "Black", color_green: "Fir green", color_burgundy: "Burgundy",
     color_blue: "Steel blue", color_brown: "Brown",
     color_wood: "Wood",
+    gate_shape: "Top shape",
+    shape_preset: "From the design (default)",
+    shape_straight: "Straight",
+    shape_bevel: "Chamfered",
+    shape_bell: "Bell top",
+    shape_inverted: "Concave",
+    shape_arched: "Arched",
+    shape_peak: "Pointed",
+    gate_fill: "Infill",
+    fill_preset: "From the design (default)",
+    fill_slats_h: "Horizontal slats",
+    fill_slats_v: "Vertical slats",
+    fill_bars: "Vertical bars",
+    fill_semi: "Semi-open",
+    fill_grid: "Mesh",
+    fill_chevron: "Chevrons",
+    fill_panel: "Panelled",
+    fill_solid: "Solid",
+    fill_perfo: "Solid, laser pattern",
+    garage_fill: "Door design",
+    gfill_slats: "Sectional",
+    gfill_grooved: "Grooved",
+    gfill_cassette: "Panelled",
+    gfill_windows: "With portholes",
+    gfill_tilt: "Tilt-up",
+    door_style_mouldings: "Moulded panels",
+    door_style_boards: "Vertical boards",
+    door_style_inox: "Stainless",
+    door_style_transom: "Fanlight",
+    door_style_sidelight: "Sidelight",
+    color_sand: "Sand",
+    color_oak: "Oak",
     door_style_solid: "Solid", door_style_semi: "Half-glazed", door_style_glazed: "Glazed",
     jammed: "Jammed", conflict: "Open, bolt out",
     section_advanced: "Command overrides (buttons / scripts)",
@@ -116,6 +148,38 @@ const T = {
     color_black: "Noir", color_green: "Vert sapin", color_burgundy: "Bordeaux",
     color_blue: "Bleu acier", color_brown: "Marron",
     color_wood: "Bois",
+    gate_shape: "Forme du haut",
+    shape_preset: "Selon le style (d\u00e9faut)",
+    shape_straight: "Droit",
+    shape_bevel: "Biseaut\u00e9",
+    shape_bell: "Chapeau de gendarme",
+    shape_inverted: "Chapeau invers\u00e9",
+    shape_arched: "Bomb\u00e9",
+    shape_peak: "En pointe",
+    gate_fill: "Remplissage",
+    fill_preset: "Selon le style (d\u00e9faut)",
+    fill_slats_h: "Lames horizontales",
+    fill_slats_v: "Lames verticales",
+    fill_bars: "Barreaud\u00e9",
+    fill_semi: "Semi-ajour\u00e9",
+    fill_grid: "Grillage",
+    fill_chevron: "Chevrons",
+    fill_panel: "\u00c0 cassettes",
+    fill_solid: "Plein",
+    fill_perfo: "Plein, d\u00e9coupe laser",
+    garage_fill: "Mod\u00e8le de porte",
+    gfill_slats: "Sectionnelle",
+    gfill_grooved: "Rainur\u00e9e",
+    gfill_cassette: "\u00c0 cassettes",
+    gfill_windows: "Avec hublots",
+    gfill_tilt: "Basculante",
+    door_style_mouldings: "Panneaux moulur\u00e9s",
+    door_style_boards: "Lames verticales",
+    door_style_inox: "Inox",
+    door_style_transom: "Imposte vitr\u00e9e",
+    door_style_sidelight: "Vitrage lat\u00e9ral",
+    color_sand: "Sable",
+    color_oak: "Ch\u00eane",
     door_style_solid: "Pleine", door_style_semi: "Semi-vitr\u00e9e", door_style_glazed: "Vitr\u00e9e",
     jammed: "Bloqu\u00e9e", conflict: "Ouverte, p\u00eane sorti",
     section_advanced: "Commandes personnalis\u00e9es (boutons / scripts)",
@@ -174,6 +238,38 @@ const T = {
     color_black: "\u0427\u0451\u0440\u043d\u044b\u0439", color_green: "\u0417\u0435\u043b\u0451\u043d\u044b\u0439 (\u0435\u043b\u044c)", color_burgundy: "\u0411\u043e\u0440\u0434\u043e\u0432\u044b\u0439",
     color_blue: "\u0421\u0442\u0430\u043b\u044c\u043d\u043e\u0439 \u0441\u0438\u043d\u0438\u0439", color_brown: "\u041a\u043e\u0440\u0438\u0447\u043d\u0435\u0432\u044b\u0439",
     color_wood: "\u0414\u0435\u0440\u0435\u0432\u043e",
+    gate_shape: "\u0424\u043e\u0440\u043c\u0430 \u0432\u0435\u0440\u0445\u0430",
+    shape_preset: "\u041f\u043e \u043e\u0444\u043e\u0440\u043c\u043b\u0435\u043d\u0438\u044e (\u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e)",
+    shape_straight: "\u041f\u0440\u044f\u043c\u043e\u0439",
+    shape_bevel: "\u0421\u043e \u0441\u043a\u043e\u0441\u043e\u043c",
+    shape_bell: "\u0410\u0440\u043a\u0430 \u0441 \u043f\u043b\u0435\u0447\u0430\u043c\u0438",
+    shape_inverted: "\u0412\u043e\u0433\u043d\u0443\u0442\u044b\u0439",
+    shape_arched: "\u0412\u044b\u043f\u0443\u043a\u043b\u044b\u0439",
+    shape_peak: "\u041e\u0441\u0442\u0440\u043e\u043a\u043e\u043d\u0435\u0447\u043d\u044b\u0439",
+    gate_fill: "\u0417\u0430\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u0435",
+    fill_preset: "\u041f\u043e \u043e\u0444\u043e\u0440\u043c\u043b\u0435\u043d\u0438\u044e (\u043f\u043e \u0443\u043c\u043e\u043b\u0447\u0430\u043d\u0438\u044e)",
+    fill_slats_h: "\u0413\u043e\u0440\u0438\u0437\u043e\u043d\u0442\u0430\u043b\u044c\u043d\u044b\u0435 \u043b\u0430\u043c\u0435\u043b\u0438",
+    fill_slats_v: "\u0412\u0435\u0440\u0442\u0438\u043a\u0430\u043b\u044c\u043d\u044b\u0435 \u043b\u0430\u043c\u0435\u043b\u0438",
+    fill_bars: "\u0412\u0435\u0440\u0442\u0438\u043a\u0430\u043b\u044c\u043d\u044b\u0435 \u043f\u0440\u0443\u0442\u044c\u044f",
+    fill_semi: "\u041f\u043e\u043b\u0443\u043e\u0442\u043a\u0440\u044b\u0442\u043e\u0435",
+    fill_grid: "\u0421\u0435\u0442\u043a\u0430",
+    fill_chevron: "\u0401\u043b\u043e\u0447\u043a\u0430",
+    fill_panel: "\u0424\u0438\u043b\u0451\u043d\u0447\u0430\u0442\u043e\u0435",
+    fill_solid: "\u0413\u043b\u0443\u0445\u043e\u0435",
+    fill_perfo: "\u0413\u043b\u0443\u0445\u043e\u0435, \u043b\u0430\u0437\u0435\u0440\u043d\u0430\u044f \u0440\u0435\u0437\u043a\u0430",
+    garage_fill: "\u0422\u0438\u043f \u0432\u043e\u0440\u043e\u0442",
+    gfill_slats: "\u0421\u0435\u043a\u0446\u0438\u043e\u043d\u043d\u044b\u0435",
+    gfill_grooved: "\u0421 \u0440\u0438\u0444\u043b\u0435\u043d\u0438\u0435\u043c",
+    gfill_cassette: "\u0424\u0438\u043b\u0451\u043d\u0447\u0430\u0442\u044b\u0435",
+    gfill_windows: "\u0421 \u0438\u043b\u043b\u044e\u043c\u0438\u043d\u0430\u0442\u043e\u0440\u0430\u043c\u0438",
+    gfill_tilt: "\u041f\u043e\u0434\u044a\u0451\u043c\u043d\u043e-\u043f\u043e\u0432\u043e\u0440\u043e\u0442\u043d\u044b\u0435",
+    door_style_mouldings: "\u041f\u0440\u043e\u0444\u0438\u043b\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u0444\u0438\u043b\u0451\u043d\u043a\u0438",
+    door_style_boards: "\u0412\u0435\u0440\u0442\u0438\u043a\u0430\u043b\u044c\u043d\u044b\u0435 \u0434\u043e\u0441\u043a\u0438",
+    door_style_inox: "\u041d\u0435\u0440\u0436\u0430\u0432\u0435\u044e\u0449\u0430\u044f \u0441\u0442\u0430\u043b\u044c",
+    door_style_transom: "\u0424\u0440\u0430\u043c\u0443\u0433\u0430",
+    door_style_sidelight: "\u0411\u043e\u043a\u043e\u0432\u043e\u0435 \u043e\u0441\u0442\u0435\u043a\u043b\u0435\u043d\u0438\u0435",
+    color_sand: "\u041f\u0435\u0441\u043e\u0447\u043d\u044b\u0439",
+    color_oak: "\u0414\u0443\u0431",
     door_style_solid: "\u0413\u043b\u0443\u0445\u0430\u044f", door_style_semi: "\u041f\u043e\u043b\u0443\u0441\u0442\u0435\u043a\u043b\u044f\u043d\u043d\u0430\u044f", door_style_glazed: "\u0421\u0442\u0435\u043a\u043b\u044f\u043d\u043d\u0430\u044f",
     jammed: "\u0417\u0430\u043a\u043b\u0438\u043d\u0438\u043b\u043e", conflict: "\u041e\u0442\u043a\u0440\u044b\u0442\u0430, \u0440\u0438\u0433\u0435\u043b\u044c \u0432\u044b\u0434\u0432\u0438\u043d\u0443\u0442",
     section_advanced: "\u041a\u0430\u0441\u0442\u043e\u043c\u043d\u044b\u0435 \u043a\u043e\u043c\u0430\u043d\u0434\u044b (\u043a\u043d\u043e\u043f\u043a\u0438 / \u0441\u043a\u0440\u0438\u043f\u0442\u044b)",
@@ -232,6 +328,38 @@ const T = {
     color_black: "Schwarz", color_green: "Tannengr\u00fcn", color_burgundy: "Bordeauxrot",
     color_blue: "Stahlblau", color_brown: "Braun",
     color_wood: "Holz",
+    gate_shape: "Oberkante",
+    shape_preset: "Laut Design (Standard)",
+    shape_straight: "Gerade",
+    shape_bevel: "Abgeschr\u00e4gt",
+    shape_bell: "Bogen mit Schultern",
+    shape_inverted: "Konkav",
+    shape_arched: "Gew\u00f6lbt",
+    shape_peak: "Spitz",
+    gate_fill: "F\u00fcllung",
+    fill_preset: "Laut Design (Standard)",
+    fill_slats_h: "Waagerechte Lamellen",
+    fill_slats_v: "Senkrechte Lamellen",
+    fill_bars: "St\u00e4be",
+    fill_semi: "Halb offen",
+    fill_grid: "Gitter",
+    fill_chevron: "Fischgr\u00e4t",
+    fill_panel: "Kassetten",
+    fill_solid: "Geschlossen",
+    fill_perfo: "Geschlossen, Laserschnitt",
+    garage_fill: "Tordesign",
+    gfill_slats: "Sektionaltor",
+    gfill_grooved: "Sickenprofil",
+    gfill_cassette: "Kassetten",
+    gfill_windows: "Mit Bullaugen",
+    gfill_tilt: "Schwingtor",
+    door_style_mouldings: "Profilierte F\u00fcllungen",
+    door_style_boards: "Senkrechte Bretter",
+    door_style_inox: "Edelstahl",
+    door_style_transom: "Oberlicht",
+    door_style_sidelight: "Seitenlicht",
+    color_sand: "Sand",
+    color_oak: "Eiche",
     door_style_solid: "Geschlossen", door_style_semi: "Halb verglast", door_style_glazed: "Verglast",
     jammed: "Blockiert", conflict: "Offen, Riegel ausgefahren",
     section_advanced: "Befehls-Overrides (Buttons / Skripte)",
@@ -290,6 +418,38 @@ const T = {
     color_black: "Negro", color_green: "Verde abeto", color_burgundy: "Burdeos",
     color_blue: "Azul acero", color_brown: "Marr\u00f3n",
     color_wood: "Madera",
+    gate_shape: "Forma superior",
+    shape_preset: "Seg\u00fan el dise\u00f1o (predeterminado)",
+    shape_straight: "Recta",
+    shape_bevel: "Biselada",
+    shape_bell: "Copete",
+    shape_inverted: "C\u00f3ncava",
+    shape_arched: "Abombada",
+    shape_peak: "En punta",
+    gate_fill: "Relleno",
+    fill_preset: "Seg\u00fan el dise\u00f1o (predeterminado)",
+    fill_slats_h: "Lamas horizontales",
+    fill_slats_v: "Lamas verticales",
+    fill_bars: "Barrotes",
+    fill_semi: "Semiabierto",
+    fill_grid: "Malla",
+    fill_chevron: "Espiga",
+    fill_panel: "Con casetones",
+    fill_solid: "Macizo",
+    fill_perfo: "Macizo, corte l\u00e1ser",
+    garage_fill: "Dise\u00f1o de la puerta",
+    gfill_slats: "Seccional",
+    gfill_grooved: "Acanalada",
+    gfill_cassette: "Con casetones",
+    gfill_windows: "Con ojos de buey",
+    gfill_tilt: "Basculante",
+    door_style_mouldings: "Paneles moldurados",
+    door_style_boards: "Tablas verticales",
+    door_style_inox: "Acero inoxidable",
+    door_style_transom: "Montante acristalado",
+    door_style_sidelight: "Lateral acristalado",
+    color_sand: "Arena",
+    color_oak: "Roble",
     door_style_solid: "Ciega", door_style_semi: "Semiacristalada", door_style_glazed: "Acristalada",
     jammed: "Atascada", conflict: "Abierta, pestillo fuera",
     section_advanced: "Comandos personalizados (botones / scripts)",
@@ -348,6 +508,38 @@ const T = {
     color_black: "Nero", color_green: "Verde abete", color_burgundy: "Bordeaux",
     color_blue: "Blu acciaio", color_brown: "Marrone",
     color_wood: "Legno",
+    gate_shape: "Forma superiore",
+    shape_preset: "Secondo il design (predefinito)",
+    shape_straight: "Dritta",
+    shape_bevel: "Smussata",
+    shape_bell: "A cappello",
+    shape_inverted: "Concava",
+    shape_arched: "Bombata",
+    shape_peak: "A punta",
+    gate_fill: "Riempimento",
+    fill_preset: "Secondo il design (predefinito)",
+    fill_slats_h: "Doghe orizzontali",
+    fill_slats_v: "Doghe verticali",
+    fill_bars: "A barre",
+    fill_semi: "Semiaperto",
+    fill_grid: "Rete",
+    fill_chevron: "Spina di pesce",
+    fill_panel: "A cassettoni",
+    fill_solid: "Pieno",
+    fill_perfo: "Pieno, taglio laser",
+    garage_fill: "Design della porta",
+    gfill_slats: "Sezionale",
+    gfill_grooved: "Rigata",
+    gfill_cassette: "A cassettoni",
+    gfill_windows: "Con obl\u00f2",
+    gfill_tilt: "Basculante",
+    door_style_mouldings: "Pannelli modanati",
+    door_style_boards: "Doghe verticali",
+    door_style_inox: "Acciaio inox",
+    door_style_transom: "Sopraluce",
+    door_style_sidelight: "Vetrata laterale",
+    color_sand: "Sabbia",
+    color_oak: "Rovere",
     door_style_solid: "Cieca", door_style_semi: "Semivetrata", door_style_glazed: "Vetrata",
     jammed: "Bloccata", conflict: "Aperta, chiavistello fuori",
     section_advanced: "Comandi personalizzati (pulsanti / script)",
@@ -406,6 +598,38 @@ const T = {
     color_black: "Zwart", color_green: "Dennengroen", color_burgundy: "Bordeaux",
     color_blue: "Staalblauw", color_brown: "Bruin",
     color_wood: "Hout",
+    gate_shape: "Bovenrand",
+    shape_preset: "Volgens het ontwerp (standaard)",
+    shape_straight: "Recht",
+    shape_bevel: "Afgeschuind",
+    shape_bell: "Boogtop",
+    shape_inverted: "Hol",
+    shape_arched: "Gebogen",
+    shape_peak: "Puntig",
+    gate_fill: "Vulling",
+    fill_preset: "Volgens het ontwerp (standaard)",
+    fill_slats_h: "Horizontale lamellen",
+    fill_slats_v: "Verticale lamellen",
+    fill_bars: "Spijlen",
+    fill_semi: "Half open",
+    fill_grid: "Gaas",
+    fill_chevron: "Visgraat",
+    fill_panel: "Met cassettes",
+    fill_solid: "Dicht",
+    fill_perfo: "Dicht, lasersnede",
+    garage_fill: "Poortontwerp",
+    gfill_slats: "Sectionaal",
+    gfill_grooved: "Gegroefd",
+    gfill_cassette: "Met cassettes",
+    gfill_windows: "Met patrijspoorten",
+    gfill_tilt: "Kanteldeur",
+    door_style_mouldings: "Geprofileerde panelen",
+    door_style_boards: "Verticale planken",
+    door_style_inox: "Rvs",
+    door_style_transom: "Bovenlicht",
+    door_style_sidelight: "Zijlicht",
+    color_sand: "Zand",
+    color_oak: "Eiken",
     door_style_solid: "Dicht", door_style_semi: "Half glas", door_style_glazed: "Volglas",
     jammed: "Geblokkeerd", conflict: "Open, grendel uit",
     section_advanced: "Commando-overrides (knoppen / scripts)",
@@ -464,6 +688,38 @@ const T = {
     color_black: "Preto", color_green: "Verde abeto", color_burgundy: "Bord\u00f4",
     color_blue: "Azul a\u00e7o", color_brown: "Castanho",
     color_wood: "Madeira",
+    gate_shape: "Forma do topo",
+    shape_preset: "Conforme o design (predefini\u00e7\u00e3o)",
+    shape_straight: "Reta",
+    shape_bevel: "Chanfrada",
+    shape_bell: "Com arco",
+    shape_inverted: "C\u00f4ncava",
+    shape_arched: "Abaulada",
+    shape_peak: "Em bico",
+    gate_fill: "Preenchimento",
+    fill_preset: "Conforme o design (predefini\u00e7\u00e3o)",
+    fill_slats_h: "L\u00e2minas horizontais",
+    fill_slats_v: "L\u00e2minas verticais",
+    fill_bars: "Barras",
+    fill_semi: "Semiaberto",
+    fill_grid: "Rede",
+    fill_chevron: "Espinha",
+    fill_panel: "Com almofadas",
+    fill_solid: "Maci\u00e7o",
+    fill_perfo: "Maci\u00e7o, corte a laser",
+    garage_fill: "Design do port\u00e3o",
+    gfill_slats: "Seccional",
+    gfill_grooved: "Canelado",
+    gfill_cassette: "Com almofadas",
+    gfill_windows: "Com vigias",
+    gfill_tilt: "Basculante",
+    door_style_mouldings: "Pain\u00e9is almofadados",
+    door_style_boards: "T\u00e1buas verticais",
+    door_style_inox: "Inox",
+    door_style_transom: "Bandeira envidra\u00e7ada",
+    door_style_sidelight: "Vidro lateral",
+    color_sand: "Areia",
+    color_oak: "Carvalho",
     door_style_solid: "Cega", door_style_semi: "Semienvidra\u00e7ada", door_style_glazed: "Envidra\u00e7ada",
     jammed: "Bloqueada", conflict: "Aberta, trinco fora",
     section_advanced: "Comandos personalizados (bot\u00f5es / scripts)",
@@ -522,6 +778,38 @@ const T = {
     color_black: "Svart", color_green: "Grangr\u00f6n", color_burgundy: "Vinr\u00f6d",
     color_blue: "St\u00e5lbl\u00e5", color_brown: "Brun",
     color_wood: "Tr\u00e4",
+    gate_shape: "\u00d6verkant",
+    shape_preset: "Enligt designen (standard)",
+    shape_straight: "Rak",
+    shape_bevel: "Fasad",
+    shape_bell: "B\u00e5gkr\u00f6n",
+    shape_inverted: "Konkav",
+    shape_arched: "V\u00e4lvd",
+    shape_peak: "Spetsig",
+    gate_fill: "Fyllning",
+    fill_preset: "Enligt designen (standard)",
+    fill_slats_h: "V\u00e5gr\u00e4ta ribbor",
+    fill_slats_v: "Lodr\u00e4ta ribbor",
+    fill_bars: "Spj\u00e4lor",
+    fill_semi: "Halv\u00f6ppen",
+    fill_grid: "N\u00e4t",
+    fill_chevron: "Fiskben",
+    fill_panel: "Med speglar",
+    fill_solid: "T\u00e4t",
+    fill_perfo: "T\u00e4t, laserskuren",
+    garage_fill: "Portdesign",
+    gfill_slats: "Sektionsport",
+    gfill_grooved: "R\u00e4fflad",
+    gfill_cassette: "Med speglar",
+    gfill_windows: "Med ventiler",
+    gfill_tilt: "Vipport",
+    door_style_mouldings: "Profilerade speglar",
+    door_style_boards: "Lodr\u00e4ta br\u00e4dor",
+    door_style_inox: "Rostfritt",
+    door_style_transom: "\u00d6verljus",
+    door_style_sidelight: "Sidoljus",
+    color_sand: "Sand",
+    color_oak: "Ek",
     door_style_solid: "T\u00e4t", door_style_semi: "Halvglasad", door_style_glazed: "Helglasad",
     jammed: "K\u00e4rvar", conflict: "\u00d6ppen, kolven ute",
     section_advanced: "Kommando-\u00f6verstyrningar (knappar / skript)",
@@ -580,6 +868,38 @@ const T = {
     color_black: "Svart", color_green: "Grangr\u00f8nn", color_burgundy: "Burgunder",
     color_blue: "St\u00e5lbl\u00e5", color_brown: "Brun",
     color_wood: "Tre",
+    gate_shape: "Overkant",
+    shape_preset: "Etter designet (standard)",
+    shape_straight: "Rett",
+    shape_bevel: "Avfaset",
+    shape_bell: "Buet topp",
+    shape_inverted: "Konkav",
+    shape_arched: "Hvelvet",
+    shape_peak: "Spiss",
+    gate_fill: "Fylling",
+    fill_preset: "Etter designet (standard)",
+    fill_slats_h: "Vannrette lameller",
+    fill_slats_v: "Loddrette lameller",
+    fill_bars: "Sprosser",
+    fill_semi: "Halv\u00e5pen",
+    fill_grid: "Netting",
+    fill_chevron: "Fiskebein",
+    fill_panel: "Med speil",
+    fill_solid: "Tett",
+    fill_perfo: "Tett, lasersk\u00e5ret",
+    garage_fill: "Portdesign",
+    gfill_slats: "Leddport",
+    gfill_grooved: "Rillet",
+    gfill_cassette: "Med speil",
+    gfill_windows: "Med ko\u00f8yer",
+    gfill_tilt: "Vippeport",
+    door_style_mouldings: "Profilerte speil",
+    door_style_boards: "Loddrette bord",
+    door_style_inox: "Rustfritt",
+    door_style_transom: "Overlys",
+    door_style_sidelight: "Sidelys",
+    color_sand: "Sand",
+    color_oak: "Eik",
     door_style_solid: "Tett", door_style_semi: "Halvglass", door_style_glazed: "Helglass",
     jammed: "Sitter fast", conflict: "\u00c5pen, l\u00e5sen ute",
     section_advanced: "Kommando-overstyringer (knapper / skript)",
@@ -638,6 +958,38 @@ const T = {
     color_black: "Sort", color_green: "Grangr\u00f8n", color_burgundy: "Bordeaux",
     color_blue: "St\u00e5lbl\u00e5", color_brown: "Brun",
     color_wood: "Tr\u00e6",
+    gate_shape: "Overkant",
+    shape_preset: "Efter designet (standard)",
+    shape_straight: "Lige",
+    shape_bevel: "Affaset",
+    shape_bell: "Buet top",
+    shape_inverted: "Konkav",
+    shape_arched: "Hv\u00e6lvet",
+    shape_peak: "Spids",
+    gate_fill: "Fyldning",
+    fill_preset: "Efter designet (standard)",
+    fill_slats_h: "Vandrette lameller",
+    fill_slats_v: "Lodrette lameller",
+    fill_bars: "Tremmer",
+    fill_semi: "Halv\u00e5ben",
+    fill_grid: "Net",
+    fill_chevron: "Sildeben",
+    fill_panel: "Med fyldninger",
+    fill_solid: "T\u00e6t",
+    fill_perfo: "T\u00e6t, lasersk\u00e5ret",
+    garage_fill: "Portdesign",
+    gfill_slats: "Ledport",
+    gfill_grooved: "Riflet",
+    gfill_cassette: "Med fyldninger",
+    gfill_windows: "Med ko\u00f8jer",
+    gfill_tilt: "Vippeport",
+    door_style_mouldings: "Profilerede fyldninger",
+    door_style_boards: "Lodrette br\u00e6dder",
+    door_style_inox: "Rustfrit",
+    door_style_transom: "Overvindue",
+    door_style_sidelight: "Sidevindue",
+    color_sand: "Sand",
+    color_oak: "Eg",
     door_style_solid: "T\u00e6t", door_style_semi: "Halvglas", door_style_glazed: "Helglas",
     jammed: "Sidder fast", conflict: "\u00c5ben, rigel ude",
     section_advanced: "Kommando-tilsides\u00e6ttelser (knapper / scripts)",
@@ -696,6 +1048,38 @@ const T = {
     color_black: "Czarny", color_green: "Ziele\u0144 jod\u0142owa", color_burgundy: "Bordowy",
     color_blue: "Stalowy niebieski", color_brown: "Br\u0105zowy",
     color_wood: "Drewno",
+    gate_shape: "Kszta\u0142t g\u00f3ry",
+    shape_preset: "Wedlug wzoru (domy\u015blnie)",
+    shape_straight: "Prosta",
+    shape_bevel: "\u015aci\u0119ta",
+    shape_bell: "\u0141uk z ramionami",
+    shape_inverted: "Wkl\u0119s\u0142a",
+    shape_arched: "Wypuk\u0142a",
+    shape_peak: "Szczytowa",
+    gate_fill: "Wype\u0142nienie",
+    fill_preset: "Wedlug wzoru (domy\u015blnie)",
+    fill_slats_h: "Poziome lamele",
+    fill_slats_v: "Pionowe lamele",
+    fill_bars: "Szczebelki",
+    fill_semi: "P\u00f3\u0142otwarte",
+    fill_grid: "Siatka",
+    fill_chevron: "Jode\u0142ka",
+    fill_panel: "Kasetonowe",
+    fill_solid: "Pe\u0142ne",
+    fill_perfo: "Pe\u0142ne, wycinane laserem",
+    garage_fill: "Wz\u00f3r bramy",
+    gfill_slats: "Segmentowa",
+    gfill_grooved: "Przet\u0142aczana",
+    gfill_cassette: "Kasetonowa",
+    gfill_windows: "Z bulajami",
+    gfill_tilt: "Uchylna",
+    door_style_mouldings: "P\u0142yciny profilowane",
+    door_style_boards: "Deski pionowe",
+    door_style_inox: "Stal nierdzewna",
+    door_style_transom: "Na\u015bwietle g\u00f3rne",
+    door_style_sidelight: "Na\u015bwietle boczne",
+    color_sand: "Piaskowy",
+    color_oak: "D\u0105b",
     door_style_solid: "Pe\u0142ne", door_style_semi: "P\u00f3\u0142przeszklone", door_style_glazed: "Przeszklone",
     jammed: "Zablokowane", conflict: "Otwarte, rygiel wysuni\u0119ty",
     section_advanced: "Niestandardowe komendy (przyciski / skrypty)",
@@ -754,6 +1138,38 @@ const T = {
     color_black: "Fekete", color_green: "Feny\u0151z\u00f6ld", color_burgundy: "Bord\u00f3",
     color_blue: "Ac\u00e9lk\u00e9k", color_brown: "Barna",
     color_wood: "Fa",
+    gate_shape: "Fels\u0151 forma",
+    shape_preset: "A diz\u00e1jn szerint (alap\u00e9rtelmezett)",
+    shape_straight: "Egyenes",
+    shape_bevel: "Let\u00f6rt",
+    shape_bell: "\u00cdves tet\u0151",
+    shape_inverted: "Homor\u00fa",
+    shape_arched: "Dombor\u00fa",
+    shape_peak: "Cs\u00facsos",
+    gate_fill: "Kit\u00f6lt\u00e9s",
+    fill_preset: "A diz\u00e1jn szerint (alap\u00e9rtelmezett)",
+    fill_slats_h: "V\u00edzszintes l\u00e9cek",
+    fill_slats_v: "F\u00fcgg\u0151leges l\u00e9cek",
+    fill_bars: "F\u00fcgg\u0151leges r\u00e1csok",
+    fill_semi: "F\u00e9lig nyitott",
+    fill_grid: "H\u00e1l\u00f3",
+    fill_chevron: "Halsz\u00e1lka",
+    fill_panel: "Kazett\u00e1s",
+    fill_solid: "T\u00f6m\u00f6r",
+    fill_perfo: "T\u00f6m\u00f6r, l\u00e9zerv\u00e1gott",
+    garage_fill: "Kapu diz\u00e1jn",
+    gfill_slats: "Szekcion\u00e1lt",
+    gfill_grooved: "Bord\u00e1zott",
+    gfill_cassette: "Kazett\u00e1s",
+    gfill_windows: "Ablakokkal",
+    gfill_tilt: "Billen\u0151",
+    door_style_mouldings: "Profilos bet\u00e9tek",
+    door_style_boards: "F\u00fcgg\u0151leges deszk\u00e1k",
+    door_style_inox: "Rozsdamentes",
+    door_style_transom: "Fel\u00fclvil\u00e1g\u00edt\u00f3",
+    door_style_sidelight: "Oldalvil\u00e1g\u00edt\u00f3",
+    color_sand: "Homok",
+    color_oak: "T\u00f6lgy",
     door_style_solid: "T\u00f6m\u00f6r", door_style_semi: "F\u00e9lig \u00fcveges", door_style_glazed: "\u00dcveges",
     jammed: "Beszorult", conflict: "Nyitva, retesz kint",
     section_advanced: "Parancs fel\u00fclb\u00edr\u00e1l\u00e1sok (gombok / szkriptek)",
@@ -812,6 +1228,38 @@ const T = {
     color_black: "\u010cern\u00e1", color_green: "Jedlov\u00e1 zelen\u00e1", color_burgundy: "V\u00ednov\u011b \u010derven\u00e1",
     color_blue: "Ocelov\u011b modr\u00e1", color_brown: "Hn\u011bd\u00e1",
     color_wood: "D\u0159evo",
+    gate_shape: "Tvar horn\u00ed hrany",
+    shape_preset: "Podle vzhledu (v\u00fdchoz\u00ed)",
+    shape_straight: "Rovn\u00e1",
+    shape_bevel: "Zkosen\u00e1",
+    shape_bell: "Oblouk s rameny",
+    shape_inverted: "Vydut\u00e1",
+    shape_arched: "Klenut\u00e1",
+    shape_peak: "\u0160pi\u010dat\u00e1",
+    gate_fill: "V\u00fdpl\u0148",
+    fill_preset: "Podle vzhledu (v\u00fdchoz\u00ed)",
+    fill_slats_h: "Vodorovn\u00e9 lamely",
+    fill_slats_v: "Svisl\u00e9 lamely",
+    fill_bars: "Svisl\u00e9 ty\u010de",
+    fill_semi: "Polootev\u0159en\u00e1",
+    fill_grid: "M\u0159\u00ed\u017e",
+    fill_chevron: "Ryb\u00ed kost",
+    fill_panel: "Kazetov\u00e1",
+    fill_solid: "Pln\u00e1",
+    fill_perfo: "Pln\u00e1, laserov\u00fd vzor",
+    garage_fill: "Vzhled vrat",
+    gfill_slats: "Sek\u010dn\u00ed",
+    gfill_grooved: "Dr\u00e1\u017ekovan\u00e1",
+    gfill_cassette: "Kazetov\u00e1",
+    gfill_windows: "S ok\u00e9nky",
+    gfill_tilt: "V\u00fdklopn\u00e1",
+    door_style_mouldings: "Profilovan\u00e9 v\u00fdpln\u011b",
+    door_style_boards: "Svisl\u00e1 prkna",
+    door_style_inox: "Nerez",
+    door_style_transom: "Nadsv\u011btl\u00edk",
+    door_style_sidelight: "Bo\u010dn\u00ed sv\u011btl\u00edk",
+    color_sand: "P\u00edskov\u00e1",
+    color_oak: "Dub",
     door_style_solid: "Pln\u00e9", door_style_semi: "\u010c\u00e1ste\u010dn\u011b prosklen\u00e9", door_style_glazed: "Prosklen\u00e9",
     jammed: "Zaseknut\u00e9", conflict: "Otev\u0159eno, z\u00e1vora vysunut\u00e1",
     section_advanced: "Vlastn\u00ed p\u0159\u00edkazy (tla\u010d\u00edtka / skripty)",
@@ -975,6 +1423,8 @@ const GATE_COLORS = {
   blue: { fill: "#1f3855", line: "#1f3855" },
   brown: { fill: "#59392f", line: "#59392f" },
   wood: { fill: "#c08b5a", line: "#7d5331" },
+  oak: { fill: "#9c6b35", line: "#5e3f1e" },
+  sand: { fill: "#d8cdb4", line: "#80755f" },
 };
 
 const TYPE_ICONS = {
@@ -1153,8 +1603,50 @@ function formatSince(isoDate, locale) {
 // mirrors them past the posts like real fully-opened leaves.
 // ---------------------------------------------------------------------------
 
+// Shared paint for the relief pass (2.0.0). The gate keeps being filled with
+// --leaf-color, whatever that color means: the state in mode A, the material
+// in mode B. Volume is a separate layer on top, a white-to-black ramp at low
+// opacity, so it reads the same on a green gate and on a white one.
+// The vertical ramp lights horizontal members from above; the horizontal one
+// lights vertical members from the side, the way a round bar catches light.
+const RELIEF_DEFS = `
+      <defs>
+        <linearGradient id="gc-shade-v" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fff" stop-opacity=".5"/>
+          <stop offset=".34" stop-color="#fff" stop-opacity="0"/>
+          <stop offset=".72" stop-color="#000" stop-opacity="0"/>
+          <stop offset="1" stop-color="#000" stop-opacity=".3"/>
+        </linearGradient>
+        <linearGradient id="gc-shade-h" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#000" stop-opacity=".26"/>
+          <stop offset=".22" stop-color="#fff" stop-opacity=".44"/>
+          <stop offset=".5" stop-color="#fff" stop-opacity="0"/>
+          <stop offset="1" stop-color="#000" stop-opacity=".3"/>
+        </linearGradient>
+        <linearGradient id="gc-post" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#000" stop-opacity=".22"/>
+          <stop offset=".26" stop-color="#fff" stop-opacity=".4"/>
+          <stop offset=".55" stop-color="#fff" stop-opacity="0"/>
+          <stop offset="1" stop-color="#000" stop-opacity=".34"/>
+        </linearGradient>
+        <radialGradient id="gc-drop" cx=".5" cy=".5" r=".5">
+          <stop offset="0" stop-color="#000" stop-opacity=".28"/>
+          <stop offset="1" stop-color="#000" stop-opacity="0"/>
+        </radialGradient>
+      </defs>`;
+
 const SCENE_CLOSE = `
+  <g class="gate-shadow">
+    <ellipse cx="6.5" cy="58.6" rx="9" ry="2"/>
+    <ellipse cx="133.5" cy="58.6" rx="9" ry="2"/>
+  </g>
   <g class="gate-post-g">
+    <rect x="2" y="10" width="9" height="48" rx="2"/>
+    <rect x="0" y="6" width="13" height="6" rx="2"/>
+    <rect x="129" y="10" width="9" height="48" rx="2"/>
+    <rect x="127" y="6" width="13" height="6" rx="2"/>
+  </g>
+  <g class="gate-post-relief">
     <rect x="2" y="10" width="9" height="48" rx="2"/>
     <rect x="0" y="6" width="13" height="6" rx="2"/>
     <rect x="129" y="10" width="9" height="48" rx="2"/>
@@ -1240,8 +1732,92 @@ function normStyle(cfg, type) {
   return known.includes(s) ? s : def;
 }
 
-// Laser-cut perforations for the "solid" style: knocked-out dots that move
-// with the leaf.
+// ---------------------------------------------------------------------------
+// Leaf geometry since the 2.0.0: a silhouette crossed with a fill motif.
+//
+// Until now each of the five gate_style presets carried its own top edge AND
+// its own members, hard coded three times over (sliding, half leaf, single
+// leaf). The two are independent from the 2.0.0 on: gate_shape draws the top
+// edge, gate_fill draws what sits inside it. gate_style survives as a preset
+// pair, so a card written before the 2.0.0 keeps the drawing it had.
+// ---------------------------------------------------------------------------
+
+const LEAF_BOTTOM = 49;
+const OPEN_MID = 70;
+const HALF_SPAN = 57;
+
+// edge: height at the posts, mid: height mid opening. "shoulder" keeps the
+// sides flat and lifts the middle alone (the gendarme hat), "chamfer" does
+// the opposite and cuts the corners, "line" meets in a point, "curve" is a
+// single arc over the whole leaf.
+const LEAF_SHAPES = {
+  straight: { edge: 14, mid: 14, kind: "flat" },
+  bevel: { edge: 20, mid: 11, kind: "chamfer" },
+  bell: { edge: 19, mid: 10, kind: "shoulder" },
+  inverted: { edge: 15, mid: 21, kind: "curve" },
+  arched: { edge: 20, mid: 9, kind: "curve" },
+  peak: { edge: 20, mid: 8, kind: "line" },
+};
+
+const LEAF_SHAPE_KEYS = Object.keys(LEAF_SHAPES);
+const LEAF_FILLS = ["slats_h", "slats_v", "bars", "semi", "grid", "chevron", "panel", "solid", "perfo"];
+
+// gate_style presets. The swing gate keeps its own reading of "bars": the
+// original design dips in the middle, the sliding one is straight.
+const STYLE_PRESETS = {
+  slats: { shape: "straight", fill: "slats_h" },
+  semi: { shape: "straight", fill: "semi" },
+  solid: { shape: "arched", fill: "perfo" },
+  bell: { shape: "bell", fill: "bars" },
+  bars: { shape: "straight", fill: "bars" },
+  bars_swing: { shape: "inverted", fill: "bars" },
+};
+
+function leafDesign(cfg, type) {
+  let key = normStyle(cfg, type);
+  if (key === "bars" && type === "swing") key = "bars_swing";
+  const preset = STYLE_PRESETS[key] || STYLE_PRESETS.slats;
+  const shaped = LEAF_SHAPE_KEYS.includes(cfg.gate_shape);
+  const filled = LEAF_FILLS.includes(cfg.gate_fill);
+  return {
+    // The untouched preset still goes through its own hand drawn geometry.
+    style: normStyle(cfg, type),
+    composed: shaped || filled,
+    shape: shaped ? cfg.gate_shape : preset.shape,
+    fill: filled ? cfg.gate_fill : preset.fill,
+  };
+}
+
+const r1 = (v) => Math.round(v * 10) / 10;
+
+function leafTopY(shape, x) {
+  const s = LEAF_SHAPES[shape] || LEAF_SHAPES.straight;
+  const t = Math.min(1, Math.abs(x - OPEN_MID) / HALF_SPAN);
+  if (s.kind === "flat") return s.edge;
+  if (s.kind === "curve") return s.mid + (s.edge - s.mid) * t * t;
+  if (s.kind === "line") return s.mid + (s.edge - s.mid) * t;
+  if (s.kind === "shoulder") return t >= 0.6 ? s.edge : s.mid + (s.edge - s.mid) * Math.pow(t / 0.6, 2);
+  return t <= 0.7 ? s.mid : s.mid + (s.edge - s.mid) * (t - 0.7) / 0.3;
+}
+
+// The top edge as a path. A flat edge needs two points, a shaped one is
+// sampled: the leaf is 114 units wide at most, 16 steps is already smooth.
+function leafTopPath(shape, xa, xb) {
+  const steps = (LEAF_SHAPES[shape] || LEAF_SHAPES.straight).kind === "flat" ? 1 : 16;
+  let d = "";
+  for (let i = 0; i <= steps; i++) {
+    const x = xa + (xb - xa) * i / steps;
+    d += `${i === 0 ? "M" : "L"}${r1(x)} ${r1(leafTopY(shape, x))}`;
+  }
+  return d;
+}
+
+function leafOutline(shape, xa, xb) {
+  return `${leafTopPath(shape, xa, xb)}L${r1(xb)} ${LEAF_BOTTOM}L${r1(xa)} ${LEAF_BOTTOM}Z`;
+}
+
+// Knocked-out dots that move with the leaf (the laser cut of the "solid"
+// preset). Rows and columns are laid inside the leaf, then thinned out.
 function laserDots(cells) {
   return cells
     .filter(([r, c]) => (r + c) % 2 === 0)
@@ -1249,51 +1825,262 @@ function laserDots(cells) {
     .join("");
 }
 
-function slidingSvg(norm, cfg, lampOn, frac) {
-  const style = normStyle(cfg, "sliding");
-  let shapes;
+function leafDots(xa, xb, light) {
+  const cols = Math.max(3, Math.round((xb - xa - 16) / (light ? 16 : 8)));
+  const step = (xb - xa - 16) / cols;
+  const cells = [];
+  for (let r = 0; r < 3; r++) {
+    for (let c = 0; c <= cols; c++) cells.push([r, c, r1(xa + 8 + c * step), 24 + r * 8]);
+  }
+  return laserDots(cells);
+}
+
+// A rail along the top edge, a rail along the ground and an upright at each
+// end. The bars fill skips the uprights: its end bars already do the job.
+function leafFrame(shape, xa, xb, uprights) {
+  const ya = r1(leafTopY(shape, xa));
+  const yb = r1(leafTopY(shape, xb));
+  const ends = uprights === false ? "" : `
+      <rect class="vbar" x="${r1(xa)}" y="${ya}" width="3" height="${r1(LEAF_BOTTOM - ya)}" rx="1.5"/>
+      <rect class="vbar" x="${r1(xb - 3)}" y="${yb}" width="3" height="${r1(LEAF_BOTTOM - yb)}" rx="1.5"/>`;
+  return `
+      <path class="leaf-rail" d="${leafTopPath(shape, xa, xb)}"/>
+      <rect x="${r1(xa)}" y="44" width="${r1(xb - xa)}" height="5" rx="2.5"/>${ends}`;
+}
+
+// The five drawings that shipped before the 2.0.0, kept to the unit. They
+// are hand composed, not combinations: "bars" on a straight edge hangs its
+// bars between two solid rails, the same "bars" under a bell top hangs them
+// off a stroked rail, and the semi open leaf puts its bars at a height the
+// generic motif would not guess. Asking for a shape or a fill switches to
+// leafBody, which composes; touching neither lands here, so a card written
+// before the 2.0.0 draws what it drew.
+//
+// variant: "sliding" (x 14..126), "half" (x0 + 56, side l or r), "single"
+// (x 13..127, the full width leaf, halved when folded).
+function leafPreset(style, variant, side, light) {
+  const half = variant === "half";
+  const single = variant === "single";
+  const x0 = half ? (side === "l" ? 13 : 71) : single ? 13 : 14;
+  const w = half ? 56 : single ? 114 : 112;
+  let shapes = "";
   let extra = "";
-  if (style === "bars") {
-    // Straight vertical bars between two rails (the original design).
+
+  if (style === "slats") {
+    const n = light ? 3 : 4;
+    const pitch = light ? 13.5 : 9.5;
+    let slats = "";
+    for (let i = 0; i < n; i++) {
+      slats += `<rect class="slat" x="${x0}" y="${14 + i * pitch}" width="${w}" height="5.5" rx="1.5"/>`;
+    }
+    const mid = half ? "" : `<rect class="vbar" x="68.5" y="14" width="3" height="34" rx="1.5"/>`;
+    shapes = `${slats}
+      <rect class="vbar" x="${x0}" y="14" width="3" height="34" rx="1.5"/>
+      ${mid}
+      <rect class="vbar" x="${half ? x0 + 53 : x0 + w - 3}" y="14" width="3" height="34" rx="1.5"/>`;
+  } else if (style === "semi") {
+    const n = half ? 7 : light ? 7 : 14;
+    const pitch = half ? 7.6 : light ? 15.6 : 7.8;
+    const bx = half ? x0 + 3 : 17;
+    let bars = "";
+    for (let i = 0; i < n; i++) {
+      bars += `<rect class="slat${half ? "" : " vbar"}" x="${r1(bx + i * pitch)}" y="13" width="3.2" height="18" rx="1.6"/>`;
+    }
+    shapes = `
+      <rect x="${x0}" y="12" width="${w}" height="3.4" rx="1.7"/>
+      <rect x="${x0}" y="30" width="${w}" height="19" rx="2"/>
+      ${bars}`;
+  } else if (style === "solid") {
+    shapes = half
+      ? (side === "l"
+        ? `<path d="M13 49 L13 20 Q 45 11, 69 12.5 L69 49 Z"/>`
+        : `<path d="M127 49 L127 20 Q 95 11, 71 12.5 L71 49 Z"/>`)
+      : `<path d="M${x0} 49 L${x0} ${single ? 20 : 19} Q 70 ${single ? 9 : 9}, ${x0 + w} ${single ? 20 : 19} L${x0 + w} 49 Z"/>`;
+    const cells = [];
+    if (half) {
+      for (let r = 0; r < 3; r++) {
+        for (let c = 0; c < 7; c++) {
+          cells.push([r, c, side === "l" ? 21 + c * 7.4 : 119 - c * 7.4, 23 + r * 8]);
+        }
+      }
+    } else {
+      const cols = single && light ? 7 : 13;
+      const step = single && light ? 16 : 8;
+      for (let r = 0; r < 3; r++) for (let c = 0; c < cols; c++) cells.push([r, c, 22 + c * step, 24 + r * 8]);
+    }
+    extra = laserDots(cells);
+  } else if (style === "bars" && !half && !single) {
+    // Sliding: straight bars between two solid rails, the original design.
     let bars = "";
     for (const x of [18, 31.5, 45, 58.5, 72, 85.5, 99, 112.5]) {
-      bars += `<rect x="${x}" y="18" width="4" height="27" rx="2"/>`;
+      bars += `<rect class="vbar" x="${x}" y="18" width="4" height="27" rx="2"/>`;
     }
     shapes = `
     <rect x="14" y="14" width="112" height="5" rx="2.5"/>
     <rect x="14" y="41" width="112" height="5" rx="2.5"/>
     ${bars}`;
-  } else if (style === "semi") {
-    // Semi-open: solid lower panel, thin bars above, thin top rail.
-    let bars = "";
-    for (let i = 0; i < 14; i++) {
-      bars += `<rect class="slat" x="${17 + i * 7.8}" y="13" width="3.2" height="18" rx="1.6"/>`;
-    }
+  } else if (half) {
+    // Swing half leaf: bell arches up toward the middle, bars dip.
+    const bell = style === "bell";
+    const xs = side === "l" ? [16, 26.5, 37, 47.5, 58] : [120, 109.5, 99, 88.5, 78];
+    const bars = xs
+      .map((x, i) => {
+        const y = bell ? 19 - i * 1.5 : 15.5 + i * 1.6;
+        return `<rect x="${x}" y="${y}" width="4" height="${47 - y}" rx="2"/>`;
+      })
+      .join("");
+    const rail = bell
+      ? (side === "l" ? "M14 21 Q 48 10, 68 11.5" : "M126 21 Q 92 10, 72 11.5")
+      : (side === "l" ? "M14 16 Q 44 12.5, 68 21" : "M126 16 Q 96 12.5, 72 21");
+    const bottom = side === "l"
+      ? '<rect x="13" y="44" width="56" height="5" rx="2.5"/>'
+      : '<rect x="71" y="44" width="56" height="5" rx="2.5"/>';
     shapes = `
-    <rect x="14" y="12" width="112" height="3.4" rx="1.7"/>
-    <rect x="14" y="30" width="112" height="19" rx="2"/>
-    ${bars}`;
-  } else if (style === "solid") {
-    // Solid convex panel with laser-cut perforations.
-    shapes = `
-    <path d="M14 49 L14 19 Q 70 9, 126 19 L126 49 Z"/>`;
-    const cells = [];
-    for (let r = 0; r < 3; r++) for (let c = 0; c < 13; c++) cells.push([r, c, 22 + c * 8, 24 + r * 8]);
-    extra = laserDots(cells);
+      <path d="${rail}" class="leaf-rail"/>
+      ${bottom}
+      ${bars}`;
   } else {
-    // Horizontal slats (the 2026 aluminium look) with three uprights.
-    // Slats keep a visible gap between them (the outline layer uses a
-    // smaller stroke on .slat so the gaps never get swallowed).
-    let slats = "";
-    for (let i = 0; i < 4; i++) {
-      slats += `<rect class="slat" x="14" y="${14 + i * 9.5}" width="112" height="5.5" rx="1.5"/>`;
+    // Single full width leaf: one arch, or one dip, across the whole opening.
+    const bell = style === "bell";
+    const top = bell ? 21 : 15, mid = bell ? 12 : 21;
+    const railY = (x) => top + (mid - top) * (1 - Math.pow((x - 70) / 57, 2));
+    const rail = `M14 ${top} Q 70 ${2 * mid - top}, 126 ${top}`;
+    let bars = "";
+    const n = light ? 5 : 10;
+    const pitch = light ? 25.66 : 11.55;
+    for (let i = 0; i < n; i++) {
+      const x = 16 + i * pitch;
+      const y = Math.round((railY(x + 2) - 1) * 10) / 10;
+      bars += `<rect class="vbar" x="${Math.round(x * 10) / 10}" y="${y}" width="4" height="${Math.round((47 - y) * 10) / 10}" rx="2"/>`;
     }
     shapes = `
-    ${slats}
-    <rect x="14" y="14" width="3" height="34" rx="1.5"/>
-    <rect x="68.5" y="14" width="3" height="34" rx="1.5"/>
-    <rect x="123" y="14" width="3" height="34" rx="1.5"/>`;
+      <path d="${rail}" class="leaf-rail"/>
+      <rect x="13" y="44" width="114" height="5" rx="2.5"/>
+      ${bars}`;
   }
+  return { clip: "", shapes, extra };
+}
+
+// Build a leaf: the silhouette, the members inside it, and whatever has to be
+// painted over the three layers (the laser dots, the recessed panels).
+// Returns the clip definition apart so the three painting groups can share it
+// instead of each carrying its own copy of the same id.
+function leafBody(shape, fill, xa, xb, light, tag) {
+  const w = xb - xa;
+  const clipId = `leaf-clip-${tag}`;
+  const clipped = (inner) => `<g clip-path="url(#${clipId})">${inner}</g>`;
+  let clip = "";
+  let shapes = "";
+  let extra = "";
+
+  if (fill === "solid" || fill === "perfo" || fill === "panel") {
+    // Full panels: the silhouette IS the leaf, no frame and no clip needed.
+    shapes = `<path d="${leafOutline(shape, xa, xb)}"/>`;
+    if (fill === "perfo") extra = leafDots(xa, xb, light);
+    if (fill === "panel") {
+      // Cassette: recessed fields knocked out of the panel, two per half leaf.
+      const n = w > 80 ? (light ? 2 : 3) : 2;
+      const gap = 3.4;
+      const fw = (w - gap * (n + 1)) / n;
+      let fields = "";
+      for (let i = 0; i < n; i++) {
+        const x = xa + gap + i * (fw + gap);
+        const top = Math.max(leafTopY(shape, x), leafTopY(shape, x + fw)) + gap;
+        fields += `<rect class="gate-groove" x="${r1(x)}" y="${r1(top)}" width="${r1(fw)}" height="${r1(43.6 - top)}" rx="1.4"/>`;
+      }
+      extra = fields;
+    }
+    return { clip, shapes, extra };
+  }
+
+  clip = `<clipPath id="${clipId}"><path d="${leafOutline(shape, xa, xb)}"/></clipPath>`;
+
+  if (fill === "bars") {
+    // Vertical bars hanging off the top rail, each cut to the silhouette.
+    let n = Math.max(3, Math.round((w - 7) / 11.55) + 1);
+    if (light) n = Math.max(3, Math.ceil(n / 2));
+    const pitch = (w - 7) / (n - 1);
+    let bars = "";
+    for (let i = 0; i < n; i++) {
+      const x = r1(xa + 3 + i * pitch);
+      const y = r1(leafTopY(shape, x + 2) + 1);
+      bars += `<rect class="vbar" x="${x}" y="${y}" width="4" height="${r1(47 - y)}" rx="2"/>`;
+    }
+    shapes = `${leafFrame(shape, xa, xb, false)}${bars}`;
+  } else if (fill === "slats_v") {
+    // Tight vertical slats: the blade look stood on end.
+    const n = Math.max(4, Math.round((w - 6) / 8.4));
+    const pitch = (w - 6) / n;
+    let slats = "";
+    for (let i = 0; i < n; i++) {
+      slats += `<rect class="slat vbar" x="${r1(xa + 3 + i * pitch)}" y="8" width="${r1(pitch - 2.4)}" height="37" rx="1.4"/>`;
+    }
+    shapes = `${leafFrame(shape, xa, xb)}${clipped(slats)}`;
+  } else if (fill === "semi") {
+    // Half open: a solid panel at the bottom, thin bars above it.
+    const n = Math.max(5, Math.round((w - 6) / (light ? 15.6 : 7.8)));
+    const pitch = (w - 6) / n;
+    let bars = "";
+    for (let i = 0; i <= n; i++) {
+      bars += `<rect class="slat vbar" x="${r1(xa + 3 + i * pitch)}" y="6" width="3.2" height="26" rx="1.6"/>`;
+    }
+    shapes = `
+      <path class="leaf-rail" d="${leafTopPath(shape, xa, xb)}"/>
+      <rect x="${r1(xa)}" y="30" width="${r1(w)}" height="19" rx="2"/>
+      ${clipped(bars)}`;
+  } else if (fill === "grid") {
+    // Square mesh: thin uprights crossed by thin rails.
+    const nv = Math.max(3, Math.round((w - 6) / 14));
+    const pv = (w - 6) / nv;
+    let mesh = "";
+    for (let i = 0; i <= nv; i++) {
+      mesh += `<rect class="slat vbar" x="${r1(xa + 3 + i * pv - 1.3)}" y="6" width="2.6" height="39" rx="1.3"/>`;
+    }
+    for (let i = 0; i < 4; i++) {
+      mesh += `<rect class="slat" x="${r1(xa)}" y="${r1(11 + i * 8.6)}" width="${r1(w)}" height="2.6" rx="1.3"/>`;
+    }
+    shapes = `${leafFrame(shape, xa, xb)}${clipped(mesh)}`;
+  } else if (fill === "chevron") {
+    // Slanted blades, all leaning the same way whatever the leaf width.
+    const pitch = 11;
+    const n = Math.ceil((w + 40) / pitch);
+    let blades = "";
+    for (let i = 0; i < n; i++) {
+      const x = r1(xa - 40 + i * pitch);
+      blades += `<path class="slat" d="M${x} 46L${r1(x + 34)} 6L${r1(x + 40)} 6L${r1(x + 6)} 46Z"/>`;
+    }
+    shapes = `${leafFrame(shape, xa, xb)}${clipped(blades)}`;
+  } else {
+    // Horizontal slats (the 2026 aluminium look). The outline layer strokes
+    // .slat thinner so the gaps between blades never get swallowed.
+    //
+    // No bottom rail and no top rail under a straight edge: the blades ARE
+    // the leaf, and adding a frame here would quietly redraw every card that
+    // never asked for a shape. A shaped edge does get the rail, otherwise the
+    // silhouette it was picked for would not read at all.
+    const n = light ? 3 : 4;
+    const pitch = light ? 13.5 : 9.5;
+    const top = Math.min(leafTopY(shape, xa), leafTopY(shape, xb), leafTopY(shape, (xa + xb) / 2));
+    let slats = "";
+    for (let i = 0; i < n; i++) {
+      slats += `<rect class="slat" x="${r1(xa)}" y="${r1(top + i * pitch)}" width="${r1(w)}" height="5.5" rx="1.5"/>`;
+    }
+    const foot = top + 34;
+    const upright = (x) => `<rect class="vbar" x="${r1(x)}" y="${r1(leafTopY(shape, x))}" width="3" height="${r1(foot - leafTopY(shape, x))}" rx="1.5"/>`;
+    const mid = w > 80 ? upright(xa + w / 2 - 1.5) : "";
+    // No rail at all: the blades are cut by the silhouette and the end
+    // uprights follow it, which draws the shape without a 7 unit band
+    // sitting on top of the top blade.
+    shapes = `${clipped(slats)}${upright(xa)}${upright(xb - 3)}${mid}`;
+  }
+  return { clip, shapes, extra };
+}
+
+function slidingSvg(norm, cfg, lampOn, frac) {
+  const d = leafDesign(cfg, "sliding");
+  const { clip, shapes, extra } = d.composed
+    ? leafBody(d.shape, d.fill, 14, 126, false, "c")
+    : leafPreset(d.style, "sliding", "c", false);
   const wheel = (cx) => `
     <g class="gate-wheel">
       <circle cx="${cx}" cy="52" r="4.5"/>
@@ -1302,15 +2089,18 @@ function slidingSvg(norm, cfg, lampOn, frac) {
     </g>`;
   return `
     <svg viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      ${RELIEF_DEFS}
       <defs>
         <clipPath id="gate-clip"><rect x="11" y="2" width="118" height="60"/></clipPath>
       </defs>
+      ${clip}
       ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="2" y1="58" x2="138" y2="58" class="gate-ground"/>
       <g clip-path="url(#gate-clip)">
         <g class="gate-leaf" style="transform:translateX(${slideX(norm, cfg, frac)}px)">
           <g class="leaf-line">${shapes}</g>
           <g class="leaf-fill">${shapes}</g>
+      <g class="leaf-shade">${shapes}</g>
           ${extra}
           ${wheel(40)}
           ${wheel(100)}
@@ -1339,70 +2129,17 @@ const SWING_POSE = {
 };
 
 function swingLeaf(side, transform, cfg) {
-  // Styles: "bell" (chapeau de gendarme, rail curves up toward the middle),
-  // "bars" (concave, the original design), "slats" (horizontal slats),
-  // "semi" (solid lower panel + thin bars), "solid" (convex panel with
-  // laser-cut perforations).
-  const style = normStyle(cfg, "swing");
+  const d = leafDesign(cfg, "swing");
   const x0 = side === "l" ? 13 : 71;
-  let shapes;
-  let extra = "";
-  if (style === "slats") {
-    let slats = "";
-    for (let i = 0; i < 4; i++) {
-      slats += `<rect class="slat" x="${x0}" y="${14 + i * 9.5}" width="56" height="5.5" rx="1.5"/>`;
-    }
-    shapes = `
-      ${slats}
-      <rect x="${x0}" y="14" width="3" height="34" rx="1.5"/>
-      <rect x="${x0 + 53}" y="14" width="3" height="34" rx="1.5"/>`;
-  } else if (style === "semi") {
-    let bars = "";
-    for (let i = 0; i < 7; i++) {
-      bars += `<rect class="slat" x="${x0 + 3 + i * 7.6}" y="13" width="3.2" height="18" rx="1.6"/>`;
-    }
-    shapes = `
-      <rect x="${x0}" y="12" width="56" height="3.4" rx="1.7"/>
-      <rect x="${x0}" y="30" width="56" height="19" rx="2"/>
-      ${bars}`;
-  } else if (style === "solid") {
-    shapes = side === "l"
-      ? `
-      <path d="M13 49 L13 20 Q 45 11, 69 12.5 L69 49 Z"/>`
-      : `
-      <path d="M127 49 L127 20 Q 95 11, 71 12.5 L71 49 Z"/>`;
-    const cells = [];
-    for (let r = 0; r < 3; r++) {
-      for (let c = 0; c < 7; c++) {
-        const cx = side === "l" ? 21 + c * 7.4 : 119 - c * 7.4;
-        cells.push([r, c, cx, 23 + r * 8]);
-      }
-    }
-    extra = laserDots(cells);
-  } else {
-    const bell = style === "bell";
-    const xs = side === "l" ? [16, 26.5, 37, 47.5, 58] : [120, 109.5, 99, 88.5, 78];
-    const bars = xs
-      .map((x, i) => {
-        const y = bell ? 19 - i * 1.5 : 15.5 + i * 1.6;
-        return `<rect x="${x}" y="${y}" width="4" height="${47 - y}" rx="2"/>`;
-      })
-      .join("");
-    const rail = bell
-      ? (side === "l" ? "M14 21 Q 48 10, 68 11.5" : "M126 21 Q 92 10, 72 11.5")
-      : (side === "l" ? "M14 16 Q 44 12.5, 68 21" : "M126 16 Q 96 12.5, 72 21");
-    const bottom = side === "l"
-      ? '<rect x="13" y="44" width="56" height="5" rx="2.5"/>'
-      : '<rect x="71" y="44" width="56" height="5" rx="2.5"/>';
-    shapes = `
-      <path d="${rail}" class="leaf-rail"/>
-      ${bottom}
-      ${bars}`;
-  }
+  const { clip, shapes, extra } = d.composed
+    ? leafBody(d.shape, d.fill, x0, x0 + 56, false, side)
+    : leafPreset(d.style, "half", side, false);
   return `
     <g class="leaf-${side}" style="transform:${transform || "none"}">
+      ${clip}
       <g class="leaf-line">${shapes}</g>
       <g class="leaf-fill">${shapes}</g>
+      <g class="leaf-shade">${shapes}</g>
       ${extra}
     </g>`;
 }
@@ -1429,7 +2166,7 @@ const SINGLE_POSE = {
 };
 
 function singleLeaf(hinge, cfg, norm, frac) {
-  const style = normStyle(cfg, "swing");
+  const d = leafDesign(cfg, "swing");
   let sx = 1, sk = 0;
   if (frac !== null && frac !== undefined) {
     const a = frac * SINGLE_OPEN_ANGLE * Math.PI / 180;
@@ -1439,59 +2176,21 @@ function singleLeaf(hinge, cfg, norm, frac) {
   } else if (SINGLE_POSE[norm]) {
     [sx, sk] = SINGLE_POSE[norm];
   }
-  // Folded, a full-width leaf squeezes every bar into a few pixels and turns
-  // into a blob: under 60 % of its width it is drawn with half the bars.
+  // Folded, a full-width leaf squeezes every member into a few pixels and
+  // turns into a blob: under 60 % of its width it is drawn half as dense.
   const light = Math.abs(sx) < 0.6;
-  const x0 = 13, w = 114, x1 = 127;
-  const railY = (x, top, mid) => top + (mid - top) * (1 - Math.pow((x - 70) / 57, 2));
-  let shapes;
-  let extra = "";
-  if (style === "slats") {
-    let slats = "";
-    const n = light ? 3 : 4, pitch = light ? 13.5 : 9.5;
-    for (let i = 0; i < n; i++) slats += `<rect class="slat" x="${x0}" y="${14 + i * pitch}" width="${w}" height="5.5" rx="1.5"/>`;
-    shapes = `${slats}
-      <rect x="${x0}" y="14" width="3" height="34" rx="1.5"/>
-      <rect x="68.5" y="14" width="3" height="34" rx="1.5"/>
-      <rect x="${x1 - 3}" y="14" width="3" height="34" rx="1.5"/>`;
-  } else if (style === "semi") {
-    let bars = "";
-    const n = light ? 7 : 14, pitch = light ? 15.6 : 7.8;
-    for (let i = 0; i < n; i++) bars += `<rect class="slat" x="${17 + i * pitch}" y="13" width="3.2" height="18" rx="1.6"/>`;
-    shapes = `
-      <rect x="${x0}" y="12" width="${w}" height="3.4" rx="1.7"/>
-      <rect x="${x0}" y="30" width="${w}" height="19" rx="2"/>
-      ${bars}`;
-  } else if (style === "solid") {
-    shapes = `<path d="M${x0} 49 L${x0} 20 Q 70 9, ${x1} 20 L${x1} 49 Z"/>`;
-    const cells = [];
-    const cols = light ? 7 : 13, step = light ? 16 : 8;
-    for (let r = 0; r < 3; r++) for (let c = 0; c < cols; c++) cells.push([r, c, 22 + c * step, 24 + r * 8]);
-    extra = laserDots(cells);
-  } else {
-    // bell: a single arch peaking mid-leaf; bars: a single concave dip.
-    const bell = style === "bell";
-    const top = bell ? 21 : 15, mid = bell ? 12 : 21;
-    const rail = `M14 ${top} Q 70 ${2 * mid - top}, 126 ${top}`;
-    let bars = "";
-    const n = light ? 5 : 10, pitch = light ? 25.66 : 11.55;
-    for (let i = 0; i < n; i++) {
-      const x = 16 + i * pitch;
-      const y = Math.round((railY(x + 2, top, mid) - 1) * 10) / 10;
-      bars += `<rect x="${Math.round(x * 10) / 10}" y="${y}" width="4" height="${Math.round((47 - y) * 10) / 10}" rx="2"/>`;
-    }
-    shapes = `
-      <path d="${rail}" class="leaf-rail"/>
-      <rect x="${x0}" y="44" width="${w}" height="5" rx="2.5"/>
-      ${bars}`;
-  }
+  const { clip, shapes, extra } = d.composed
+    ? leafBody(d.shape, d.fill, 13, 127, light, "s")
+    : leafPreset(d.style, "single", "c", light);
   const f = (v) => Math.round(v * 100) / 100;
   const side = hinge === "right" ? "r" : "l";
   const transform = sx === 1 && sk === 0 ? "none" : `scaleX(${f(sx)}) skewY(${f(side === "l" ? sk : -sk)}deg)`;
   return `
     <g class="leaf-${side}" style="transform:${transform}">
+      ${clip}
       <g class="leaf-line">${shapes}</g>
       <g class="leaf-fill">${shapes}</g>
+      <g class="leaf-shade">${shapes}</g>
       ${extra}
     </g>`;
 }
@@ -1501,6 +2200,7 @@ function swingSvg(norm, cfg, lampOn, frac) {
     const hingeLeft = cfg.single_leaf === "left";
     return `
     <svg viewBox="-28 0 196 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      ${RELIEF_DEFS}
       ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="-26" y1="58" x2="166" y2="58" class="gate-ground"/>
       ${SCENE_CLOSE}
@@ -1515,6 +2215,7 @@ function swingSvg(norm, cfg, lampOn, frac) {
   const [tl, tr] = frac !== null && frac !== undefined ? swingPoseAt(frac) : (SWING_POSE[norm] || ["", ""]);
   return `
     <svg viewBox="-28 0 196 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      ${RELIEF_DEFS}
       ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="-26" y1="58" x2="166" y2="58" class="gate-ground"/>
       ${SCENE_CLOSE}
@@ -1559,9 +2260,51 @@ function doorPane(x, y, w, h) {
         <rect x="${x + i}" y="${y + i}" width="${w - 2 * i}" height="${h - 2 * i}" rx="1" class="door-glass-frame"/>`;
 }
 
+const DOOR_STYLES = ["solid", "semi", "glazed", "mouldings", "boards", "inox", "transom", "sidelight"];
+
 function doorStyle(cfg) {
-  const known = ["solid", "semi", "glazed"];
-  return known.includes(cfg.gate_style) ? cfg.gate_style : "solid";
+  return DOOR_STYLES.includes(cfg.gate_style) ? cfg.gate_style : "solid";
+}
+
+// What sits inside the leaf. The leaf itself runs x 54..86, y 11..57, so the
+// members live in x 56..84 and keep a 2 unit rebate all round.
+function doorInner(style) {
+  const panel = (x, y, w, h) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="1"/>`;
+  if (style === "glazed") {
+    return `${doorPane(58, 15, 17, 38)}
+        <g class="door-muntin"><path d="M58 28.5 H75 M58 40.5 H75"/></g>`;
+  }
+  if (style === "semi") {
+    return `${doorPane(58, 15, 24, 15)}
+        <g class="door-panel">${panel(58, 40, 24, 13)}</g>`;
+  }
+  if (style === "mouldings") {
+    // Three raised fields, each ringed by a second line: the classic joinery.
+    return `<g class="door-panel">${panel(57.5, 14, 25, 12)}${panel(57.5, 28.5, 25, 11)}${panel(57.5, 42, 25, 11)}</g>
+        <g class="door-panel door-bead">${panel(59.5, 16, 21, 8)}${panel(59.5, 30.5, 21, 7)}${panel(59.5, 44, 21, 7)}</g>`;
+  }
+  if (style === "boards") {
+    // Vertical boarding: five planks with a visible joint between them.
+    let b = "";
+    for (let i = 0; i < 5; i++) b += `<path d="M${r1(57.6 + i * 5.6)} 13 V55"/>`;
+    return `<g class="door-joint">${b}</g>`;
+  }
+  if (style === "inox") {
+    // A plain leaf crossed by two stainless bands and a reading slit.
+    return `${doorPane(74, 15, 8, 26)}
+        <g class="door-inox"><rect x="56" y="20" width="26" height="2.6" rx="1.3"/><rect x="56" y="47" width="26" height="2.6" rx="1.3"/></g>`;
+  }
+  if (style === "transom") {
+    // A fanlight across the head, two fields under it.
+    return `${doorPane(57.5, 13, 25, 10)}
+        <g class="door-panel">${panel(57.5, 26, 25, 13)}${panel(57.5, 42, 25, 11)}</g>`;
+  }
+  if (style === "sidelight") {
+    // A tall slit down the hinge side, a single field beside it.
+    return `${doorPane(56.5, 14, 9, 39)}
+        <g class="door-panel">${panel(68, 14, 14, 39)}</g>`;
+  }
+  return `<g class="door-panel">${panel(58, 15, 24, 15)}${panel(58, 40, 24, 13)}</g>`;
 }
 
 function doorSvg(norm, cfg, lampOn) {
@@ -1574,13 +2317,7 @@ function doorSvg(norm, cfg, lampOn) {
   // Jammed: the bolt is only halfway out, which is the whole point.
   const boltLen = norm === "jammed" ? 3.2 : 6.4;
   const bolt = `<rect x="85" y="33.6" width="${boltLen}" height="4" rx="1.3" class="door-bolt"/>`;
-  const inner = style === "glazed"
-    ? `${doorPane(58, 15, 17, 38)}
-        <g class="door-muntin"><path d="M58 28.5 H75 M58 40.5 H75"/></g>`
-    : style === "semi"
-      ? `${doorPane(58, 15, 24, 15)}
-        <g class="door-panel"><rect x="58" y="40" width="24" height="13" rx="1"/></g>`
-      : `<g class="door-panel"><rect x="58" y="15" width="24" height="15" rx="1"/><rect x="58" y="40" width="24" height="13" rx="1"/></g>`;
+  const inner = doorInner(style);
   const leaf = `<rect x="54" y="11" width="32" height="46" rx="1.5" class="door-wood"/>
         ${inner}
         <g class="door-hinge"><rect x="52.7" y="17" width="2.6" height="5" rx="1"/><rect x="52.7" y="45.5" width="2.6" height="5" rx="1"/></g>
@@ -1589,6 +2326,7 @@ function doorSvg(norm, cfg, lampOn) {
         ${norm === "conflict" ? bolt : ""}`;
   return `
     <svg viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="door-svg${tint}">
+      ${RELIEF_DEFS}
       ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="30" y1="58" x2="110" y2="58" class="gate-ground"/>
       ${swung ? '<rect x="53" y="10" width="34" height="48" rx="1" class="door-void"/>' : ""}
@@ -1700,35 +2438,104 @@ const LAMP_DEFS = `
         </linearGradient>
       </defs>`;
 
+// The curtain is a stack of sections. garage_fill decorates them: a plain
+// sectional door, grooves, cassette fields, a row of windows, or a single
+// tilt up panel. The travel maths is shared, only the marks change.
+const GARAGE_FILLS = ["slats", "grooved", "cassette", "windows", "tilt"];
+
+function garageFill(cfg) {
+  return GARAGE_FILLS.includes(cfg.garage_fill) ? cfg.garage_fill : "slats";
+}
+
+// Marks laid over the curtain as a whole. A 102 by 5 section is far too
+// shallow to hold a field of its own, so the grooves and the cassette fields
+// run the full height of what is still down and only the portholes sit on
+// one section.
+function garageMarks(fill, hi, lo) {
+  const h = lo - hi;
+  if (h < 4) return "";
+  if (fill === "grooved" || fill === "tilt") {
+    let g = "";
+    const n = fill === "tilt" ? 4 : 13;
+    if (fill === "tilt") {
+      const fw = (102 - 5 * 3.4) / 4;
+      for (let i = 0; i < n; i++) {
+        g += `<rect class="gate-groove" x="${r1(22.4 + i * (fw + 3.4))}" y="${r1(hi + 2.6)}" width="${r1(fw)}" height="${r1(h - 5.2)}" rx="1.2"/>`;
+      }
+      return g;
+    }
+    for (let i = 0; i < n; i++) {
+      g += `<rect class="garage-groove" x="${r1(23 + i * 7.9)}" y="${r1(hi + 1)}" width="1.6" height="${r1(h - 2)}" rx="0.8"/>`;
+    }
+    return g;
+  }
+  if (fill === "cassette") {
+    let g = "";
+    const fw = (102 - 5 * 3.4) / 4;
+    for (let i = 0; i < 4; i++) {
+      g += `<rect class="gate-groove" x="${r1(22.4 + i * (fw + 3.4))}" y="${r1(hi + 1.6)}" width="${r1(fw)}" height="${r1(h - 3.2)}" rx="1.2"/>`;
+    }
+    return g;
+  }
+  return "";
+}
+
+// Portholes sit on the topmost whole section, the way a real door carries
+// its glazing on one leaf and not on all of them.
+function garagePorts(y, h) {
+  if (h < 4) return "";
+  let g = "";
+  for (let i = 0; i < 4; i++) {
+    g += `<circle class="garage-port" cx="${40 + i * 20}" cy="${r1(y + h / 2)}" r="2"/>`;
+  }
+  return g;
+}
+
 function garageSvg(norm, cfg, lampOn, frac) {
   const closedLike = norm === "closed" || norm === "unknown" || norm === "unlocked";
   // Venting rolls one slat away and keeps the gap under the box; the part-open
   // position rolls two and lifts the whole curtain off the ground.
   const venting = norm === "vent";
   const partial = norm === "partial";
+  const fill = garageFill(cfg);
   const n = venting ? 4 : partial ? 3
     : closedLike ? 5 : (norm === "opening" || norm === "closing" || norm === "moving" ? 2 : 0);
   const y0 = venting ? 19 + 6.6 : 19;
-  let curtain = "";
-  let ribs = "";
+  // Each visible section as [y, height], highest row last.
+  const rows = [];
   let barY = y0 + n * 6.6;
   if (frac !== null && frac !== undefined) {
-    // Real travel: the bottom bar rises continuously and the slats above it
-    // disappear into the box one by one (the top one can be partly rolled).
+    // Real travel: the bottom bar rises continuously and the sections above
+    // it disappear into the box one by one (the top one can be partly rolled).
     barY = Math.round((19 + 5 * 6.6 * (1 - frac)) * 10) / 10;
     for (let i = 1; i <= 5; i++) {
       const y = barY - i * 6.6;
       const top = Math.max(y, 19);
       const h = y + 5 - top;
       if (h < 0.6) break;
-      curtain += `<rect class="slat" x="19" y="${Math.round(top * 10) / 10}" width="102" height="${Math.round(h * 10) / 10}" rx="1.6"/>`;
-      if (y >= 19) ribs += `<line class="garage-rib" x1="19" y1="${Math.round((y + 2.5) * 10) / 10}" x2="121" y2="${Math.round((y + 2.5) * 10) / 10}"/>`;
+      rows.push([Math.round(top * 10) / 10, Math.round(h * 10) / 10, y >= 19]);
     }
   } else {
-    for (let i = 0; i < n; i++) {
-      const y = y0 + i * 6.6;
-      curtain += `<rect class="slat" x="19" y="${y}" width="102" height="5" rx="1.6"/>`;
-      ribs += `<line class="garage-rib" x1="19" y1="${y + 2.5}" x2="121" y2="${y + 2.5}"/>`;
+    for (let i = n - 1; i >= 0; i--) rows.push([y0 + i * 6.6, 5, true]);
+  }
+  let curtain = "";
+  let ribs = "";
+  if (rows.length) {
+    const hi = Math.min(...rows.map(([y]) => y));
+    const lo = Math.max(...rows.map(([y, h]) => y + h));
+    if (fill === "tilt") {
+      // Tilt up: one panel, no joints, lifted as a whole.
+      curtain = `<rect class="slat" x="19" y="${r1(hi)}" width="102" height="${r1(lo - hi)}" rx="1.6"/>`;
+    } else {
+      rows.forEach(([y, h, whole]) => {
+        curtain += `<rect class="slat" x="19" y="${y}" width="102" height="${h}" rx="1.6"/>`;
+        if (whole) ribs += `<line class="garage-rib" x1="19" y1="${Math.round((y + 2.5) * 10) / 10}" x2="121" y2="${Math.round((y + 2.5) * 10) / 10}"/>`;
+      });
+    }
+    curtain += garageMarks(fill, hi, lo);
+    if (fill === "windows") {
+      const top = rows.filter(([, , whole]) => whole).sort((p, q) => p[0] - q[0])[0];
+      if (top) curtain += garagePorts(top[0], top[1]);
     }
   }
   const shapes = `
@@ -1750,10 +2557,12 @@ function garageSvg(norm, cfg, lampOn, frac) {
     : `<g transform="translate(0 ${dy})"><path class="garage-arrow" d="${arrowD}"/></g>`;
   return `
     <svg viewBox="0 0 140 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      ${RELIEF_DEFS}
       ${cfg.light_entity && cfg.show_spot !== false ? LAMP_DEFS : ""}
       <line x1="2" y1="58" x2="138" y2="58" class="gate-ground"/>
       <g class="leaf-line">${shapes}</g>
       <g class="leaf-fill">${shapes}</g>
+      <g class="leaf-shade">${shapes}</g>
       ${ribs}
       ${arrow}
       ${venting && cfg.show_breeze !== false ? gateBreeze(70, 21.3) : ""}
@@ -1918,7 +2727,7 @@ class GateCard extends HTMLElement {
       const v = Number(hass.states[cfg.battery_entity].state);
       if (!Number.isNaN(v)) batt = Math.round(v);
     }
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_color, cfg.slide_direction, cfg.single_leaf, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, cfg.show_tap_button, cfg.confirm, cfg.lock_open_action, cfg.show_unlock_button, cfg.show_state, cfg.single_line, cfg.show_position, pos, cfg.draw_position, drawPos, batt, !!cfg.light_entity, cfg.show_spot, cfg.show_light_button, cfg.light_position, lampOn]);
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_shape, cfg.gate_fill, cfg.garage_fill, cfg.gate_color, cfg.slide_direction, cfg.single_leaf, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, cfg.show_tap_button, cfg.confirm, cfg.lock_open_action, cfg.show_unlock_button, cfg.show_state, cfg.single_line, cfg.show_position, pos, cfg.draw_position, drawPos, batt, !!cfg.light_entity, cfg.show_spot, cfg.show_light_button, cfg.light_position, lampOn]);
     if (signature === this._signature) return;
     this._signature = signature;
 
@@ -1958,12 +2767,16 @@ ha-card.tappable { cursor:pointer; }
 .illu { width:200px; max-width:70%; margin:0 auto; color:var(--leaf-color); }
 .illu svg { display:block; width:100%; }
 .gate-leaf, .leaf-l, .leaf-r { transition:transform .9s ease; }
-.leaf-line rect { fill:var(--leaf-line); stroke:var(--leaf-line); stroke-width:3.2; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
-.leaf-line path { fill:var(--leaf-line); stroke:var(--leaf-line); stroke-width:3.2; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.leaf-line rect { fill:var(--leaf-line); stroke:var(--leaf-line); stroke-width:1.8; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.leaf-line path { fill:var(--leaf-line); stroke:var(--leaf-line); stroke-width:1.8; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
 .leaf-fill path { fill:var(--leaf-color); }
-.leaf-line .slat { stroke-width:2.2; }
+.leaf-line .slat { stroke-width:1.3; }
 .gate-hole { fill:var(--ha-card-background, var(--card-background-color, #fff)); }
-.leaf-line .leaf-rail { fill:none; stroke:var(--leaf-line); stroke-width:8.4; stroke-linecap:round; vector-effect:non-scaling-stroke; }
+/* Cassette panels: a recessed groove knocked into the leaf, not a hole. */
+.gate-groove { fill:none; stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.8; }
+.garage-groove { fill:var(--ha-card-background, var(--card-background-color, #fff)); opacity:.5; }
+.garage-port { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--gate-color); stroke-width:1; }
+.leaf-line .leaf-rail { fill:none; stroke:var(--leaf-line); stroke-width:7.2; stroke-linecap:round; vector-effect:non-scaling-stroke; }
 .leaf-fill rect { fill:var(--leaf-color); }
 .leaf-fill .leaf-rail { fill:none; stroke:var(--leaf-color); stroke-width:5.6; stroke-linecap:round; vector-effect:non-scaling-stroke; }
 .leaf-l, .leaf-r { transform-box:view-box; }
@@ -1981,7 +2794,7 @@ ha-card.tappable { cursor:pointer; }
    would fight the transform. Wheels and the garage arrow keep moving. */
 .moving.positioned .gate-leaf, .moving.positioned .leaf-l, .moving.positioned .leaf-r { animation:none; }
 .gate-wheel { transform-box:fill-box; transform-origin:center; }
-.gate-wheel circle { fill:var(--leaf-color); stroke:var(--leaf-line); stroke-width:1.6; vector-effect:non-scaling-stroke; }
+.gate-wheel circle { fill:var(--leaf-color); stroke:var(--leaf-line); stroke-width:1.2; vector-effect:non-scaling-stroke; }
 .gate-wheel line { stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.6; }
 .moving .gate-wheel { animation:wheel-spin 1.1s linear infinite; }
 @keyframes wheel-spin { to { transform:rotate(360deg); } }
@@ -1994,6 +2807,11 @@ ha-card.tappable { cursor:pointer; }
 .door-glass-frame { fill:none; stroke:var(--leaf-line); stroke-width:1.4; opacity:.75; }
 .door-shine { fill:#fff; opacity:.42; }
 .door-muntin path { stroke:var(--leaf-line); stroke-width:1.4; opacity:.75; fill:none; }
+.door-bead rect { stroke-width:1; opacity:.5; }
+.door-inox rect { fill:#c8ced6; stroke:#00000026; stroke-width:.8; }
+/* Board joints sit on the leaf itself, so unlike the muntins they have to
+   stay visible when the leaf carries the state color. */
+.door-joint path { stroke:var(--leaf-line); stroke-width:1.4; opacity:.6; fill:none; }
 .door-hinge rect { fill:#9aa3ad; }
 .door-lock { fill:var(--gate-color); stroke:#0000002e; stroke-width:1.2; }
 .door-keyhole { fill:#00000059; }
@@ -2006,6 +2824,8 @@ ha-card.tappable { cursor:pointer; }
    and the glazing bars then have to be drawn in the leaf color to show. */
 .door-state .door-panel rect, .door-state .door-glass-frame { stroke:var(--ha-card-background, var(--card-background-color, #fff)); opacity:1; }
 .door-state .door-muntin path { stroke:var(--leaf-color); opacity:1; }
+.door-state .door-inox rect { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:none; }
+.door-state .door-joint path { stroke:var(--ha-card-background, var(--card-background-color, #fff)); opacity:1; }
 .door-state .door-hinge rect, .door-state .door-lock { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:none; }
 .door-state .door-keyhole { fill:var(--leaf-color); }
 .door-state .door-bolt { fill:var(--leaf-color); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.6; }
@@ -2025,6 +2845,14 @@ ha-card.tappable { cursor:pointer; }
 .gate-cat-halo { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:2.2; stroke-linejoin:round; }
 .gate-cat { fill:var(--gate-color); }
 .gate-post-g { fill:var(--secondary-text-color); opacity:.75; }
+/* Relief pass (2.0.0): the shapes are painted a third time with a neutral
+   light-to-dark ramp, so every member gets a lit edge and a shaded one
+   whatever color the leaf carries. .vbar members are lit from the side. */
+.leaf-shade rect, .leaf-shade path { fill:url(#gc-shade-v); stroke:none; }
+.leaf-shade .vbar { fill:url(#gc-shade-h); }
+.leaf-shade .leaf-rail { fill:none; stroke:url(#gc-shade-v); stroke-width:5.6; stroke-linecap:round; vector-effect:non-scaling-stroke; }
+.gate-post-relief rect { fill:url(#gc-post); }
+.gate-shadow ellipse { fill:url(#gc-drop); }
 :host { --lamp-color: var(--state-light-active-color, #ffca28); }
 .lamp .lamp-body { fill:var(--secondary-text-color); opacity:.9; }
 .lamp .lamp-arm { stroke:var(--secondary-text-color); stroke-width:1.6; stroke-linecap:round; opacity:.9; }
@@ -2237,11 +3065,19 @@ details .form { padding-top:10px; }
               .join("")}
           </select>
         </div>
-        ${cfg.gate_type === "garage" ? "" : cfg.gate_type === "door" ? `
+        ${cfg.gate_type === "garage" ? `
+        <div class="row">
+          <label>${t(hass, "garage_fill")}</label>
+          <select data-field="garage_fill">
+            ${[["slats", "gfill_slats"], ["grooved", "gfill_grooved"], ["cassette", "gfill_cassette"], ["windows", "gfill_windows"], ["tilt", "gfill_tilt"]]
+              .map(([v, k]) => `<option value="${v}" ${garageFill(cfg) === v ? "selected" : ""}>${t(hass, k)}</option>`)
+              .join("")}
+          </select>
+        </div>` : cfg.gate_type === "door" ? `
         <div class="row">
           <label>${t(hass, "gate_style")}</label>
           <select data-field="gate_style">
-            ${[["solid", "door_style_solid"], ["semi", "door_style_semi"], ["glazed", "door_style_glazed"]]
+            ${[["solid", "door_style_solid"], ["semi", "door_style_semi"], ["glazed", "door_style_glazed"], ["mouldings", "door_style_mouldings"], ["boards", "door_style_boards"], ["inox", "door_style_inox"], ["transom", "door_style_transom"], ["sidelight", "door_style_sidelight"]]
               .map(([v, k]) => `<option value="${v}" ${doorStyle(cfg) === v ? "selected" : ""}>${t(hass, k)}</option>`)
               .join("")}
           </select>
@@ -2253,6 +3089,24 @@ details .form { padding-top:10px; }
               ? [["bell", "style_bell"], ["bars", "style_bars_swing"], ["slats", "style_slats"], ["semi", "style_semi"], ["solid", "style_solid"]]
               : [["slats", "style_slats"], ["bars", "style_bars_sliding"], ["semi", "style_semi"], ["solid", "style_solid"]])
               .map(([v, k]) => `<option value="${v}" ${normStyle(cfg, cfg.gate_type === "swing" ? "swing" : "sliding") === v ? "selected" : ""}>${t(hass, k)}</option>`)
+              .join("")}
+          </select>
+        </div>
+        <div class="row">
+          <label>${t(hass, "gate_shape")}</label>
+          <select data-field="gate_shape">
+            <option value="" ${!LEAF_SHAPE_KEYS.includes(cfg.gate_shape) ? "selected" : ""}>${t(hass, "shape_preset")}</option>
+            ${LEAF_SHAPE_KEYS
+              .map((v) => `<option value="${v}" ${cfg.gate_shape === v ? "selected" : ""}>${t(hass, "shape_" + v)}</option>`)
+              .join("")}
+          </select>
+        </div>
+        <div class="row">
+          <label>${t(hass, "gate_fill")}</label>
+          <select data-field="gate_fill">
+            <option value="" ${!LEAF_FILLS.includes(cfg.gate_fill) ? "selected" : ""}>${t(hass, "fill_preset")}</option>
+            ${LEAF_FILLS
+              .map((v) => `<option value="${v}" ${cfg.gate_fill === v ? "selected" : ""}>${t(hass, "fill_" + v)}</option>`)
               .join("")}
           </select>
         </div>`}
@@ -2276,7 +3130,7 @@ details .form { padding-top:10px; }
         <div class="row">
           <label>${t(hass, "gate_color")}</label>
           <select data-field="gate_color">
-            ${["state", "wood", "white", "gray", "anthracite", "black", "green", "burgundy", "blue", "brown"]
+            ${["state", "wood", "oak", "sand", "white", "gray", "anthracite", "black", "green", "burgundy", "blue", "brown"]
               .map((c) => `<option value="${c}" ${(cfg.gate_color || "state") === c ? "selected" : ""}>${t(hass, "color_" + c)}</option>`)
               .join("")}
           </select>
@@ -2405,6 +3259,26 @@ details .form { padding-top:10px; }
       const defStyle = this._config.gate_type === "swing" ? "bell" : "slats";
       if (ev.target.value === defStyle) delete this._config.gate_style;
       else this._config.gate_style = ev.target.value;
+      this._emit();
+    });
+    for (const field of ["gate_shape", "gate_fill"]) {
+      const sel = this._root.querySelector(`select[data-field="${field}"]`);
+      if (!sel) continue;
+      sel.addEventListener("change", (ev) => {
+        this._config = { ...this._config };
+        // an empty value means "whatever the design says", which is the
+        // default: the key is dropped rather than stored as an empty string.
+        if (ev.target.value) this._config[field] = ev.target.value;
+        else delete this._config[field];
+        this._emit();
+      });
+    }
+    const garageSel = this._root.querySelector('select[data-field="garage_fill"]');
+    if (garageSel) garageSel.addEventListener("change", (ev) => {
+      this._config = { ...this._config };
+      // sectional is the default -- only store the key when it differs
+      if (ev.target.value === "slats") delete this._config.garage_fill;
+      else this._config.garage_fill = ev.target.value;
       this._emit();
     });
     const leafSel = this._root.querySelector('select[data-field="single_leaf"]');

@@ -479,7 +479,8 @@ check('position connue : l animation de va-et-vient est coupee',
   const sw = (state, cfg = {}, attrs = {}) => posCard(state, attrs, { gate_type: 'swing', ...cfg });
   const leaves = html => (html.match(/<g class="leaf-[lr]"/g) || []).length;
   const leafStyle = (html, side) => (html.match(new RegExp(`<g class="leaf-${side}" style="transform:([^"]*)"`)) || [])[1];
-  const bars = html => (html.match(/width="4" height=/g) || []).length / 2;
+  // trois couches depuis la 2.0.0 : contour, remplissage, relief
+  const bars = html => (html.match(/width="4" height=/g) || []).length / 3;
   check('deux vantaux par defaut', leaves(sw('closed')), 2);
   check('single_leaf:left : un seul vantail', leaves(sw('closed', { single_leaf: 'left' })), 1);
   check('single_leaf:left pivote sur le poteau gauche', leafStyle(sw('closed', { single_leaf: 'left' }), 'l'), 'none');
@@ -690,12 +691,125 @@ check('position connue : l animation de va-et-vient est coupee',
   check('le vitrage garde sa teinte meme en couleur d etat',
     /class="door-glass"/.test(door({ gate_style: 'glazed' })), true);
 
+  // La teinte du vantail ne doit jamais deteindre sur les pictogrammes :
+  // ils portent l'etat, pas la matiere. --gate-color reste la couleur d'etat
+  // quoi qu'il arrive, --leaf-color seul suit la finition choisie.
+  const gateColor = html => (String(html).match(/--gate-color: ([^;]+);/) || [])[1];
+  const swTint = (st, cfg) => makeCard(st, { gate_type: 'swing', ...cfg });
+  check('mode matiere : les pictogrammes gardent la couleur d etat',
+    gateColor(swTint('open', { gate_color: 'white' })), 'var(--warning-color, #ff9800)');
+  check('mode matiere : seul le vantail prend la matiere',
+    leafColor(swTint('open', { gate_color: 'white' })), '#f2f0ea');
+  check('mode matiere : la voiture est peinte en couleur d etat',
+    /class="gate-car">/.test(swTint('open', { gate_color: 'anthracite' })), true);
+  check('mode matiere : le pieton est peint en couleur d etat',
+    /class="gate-runner">/.test(swTint('pedestrian', { gate_color: 'anthracite' })), true);
+
   const edDoor = cfg => { const e = new Editor(); e.hass = { language: 'fr', states: {} }; e.setConfig({ gate_type: 'door', entity: 'lock.porte', ...cfg }); return String(markup(e)); };
   check("l'editeur : les formes de porte remplacent les styles de portail",
     /<option value="glazed"/.test(edDoor({})) && !/style_slats|Lames horizontales/.test(edDoor({})), true);
   check("l'editeur : pleine selectionnee par defaut", /<option value="solid" selected>Pleine/.test(edDoor({})), true);
   check("l'editeur : la forme choisie est selectionnee", /<option value="semi" selected>Semi-vitr/.test(edDoor({ gate_style: 'semi' })), true);
   check("l'editeur : la finition bois est proposee", /<option value="wood"[^>]*>Bois/.test(edDoor({})), true);
+}
+
+// 2.0.0: the leaf is a silhouette crossed with a fill motif. gate_style keeps
+// working as a preset pair, so the point of these is that nothing moves when
+// no shape and no fill are asked for, and that each one really is drawn.
+{
+  const sl = (cfg = {}, st = 'closed') => String(makeCard(st, { gate_type: 'sliding', ...cfg }));
+  const rail = html => /class="leaf-rail" d="M14 14L126 14"/.test(html);
+
+  const geom = html => ((html.match(/<g class="leaf-line">([\s\S]*?)<\/g>\s*<g class="leaf-fill">/) || [])[1] || '')
+    .replace(/\s+/g, ' ').trim();
+
+  // The five presets are hand drawn, not combinations: left untouched they go
+  // through their own geometry, to the unit. These signatures were lifted
+  // from the 1.11.1 output, so a card written before the 2.0.0 cannot drift.
+  check('preset coulissant slats : geometrie du 1.11.1',
+    geom(sl()),
+    '<rect class="slat" x="14" y="14" width="112" height="5.5" rx="1.5"/><rect class="slat" x="14" y="23.5" width="112" height="5.5" rx="1.5"/>'
+    + '<rect class="slat" x="14" y="33" width="112" height="5.5" rx="1.5"/><rect class="slat" x="14" y="42.5" width="112" height="5.5" rx="1.5"/> '
+    + '<rect class="vbar" x="14" y="14" width="3" height="34" rx="1.5"/> <rect class="vbar" x="68.5" y="14" width="3" height="34" rx="1.5"/> '
+    + '<rect class="vbar" x="123" y="14" width="3" height="34" rx="1.5"/>');
+  check('preset coulissant bars : deux rails pleins, huit barreaux',
+    geom(sl({ gate_style: 'bars' })).startsWith('<rect x="14" y="14" width="112" height="5" rx="2.5"/> <rect x="14" y="41" width="112" height="5" rx="2.5"/>')
+      && (geom(sl({ gate_style: 'bars' })).match(/y="18" width="4" height="27"/g) || []).length === 8, true);
+  check('preset coulissant solid : la courbe d origine, pas un echantillonnage',
+    geom(sl({ gate_style: 'solid' })), '<path d="M14 49 L14 19 Q 70 9, 126 19 L126 49 Z"/>');
+  check('preset battant bell : le rail en Q du demi-vantail',
+    /<path d="M14 21 Q 48 10, 68 11.5" class="leaf-rail"\/>/.test(String(makeCard('closed', { gate_type: 'swing' }))), true);
+  check('le battant garde sa version concave de bars',
+    /<path d="M14 16 Q 44 12.5, 68 21" class="leaf-rail"\/>/.test(String(makeCard('closed', { gate_type: 'swing', gate_style: 'bars' }))), true);
+  check('un preset inconnu retombe sur slats', sl({ gate_style: 'zigzag' }) === sl(), true);
+  check('demander la forme du preset bascule quand meme sur le compositeur',
+    sl({ gate_shape: 'straight' }) !== sl(), true);
+  check('forme droite : le rail du haut est une ligne', rail(sl({ gate_fill: 'bars' })), true);
+  check('chapeau de gendarme : le rail est echantillonne', rail(sl({ gate_shape: 'bell', gate_fill: 'bars' })), false);
+  check('la forme seule ne change pas le remplissage',
+    (sl({ gate_shape: 'peak' }).match(/class="slat"/g) || []).length,
+    (sl().match(/class="slat"/g) || []).length);
+
+  const clipped = html => /<clipPath id="leaf-clip-c">/.test(html);
+  check('un remplissage ajoure est detoure par la silhouette', clipped(sl({ gate_fill: 'grid' })), true);
+  check('un panneau plein n a pas besoin de detourage', clipped(sl({ gate_fill: 'solid' })), false);
+  check('le plein perfore garde ses percages',
+    /class="gate-hole"/.test(sl({ gate_fill: 'perfo' })), true);
+  check('les cassettes sont des rainures, pas des trous',
+    /class="gate-groove"/.test(sl({ gate_fill: 'panel' })) && !/class="gate-hole"/.test(sl({ gate_fill: 'panel' })), true);
+  check('un remplissage inconnu retombe sur le preset',
+    sl({ gate_fill: 'tartan' }) === sl(), true);
+  check('une forme inconnue retombe sur le preset',
+    sl({ gate_shape: 'tartan' }) === sl(), true);
+  check('une forme valide et un remplissage inconnu : le remplissage suit le preset',
+    sl({ gate_shape: 'peak', gate_fill: 'tartan' }) === sl({ gate_shape: 'peak' }), true);
+
+  // The folded single leaf halves its members whatever the fill.
+  const one = (fill, st) => String(makeCard(st, { gate_type: 'swing', single_leaf: 'left', gate_fill: fill }));
+  const slats = html => (html.match(/class="slat"/g) || []).length;
+  check('vantail unique replie : moitie moins de lames',
+    slats(one('slats_h', 'open')) < slats(one('slats_h', 'closed')), true);
+}
+
+// Garage curtains (2.0.0). The travel maths is shared, only the marks change.
+{
+  const ga = (cfg = {}, st = 'closed') => String(makeCard(st, { gate_type: 'garage', ...cfg }));
+  check('porte de garage : sectionnelle par defaut', ga() === ga({ garage_fill: 'slats' }), true);
+  check('un modele inconnu retombe sur la sectionnelle', ga({ garage_fill: 'zigzag' }) === ga(), true);
+  check('rainuree : des rainures verticales', /class="garage-groove"/.test(ga({ garage_fill: 'grooved' })), true);
+  check('cassettes : des rainures de panneau', /class="gate-groove"/.test(ga({ garage_fill: 'cassette' })), true);
+  check('hublots : quatre, sur une seule section',
+    (ga({ garage_fill: 'windows' }).match(/class="garage-port"/g) || []).length / 3, 4);
+  check('basculante : un seul panneau, aucune jointure',
+    (ga({ garage_fill: 'tilt' }).match(/class="slat"/g) || []).length / 3 === 1
+      && !/class="garage-rib"/.test(ga({ garage_fill: 'tilt' })), true);
+  check('ouverte : plus rien a decorer',
+    /class="garage-groove"|class="garage-port"/.test(ga({ garage_fill: 'grooved' }, 'open')), false);
+  const edGarage = (cfg = {}) => {
+    const e = new Editor(); e.hass = { language: 'fr', states: {} };
+    e.setConfig({ gate_type: 'garage', entity: 'cover.g', ...cfg });
+    return String(markup(e));
+  };
+  check("l'editeur du garage propose les modeles", /<option value="tilt"/.test(edGarage()), true);
+  check("l'editeur du garage : la sectionnelle est selectionnee par defaut",
+    /<option value="slats" selected>/.test(edGarage()), true);
+  check("l'editeur du garage : le modele choisi est selectionne",
+    /<option value="windows" selected>/.test(edGarage({ garage_fill: 'windows' })), true);
+}
+
+// Door leaves (2.0.0): five more, and the board joints must survive mode A.
+{
+  const dr = (cfg = {}) => String(makeCard('locked', { entity: 'lock.porte', gate_type: 'door', ...cfg }));
+  check('moulures : deux rangs de panneaux',
+    (dr({ gate_style: 'mouldings' }).match(/class="door-panel/g) || []).length, 2);
+  check('lames verticales : des jointures, pas des petits bois',
+    /class="door-joint"/.test(dr({ gate_style: 'boards' })), true);
+  check('inox : deux bandeaux', (dr({ gate_style: 'inox' }).match(/class="door-inox"/g) || []).length, 1);
+  check('imposte : un vitrage en imposte', /class="door-glass"/.test(dr({ gate_style: 'transom' })), true);
+  check('vitrage lateral : un vitrage et un panneau',
+    /class="door-glass"/.test(dr({ gate_style: 'sidelight' })) && /class="door-panel"/.test(dr({ gate_style: 'sidelight' })), true);
+  check('un style de portail sur une porte retombe sur pleine',
+    dr({ gate_style: 'bell' }) === dr(), true);
 }
 
 // Dry contacts (1.10.1): a gate whose `entity` is a switch, a button or a
