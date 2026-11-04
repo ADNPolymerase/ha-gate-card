@@ -1677,9 +1677,51 @@ function doorPane(x, y, w, h) {
         <rect x="${x + i}" y="${y + i}" width="${w - 2 * i}" height="${h - 2 * i}" rx="1" class="door-glass-frame"/>`;
 }
 
+const DOOR_STYLES = ["solid", "semi", "glazed", "mouldings", "boards", "inox", "transom", "sidelight"];
+
 function doorStyle(cfg) {
-  const known = ["solid", "semi", "glazed"];
-  return known.includes(cfg.gate_style) ? cfg.gate_style : "solid";
+  return DOOR_STYLES.includes(cfg.gate_style) ? cfg.gate_style : "solid";
+}
+
+// What sits inside the leaf. The leaf itself runs x 54..86, y 11..57, so the
+// members live in x 56..84 and keep a 2 unit rebate all round.
+function doorInner(style) {
+  const panel = (x, y, w, h) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="1"/>`;
+  if (style === "glazed") {
+    return `${doorPane(58, 15, 17, 38)}
+        <g class="door-muntin"><path d="M58 28.5 H75 M58 40.5 H75"/></g>`;
+  }
+  if (style === "semi") {
+    return `${doorPane(58, 15, 24, 15)}
+        <g class="door-panel">${panel(58, 40, 24, 13)}</g>`;
+  }
+  if (style === "mouldings") {
+    // Three raised fields, each ringed by a second line: the classic joinery.
+    return `<g class="door-panel">${panel(57.5, 14, 25, 12)}${panel(57.5, 28.5, 25, 11)}${panel(57.5, 42, 25, 11)}</g>
+        <g class="door-panel door-bead">${panel(59.5, 16, 21, 8)}${panel(59.5, 30.5, 21, 7)}${panel(59.5, 44, 21, 7)}</g>`;
+  }
+  if (style === "boards") {
+    // Vertical boarding: five planks with a visible joint between them.
+    let b = "";
+    for (let i = 0; i < 5; i++) b += `<path d="M${r1(57.6 + i * 5.6)} 13 V55"/>`;
+    return `<g class="door-joint">${b}</g>`;
+  }
+  if (style === "inox") {
+    // A plain leaf crossed by two stainless bands and a reading slit.
+    return `${doorPane(74, 15, 8, 26)}
+        <g class="door-inox"><rect x="56" y="20" width="26" height="2.6" rx="1.3"/><rect x="56" y="47" width="26" height="2.6" rx="1.3"/></g>`;
+  }
+  if (style === "transom") {
+    // A fanlight across the head, two fields under it.
+    return `${doorPane(57.5, 13, 25, 10)}
+        <g class="door-panel">${panel(57.5, 26, 25, 13)}${panel(57.5, 42, 25, 11)}</g>`;
+  }
+  if (style === "sidelight") {
+    // A tall slit down the hinge side, a single field beside it.
+    return `${doorPane(56.5, 14, 9, 39)}
+        <g class="door-panel">${panel(68, 14, 14, 39)}</g>`;
+  }
+  return `<g class="door-panel">${panel(58, 15, 24, 15)}${panel(58, 40, 24, 13)}</g>`;
 }
 
 function doorSvg(norm, cfg, lampOn) {
@@ -1692,13 +1734,7 @@ function doorSvg(norm, cfg, lampOn) {
   // Jammed: the bolt is only halfway out, which is the whole point.
   const boltLen = norm === "jammed" ? 3.2 : 6.4;
   const bolt = `<rect x="85" y="33.6" width="${boltLen}" height="4" rx="1.3" class="door-bolt"/>`;
-  const inner = style === "glazed"
-    ? `${doorPane(58, 15, 17, 38)}
-        <g class="door-muntin"><path d="M58 28.5 H75 M58 40.5 H75"/></g>`
-    : style === "semi"
-      ? `${doorPane(58, 15, 24, 15)}
-        <g class="door-panel"><rect x="58" y="40" width="24" height="13" rx="1"/></g>`
-      : `<g class="door-panel"><rect x="58" y="15" width="24" height="15" rx="1"/><rect x="58" y="40" width="24" height="13" rx="1"/></g>`;
+  const inner = doorInner(style);
   const leaf = `<rect x="54" y="11" width="32" height="46" rx="1.5" class="door-wood"/>
         ${inner}
         <g class="door-hinge"><rect x="52.7" y="17" width="2.6" height="5" rx="1"/><rect x="52.7" y="45.5" width="2.6" height="5" rx="1"/></g>
@@ -1819,35 +1855,104 @@ const LAMP_DEFS = `
         </linearGradient>
       </defs>`;
 
+// The curtain is a stack of sections. garage_fill decorates them: a plain
+// sectional door, grooves, cassette fields, a row of windows, or a single
+// tilt up panel. The travel maths is shared, only the marks change.
+const GARAGE_FILLS = ["slats", "grooved", "cassette", "windows", "tilt"];
+
+function garageFill(cfg) {
+  return GARAGE_FILLS.includes(cfg.garage_fill) ? cfg.garage_fill : "slats";
+}
+
+// Marks laid over the curtain as a whole. A 102 by 5 section is far too
+// shallow to hold a field of its own, so the grooves and the cassette fields
+// run the full height of what is still down and only the portholes sit on
+// one section.
+function garageMarks(fill, hi, lo) {
+  const h = lo - hi;
+  if (h < 4) return "";
+  if (fill === "grooved" || fill === "tilt") {
+    let g = "";
+    const n = fill === "tilt" ? 4 : 13;
+    if (fill === "tilt") {
+      const fw = (102 - 5 * 3.4) / 4;
+      for (let i = 0; i < n; i++) {
+        g += `<rect class="gate-groove" x="${r1(22.4 + i * (fw + 3.4))}" y="${r1(hi + 2.6)}" width="${r1(fw)}" height="${r1(h - 5.2)}" rx="1.2"/>`;
+      }
+      return g;
+    }
+    for (let i = 0; i < n; i++) {
+      g += `<rect class="garage-groove" x="${r1(23 + i * 7.9)}" y="${r1(hi + 1)}" width="1.6" height="${r1(h - 2)}" rx="0.8"/>`;
+    }
+    return g;
+  }
+  if (fill === "cassette") {
+    let g = "";
+    const fw = (102 - 5 * 3.4) / 4;
+    for (let i = 0; i < 4; i++) {
+      g += `<rect class="gate-groove" x="${r1(22.4 + i * (fw + 3.4))}" y="${r1(hi + 1.6)}" width="${r1(fw)}" height="${r1(h - 3.2)}" rx="1.2"/>`;
+    }
+    return g;
+  }
+  return "";
+}
+
+// Portholes sit on the topmost whole section, the way a real door carries
+// its glazing on one leaf and not on all of them.
+function garagePorts(y, h) {
+  if (h < 4) return "";
+  let g = "";
+  for (let i = 0; i < 4; i++) {
+    g += `<circle class="garage-port" cx="${40 + i * 20}" cy="${r1(y + h / 2)}" r="2"/>`;
+  }
+  return g;
+}
+
 function garageSvg(norm, cfg, lampOn, frac) {
   const closedLike = norm === "closed" || norm === "unknown" || norm === "unlocked";
   // Venting rolls one slat away and keeps the gap under the box; the part-open
   // position rolls two and lifts the whole curtain off the ground.
   const venting = norm === "vent";
   const partial = norm === "partial";
+  const fill = garageFill(cfg);
   const n = venting ? 4 : partial ? 3
     : closedLike ? 5 : (norm === "opening" || norm === "closing" || norm === "moving" ? 2 : 0);
   const y0 = venting ? 19 + 6.6 : 19;
-  let curtain = "";
-  let ribs = "";
+  // Each visible section as [y, height], highest row last.
+  const rows = [];
   let barY = y0 + n * 6.6;
   if (frac !== null && frac !== undefined) {
-    // Real travel: the bottom bar rises continuously and the slats above it
-    // disappear into the box one by one (the top one can be partly rolled).
+    // Real travel: the bottom bar rises continuously and the sections above
+    // it disappear into the box one by one (the top one can be partly rolled).
     barY = Math.round((19 + 5 * 6.6 * (1 - frac)) * 10) / 10;
     for (let i = 1; i <= 5; i++) {
       const y = barY - i * 6.6;
       const top = Math.max(y, 19);
       const h = y + 5 - top;
       if (h < 0.6) break;
-      curtain += `<rect class="slat" x="19" y="${Math.round(top * 10) / 10}" width="102" height="${Math.round(h * 10) / 10}" rx="1.6"/>`;
-      if (y >= 19) ribs += `<line class="garage-rib" x1="19" y1="${Math.round((y + 2.5) * 10) / 10}" x2="121" y2="${Math.round((y + 2.5) * 10) / 10}"/>`;
+      rows.push([Math.round(top * 10) / 10, Math.round(h * 10) / 10, y >= 19]);
     }
   } else {
-    for (let i = 0; i < n; i++) {
-      const y = y0 + i * 6.6;
-      curtain += `<rect class="slat" x="19" y="${y}" width="102" height="5" rx="1.6"/>`;
-      ribs += `<line class="garage-rib" x1="19" y1="${y + 2.5}" x2="121" y2="${y + 2.5}"/>`;
+    for (let i = n - 1; i >= 0; i--) rows.push([y0 + i * 6.6, 5, true]);
+  }
+  let curtain = "";
+  let ribs = "";
+  if (rows.length) {
+    const hi = Math.min(...rows.map(([y]) => y));
+    const lo = Math.max(...rows.map(([y, h]) => y + h));
+    if (fill === "tilt") {
+      // Tilt up: one panel, no joints, lifted as a whole.
+      curtain = `<rect class="slat" x="19" y="${r1(hi)}" width="102" height="${r1(lo - hi)}" rx="1.6"/>`;
+    } else {
+      rows.forEach(([y, h, whole]) => {
+        curtain += `<rect class="slat" x="19" y="${y}" width="102" height="${h}" rx="1.6"/>`;
+        if (whole) ribs += `<line class="garage-rib" x1="19" y1="${Math.round((y + 2.5) * 10) / 10}" x2="121" y2="${Math.round((y + 2.5) * 10) / 10}"/>`;
+      });
+    }
+    curtain += garageMarks(fill, hi, lo);
+    if (fill === "windows") {
+      const top = rows.filter(([, , whole]) => whole).sort((p, q) => p[0] - q[0])[0];
+      if (top) curtain += garagePorts(top[0], top[1]);
     }
   }
   const shapes = `
@@ -2086,6 +2191,8 @@ ha-card.tappable { cursor:pointer; }
 .gate-hole { fill:var(--ha-card-background, var(--card-background-color, #fff)); }
 /* Cassette panels: a recessed groove knocked into the leaf, not a hole. */
 .gate-groove { fill:none; stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.8; }
+.garage-groove { fill:var(--ha-card-background, var(--card-background-color, #fff)); opacity:.5; }
+.garage-port { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:var(--gate-color); stroke-width:1; }
 .leaf-line .leaf-rail { fill:none; stroke:var(--leaf-line); stroke-width:7.2; stroke-linecap:round; vector-effect:non-scaling-stroke; }
 .leaf-fill rect { fill:var(--leaf-color); }
 .leaf-fill .leaf-rail { fill:none; stroke:var(--leaf-color); stroke-width:5.6; stroke-linecap:round; vector-effect:non-scaling-stroke; }
@@ -2117,6 +2224,11 @@ ha-card.tappable { cursor:pointer; }
 .door-glass-frame { fill:none; stroke:var(--leaf-line); stroke-width:1.4; opacity:.75; }
 .door-shine { fill:#fff; opacity:.42; }
 .door-muntin path { stroke:var(--leaf-line); stroke-width:1.4; opacity:.75; fill:none; }
+.door-bead rect { stroke-width:1; opacity:.5; }
+.door-inox rect { fill:#c8ced6; stroke:#00000026; stroke-width:.8; }
+/* Board joints sit on the leaf itself, so unlike the muntins they have to
+   stay visible when the leaf carries the state color. */
+.door-joint path { stroke:var(--leaf-line); stroke-width:1.4; opacity:.6; fill:none; }
 .door-hinge rect { fill:#9aa3ad; }
 .door-lock { fill:var(--gate-color); stroke:#0000002e; stroke-width:1.2; }
 .door-keyhole { fill:#00000059; }
@@ -2129,6 +2241,8 @@ ha-card.tappable { cursor:pointer; }
    and the glazing bars then have to be drawn in the leaf color to show. */
 .door-state .door-panel rect, .door-state .door-glass-frame { stroke:var(--ha-card-background, var(--card-background-color, #fff)); opacity:1; }
 .door-state .door-muntin path { stroke:var(--leaf-color); opacity:1; }
+.door-state .door-inox rect { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:none; }
+.door-state .door-joint path { stroke:var(--ha-card-background, var(--card-background-color, #fff)); opacity:1; }
 .door-state .door-hinge rect, .door-state .door-lock { fill:var(--ha-card-background, var(--card-background-color, #fff)); stroke:none; }
 .door-state .door-keyhole { fill:var(--leaf-color); }
 .door-state .door-bolt { fill:var(--leaf-color); stroke:var(--ha-card-background, var(--card-background-color, #fff)); stroke-width:1.6; }
