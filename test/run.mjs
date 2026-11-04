@@ -713,6 +713,84 @@ check('position connue : l animation de va-et-vient est coupee',
   check("l'editeur : la finition bois est proposee", /<option value="wood"[^>]*>Bois/.test(edDoor({})), true);
 }
 
+// 2.0.0: the leaf is a silhouette crossed with a fill motif. gate_style keeps
+// working as a preset pair, so the point of these is that nothing moves when
+// no shape and no fill are asked for, and that each one really is drawn.
+{
+  const sl = (cfg = {}, st = 'closed') => String(makeCard(st, { gate_type: 'sliding', ...cfg }));
+  const rail = html => /class="leaf-rail" d="M14 14L126 14"/.test(html);
+
+  check('sans forme ni remplissage : le preset slats est inchange',
+    sl() === sl({ gate_shape: 'straight', gate_fill: 'slats_h' }), true);
+  check('un preset inconnu retombe sur slats', sl({ gate_style: 'zigzag' }) === sl(), true);
+  check('le battant garde sa version concave de bars',
+    /class="leaf-rail" d="M13 15/.test(String(makeCard('closed', { gate_type: 'swing', gate_style: 'bars' }))), true);
+  check('forme droite : le rail du haut est une ligne', rail(sl({ gate_fill: 'bars' })), true);
+  check('chapeau de gendarme : le rail est echantillonne', rail(sl({ gate_shape: 'bell', gate_fill: 'bars' })), false);
+  check('la forme seule ne change pas le remplissage',
+    (sl({ gate_shape: 'peak' }).match(/class="slat"/g) || []).length,
+    (sl().match(/class="slat"/g) || []).length);
+
+  const clipped = html => /<clipPath id="leaf-clip-c">/.test(html);
+  check('un remplissage ajoure est detoure par la silhouette', clipped(sl({ gate_fill: 'grid' })), true);
+  check('un panneau plein n a pas besoin de detourage', clipped(sl({ gate_fill: 'solid' })), false);
+  check('le plein perfore garde ses percages',
+    /class="gate-hole"/.test(sl({ gate_fill: 'perfo' })), true);
+  check('les cassettes sont des rainures, pas des trous',
+    /class="gate-groove"/.test(sl({ gate_fill: 'panel' })) && !/class="gate-hole"/.test(sl({ gate_fill: 'panel' })), true);
+  check('un remplissage inconnu retombe sur le preset',
+    sl({ gate_fill: 'tartan' }) === sl(), true);
+  check('une forme inconnue retombe sur le preset',
+    sl({ gate_shape: 'tartan' }) === sl(), true);
+
+  // The folded single leaf halves its members whatever the fill.
+  const one = (fill, st) => String(makeCard(st, { gate_type: 'swing', single_leaf: 'left', gate_fill: fill }));
+  const slats = html => (html.match(/class="slat"/g) || []).length;
+  check('vantail unique replie : moitie moins de lames',
+    slats(one('slats_h', 'open')) < slats(one('slats_h', 'closed')), true);
+}
+
+// Garage curtains (2.0.0). The travel maths is shared, only the marks change.
+{
+  const ga = (cfg = {}, st = 'closed') => String(makeCard(st, { gate_type: 'garage', ...cfg }));
+  check('porte de garage : sectionnelle par defaut', ga() === ga({ garage_fill: 'slats' }), true);
+  check('un modele inconnu retombe sur la sectionnelle', ga({ garage_fill: 'zigzag' }) === ga(), true);
+  check('rainuree : des rainures verticales', /class="garage-groove"/.test(ga({ garage_fill: 'grooved' })), true);
+  check('cassettes : des rainures de panneau', /class="gate-groove"/.test(ga({ garage_fill: 'cassette' })), true);
+  check('hublots : quatre, sur une seule section',
+    (ga({ garage_fill: 'windows' }).match(/class="garage-port"/g) || []).length / 3, 4);
+  check('basculante : un seul panneau, aucune jointure',
+    (ga({ garage_fill: 'tilt' }).match(/class="slat"/g) || []).length / 3 === 1
+      && !/class="garage-rib"/.test(ga({ garage_fill: 'tilt' })), true);
+  check('ouverte : plus rien a decorer',
+    /class="garage-groove"|class="garage-port"/.test(ga({ garage_fill: 'grooved' }, 'open')), false);
+  const edGarage = (cfg = {}) => {
+    const e = new Editor(); e.hass = { language: 'fr', states: {} };
+    e.setConfig({ gate_type: 'garage', entity: 'cover.g', ...cfg });
+    return String(markup(e));
+  };
+  check("l'editeur du garage propose les modeles", /<option value="tilt"/.test(edGarage()), true);
+  check("l'editeur du garage : la sectionnelle est selectionnee par defaut",
+    /<option value="slats" selected>/.test(edGarage()), true);
+  check("l'editeur du garage : le modele choisi est selectionne",
+    /<option value="windows" selected>/.test(edGarage({ garage_fill: 'windows' })), true);
+}
+
+// Door leaves (2.0.0): five more, and the board joints must survive mode A.
+{
+  const dr = (cfg = {}) => String(makeCard('locked', { entity: 'lock.porte', gate_type: 'door', ...cfg }));
+  check('moulures : deux rangs de panneaux',
+    (dr({ gate_style: 'mouldings' }).match(/class="door-panel/g) || []).length, 2);
+  check('lames verticales : des jointures, pas des petits bois',
+    /class="door-joint"/.test(dr({ gate_style: 'boards' })), true);
+  check('inox : deux bandeaux', (dr({ gate_style: 'inox' }).match(/class="door-inox"/g) || []).length, 1);
+  check('imposte : un vitrage en imposte', /class="door-glass"/.test(dr({ gate_style: 'transom' })), true);
+  check('vitrage lateral : un vitrage et un panneau',
+    /class="door-glass"/.test(dr({ gate_style: 'sidelight' })) && /class="door-panel"/.test(dr({ gate_style: 'sidelight' })), true);
+  check('un style de portail sur une porte retombe sur pleine',
+    dr({ gate_style: 'bell' }) === dr(), true);
+}
+
 // Dry contacts (1.10.1): a gate whose `entity` is a switch, a button or a
 // script. There is one contact, so Open and Close send the same impulse --
 // what must never happen is a cover service on something that is not a cover.
