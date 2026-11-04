@@ -691,6 +691,20 @@ check('position connue : l animation de va-et-vient est coupee',
   check('le vitrage garde sa teinte meme en couleur d etat',
     /class="door-glass"/.test(door({ gate_style: 'glazed' })), true);
 
+  // La teinte du vantail ne doit jamais deteindre sur les pictogrammes :
+  // ils portent l'etat, pas la matiere. --gate-color reste la couleur d'etat
+  // quoi qu'il arrive, --leaf-color seul suit la finition choisie.
+  const gateColor = html => (String(html).match(/--gate-color: ([^;]+);/) || [])[1];
+  const swTint = (st, cfg) => makeCard(st, { gate_type: 'swing', ...cfg });
+  check('mode matiere : les pictogrammes gardent la couleur d etat',
+    gateColor(swTint('open', { gate_color: 'white' })), 'var(--warning-color, #ff9800)');
+  check('mode matiere : seul le vantail prend la matiere',
+    leafColor(swTint('open', { gate_color: 'white' })), '#f2f0ea');
+  check('mode matiere : la voiture est peinte en couleur d etat',
+    /class="gate-car">/.test(swTint('open', { gate_color: 'anthracite' })), true);
+  check('mode matiere : le pieton est peint en couleur d etat',
+    /class="gate-runner">/.test(swTint('pedestrian', { gate_color: 'anthracite' })), true);
+
   const edDoor = cfg => { const e = new Editor(); e.hass = { language: 'fr', states: {} }; e.setConfig({ gate_type: 'door', entity: 'lock.porte', ...cfg }); return String(markup(e)); };
   check("l'editeur : les formes de porte remplacent les styles de portail",
     /<option value="glazed"/.test(edDoor({})) && !/style_slats|Lames horizontales/.test(edDoor({})), true);
