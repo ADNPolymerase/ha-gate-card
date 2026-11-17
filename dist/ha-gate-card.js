@@ -1,4 +1,4 @@
-const CARD_VERSION = "2.0.0";
+const CARD_VERSION = "2.1.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -1745,6 +1745,12 @@ function normStyle(cfg, type) {
 const LEAF_BOTTOM = 49;
 const OPEN_MID = 70;
 const HALF_SPAN = 57;
+// A swing leaf hangs from its post and closes on the middle, so the pair
+// covers the same 13..127 the single leaf covers, cut at OPEN_MID.
+const HALF_HINGE = 13;
+const HALF_W = HALF_SPAN;
+// The gap left between two shut leaves, centred on OPEN_MID.
+const JOINT_GAP = 1;
 
 // edge: height at the posts, mid: height mid opening. "shoulder" keeps the
 // sides flat and lifts the middle alone (the gendarme hat), "chamfer" does
@@ -1835,17 +1841,44 @@ function leafDots(xa, xb, light) {
   return laserDots(cells);
 }
 
+// Where two leaves close on each other each one carries half a post, so the
+// pair reads as one slim joint instead of the two full stiles butted
+// together that the 2.0.0 drew.
+const MEET_W = 2.5;
+const stileW = (meet, end) => (meet === end ? MEET_W : 3);
+// Which end of a leaf the other one comes to rest against.
+const meetSide = (meet) => (meet === "b" ? "r" : meet === "a" ? "l" : null);
+
+// A horizontal member, square on the end where the other leaf closes. Two
+// rounded ends kissing on the middle read as a waist, and that pinch at
+// every rail is what made the 2.0.0 joint look like a lump.
+function meetBar(cls, x, y, w, h, r, square) {
+  const c = cls ? ` class="${cls}"` : "";
+  const [X, Y, W, H] = [r1(x), r1(y), r1(w), r1(h)];
+  if (!square) return `<rect${c} x="${X}" y="${Y}" width="${W}" height="${H}" rx="${r}"/>`;
+  // Two real corners on the far end: a single arc would bulge into a half
+  // disc on any member taller than twice its radius.
+  const k = Math.min(r, W / 2, H / 2);
+  const d = square === "r"
+    ? `M${r1(X + k)} ${Y}H${r1(X + W)}V${r1(Y + H)}H${r1(X + k)}A${k} ${k} 0 0 1 ${X} ${r1(Y + H - k)}V${r1(Y + k)}A${k} ${k} 0 0 1 ${r1(X + k)} ${Y}Z`
+    : `M${X} ${Y}H${r1(X + W - k)}A${k} ${k} 0 0 1 ${r1(X + W)} ${r1(Y + k)}V${r1(Y + H - k)}A${k} ${k} 0 0 1 ${r1(X + W - k)} ${r1(Y + H)}H${X}Z`;
+  return `<path${c} d="${d}"/>`;
+}
+
 // A rail along the top edge, a rail along the ground and an upright at each
 // end. The bars fill skips the uprights: its end bars already do the job.
-function leafFrame(shape, xa, xb, uprights) {
+// meet names the edge, if any, where the other leaf comes to rest.
+function leafFrame(shape, xa, xb, uprights, meet) {
   const ya = r1(leafTopY(shape, xa));
   const yb = r1(leafTopY(shape, xb));
+  const wa = stileW(meet, "a");
+  const wb = stileW(meet, "b");
   const ends = uprights === false ? "" : `
-      <rect class="vbar" x="${r1(xa)}" y="${ya}" width="3" height="${r1(LEAF_BOTTOM - ya)}" rx="1.5"/>
-      <rect class="vbar" x="${r1(xb - 3)}" y="${yb}" width="3" height="${r1(LEAF_BOTTOM - yb)}" rx="1.5"/>`;
+      <rect class="vbar" x="${r1(xa)}" y="${ya}" width="${wa}" height="${r1(LEAF_BOTTOM - ya)}" rx="1.5"/>
+      <rect class="vbar" x="${r1(xb - wb)}" y="${yb}" width="${wb}" height="${r1(LEAF_BOTTOM - yb)}" rx="1.5"/>`;
   return `
       <path class="leaf-rail" d="${leafTopPath(shape, xa, xb)}"/>
-      <rect x="${r1(xa)}" y="44" width="${r1(xb - xa)}" height="5" rx="2.5"/>${ends}`;
+      ${meetBar("", xa, 44, xb - xa, 5, 2.5, meetSide(meet))}${ends}`;
 }
 
 // The five drawings that shipped before the 2.0.0, kept to the unit. They
@@ -1856,13 +1889,15 @@ function leafFrame(shape, xa, xb, uprights) {
 // leafBody, which composes; touching neither lands here, so a card written
 // before the 2.0.0 draws what it drew.
 //
-// variant: "sliding" (x 14..126), "half" (x0 + 56, side l or r), "single"
-// (x 13..127, the full width leaf, halved when folded).
+// variant: "sliding" (x 14..126), "half" (13..70 or 70..127, side l or r),
+// "single" (x 13..127, the full width leaf, halved when folded).
 function leafPreset(style, variant, side, light) {
   const half = variant === "half";
   const single = variant === "single";
-  const x0 = half ? (side === "l" ? 13 : 71) : single ? 13 : 14;
-  const w = half ? 56 : single ? 114 : 112;
+  const x0 = half ? (side === "l" ? HALF_HINGE : OPEN_MID) : single ? 13 : 14;
+  const w = half ? HALF_W : single ? 114 : 112;
+  // The edge the other leaf closes on, square so the pair reads as one run.
+  const sq = half ? (side === "l" ? "r" : "l") : null;
   let shapes = "";
   let extra = "";
 
@@ -1871,30 +1906,31 @@ function leafPreset(style, variant, side, light) {
     const pitch = light ? 13.5 : 9.5;
     let slats = "";
     for (let i = 0; i < n; i++) {
-      slats += `<rect class="slat" x="${x0}" y="${14 + i * pitch}" width="${w}" height="5.5" rx="1.5"/>`;
+      slats += meetBar("slat", x0, 14 + i * pitch, w, 5.5, 1.5, sq);
     }
     const mid = half ? "" : `<rect class="vbar" x="68.5" y="14" width="3" height="34" rx="1.5"/>`;
     shapes = `${slats}
-      <rect class="vbar" x="${x0}" y="14" width="3" height="34" rx="1.5"/>
+      <rect class="vbar" x="${x0}" y="14" width="${half && side === "r" ? MEET_W : 3}" height="34" rx="1.5"/>
       ${mid}
-      <rect class="vbar" x="${half ? x0 + 53 : x0 + w - 3}" y="14" width="3" height="34" rx="1.5"/>`;
+      <rect class="vbar" x="${r1(x0 + w - (half && side === "l" ? MEET_W : 3))}" y="14" width="${half && side === "l" ? MEET_W : 3}" height="34" rx="1.5"/>`;
   } else if (style === "semi") {
     const n = half ? 7 : light ? 7 : 14;
-    const pitch = half ? 7.6 : light ? 15.6 : 7.8;
-    const bx = half ? x0 + 3 : 17;
+    const pitch = half ? 7.9 : light ? 15.6 : 7.8;
+    const bx = half ? (side === "l" ? 17 : 119.8) : 17;
+    const step = half && side === "r" ? -pitch : pitch;
     let bars = "";
     for (let i = 0; i < n; i++) {
-      bars += `<rect class="slat${half ? "" : " vbar"}" x="${r1(bx + i * pitch)}" y="13" width="3.2" height="18" rx="1.6"/>`;
+      bars += `<rect class="slat${half ? "" : " vbar"}" x="${r1(bx + i * step)}" y="13" width="3.2" height="18" rx="1.6"/>`;
     }
     shapes = `
-      <rect x="${x0}" y="12" width="${w}" height="3.4" rx="1.7"/>
-      <rect x="${x0}" y="30" width="${w}" height="19" rx="2"/>
+      ${meetBar("", x0, 12, w, 3.4, 1.7, sq)}
+      ${meetBar("", x0, 30, w, 19, 2, sq)}
       ${bars}`;
   } else if (style === "solid") {
     shapes = half
       ? (side === "l"
-        ? `<path d="M13 49 L13 20 Q 45 11, 69 12.5 L69 49 Z"/>`
-        : `<path d="M127 49 L127 20 Q 95 11, 71 12.5 L71 49 Z"/>`)
+        ? `<path d="M13 49 L13 20 Q 45 11, 70 12.5 L70 49 Z"/>`
+        : `<path d="M127 49 L127 20 Q 95 11, 70 12.5 L70 49 Z"/>`)
       : `<path d="M${x0} 49 L${x0} ${single ? 20 : 19} Q 70 ${single ? 9 : 9}, ${x0 + w} ${single ? 20 : 19} L${x0 + w} 49 Z"/>`;
     const cells = [];
     if (half) {
@@ -1921,20 +1957,24 @@ function leafPreset(style, variant, side, light) {
     ${bars}`;
   } else if (half) {
     // Swing half leaf: bell arches up toward the middle, bars dip.
+    //
+    // Both rails are the single leaf parabola cut at OPEN_MID, so the two
+    // halves arrive flat on the apex and read as one curve when the gate is
+    // shut, and the bars keep the pitch of the single leaf: five on each
+    // side, the gap over the joint equal to every other gap. The 2.0.0 drew
+    // them stopping 8 units short of the middle, which left a hole there.
     const bell = style === "bell";
-    const xs = side === "l" ? [16, 26.5, 37, 47.5, 58] : [120, 109.5, 99, 88.5, 78];
-    const bars = xs
-      .map((x, i) => {
-        const y = bell ? 19 - i * 1.5 : 15.5 + i * 1.6;
-        return `<rect x="${x}" y="${y}" width="4" height="${47 - y}" rx="2"/>`;
-      })
-      .join("");
-    const rail = bell
-      ? (side === "l" ? "M14 21 Q 48 10, 68 11.5" : "M126 21 Q 92 10, 72 11.5")
-      : (side === "l" ? "M14 16 Q 44 12.5, 68 21" : "M126 16 Q 96 12.5, 72 21");
-    const bottom = side === "l"
-      ? '<rect x="13" y="44" width="56" height="5" rx="2.5"/>'
-      : '<rect x="71" y="44" width="56" height="5" rx="2.5"/>';
+    const top = bell ? 21 : 15, mid = bell ? 12 : 21;
+    const railY = (x) => top + (mid - top) * (1 - Math.pow((x - OPEN_MID) / HALF_SPAN, 2));
+    const xe = side === "l" ? 14 : 126;
+    const rail = `M${xe} ${r1(railY(xe))} Q ${(xe + OPEN_MID) / 2} ${mid}, ${OPEN_MID} ${mid}`;
+    let bars = "";
+    for (let i = 0; i < 5; i++) {
+      const x = r1(side === "l" ? 16 + i * 11.55 : 119.95 - i * 11.55);
+      const y = r1(railY(x + 2) - 1);
+      bars += `<rect x="${x}" y="${y}" width="4" height="${r1(47 - y)}" rx="2"/>`;
+    }
+    const bottom = meetBar("", side === "l" ? HALF_HINGE : OPEN_MID, 44, HALF_W, 5, 2.5, sq);
     shapes = `
       <path d="${rail}" class="leaf-rail"/>
       ${bottom}
@@ -1965,7 +2005,7 @@ function leafPreset(style, variant, side, light) {
 // painted over the three layers (the laser dots, the recessed panels).
 // Returns the clip definition apart so the three painting groups can share it
 // instead of each carrying its own copy of the same id.
-function leafBody(shape, fill, xa, xb, light, tag) {
+function leafBody(shape, fill, xa, xb, light, tag, meet) {
   const w = xb - xa;
   const clipId = `leaf-clip-${tag}`;
   const clipped = (inner) => `<g clip-path="url(#${clipId})">${inner}</g>`;
@@ -1981,10 +2021,12 @@ function leafBody(shape, fill, xa, xb, light, tag) {
       // Cassette: recessed fields knocked out of the panel, two per half leaf.
       const n = w > 80 ? (light ? 2 : 3) : 2;
       const gap = 3.4;
-      const fw = (w - gap * (n + 1)) / n;
+      const ga = meet === "a" ? gap / 2 : gap;
+      const gb = meet === "b" ? gap / 2 : gap;
+      const fw = (w - ga - gb - gap * (n - 1)) / n;
       let fields = "";
       for (let i = 0; i < n; i++) {
-        const x = xa + gap + i * (fw + gap);
+        const x = xa + ga + i * (fw + gap);
         const top = Math.max(leafTopY(shape, x), leafTopY(shape, x + fw)) + gap;
         fields += `<rect class="gate-groove" x="${r1(x)}" y="${r1(top)}" width="${r1(fw)}" height="${r1(43.6 - top)}" rx="1.4"/>`;
       }
@@ -1997,16 +2039,22 @@ function leafBody(shape, fill, xa, xb, light, tag) {
 
   if (fill === "bars") {
     // Vertical bars hanging off the top rail, each cut to the silhouette.
-    let n = Math.max(3, Math.round((w - 7) / 11.55) + 1);
+    // A closing leaf spaces its bars so the gap over the joint is the gap
+    // between any two bars: the pair then reads as one run, not as two.
+    let n = meet
+      ? Math.max(3, Math.round(((2 * w - 10) / 11.55 + 1) / 2))
+      : Math.max(3, Math.round((w - 7) / 11.55) + 1);
     if (light) n = Math.max(3, Math.ceil(n / 2));
-    const pitch = (w - 7) / (n - 1);
+    const pitch = meet ? (2 * w - 10) / (2 * n - 1) : (w - 7) / (n - 1);
+    const from = meet === "a" ? xb - 7 : xa + 3;
+    const dir = meet === "a" ? -1 : 1;
     let bars = "";
     for (let i = 0; i < n; i++) {
-      const x = r1(xa + 3 + i * pitch);
+      const x = r1(from + dir * i * pitch);
       const y = r1(leafTopY(shape, x + 2) + 1);
       bars += `<rect class="vbar" x="${x}" y="${y}" width="4" height="${r1(47 - y)}" rx="2"/>`;
     }
-    shapes = `${leafFrame(shape, xa, xb, false)}${bars}`;
+    shapes = `${leafFrame(shape, xa, xb, false, meet)}${bars}`;
   } else if (fill === "slats_v") {
     // Tight vertical slats: the blade look stood on end.
     const n = Math.max(4, Math.round((w - 6) / 8.4));
@@ -2015,7 +2063,7 @@ function leafBody(shape, fill, xa, xb, light, tag) {
     for (let i = 0; i < n; i++) {
       slats += `<rect class="slat vbar" x="${r1(xa + 3 + i * pitch)}" y="8" width="${r1(pitch - 2.4)}" height="37" rx="1.4"/>`;
     }
-    shapes = `${leafFrame(shape, xa, xb)}${clipped(slats)}`;
+    shapes = `${leafFrame(shape, xa, xb, true, meet)}${clipped(slats)}`;
   } else if (fill === "semi") {
     // Half open: a solid panel at the bottom, thin bars above it.
     const n = Math.max(5, Math.round((w - 6) / (light ? 15.6 : 7.8)));
@@ -2026,7 +2074,7 @@ function leafBody(shape, fill, xa, xb, light, tag) {
     }
     shapes = `
       <path class="leaf-rail" d="${leafTopPath(shape, xa, xb)}"/>
-      <rect x="${r1(xa)}" y="30" width="${r1(w)}" height="19" rx="2"/>
+      ${meetBar("", xa, 30, w, 19, 2, meetSide(meet))}
       ${clipped(bars)}`;
   } else if (fill === "grid") {
     // Square mesh: thin uprights crossed by thin rails.
@@ -2037,9 +2085,9 @@ function leafBody(shape, fill, xa, xb, light, tag) {
       mesh += `<rect class="slat vbar" x="${r1(xa + 3 + i * pv - 1.3)}" y="6" width="2.6" height="39" rx="1.3"/>`;
     }
     for (let i = 0; i < 4; i++) {
-      mesh += `<rect class="slat" x="${r1(xa)}" y="${r1(11 + i * 8.6)}" width="${r1(w)}" height="2.6" rx="1.3"/>`;
+      mesh += `<rect class="slat" x="${r1(xa - 2)}" y="${r1(11 + i * 8.6)}" width="${r1(w + 4)}" height="2.6" rx="1.3"/>`;
     }
-    shapes = `${leafFrame(shape, xa, xb)}${clipped(mesh)}`;
+    shapes = `${leafFrame(shape, xa, xb, true, meet)}${clipped(mesh)}`;
   } else if (fill === "chevron") {
     // Slanted blades, all leaning the same way whatever the leaf width.
     const pitch = 11;
@@ -2049,7 +2097,7 @@ function leafBody(shape, fill, xa, xb, light, tag) {
       const x = r1(xa - 40 + i * pitch);
       blades += `<path class="slat" d="M${x} 46L${r1(x + 34)} 6L${r1(x + 40)} 6L${r1(x + 6)} 46Z"/>`;
     }
-    shapes = `${leafFrame(shape, xa, xb)}${clipped(blades)}`;
+    shapes = `${leafFrame(shape, xa, xb, true, meet)}${clipped(blades)}`;
   } else {
     // Horizontal slats (the 2026 aluminium look). The outline layer strokes
     // .slat thinner so the gaps between blades never get swallowed.
@@ -2063,15 +2111,17 @@ function leafBody(shape, fill, xa, xb, light, tag) {
     const top = Math.min(leafTopY(shape, xa), leafTopY(shape, xb), leafTopY(shape, (xa + xb) / 2));
     let slats = "";
     for (let i = 0; i < n; i++) {
-      slats += `<rect class="slat" x="${r1(xa)}" y="${r1(top + i * pitch)}" width="${r1(w)}" height="5.5" rx="1.5"/>`;
+      slats += `<rect class="slat" x="${r1(xa - 2)}" y="${r1(top + i * pitch)}" width="${r1(w + 4)}" height="5.5" rx="1.5"/>`;
     }
+    const flat = (LEAF_SHAPES[shape] || LEAF_SHAPES.straight).kind === "flat";
+    const rail = flat ? "" : `<path class="leaf-rail" d="${leafTopPath(shape, xa, xb)}"/>`;
     const foot = top + 34;
-    const upright = (x) => `<rect class="vbar" x="${r1(x)}" y="${r1(leafTopY(shape, x))}" width="3" height="${r1(foot - leafTopY(shape, x))}" rx="1.5"/>`;
-    const mid = w > 80 ? upright(xa + w / 2 - 1.5) : "";
+    const upright = (x, uw) => `<rect class="vbar" x="${r1(x)}" y="${r1(leafTopY(shape, x))}" width="${uw}" height="${r1(foot - leafTopY(shape, x))}" rx="1.5"/>`;
+    const mid = w > 80 ? upright(xa + w / 2 - 1.5, 3) : "";
     // No rail at all: the blades are cut by the silhouette and the end
     // uprights follow it, which draws the shape without a 7 unit band
     // sitting on top of the top blade.
-    shapes = `${clipped(slats)}${upright(xa)}${upright(xb - 3)}${mid}`;
+    shapes = `${rail}${clipped(slats)}${upright(xa, stileW(meet, "a"))}${upright(xb - stileW(meet, "b"), stileW(meet, "b"))}${mid}`;
   }
   return { clip, shapes, extra };
 }
@@ -2130,17 +2180,27 @@ const SWING_POSE = {
 
 function swingLeaf(side, transform, cfg) {
   const d = leafDesign(cfg, "swing");
-  const x0 = side === "l" ? 13 : 71;
+  const x0 = side === "l" ? HALF_HINGE : OPEN_MID;
   const { clip, shapes, extra } = d.composed
-    ? leafBody(d.shape, d.fill, x0, x0 + 56, false, side)
+    ? leafBody(d.shape, d.fill, x0, x0 + HALF_W, false, side, side === "l" ? "b" : "a")
     : leafPreset(d.style, "half", side, false);
+  // Each leaf is cut square at its own half, a hair short of the middle, so
+  // nothing of one ever lies on the other (round rail caps, slat ends,
+  // outlines) and the shut pair shows the slim gap a real double gate has.
+  // The cut lives inside the turning group, so it follows the leaf open.
+  const cut = side === "l"
+    ? `<rect x="-60" y="-20" width="${r1(OPEN_MID - JOINT_GAP / 2 + 60)}" height="100"/>`
+    : `<rect x="${r1(OPEN_MID + JOINT_GAP / 2)}" y="-20" width="100" height="100"/>`;
   return `
     <g class="leaf-${side}" style="transform:${transform || "none"}">
       ${clip}
+      <clipPath id="gc-half-${side}">${cut}</clipPath>
+      <g clip-path="url(#gc-half-${side})">
       <g class="leaf-line">${shapes}</g>
       <g class="leaf-fill">${shapes}</g>
       <g class="leaf-shade">${shapes}</g>
       ${extra}
+      </g>
     </g>`;
 }
 

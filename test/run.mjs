@@ -737,10 +737,39 @@ check('position connue : l animation de va-et-vient est coupee',
       && (geom(sl({ gate_style: 'bars' })).match(/y="18" width="4" height="27"/g) || []).length === 8, true);
   check('preset coulissant solid : la courbe d origine, pas un echantillonnage',
     geom(sl({ gate_style: 'solid' })), '<path d="M14 49 L14 19 Q 70 9, 126 19 L126 49 Z"/>');
-  check('preset battant bell : le rail en Q du demi-vantail',
-    /<path d="M14 21 Q 48 10, 68 11.5" class="leaf-rail"\/>/.test(String(makeCard('closed', { gate_type: 'swing' }))), true);
+  // Depuis la 2.1.0 les deux vantaux ferment sur x = 70 : le rail d un demi
+  // vantail est la parabole du vantail unique coupee au milieu, les deux
+  // moities arrivent a plat sur le sommet et ne font plus qu une courbe.
+  const swing = (cfg = {}) => String(makeCard('closed', { gate_type: 'swing', ...cfg }));
+  check('preset battant bell : le rail du demi-vantail monte jusqu au milieu',
+    /<path d="M14 20.7 Q 42 12, 70 12" class="leaf-rail"\/>/.test(swing()), true);
   check('le battant garde sa version concave de bars',
-    /<path d="M14 16 Q 44 12.5, 68 21" class="leaf-rail"\/>/.test(String(makeCard('closed', { gate_type: 'swing', gate_style: 'bars' }))), true);
+    /<path d="M14 15.2 Q 42 21, 70 21" class="leaf-rail"\/>/.test(swing({ gate_style: 'bars' })), true);
+  check('les deux vantaux ferment sur le milieu, sans trou ni recouvrement',
+    /M15.5 44H70V49/.test(swing()) && /M70 44H124.5A2.5 2.5 0 0 1 127 46.5/.test(swing()), true);
+  check('chaque vantail est coupe a sa moitie, un jour de 1 au milieu',
+    [swing().includes('<clipPath id="gc-half-l"><rect x="-60" y="-20" width="129.5" height="100"/></clipPath>'),
+     swing().includes('<clipPath id="gc-half-r"><rect x="70.5" y="-20" width="100" height="100"/></clipPath>'),
+     (swing().match(/clip-path="url\(#gc-half-[lr]\)"/g) || []).length].join(), 'true,true,2');
+  check('le bout du vantail cote jointure est carre, pas arrondi',
+    swing().includes('<rect x="13" y="44" width="57" height="5" rx="2.5"/>'), false);
+  check('le montant de jointure est plus fin qu un montant de gond',
+    /<rect class="vbar" x="67.5" y="14" width="2.5" height="34"/.test(swing({ gate_style: 'slats' }))
+      && /<rect class="vbar" x="13" y="14" width="3" height="34"/.test(swing({ gate_style: 'slats' })), true);
+  check('battant bars : le jour au-dessus de la jointure vaut un jour courant',
+    (() => {
+      const xs = [...new Set([...swing().matchAll(/<rect x="([\d.]+)" y="[\d.]+" width="4"/g)].map(m => +m[1]))];
+      const left = xs.filter(x => x < 70).sort((a, b) => a - b);
+      const right = xs.filter(x => x > 70).sort((a, b) => a - b);
+      const inner = Math.round((left[1] - left[0] - 4) * 10) / 10;
+      const joint = Math.round((right[0] - (left.at(-1) + 4)) * 10) / 10;
+      return [left.length, right.length, inner, joint].join();
+    })(), '5,5,7.6,7.6');
+  check('battant semi : le panneau du bas ferme carre sur le milieu',
+    swing({ gate_style: 'semi' }).includes('M15 30H70V49H15A2 2 0 0 1 13 47V32A2 2 0 0 1 15 30Z'), true);
+  check('lames horizontales : un rail sous une forme cintree, aucun sous une droite',
+    [swing({ gate_shape: 'arched', gate_fill: 'slats_h' }).includes('class="leaf-rail"'),
+     swing({ gate_shape: 'straight', gate_fill: 'slats_h' }).includes('class="leaf-rail"')].join(), 'true,false');
   check('un preset inconnu retombe sur slats', sl({ gate_style: 'zigzag' }) === sl(), true);
   check('demander la forme du preset bascule quand meme sur le compositeur',
     sl({ gate_shape: 'straight' }) !== sl(), true);
