@@ -527,6 +527,30 @@ check('position connue : l animation de va-et-vient est coupee',
   check('anglais : since reste devant l heure', /^since \d/.test(sinceOf('en')), true);
 }
 
+// show_since (2.2.0, issue #10): the line can be hidden, and a change from an
+// earlier day carries its date instead of a bare time that looks like today.
+{
+  const sinceOf = (lastChanged, cfg = {}) => {
+    const c = new Card();
+    c.setConfig(Object.freeze({ entity: 'cover.portail', language: 'fr', ...cfg }));
+    c.hass = { language: 'fr', states: { 'cover.portail': { state: 'closed', attributes: {}, last_changed: lastChanged } }, callService() {} };
+    return (String(markup(c)).match(/<div class="since">([^<]*)</) || [])[1];
+  };
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 1).toISOString();
+  const threeDays = new Date(now.getTime() - 3 * 86400000).toISOString();
+  check('show_since:false retire la ligne depuis', sinceOf(threeDays, { show_since: false }), undefined);
+  check('show_since:false garde l etat', /<div class="state">/.test((() => {
+    const c = new Card();
+    c.setConfig(Object.freeze({ entity: 'cover.portail', show_since: false }));
+    c.hass = { language: 'fr', states: { 'cover.portail': { state: 'closed', attributes: {}, last_changed: threeDays } }, callService() {} };
+    return String(markup(c));
+  })()), true);
+  check("aujourd hui : l heure seule", /^depuis \d{2}:\d{2}$/.test(sinceOf(today)), true);
+  check('il y a 3 jours : la date avant l heure', /^depuis \d{2}\/\d{2}/.test(sinceOf(threeDays)), true);
+  check('une autre annee : l annee aussi', /\d{2}\/\d{2}\/\d{2}/.test(sinceOf('2020-03-04T10:00:00Z')), true);
+}
+
 // language (1.8.0): the card can be forced to another language than HA.
 {
   const langCard = (haLang, cfg = {}, st = 'closed') => {

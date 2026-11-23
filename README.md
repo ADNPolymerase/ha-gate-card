@@ -63,6 +63,7 @@ Built for setups where *command* and *state* are separate: the gate is driven by
 | `language` | Show the card in another language than Home Assistant: `en`, `fr`, `de`, `es`, `it`, `nl`, `pt`, `sv`, `no`, `da`, `pl`, `hu`, `ru` or `cs`. The editor keeps your own language. |
 | `compact` | Colored icon instead of the illustration. |
 | `show_state` | State in words under the name. Default `true`. |
+| `show_since` | Time of the last change under the state, with its date when it is not today. Default `true`. |
 | `single_line` | Name, state and time on one row, wrapping when space runs out. Default `false`. |
 | `show_position` | `current_position` percentage next to the state: `false` (default), `moving` or `true`. |
 | `draw_position` | Drawing at the real position while travelling and when stopped part-way (sliding, swing, garage). Default `false`. |

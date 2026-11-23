@@ -63,6 +63,7 @@ Pensée pour le cas où la *commande* et l'*état* sont séparés : le portail e
 | `language` | Afficher la carte dans une autre langue que Home Assistant : `en`, `fr`, `de`, `es`, `it`, `nl`, `pt`, `sv`, `no`, `da`, `pl`, `hu`, `ru` ou `cs`. L'éditeur reste dans votre langue. |
 | `compact` | Icône colorée à la place de l'illustration. |
 | `show_state` | État en toutes lettres sous le nom. Défaut `true`. |
+| `show_since` | Heure du dernier changement sous l'état, avec sa date si ce n'est pas aujourd'hui. Défaut `true`. |
 | `single_line` | Nom, état et heure sur une ligne, repliée si la place manque. Défaut `false`. |
 | `show_position` | Pourcentage `current_position` à côté de l'état : `false` (défaut), `moving` ou `true`. |
 | `draw_position` | Dessin à la position réelle pendant la course et à mi-course (coulissant, battant, garage). Défaut `false`. |

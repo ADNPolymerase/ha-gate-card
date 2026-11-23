@@ -1,4 +1,4 @@
-const CARD_VERSION = "2.1.0";
+const CARD_VERSION = "2.2.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -38,6 +38,7 @@ const T = {
     show_spot: "Show the spotlight and its button",
     show_light_button: "Show the Light button",
     show_state: "Show the state in words",
+    show_since: "Show since when",
     show_tap_button: "Keep the button when the whole card runs the command",
     single_line: "Name, state and time on one line",
     show_position: "Show the position", pos_never: "Never", pos_moving: "While moving", pos_always: "Always",
@@ -129,6 +130,7 @@ const T = {
     show_spot: "Afficher le spot et son bouton",
     show_light_button: "Afficher le bouton Lumi\u00e8re",
     show_state: "Afficher l'\u00e9tat en toutes lettres",
+    show_since: "Afficher depuis quand",
     show_tap_button: "Garder le bouton quand toute la carte d\u00e9clenche la commande",
     single_line: "Nom, \u00e9tat et heure sur une ligne",
     show_position: "Afficher la position", pos_never: "Jamais", pos_moving: "Pendant le mouvement", pos_always: "Toujours",
@@ -219,6 +221,7 @@ const T = {
     show_spot: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u0440\u043e\u0436\u0435\u043a\u0442\u043e\u0440 \u0438 \u0435\u0433\u043e \u043a\u043d\u043e\u043f\u043a\u0443",
     show_light_button: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043a\u043d\u043e\u043f\u043a\u0443 \u0441\u0432\u0435\u0442\u0430",
     show_state: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u0435 \u0441\u043b\u043e\u0432\u0430\u043c\u0438",
+    show_since: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c, \u0441 \u043a\u0430\u043a\u043e\u0433\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u0438",
     show_tap_button: "\u041e\u0441\u0442\u0430\u0432\u043b\u044f\u0442\u044c \u043a\u043d\u043e\u043f\u043a\u0443, \u043a\u043e\u0433\u0434\u0430 \u043a\u043e\u043c\u0430\u043d\u0434\u0443 \u0432\u044b\u043f\u043e\u043b\u043d\u044f\u0435\u0442 \u0432\u0441\u044f \u043a\u0430\u0440\u0442\u043e\u0447\u043a\u0430",
     single_line: "\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435, \u0441\u043e\u0441\u0442\u043e\u044f\u043d\u0438\u0435 \u0438 \u0432\u0440\u0435\u043c\u044f \u0432 \u043e\u0434\u043d\u0443 \u0441\u0442\u0440\u043e\u043a\u0443",
     show_position: "\u041f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u0442\u044c \u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u0435", pos_never: "\u041d\u0438\u043a\u043e\u0433\u0434\u0430", pos_moving: "\u0412\u043e \u0432\u0440\u0435\u043c\u044f \u0434\u0432\u0438\u0436\u0435\u043d\u0438\u044f", pos_always: "\u0412\u0441\u0435\u0433\u0434\u0430",
@@ -309,6 +312,7 @@ const T = {
     show_spot: "Strahler und Schaltfl\u00e4che anzeigen",
     show_light_button: "Licht-Schaltfl\u00e4che anzeigen",
     show_state: "Zustand als Text anzeigen",
+    show_since: "Zeigen, seit wann",
     show_tap_button: "Schaltfl\u00e4che behalten, wenn die ganze Karte den Befehl ausf\u00fchrt",
     single_line: "Name, Zustand und Uhrzeit in einer Zeile",
     show_position: "Position anzeigen", pos_never: "Nie", pos_moving: "W\u00e4hrend der Bewegung", pos_always: "Immer",
@@ -399,6 +403,7 @@ const T = {
     show_spot: "Mostrar el foco y su bot\u00f3n",
     show_light_button: "Mostrar el bot\u00f3n Luz",
     show_state: "Mostrar el estado en palabras",
+    show_since: "Mostrar desde cu\u00e1ndo",
     show_tap_button: "Mantener el bot\u00f3n cuando toda la tarjeta ejecuta el comando",
     single_line: "Nombre, estado y hora en una l\u00ednea",
     show_position: "Mostrar la posici\u00f3n", pos_never: "Nunca", pos_moving: "Durante el movimiento", pos_always: "Siempre",
@@ -489,6 +494,7 @@ const T = {
     show_spot: "Mostra il faretto e il suo pulsante",
     show_light_button: "Mostra il pulsante Luce",
     show_state: "Mostra lo stato a parole",
+    show_since: "Mostra da quando",
     show_tap_button: "Mantieni il pulsante quando tutta la scheda esegue il comando",
     single_line: "Nome, stato e ora su una riga",
     show_position: "Mostra la posizione", pos_never: "Mai", pos_moving: "Durante il movimento", pos_always: "Sempre",
@@ -579,6 +585,7 @@ const T = {
     show_spot: "Spot en bijbehorende knop tonen",
     show_light_button: "De knop Licht tonen",
     show_state: "De status in woorden tonen",
+    show_since: "Tonen sinds wanneer",
     show_tap_button: "Knop behouden wanneer de hele kaart het commando uitvoert",
     single_line: "Naam, status en tijd op \u00e9\u00e9n regel",
     show_position: "Positie tonen", pos_never: "Nooit", pos_moving: "Tijdens beweging", pos_always: "Altijd",
@@ -669,6 +676,7 @@ const T = {
     show_spot: "Mostrar o foco e o seu bot\u00e3o",
     show_light_button: "Mostrar o bot\u00e3o Luz",
     show_state: "Mostrar o estado por extenso",
+    show_since: "Mostrar desde quando",
     show_tap_button: "Manter o bot\u00e3o quando todo o cart\u00e3o executa o comando",
     single_line: "Nome, estado e hora em uma linha",
     show_position: "Mostrar a posi\u00e7\u00e3o", pos_never: "Nunca", pos_moving: "Durante o movimento", pos_always: "Sempre",
@@ -759,6 +767,7 @@ const T = {
     show_spot: "Visa str\u00e5lkastaren och dess knapp",
     show_light_button: "Visa knappen Ljus",
     show_state: "Visa tillst\u00e5ndet i ord",
+    show_since: "Visa sedan n\u00e4r",
     show_tap_button: "Beh\u00e5ll knappen n\u00e4r hela kortet k\u00f6r kommandot",
     single_line: "Namn, tillst\u00e5nd och tid p\u00e5 en rad",
     show_position: "Visa positionen", pos_never: "Aldrig", pos_moving: "Under r\u00f6relse", pos_always: "Alltid",
@@ -849,6 +858,7 @@ const T = {
     show_spot: "Vis lyskasteren og knappen",
     show_light_button: "Vis Lys-knappen",
     show_state: "Vis tilstanden med ord",
+    show_since: "Vis siden n\u00e5r",
     show_tap_button: "Behold knappen n\u00e5r hele kortet kj\u00f8rer kommandoen",
     single_line: "Navn, tilstand og tid p\u00e5 \u00e9n linje",
     show_position: "Vis posisjonen", pos_never: "Aldri", pos_moving: "Under bevegelse", pos_always: "Alltid",
@@ -939,6 +949,7 @@ const T = {
     show_spot: "Vis spotten og dens knap",
     show_light_button: "Vis Lys-knappen",
     show_state: "Vis tilstanden med ord",
+    show_since: "Vis siden hvorn\u00e5r",
     show_tap_button: "Behold knappen, n\u00e5r hele kortet k\u00f8rer kommandoen",
     single_line: "Navn, tilstand og tid p\u00e5 \u00e9n linje",
     show_position: "Vis positionen", pos_never: "Aldrig", pos_moving: "Under bev\u00e6gelse", pos_always: "Altid",
@@ -1029,6 +1040,7 @@ const T = {
     show_spot: "Poka\u017c reflektor i jego przycisk",
     show_light_button: "Poka\u017c przycisk \u015awiat\u0142o",
     show_state: "Poka\u017c stan s\u0142ownie",
+    show_since: "Poka\u017c od kiedy",
     show_tap_button: "Zachowaj przycisk, gdy ca\u0142a karta wykonuje komend\u0119",
     single_line: "Nazwa, stan i godzina w jednej linii",
     show_position: "Poka\u017c pozycj\u0119", pos_never: "Nigdy", pos_moving: "Podczas ruchu", pos_always: "Zawsze",
@@ -1119,6 +1131,7 @@ const T = {
     show_spot: "Reflektor \u00e9s a hozz\u00e1 tartoz\u00f3 gomb megjelen\u00edt\u00e9se",
     show_light_button: "Vil\u00e1g\u00edt\u00e1s gomb megjelen\u00edt\u00e9se",
     show_state: "\u00c1llapot megjelen\u00edt\u00e9se sz\u00f6veggel",
+    show_since: "Mutassa, mi\u00f3ta",
     show_tap_button: "Gomb megtart\u00e1sa, ha az eg\u00e9sz k\u00e1rtya futtatja a parancsot",
     single_line: "N\u00e9v, \u00e1llapot \u00e9s id\u0151 egy sorban",
     show_position: "Poz\u00edci\u00f3 megjelen\u00edt\u00e9se", pos_never: "Soha", pos_moving: "Mozg\u00e1s k\u00f6zben", pos_always: "Mindig",
@@ -1209,6 +1222,7 @@ const T = {
     show_spot: "Zobrazit reflektor a jeho tla\u010d\u00edtko",
     show_light_button: "Zobrazit tla\u010d\u00edtko Sv\u011btlo",
     show_state: "Zobrazit stav slovy",
+    show_since: "Zobrazit od kdy",
     show_tap_button: "Ponechat tla\u010d\u00edtko, kdy\u017e cel\u00e1 karta prov\u00e1d\u00ed p\u0159\u00edkaz",
     single_line: "Jm\u00e9no, stav a \u010das na jednom \u0159\u00e1dku",
     show_position: "Zobrazit polohu", pos_never: "Nikdy", pos_moving: "P\u0159i pohybu", pos_always: "V\u017edy",
@@ -1585,12 +1599,20 @@ function impulseCall(hass, entityId) {
   }
 }
 
-function formatSince(isoDate, locale) {
+function formatSince(isoDate, locale, now = new Date()) {
   const d = new Date(isoDate);
   if (isNaN(d)) return null;
   // No locale means the browser one, which is what a card following Home
   // Assistant wants. A card pinned to a language formats its clock in it.
-  return d.toLocaleTimeString(locale || [], { hour: "2-digit", minute: "2-digit" });
+  // A change from an earlier day carries its date: "closed since 16:24" read
+  // three days later looks like this afternoon (issue #10).
+  const opts = { hour: "2-digit", minute: "2-digit" };
+  if (d.toDateString() !== now.toDateString()) {
+    opts.day = "2-digit";
+    opts.month = "2-digit";
+    if (d.getFullYear() !== now.getFullYear()) opts.year = "2-digit";
+  }
+  return d.toLocaleString(locale || [], opts);
 }
 
 // ---------------------------------------------------------------------------
@@ -2764,7 +2786,7 @@ class GateCard extends HTMLElement {
     }
     const moving = MOVING.includes(norm);
     const name = cfg.name || (st && st.attributes.friendly_name) || "Gate";
-    const since = !moving && st ? formatSince(st.last_changed, cfg.language && T[cfg.language] ? cfg.language : null) : null;
+    const since = !moving && st && cfg.show_since !== false ? formatSince(st.last_changed, cfg.language && T[cfg.language] ? cfg.language : null) : null;
     const posMode = cfg.show_position === true || cfg.show_position === "always" ? "always"
       : cfg.show_position === "moving" ? "moving" : null;
     const pos = posMode && (posMode === "always" || moving) ? coverPosition(hass, cfg) : null;
@@ -2787,7 +2809,7 @@ class GateCard extends HTMLElement {
       const v = Number(hass.states[cfg.battery_entity].state);
       if (!Number.isNaN(v)) batt = Math.round(v);
     }
-    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_shape, cfg.gate_fill, cfg.garage_fill, cfg.gate_color, cfg.slide_direction, cfg.single_leaf, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, cfg.show_tap_button, cfg.confirm, cfg.lock_open_action, cfg.show_unlock_button, cfg.show_state, cfg.single_line, cfg.show_position, pos, cfg.draw_position, drawPos, batt, !!cfg.light_entity, cfg.show_spot, cfg.show_light_button, cfg.light_position, lampOn]);
+    const signature = JSON.stringify([norm, name, since, this._pending, lang(hass), cfg.compact, cfg.gate_type, cfg.gate_style, cfg.gate_shape, cfg.gate_fill, cfg.garage_fill, cfg.gate_color, cfg.slide_direction, cfg.single_leaf, !!cfg.pedestrian_entity, !!cfg.vent_entity, !!cfg.partial_entity, cfg.show_key, cfg.show_runner, cfg.show_car, cfg.show_breeze, cfg.show_cat, cfg.card_tap, cfg.show_tap_button, cfg.confirm, cfg.lock_open_action, cfg.show_unlock_button, cfg.show_state, cfg.show_since, cfg.single_line, cfg.show_position, pos, cfg.draw_position, drawPos, batt, !!cfg.light_entity, cfg.show_spot, cfg.show_light_button, cfg.light_position, lampOn]);
     if (signature === this._signature) return;
     this._signature = signature;
 
@@ -3227,6 +3249,9 @@ details .form { padding-top:10px; }
           <label><input type="checkbox" data-field="show_state" ${cfg.show_state !== false ? "checked" : ""}/> ${t(hass, "show_state")}</label>
         </div>
         <div class="row row-inline">
+          <label><input type="checkbox" data-field="show_since" ${cfg.show_since !== false ? "checked" : ""}/> ${t(hass, "show_since")}</label>
+        </div>
+        <div class="row row-inline">
           <label><input type="checkbox" data-field="single_line" ${cfg.single_line ? "checked" : ""}/> ${t(hass, "single_line")}</label>
         </div>
         ${cfg.gate_type === "door" ? "" : `
@@ -3425,7 +3450,7 @@ details .form { padding-top:10px; }
       cb.addEventListener("change", () => {
         const field = cb.dataset.field;
         this._config = { ...this._config };
-        if (["show_key", "show_runner", "show_car", "show_breeze", "show_cat", "show_spot", "show_light_button", "show_state", "show_tap_button"].includes(field)) {
+        if (["show_key", "show_runner", "show_car", "show_breeze", "show_cat", "show_spot", "show_light_button", "show_state", "show_since", "show_tap_button"].includes(field)) {
           // defaults to true -- only store the key when disabled
           if (cb.checked) delete this._config[field];
           else this._config[field] = false;
