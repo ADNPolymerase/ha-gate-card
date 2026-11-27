@@ -1,4 +1,4 @@
-const CARD_VERSION = "2.2.0";
+const CARD_VERSION = "2.3.0";
 
 console.info(
   "%c HA-GATE-CARD %c v" + CARD_VERSION + " ",
@@ -2765,6 +2765,13 @@ class GateCard extends HTMLElement {
     const stateEntity = cfg.state_entity || cfg.entity;
     const st = stateObj(hass, stateEntity);
     let norm = normalizeState(st ? st.state : null, cfg.state_map);
+    // A contact alone (a door or window sensor, HACF #80): on is open, off is
+    // closed. The card then shows the state with no command.
+    if (st && /^(binary_sensor|input_boolean)\./.test(stateEntity) && !(cfg.state_map && Object.prototype.hasOwnProperty.call(cfg.state_map, st.state))) {
+      const raw = String(st.state).trim().toLowerCase();
+      if (raw === "on") norm = "open";
+      else if (raw === "off") norm = "closed";
+    }
     // A physical door contact refines the stable states: closed contact turns
     // a lock-open state into "closed, unlocked"; an open contact over a locked
     // bolt is theoretically impossible -> unknown.

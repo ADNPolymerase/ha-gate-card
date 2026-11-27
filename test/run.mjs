@@ -902,4 +902,18 @@ check('position connue : l animation de va-et-vient est coupee',
     impulse('switch.portail', 'open', { open_entity: 'script.ouvrir' }), 'script.turn_on script.ouvrir');
 }
 
+// A contact alone (HACF #80): on is open, off is closed, no command.
+{
+  const contact = (st, more = {}) => {
+    const c = new Card();
+    c.setConfig({ state_entity: 'binary_sensor.portillon', gate_type: 'door', ...more });
+    c.hass = { language: 'en', states: { 'binary_sensor.portillon': { state: st, attributes: { device_class: 'window' }, last_changed: '2026-11-27T10:00:00Z' } }, callService() {} };
+    return markup(c);
+  };
+  check('contact seul : on = ouvert', label(contact('on')), 'Open');
+  check('contact seul : off = ferme', label(contact('off')), 'Closed');
+  check('contact seul : aucune commande', /data-action="(open|close|stop)"/.test(contact('off')), false);
+  check('contact seul : state_map garde la main', label(contact('on', { state_map: { on: 'closed' } })), 'Closed');
+}
+
 report();
